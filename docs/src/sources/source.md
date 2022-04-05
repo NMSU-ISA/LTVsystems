@@ -10,7 +10,6 @@ $q(\bm{\xi},t)=p(t)*h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}})$
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVSourceReceiverModel.jl/main/docs/src/assets/LTI_BD_source.png)
 
-<p align="center">  <img src="https://raw.githubusercontent.com/NMSU-ISA/LTVSourceReceiverModel.jl/main/docs/src/assets/LTI_BD_primaryRef.png">  </p>
 
 ### Defining an LTI Omnidirectional Source
 We can define a  **omnidirectionalLTISource** by calling `omnidirectionalLTISource()` with a transmitted signal, $p(t)$ and the source position vector, $\bm{p}_\mathrm{s}$.
