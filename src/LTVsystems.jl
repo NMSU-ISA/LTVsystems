@@ -2,10 +2,10 @@ module LTVsystems
 
 using LinearAlgebra: norm, dot, normalize
 include("omniDirectionalLTI/sources.jl")
-export omnidirectionalLTISource
+export LTIsourcesO
 
 include("omniDirectionalLTI/receivers.jl")
-export omnidirectionalLTIListener
+export LTIreceiversO
 
 include("auxiliaryFunctions/auxiliaryFunction.jl")
 export A, NaNnormalize, angleBetween, distBetween, lightSpeed
