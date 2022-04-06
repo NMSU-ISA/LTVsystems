@@ -1,6 +1,6 @@
 path = "docs/src/assets/"
 
-using ISA, LTVSourceReceiverModel
+using ISA, LTVsystems
 using Plots
 #Source
 𝐩ₛ =  [0.0, 0.3]
@@ -11,18 +11,18 @@ using Plots
 # Transmitter's signal i.e single pulse
 p(t) = δ(t-1.0e-15,1.0e-10)
 # Signal observed due to source
-q = omnidirectionalLTISource(𝐩ₛ, p)
+q = LTIsourcesO(𝐩ₛ, p)
 #Multiple Targets
 α₁ = 0.8; 𝛏₁ = [0.9,0.0]
-R₁ = omnidirectionalLTISource(𝛏₁, t->α₁*q(𝛏₁,t))
+R₁ = LTIsourcesO(𝛏₁, t->α₁*q(𝛏₁,t))
 α₂ = 0.5; 𝛏₂ = [0.5,0.0]
-R₂ = omnidirectionalLTISource(𝛏₂, t->α₂*q(𝛏₂,t))
+R₂ = LTIsourcesO(𝛏₂, t->α₂*q(𝛏₂,t))
 α₃ = 0.4; 𝛏₃ = [0.7,0.0]
-R₃ = omnidirectionalLTISource(𝛏₃, t->α₃*q(𝛏₃,t))
+R₃ = LTIsourcesO(𝛏₃, t->α₃*q(𝛏₃,t))
 # Observed signal
-z₁ = omnidirectionalLTIListener([R₁,R₂,R₃],𝐩ᵣ₁)
-z₂ = omnidirectionalLTIListener([R₁,R₂,R₃],𝐩ᵣ₂)
-z₃ = omnidirectionalLTIListener([R₁,R₂,R₃],𝐩ᵣ₃)
+z₁ = LTIreceiversO([R₁,R₂,R₃],𝐩ᵣ₁)
+z₂ = LTIreceiversO([R₁,R₂,R₃],𝐩ᵣ₂)
+z₃ = LTIreceiversO([R₁,R₂,R₃],𝐩ᵣ₃)
 t = collect(0.0:1.0e-10:15.5e-9)
 p1 = plot( t, z₁(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot!(p1,t, z₂(t))
@@ -74,23 +74,23 @@ p3 = plot(x_range,y_range,transpose(val1),st=:surface,camera=(0,90),legend=false
 png(path*"scenarioD_target_estimation.png")
 #-----------------------------------------------------------------
 # with 3 target and 3 receiver
-using ISA, LTVSourceReceiverModel
+using ISA, LTVsystems
 using Plots
 𝐩ₛ =  [0.0, 0.3]
 𝐩ᵣ1 =  [-0.3, 0.0]
 𝐩ᵣ2 =  [0.6, 0.0]
 𝐩ᵣ3 =  [1.2, 1.2]
 p(t) = δ(t-1.0e-15,1.0e-10)
-q = omnidirectionalLTISource(𝐩ₛ, p)
-α₁ = 1.7; 𝛏₁ = [0.9,0.0]
-R₁ = omnidirectionalLTISource(𝛏₁, t->α₁*q(𝛏₁,t))
+q = LTIsourcesO(𝐩ₛ, p)
+α₁ = 0.7; 𝛏₁ = [0.9,0.0]
+R₁ = LTIsourcesO(𝛏₁, t->α₁*q(𝛏₁,t))
 α₂ = 0.3; 𝛏₂ = [1.8,1.8]
-R₂ = omnidirectionalLTISource(𝛏₂, t->α₂*q(𝛏₂,t))
-α₃ = 1.5; 𝛏₃ = [2.7,0.0]
-R₃ = omnidirectionalLTISource(𝛏₃, t->α₃*q(𝛏₃,t))
-z₁ = omnidirectionalLTIListener([R₁,R₂,R₃],𝐩ᵣ1)
-z₂ = omnidirectionalLTIListener([R₁,R₂,R₃],𝐩ᵣ2)
-z₃ = omnidirectionalLTIListener([R₁,R₂,R₃],𝐩ᵣ3)
+R₂ = LTIsourcesO(𝛏₂, t->α₂*q(𝛏₂,t))
+α₃ = 0.5; 𝛏₃ = [2.7,0.0]
+R₃ = LTIsourcesO(𝛏₃, t->α₃*q(𝛏₃,t))
+z₁ = LTIreceiversO([R₁,R₂,R₃],𝐩ᵣ1)
+z₂ = LTIreceiversO([R₁,R₂,R₃],𝐩ᵣ2)
+z₃ = LTIreceiversO([R₁,R₂,R₃],𝐩ᵣ3)
 t = collect(0.0:1.0e-10:25.5e-9)
 p1 = plot( t, z₁(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot!(p1,t, z₂(t))

@@ -48,8 +48,8 @@ q = LTIsourcesO(𝐩ₛ, p)
 R₁ = LTIsourcesO(𝛏₁, t->α₁*q(𝛏₁,t))
 z = LTIreceiversO([R₁],𝐩ᵣ)
 a₁(ξ::Vector{Float64}) = (A(distBetween(ξ,𝐩ₛ)./lightSpeed))^2
-f(ξ::Vector{Float64}) = (z(2(distBetween(ξ,𝐩ₛ))./lightSpeed))./
-                        (a₁(ξ::Vector{Float64}))     
+f(ξ::Vector{Float64}) = (z(2(distBetween(ξ,𝐩ₛ))./lightSpeed))./   
+                        (a₁(ξ::Vector{Float64}))
 Δpos = 0.01
 x_range = collect(-5:Δpos:5)
 y_range = collect(-4:Δpos:4)
