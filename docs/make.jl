@@ -9,6 +9,7 @@ makedocs(
     pages=[
         "Home" => "index.md",
         "Sources" => "sources/source.md",
+        "Reflectors" => "reflectors/reflector.md",
         "Receivers" => "receivers/receiver.md",
         "LTI Omnidirectional Modeling" => "omniDirectionalLTI/omnidirLTIsource.md",
         "Types/Methods/Functions" => "typesMethodsFunctions.md",

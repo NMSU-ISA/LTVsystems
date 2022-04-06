@@ -1,6 +1,6 @@
 # LTI Omnidirectional Modeling
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVSourceReceiverModel.jl/main/docs/src/assets/LTI_BD_model.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_model.png)
 
 ## Scenario A
 
