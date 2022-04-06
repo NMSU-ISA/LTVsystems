@@ -1,6 +1,6 @@
 path = "docs/src/assets/"
 
-using ISA, LTVSourceReceiverModel
+using ISA, LTVsystems
 using Plots
 
 #Source
@@ -11,18 +11,18 @@ using Plots
 p(t) = δ(t-1.0e-15,1.0e-10)
 
 # Signal observed due to source
-q = omnidirectionalLTISource(𝐩ₛ, p)
+q = LTIsourcesO(𝐩ₛ, p)
 
 #Reflectors
 α₁ = 0.7; 𝛏₁ = [0.9,0.0]
-R₁ = omnidirectionalLTISource(𝛏₁, t->α₁*q(𝛏₁,t))
+R₁ = LTIsourcesO(𝛏₁, t->α₁*q(𝛏₁,t))
 α₂ = 0.3; 𝛏₂ = [1.8,1.8]
-R₂ = omnidirectionalLTISource(𝛏₂, t->α₂*q(𝛏₂,t))
+R₂ = LTIsourcesO(𝛏₂, t->α₂*q(𝛏₂,t))
 α₃ = 0.5; 𝛏₃ = [2.7,-0.9]
-R₃ = omnidirectionalLTISource(𝛏₃, t->α₃*q(𝛏₃,t))
+R₃ = LTIsourcesO(𝛏₃, t->α₃*q(𝛏₃,t))
 
 # Observed signal
-z = omnidirectionalLTIListener([R₁,R₂,R₃],𝐩ᵣ)
+z = LTIreceiversO([R₁,R₂,R₃],𝐩ᵣ)
 #TEMPORAL SIMULATION
 t = collect(0.0:1.0e-10:25.5e-9)
 plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
