@@ -5,5 +5,5 @@
 ```
 ## Public Interface
 ```@autodocs
-Modules = [LTVSourceReceiverModel]
+Modules = [LTVsystems]
 ```

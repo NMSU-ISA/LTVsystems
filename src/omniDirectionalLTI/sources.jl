@@ -1,7 +1,34 @@
 """
+   q = LTIsourcesO(𝐩ₛ, p)
+
+Create an LTI Omnidirectional Source by calling `LTIsourcesO()` with
+the *source position*, $\bm{p}_\mathrm{s}$ and the *transmisson signal*, `p`.
+
 # Examples
 ```@example
-using LTVsystems
+using ISA, LTVsystems
+using Plots
+𝐩ₛ =  [0.0, 0.0]
+𝐩ᵣ =  [0.0, 0.0]
+p(t) = δ(t-1.0e-15,1.0e-10)
+q = LTIsourcesO(𝐩ₛ, p)
+```
+    R = LTIsourcesO(𝛏, r)
+
+Another type of sources, called as reflected sources can also be defined
+by calling `LTIsourcesO()` with *reflectors* position, $\bm{ξ}$ and
+the *reflected signal*, given by `r = α q(𝛏,t)`.
+
+# Examples
+```@example
+using ISA, LTVsystems
+using Plots
+𝐩ₛ =  [0.0, 0.0]
+𝐩ᵣ =  [0.0, 0.0]
+p(t) = δ(t-1.0e-15,1.0e-10)
+q = LTIsourcesO(𝐩ₛ, p)
+α₁ = 0.7; 𝛏₁ = [1.8,0.0]
+R₁ = LTIsourcesO(𝛏₁, t->α₁*q(𝛏₁,t))
 ```
 """
 struct LTIsourcesO
