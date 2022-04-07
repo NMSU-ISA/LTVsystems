@@ -11,7 +11,8 @@ using Plots
 #--------------------
 ξ₀=[0.1,0.0]
 α₀ = 0.7;
-L = collect(0.0:0.1:1.0)
+#L = collect(0.0:0.001:1.0)
+L = collect(range(1, 2.0, step=0.01))
 g(k) = ξ₀ .+ k.*[1.0,0.0]
 temp = quadgk.(g, 0.0, L)
 value = [α₀*(temp[i][1]) for i in 1:length(L)]
@@ -50,7 +51,7 @@ p2 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),aspect_ratio=
 scatter!(p2,[𝐩ₛ[1]], [𝐩ₛ[2]],markersize = 8.5,color = :green, marker=:pentagon, label='s' )
 scatter!(p2,[𝐩ᵣ[1]], [𝐩ᵣ[2]],markersize = 3.5,color = :blue, marker=:square, label='r' )
 for i in 1:length(value)
-scatter!(p2,[value[i][1]],[value[i][2]],markersize = 8.5,color = :red, marker=:star8, label='t')
+scatter!(p2,[value[i][1]],[value[i][2]],markersize = 10.5,color = :red, marker=:star8, label='t')
 end
 display(p2)
 

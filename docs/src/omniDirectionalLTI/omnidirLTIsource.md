@@ -312,3 +312,86 @@ p3 = plot(x_range,y_range,transpose(val1),st=:surface,camera=(0,90),
 * the source emits an ideal impulse
 
 ### Forward Modeling
+
+We can simulate the scenario and plot signal at the receiver as follows.
+
+```julia
+using ISA, LTVsystems
+using QuadGK
+using Plots
+𝐩ₛ =  [0.0, 0.3]
+𝐩ᵣ =  [-0.3, 0.0]
+ξ₀=[0.1,0.0]
+α₀ = 0.7;
+L = collect(range(1, 2.0, step=0.01))
+g(k) = ξ₀ .+ k.*[1.0,0.0]
+temp = quadgk.(g, 0.0, L)
+value = [α₀*(temp[i][1]) for i in 1:length(L)]
+p(t) = δ(t-1.0e-15,1.0e-10)
+W = []
+q = LTIsourcesO(𝐩ₛ, p)
+for i in 1:length(value)
+    R₁ = LTIsourcesO(value[i], t->q(value[i],t))
+    push!(W,R₁)
+end
+z = LTIreceiversO(W,𝐩ᵣ)
+t = collect(0.0:1.0e-10:15.5e-9)
+p1 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+display(p1)
+```
+
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioE_signal.png)
+
+
+### Inverse Modeling
+
+Given the scenario E assumptions i.e. the position of the source,$𝐩ₛ$ and the receivers at $𝐩ᵣ$ by providing the transmitted signal, $p(t)$ as an ideal impulse and a continuous reflector we obtained the received signal, $z(t)$.
+Now we can estimate the reflector function as follows.
+
+$f(\bm{\xi}) = \dfrac{z\left(\frac{\|\bm{p}_\mathrm{r}-   
+\alpha_0\int_{0}^{L}(\bm{\xi}+k\bm{u})dk\|+
+\|\alpha_0\int_{0}^{L}(\bm{\xi}+k\bm{u})dk- \bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)}
+{\mathrm{A}(\frac{\|\alpha_0\int_{0}^{L}(\bm{\xi}+k\bm{u}) dk-\bm{p}_\mathrm{s}\|}{\mathrm{c}})
+\mathrm{A}(\frac{\|\bm{p}_\mathrm{r}-\alpha_0\int_{0}^{L}(\bm{\xi}+k\bm{u}) dk\|}{\mathrm{c}})}$
+
+```julia
+using ISA, LTVsystems
+using QuadGK
+using Plots
+𝐩ₛ =  [0.0, 0.3]
+𝐩ᵣ =  [-0.3, 0.0]
+ξ₀=[0.1,0.0]
+α₀ = 0.7;
+L = collect(0.0:0.1:1.0)
+g(k) = ξ₀ .+ k.*[1.0,0.0]
+temp = quadgk.(g, 0.0, L)
+value = [α₀*(temp[i][1]) for i in 1:length(L)]
+p(t) = δ(t-1.0e-15,1.0e-10)
+W = []
+q = LTIsourcesO(𝐩ₛ, p)
+for i in 1:length(value)
+    R₁ = LTIsourcesO(value[i], t->q(value[i],t))
+    push!(W,R₁)
+end
+z = LTIreceiversO(W,𝐩ᵣ)
+a₁(ξ::Vector{Float64}) = A(distBetween(ξ,𝐩ₛ)./lightSpeed).*A(distBetween(𝐩ᵣ,ξ)./lightSpeed)
+f(ξ::Vector{Float64})=(z((distBetween(ξ,𝐩ₛ) .+ distBetween(𝐩ᵣ,ξ))./lightSpeed))./(a₁(ξ::Vector{Float64}))
+Δpos = 0.01
+x_range = collect(-3:Δpos:3)
+y_range = collect(-2:Δpos:2)
+xyGrid = [[x, y] for x in x_range, y in y_range]
+val = [f(𝐮) for 𝐮 ∈ xyGrid]
+p2=plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),
+       aspect_ratio=:equal,legend=false,zticks=false,title="Scenario E Simulation")
+scatter!(p2,[𝐩ₛ[1]], [𝐩ₛ[2]],markersize = 8.5,color = :green,
+         marker=:pentagon, label='s' )
+scatter!(p2,[𝐩ᵣ[1]], [𝐩ᵣ[2]],markersize = 8.5,color = :blue,
+         marker=:square, label='r' )
+for i in 1:length(value)
+scatter!(p2,[value[i][1]],[value[i][2]],markersize = 8.5,color = :red,
+         marker=:star8, label='t')
+end
+display(p2)
+```
+
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioE_simulationsignal.png)
