@@ -6,7 +6,7 @@ In order to define **LTI Omnidirectional Receivers**, first we need to observe t
 
 $r(\bm{\xi},t) = f(\bm{\xi}) q(\bm{\xi},t)$
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_primaryRef.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_PrimaryRef.png)
 
 Now the signal observed by the receiver due to the reflection is given by taking convolution between the reflected signal, $r(\bm{\xi},t)$ and the impulse response from the receiver located at position, $\bm{p}_\mathrm{r}$. Mathematically, we can define the observed signal
 as follows
@@ -20,7 +20,7 @@ all the reflections at the receiver location. Mathematically, we can given the e
 
 $z(t) = ∭ \psi(\bm{\xi},t) dS$
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_Listener.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_Listeners.png)
 
 ### Defining an LTI Omnidirectional Receiver
 
@@ -28,7 +28,7 @@ First, we will define the reflected signal by  calling `LTIsourcesO()` with a tr
 and the source position, $\bm{p}_\mathrm{s}$. Then
 we can define a  **LTI Omnidirectional Receiver** by calling `LTIreceiversO()` with the defined reflected signal and the receiver position, $\bm{p}_\mathrm{r}$.
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_Receiver.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_Receivers.png)
 
 ```@example
 using ISA, LTVsystems
