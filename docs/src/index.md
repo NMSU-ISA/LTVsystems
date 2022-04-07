@@ -4,7 +4,7 @@ Documentation for LTVsystems
 
 ### Users
 1) Download [Julia v1.6.4](https://julialang.org/downloads/#long_term_support_release) or later, if you haven't already.
-1) Add the ISA module entering the following at the REPL `]add https://github.com/NMSU-ISA/LTVsystems`.
+1) Add the LTVsystems module entering the following at the REPL `]add https://github.com/NMSU-ISA/LTVsystems`.
 
 ### Student Developers
 1) Clone the LTVsystems module to `username/.julia/dev/`.
