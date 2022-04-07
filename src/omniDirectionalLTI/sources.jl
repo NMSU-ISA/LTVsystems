@@ -1,8 +1,9 @@
 """
-   q = LTIsourcesO(𝐩ₛ, p)
-   R = LTIsourcesO(𝛏, r)
+    q = LTIsourcesO(𝐩ₛ, p)
+    R = LTIsourcesO(𝛏, r)
+
 Create an LTI Omnidirectional Source by calling `LTIsourcesO()` with
-the *source position*, $\bm{p}_\mathrm{s}$ and the *transmisson signal*, `p`.
+the *source position*, 𝐩ₛ and the *transmisson signal*, `p`.
 
 # Examples
 ```@example
@@ -14,7 +15,7 @@ p(t) = δ(t-1.0e-15,1.0e-10)
 q = LTIsourcesO(𝐩ₛ, p)
 ```
 Another type of sources, called as reflected sources can also be defined
-by calling `LTIsourcesO()` with *reflectors* position, $\bm{ξ}$ and
+by calling `LTIsourcesO()` with *reflectors* position, 𝛏 and
 the *reflected signal*, given by `r = α q(𝛏,t)`.
 
 # Examples
