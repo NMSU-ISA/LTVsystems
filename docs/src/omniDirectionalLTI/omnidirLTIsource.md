@@ -362,7 +362,7 @@ using Plots
 𝐩ᵣ =  [-0.3, 0.0]
 ξ₀=[0.1,0.0]
 α₀ = 0.7;
-L = collect(0.0:0.1:1.0)
+L = collect(range(1, 2.0, step=0.01))
 g(k) = ξ₀ .+ k.*[1.0,0.0]
 temp = quadgk.(g, 0.0, L)
 value = [α₀*(temp[i][1]) for i in 1:length(L)]
