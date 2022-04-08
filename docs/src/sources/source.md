@@ -14,7 +14,6 @@ We can define an  **LTI Omnidirectional Source** by calling `LTIsourcesO()` with
 
 ```@example
 using ISA, LTVsystems
-using Plots
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  [0.0, 0.0]  
 p(t) = δ(t-1.0e-15,1.0e-10)
