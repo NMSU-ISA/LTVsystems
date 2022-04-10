@@ -2,7 +2,7 @@ module LTVsystems
 
 using LinearAlgebra: norm, dot, normalize
 include("omniDirectionalLTI/sources.jl")
-export LTIsourcesO
+export LTIsourcesO, LTIsourcesDTI, LTIsourcesD, LTISources
 
 include("omniDirectionalLTI/receivers.jl")
 export LTIreceiversO

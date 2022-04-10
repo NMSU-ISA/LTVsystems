@@ -29,7 +29,6 @@ and the source position, $\bm{p}_\mathrm{s}$. Then
 we can define a  **LTI Omnidirectional Receiver** by calling `LTIreceiversO()` with the defined reflected signal and the receiver position, $\bm{p}_\mathrm{r}$.
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_Receivers.png)
-
 ```@example
 using ISA, LTVsystems
 using Plots

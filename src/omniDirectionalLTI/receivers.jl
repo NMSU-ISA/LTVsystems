@@ -18,7 +18,7 @@ z = LTIreceiversO([R₁],𝐩ᵣ)
 ```
 """
 struct LTIreceiversO
-   sourceList::Vector{LTIsourcesO}
+   sourceList::Vector{LTISources}
    position::Vector{Float64}
 end
 
@@ -31,6 +31,7 @@ sourceList = ψ.sourceList
    end
    return val
 end
+
 
 # DISPLAY
 Base.show(io::IO, x::LTIreceiversO) = print(io, "LTI Omnidirectional Receivers")

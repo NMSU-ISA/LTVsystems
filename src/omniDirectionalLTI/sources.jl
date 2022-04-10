@@ -35,17 +35,57 @@ struct LTIsourcesO
   transmission ::Function
 end
 
-# Method
+# Methods
 function (𝚽::LTIsourcesO)(𝛏₀::Vector{Float64}, t₀::Float64)
    𝐩ₛ, p = 𝚽.position, 𝚽.transmission
    delay = distBetween(𝐩ₛ,𝛏₀)/lightSpeed
    return A(delay) * p(t₀-delay)
 end
 
+#DEFINE STATIONARY SOURCE w/ DIRECTIONAL ANTENNA and TIME-INVARIANT BEAM CENTER
+
+struct LTIsourcesDTI
+  position::Vector{Float64}
+  transmission ::Function
+  beamCenter::Vector{Float64}
+  antennaGain ::Function
+end
+
+function (𝚽::LTIsourcesDTI)(𝛏₀::Vector{Float64}, t₀::Float64)
+   𝐩ₛ, p, = 𝚽.position, 𝚽.transmission
+   𝐛, G = 𝚽.beamCenter , 𝚽.antennaGain
+   delay = distBetween(𝐩ₛ,𝛏₀)/lightSpeed
+   return A(delay) * p(t₀-delay) * G( angleBetween(𝐛, 𝛏₀-𝐩ₛ) )
+end
+
+#DEFINE STATIONARY SOURCE w/ DIRECTIONAL ANTENNA and TIME-VARYING BEAM CENTER
+
+struct LTIsourcesD
+  position::Vector{Float64}
+  transmission ::Function
+  beamCenter::Function
+  antennaGain ::Function
+end
+
+function (source::LTIsourcesD)(𝛏₀::Vector{Float64}, t₀::Float64)
+   𝐩ₛ, p, = source.position, source.transmission
+   𝐛, G = source.beamCenter , source.antennaGain
+   delay = distBetween(𝐩ₛ,𝛏₀)/lightSpeed
+   return A(delay) * p(t₀-delay) * G( angleBetween(𝐛(t₀-delay), 𝛏₀-𝐩ₛ) )
+end
+
 # DISPLAY
 Base.show(io::IO, x::LTIsourcesO) = print(io, "LTI Omnidirectional Sources")
+Base.show(io::IO, x::LTIsourcesDTI) = print(io, "LTI Sources with Directional Antenna and Time-Invariant Beam Center")
+Base.show(io::IO, x::LTIsourcesD) = print(io, "LTI Sources with Directional Antenna and Time-Varying Beam Center")
+
+LTISources = Union{LTIsourcesO,
+                   LTIsourcesDTI,
+                   LTIsourcesD,
+                   }
+
 #multi-thread model evaluation over a 2D/3D space
-function (q::LTIsourcesO)(𝛏::Array{Array{Float64,1}}, t₀::Float64)
+function (q::LTISources)(𝛏::Array{Array{Float64,1}}, t₀::Float64)
    Q = zeros( typeof(q(𝛏[1], t₀)), size(𝛏))
    Threads.@threads for i =1:length(𝛏)
       Q[i] = q(𝛏[i], t₀)
@@ -54,7 +94,7 @@ function (q::LTIsourcesO)(𝛏::Array{Array{Float64,1}}, t₀::Float64)
 end
 
 #multi-thread model evaluation over a time interval
-function (q::LTIsourcesO)(𝛏₀::Vector{Float64}, t::Vector{Float64})
+function (q::LTISources)(𝛏₀::Vector{Float64}, t::Vector{Float64})
    Q = zeros( typeof(q(𝛏₀, 0.0)), size(𝛏))
    Threads.@threads for i =1:length(t)
       Q[i] = q(𝛏₀, t[i])
