@@ -13,7 +13,7 @@ $q(\bm{\xi},t)=p(t) \overset{t}{*} h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}})$
 We can define an  **LTI Omnidirectional Source** by calling `LTIsourcesO()` with a transmitted signal, $p(t)$ and the source position vector, $\bm{p}_\mathrm{s}$.
 
 ```@example
-using ISA, LTVsystems
+using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  [0.0, 0.0]  
 p(t) = δ(t-1.0e-15,1.0e-10)
