@@ -30,8 +30,7 @@ we can define a  **LTI Omnidirectional Receiver** by calling `LTIreceiversO()` w
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_Receivers.png)
 ```@example
-using ISA, LTVsystems
-using Plots
+using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  [1.0, 0.0]  
 p(t) = δ(t-1.0e-15,1.0e-10)
