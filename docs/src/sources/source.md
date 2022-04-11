@@ -19,7 +19,15 @@ p(t) = δ(t-1.0e-15,1.0e-10)
 q = LTIsourcesO(𝐩ₛ, p)
 ```
 ## LTI Directional Sources
+An **LTI Directional Source**  is parameterized by accounting the direction of the
+antenna which is defined by directional gain, $\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,
+\textcolor{myLightSlateGrey}{\bm{p}_\mathrm{s},\bm{b}_\mathrm{s}}\right)$
+
 
 ### LTI Directional Sources with Time-Invariant Beam Center
 
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTID_sourceTI.png)
+
 ### LTI Directional Sources with Time-Varying Beam Center
+
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_sourceDir.png)
