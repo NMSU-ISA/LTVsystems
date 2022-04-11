@@ -25,7 +25,9 @@ q = LTIsourcesO(𝐩ₛ, p)
 An **LTI Directional Source** with time-invariant beam center is parameterized by accounting the direction of the antenna which is defined by directional gain,
 
 $\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,
-\textcolor{myLightSlateGrey}{\bm{p}_\mathrm{s},\bm{b}_\mathrm{s}}\right) = \mathrm{G}_\mathrm{s}\left(\varangle[\,\bm{b}\,,\,\bm{\xi}-\bm{p}_\mathrm{s}\,]\vertOne\right)$
+\textcolor{myLightSlateGrey}{\bm{p}_\mathrm{s},\bm{b}_\mathrm{s}}\right) =
+\mathrm{G}_\mathrm{s}\left(\varangle[\,\bm{b}\,,\,\bm{\xi}
+-\bm{p}_\mathrm{s}\,]\vertOne\right)$
 
 Mathematically, an **LTI Directional Source** with time-invariant beam center as follows.
 
@@ -39,6 +41,6 @@ $q(\bm{\xi},t)=p(t) \overset{t}{*} h(\bm{\xi},t;\,
 Mathematically, an **LTI Directional Source** with time-varying beam center as follows.
 
 $q(\bm{\xi},t)=p(t) \overset{t}{*} h(\bm{\xi},t;\,
-\textcolor{myLightSlateGrey}{\bm{p}_\mathrm{s}},\bm{b}_\mathrm{s})$
+\textcolor{myLightSlateGrey}{\bm{p}_\mathrm{s}},\bm{b}_\mathrm{s}(t))$
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTIDir_source.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_sourceDir.png)
