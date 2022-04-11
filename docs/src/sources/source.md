@@ -18,3 +18,8 @@ using LTVsystems
 p(t) = δ(t-1.0e-15,1.0e-10)
 q = LTIsourcesO(𝐩ₛ, p)
 ```
+## LTI Directional Sources
+
+### LTI Directional Sources with Time-Invariant Beam Center
+
+### LTI Directional Sources with Time-Varying Beam Center

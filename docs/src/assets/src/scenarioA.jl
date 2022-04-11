@@ -48,7 +48,7 @@ png(path*"scenarioA_simulation.png")
 
 #-------------------------------------------------------------
 # Scenario A with LTI directional antenna and time inavriant beam center
-using ISA, LTVsystems
+using LTVsystems, ISA
 using Plots
 #Source
 𝐩ₛ =  [0.0, 0.0]
@@ -56,8 +56,8 @@ using Plots
 𝐩ᵣ =  [0.0, 0.0]  # Considering 𝐩ₛ = 𝐩ᵣ
 
 # Transmitter's signal i.e single pulse
-#p(t) = δ(t-1.0e-15,1.0e-10)
-p(t) = u(t)-u(t-1.0e-10)
+#p(t) = δ(t-1.0e-14,1.0e-10)
+p(t) = u(t)-u(t-1.0e-9)
 #p(t) = (u(mod(t,1.0e-9))-u(mod(t,1.0e-9)-1.0e-10))*u(t)
 𝐛 = [1.0,0.0]
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)

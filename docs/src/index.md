@@ -16,6 +16,7 @@ Pages = ["sources/source.md",
          "reflectors/reflector.md",
          "receivers/receiver.md",
          "omniDirectionalLTI/omnidirLTIsource.md",
+         "directionalLTI/dirLTIsource.md",
          "typesMethodsFunctions.md",
          "cite.md"]
 ```

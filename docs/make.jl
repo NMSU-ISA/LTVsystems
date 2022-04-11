@@ -12,6 +12,7 @@ makedocs(
         "Reflectors" => "reflectors/reflector.md",
         "Receivers" => "receivers/receiver.md",
         "LTI Omnidirectional Modeling" => "omniDirectionalLTI/omnidirLTIsource.md",
+        "LTI Directional Modeling" => "directionalLTI/dirLTIsource.md",
         "Types/Methods/Functions" => "typesMethodsFunctions.md",
         "Cite" => "cite.md",
     ],
