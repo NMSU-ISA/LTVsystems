@@ -22,9 +22,10 @@ q = LTIsourcesO(𝐩ₛ, p)
 
 ### LTI Directional Sources with Time-Invariant Beam Center
 
-An **LTI Directional Source** with time-invariant beam center is parameterized by accounting the direction of the antenna which is defined by directional gain, $\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,
-\textcolor{myLightSlateGrey}{\bm{p}_\mathrm{s},\bm{b}_\mathrm{s}}\right) = \mathrm{G}_\mathrm{s}\left(\varangle[\,\bm{b}\,,\,\bm{\xi} -
-\bm{p}_\mathrm{s}\,]\vertOne\right)$
+An **LTI Directional Source** with time-invariant beam center is parameterized by accounting the direction of the antenna which is defined by directional gain,
+
+$\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,
+\textcolor{myLightSlateGrey}{\bm{p}_\mathrm{s},\bm{b}_\mathrm{s}}\right) = \mathrm{G}_\mathrm{s}\left(\varangle[\,\bm{b}\,,\,\bm{\xi}-\bm{p}_\mathrm{s}\,]\vertOne\right)$
 
 Mathematically, an **LTI Directional Source** with time-invariant beam center as follows.
 
@@ -35,3 +36,9 @@ $q(\bm{\xi},t)=p(t) \overset{t}{*} h(\bm{\xi},t;\,
 
 
 ### LTI Directional Sources with Time-Varying Beam Center
+Mathematically, an **LTI Directional Source** with time-varying beam center as follows.
+
+$q(\bm{\xi},t)=p(t) \overset{t}{*} h(\bm{\xi},t;\,
+\textcolor{myLightSlateGrey}{\bm{p}_\mathrm{s}},\bm{b}_\mathrm{s})$
+
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTIDir_source.png)
