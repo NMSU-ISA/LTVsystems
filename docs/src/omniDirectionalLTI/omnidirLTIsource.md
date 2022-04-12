@@ -348,7 +348,7 @@ display(p1)
 Given the scenario E assumptions i.e. the position of the source,$𝐩ₛ$ and the receivers at $𝐩ᵣ$ by providing the transmitted signal, $p(t)$ as an ideal impulse and a continuous reflector we obtained the received signal, $z(t)$.
 Now we can estimate the reflector function as follows.
 
-$f(\bm{\xi}) = $
+
 
 ```julia
 using ISA, LTVsystems
