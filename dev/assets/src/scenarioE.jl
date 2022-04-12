@@ -40,7 +40,9 @@ png(path*"scenarioE_signal.png")
 # Estimator function
 a₁(ξ::Vector{Float64}) = A(distBetween(ξ,𝐩ₛ)./lightSpeed).*A(distBetween(𝐩ᵣ,ξ)./lightSpeed)
 f(ξ::Vector{Float64})=(z((distBetween(ξ,𝐩ₛ) .+ distBetween(𝐩ᵣ,ξ))./lightSpeed))./(a₁(ξ::Vector{Float64}))
-
+T_val1 = map(x->x[1],value)
+T_val2 = map(x->x[2],value)
+line = Any[collect(zip(T_val1,T_val2))]
 #SPATIAL SIMULATION
 Δpos = 0.01
 x_range = collect(-3:Δpos:3)
@@ -48,11 +50,9 @@ y_range = collect(-2:Δpos:2)
 xyGrid = [[x, y] for x in x_range, y in y_range]
 val = [f(𝐮) for 𝐮 ∈ xyGrid]
 p2 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),aspect_ratio=:equal,legend=false,zticks=false,title="Scenario E Simulation")
+plot!(p2,line[1],color = :red, lw=5)
 scatter!(p2,[𝐩ₛ[1]], [𝐩ₛ[2]],markersize = 8.5,color = :green, marker=:pentagon, label='s' )
 scatter!(p2,[𝐩ᵣ[1]], [𝐩ᵣ[2]],markersize = 3.5,color = :blue, marker=:square, label='r' )
-for i in 1:length(value)
-scatter!(p2,[value[i][1]],[value[i][2]],markersize = 10.5,color = :red, marker=:star8, label='t')
-end
 display(p2)
 
 png(path*"scenarioE_simulation.png")

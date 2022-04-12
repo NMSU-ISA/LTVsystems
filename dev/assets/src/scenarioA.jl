@@ -57,9 +57,11 @@ using Plots
 
 # Transmitter's signal i.e single pulse
 #p(t) = δ(t-1.0e-14,1.0e-10)
-p(t) = u(t)-u(t-1.0e-9)
-#p(t) = (u(mod(t,1.0e-9))-u(mod(t,1.0e-9)-1.0e-10))*u(t)
+#p(t) = u(t)-u(t-1.0e-9)
+p(t) = (u(mod(t,1.0e-9))-u(mod(t,1.0e-9)-1.0e-10))*u(t)
 𝐛 = [1.0,0.0]
+#G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
+#𝐛(t) = [cos(2π*1.0e8*t),sin(2π*1.0e8*t)]
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
 # Signal observed due to source
 q = LTIsourcesDTI(𝐩ₛ, p, 𝐛, G)
@@ -72,7 +74,7 @@ R₁ = LTIsourcesO(𝛏₁, t->α₁*q(𝛏₁,t))
 z = LTIreceiversO([R₁],𝐩ᵣ)
 
 #TEMPORAL SIMULATION
-t = collect(0.0:1.0e-10:15.5e-9)
+t = collect(0.0:1.0e-10:25.5e-9)
 plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 
 png(path*"scenarioA_DirTIsignal.png")
