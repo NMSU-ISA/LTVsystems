@@ -9,16 +9,17 @@ using Plots
 # Continuos target, suppose line segment AB has length L
 
 #--------------------
-ξ₀=[0.1,0.0]
-α₀ = 0.7;
+ξ₀=[0.0,0.3]
+α₀ = 0.6;
 #L = collect(0.0:0.001:1.0)
-L = collect(range(1, 2.0, step=0.01))
-g(k) = ξ₀ .+ k.*[1.0,0.0]
+#L = collect(range(1, 2.0, step=0.01))
+L = collect(range(1.0, 2.0, step=0.025))
+g(k) = ξ₀ .+ k.*[0.0,1.0]
 temp = quadgk.(g, 0.0, L)
 value = [α₀*(temp[i][1]) for i in 1:length(L)]
 #-------------------Alternate way, with Analytic result----------
 # Both gives same results
-Tc = [α₀*(ξ₀.*L[i] .+ ([1.0,0.0].*L[i]^2)/2) for i in 1:length(L)]
+Tc = [α₀*(ξ₀.*L[i] .+ ([0.0,1.0].*L[i]^2)/2) for i in 1:length(L)]
 
 p(t) = δ(t-1.0e-15,1.0e-10)
 W = []

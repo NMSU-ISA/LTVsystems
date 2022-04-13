@@ -345,10 +345,9 @@ display(p1)
 
 ### Inverse Modeling
 
-Given the scenario E assumptions i.e. the position of the source,$𝐩ₛ$ and the receivers at $𝐩ᵣ$ by providing the transmitted signal, $p(t)$ as an ideal impulse and a continuous reflector we obtained the received signal, $z(t)$.
-Now we can estimate the reflector function as follows.
+Given the scenario E assumptions i.e. the position of the source,$𝐩ₛ$ and the receivers at $𝐩ᵣ$ by providing the transmitted signal, $p(t)$ as an ideal impulse and with a continuous line segment reflector, we obtained the received signal, $z(t)$. Now we can estimate the reflector function as follows.
 
-
+$\hat{f}(\bm{\xi}) = ∫_{0}^{L}\dfrac{z\left(  \dfrac{\|\bm{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\|+\|[\bm{\xi}+k\bm{u}]-\bm{p}_\mathrm{s}\|}{\mathrm{c}}  \right)}{\mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\|}{\mathrm{c}}\right)\mathrm{A}\left(\frac{\|[\bm{\xi}+k\bm{u}]-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)} dk$
 
 ```julia
 using ISA, LTVsystems
@@ -356,9 +355,9 @@ using QuadGK
 using Plots
 𝐩ₛ =  [0.0, 0.3]
 𝐩ᵣ =  [-0.3, 0.0]
-ξ₀=[0.1,0.0]
-α₀ = 0.7;
-L = collect(range(1, 2.0, step=0.01))
+ξ₀=[0.0,0.3]
+α₀ = 0.6;
+L = collect(range(1.0, 2.0, step=0.025))
 g(k) = ξ₀ .+ k.*[1.0,0.0]
 temp = quadgk.(g, 0.0, L)
 value = [α₀*(temp[i][1]) for i in 1:length(L)]
