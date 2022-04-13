@@ -13,11 +13,11 @@
 
 ### Forward Modeling
 
-Given the scenario A assumptions with the position of the source 𝐩ₛ, the receiver 𝐩ᵣ being at the same location $(𝐩ₛ=𝐩ᵣ)$, by providing the transmitted signal p(t) as an ideal impulse, and an ideal point reflector 𝛏₀. We obtained the closed form expression of the observed signal, $z(t)$ as follows
+Given the scenario A assumptions with the position of the source $𝐩ₛ$, the receiver $𝐩ᵣ$ being at the same location $(𝐩ₛ=𝐩ᵣ)$, by providing the transmitted signal p(t) as an ideal impulse, and an ideal point reflector $\bm{\xi}_0$. We obtained the closed form expression of the observed signal, $z(t)$ as follows.
 
 $z(t) = \alpha_0 \mathrm{A}^2
 \left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}
-{\mathrm{c}}\right)p\left(t -2\frac{\|\bm{p}_\mathrm{r}\bm{\xi}_0\|}{\mathrm{c}}\right)$
+{\mathrm{c}}\right)p\left(t -2\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)$
 
 Now we can simulate the scenario and plot signal at the receiver as follows.
 
@@ -85,11 +85,14 @@ For all simulated results, we displayed the sources as a green pentagon, the rec
 
 ### Forward Modeling
 
-Given scenario B assumptions with the position of the source $𝐩ₛ$, the receiver $𝐩ᵣ$, by providing the transmitted signal  $p(t)$ as an ideal impulse, and an ideal point reflector $𝛏₀$.
-We obtained the closed form expression of the observed signal, $z(t)$ as follows
+Given scenario B assumptions with the position of the source $𝐩ₛ$, the receiver $𝐩ᵣ$, by providing the transmitted signal  $p(t)$ as an ideal impulse,
+and an ideal point reflector $\bm{\xi}_0$.
+
+We obtained the closed form expression of the observed signal, $z(t)$ as follows.
 
 $z(t) = \alpha_0 \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)
-\mathrm{A}\left(\frac{\|\bm{\xi}_0-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right) p\left(t-
+\mathrm{A}\left(\frac{\|\bm{\xi}_0-
+\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right) p\left(t-
 \frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|+\|\bm{\xi}_0-
 \bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)$
 
@@ -114,7 +117,9 @@ plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 
 Given the scenario B assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function as follows.
 
-$\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|+\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}  \right)}{\mathrm{A}(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}})    
+$\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{\|\bm{p}_\mathrm{r}-
+\bm{\xi}\|+\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
+{\mathrm{c}}  \right)}{\mathrm{A}(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}})    
 \mathrm{A}(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}})}$
 
 ```julia
@@ -179,7 +184,9 @@ plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 
 Given the scenario C assumptions i.e. the position of the source,$𝐩ₛ$ and the receiver, $𝐩ᵣ$, by providing the transmitted signal, $p(t)$ as an ideal impulse and multiple stationary reflectors say N, we obtained the received signal, $z(t)$. Now we can estimate the reflector function as follows.
 
-$\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|+\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}  \right)}{\mathrm{A}(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}})    
+$\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{\|\bm{p}_\mathrm{r}-
+\bm{\xi}\|+\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)}
+{\mathrm{A}(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}})    
 \mathrm{A}(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}})}$
 
 ```julia
@@ -257,7 +264,10 @@ Given the scenario D assumptions i.e. the position of the source,$𝐩ₛ$ and t
 
 $\hat{f}(\bm{\xi}) = \sum\limits_{i=1}^{N}fᵢ(\bm{\xi})$, where
 
-$fᵢ(\bm{\xi}) = \dfrac{zᵢ\left(\frac{\|(\bm{p}_\mathrm{r})_i-    \bm{\xi}\|+\|\bm{\xi}-  \bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)}{\mathrm{A}(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}})\mathrm{A}(\frac{\|(\bm{p}_\mathrm{r})_i-\bm{\xi}\|}{\mathrm{c}})}$
+$fᵢ(\bm{\xi}) = \dfrac{zᵢ\left(\frac{\|(\bm{p}_\mathrm{r})_i-    \bm{\xi}\|+\|\bm{\xi}
+-\bm{p}_\mathrm{s}\|}
+{\mathrm{c}}\right)}{\mathrm{A}(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}})
+\mathrm{A}(\frac{\|(\bm{p}_\mathrm{r})_i-\bm{\xi}\|}{\mathrm{c}})}$
 
 ```julia
 using ISA, LTVsystems
@@ -361,7 +371,9 @@ display(p1)
 
 Given the scenario E assumptions i.e. the position of the source,$𝐩ₛ$ and the receivers at $𝐩ᵣ$ by providing the transmitted signal, $p(t)$ as an ideal impulse and with a continuous line segment reflector, we obtained the received signal, $z(t)$. Now we can estimate the reflector function as follows.
 
-$\hat{f}(\bm{\xi}) = ∫_{0}^{L}\dfrac{z\left(  \dfrac{\|\bm{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\|+\|[\bm{\xi}+k\bm{u}]-\bm{p}_\mathrm{s}\|}{\mathrm{c}}  \right)}{\mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\|}{\mathrm{c}}\right)\mathrm{A}\left(\frac{\|[\bm{\xi}+k\bm{u}]-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)} dk$
+$\hat{f}(\bm{\xi}) = ∫_{0}^{L}\dfrac{z\left(\dfrac{\|\bm{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\|+\|[\bm{\xi}+k\bm{u}]-\bm{p}_\mathrm{s}\|}
+{\mathrm{c}}  \right)}{\mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\|}{\mathrm{c}}\right)
+\mathrm{A}\left(\frac{\|[\bm{\xi}+k\bm{u}]-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)} dk$
 
 ```julia
 using ISA, LTVsystems
