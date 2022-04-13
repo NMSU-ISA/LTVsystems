@@ -13,7 +13,14 @@
 
 ### Forward Modeling
 
-We can simulate the scenario and plot signal at the receiver as follows.
+Given scenario A assumptions, we obtained the closed form expression of the observed signal, $z(t)$ as follows
+
+$z(t) = \alpha_0 \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)
+\mathrm{A}\left(\frac{\|\bm{\xi}_0-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right) p\left(t-
+\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|+\|\bm{\xi}_0-
+\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)$
+
+Now we can simulate the scenario and plot signal at the receiver as follows.
 
 ```julia
 using ISA, LTVsystems
@@ -22,8 +29,8 @@ using Plots
 𝐩ᵣ =  [0.0, 0.0]  
 p(t) = δ(t-1.0e-15,1.0e-10)
 q = LTIsourcesO(𝐩ₛ, p)
-α₁ = 0.7; 𝛏₁ = [1.8,0.0]
-R₁ = LTIsourcesO(𝛏₁, t->α₁*q(𝛏₁,t))
+α₀ = 0.7; 𝛏₀ = [1.8,0.0]
+R₁ = LTIsourcesO(𝛏₀, t->α₀*q(𝛏₀,t))
 z = LTIreceiversO([R₁],𝐩ᵣ)
 t = collect(0.0:1.0e-10:15.5e-9)
 plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
@@ -44,8 +51,8 @@ using Plots
 𝐩ᵣ =  [0.0, 0.0]  
 p(t) = δ(t-1.0e-15,1.0e-10)
 q = LTIsourcesO(𝐩ₛ, p)
-α₁ = 0.7; 𝛏₁ = [1.8,0.0]
-R₁ = LTIsourcesO(𝛏₁, t->α₁*q(𝛏₁,t))
+α₀ = 0.7; 𝛏₀ = [1.8,0.0]
+R₁ = LTIsourcesO(𝛏₀, t->α₀*q(𝛏₀,t))
 z = LTIreceiversO([R₁],𝐩ᵣ)
 a₁(ξ::Vector{Float64}) = (A(distBetween(ξ,𝐩ₛ)./lightSpeed))^2
 f(ξ::Vector{Float64}) = (z(2(distBetween(ξ,𝐩ₛ))./lightSpeed))./   
@@ -308,7 +315,7 @@ p3 = plot(x_range,y_range,transpose(val1),st=:surface,camera=(0,90),
 
 * single stationary omnidirectional source
 * single stationary omnidirectional receiver
-* a continuous reflector
+* a continuous line segment reflector
 * the source emits an ideal impulse
 
 ### Forward Modeling
