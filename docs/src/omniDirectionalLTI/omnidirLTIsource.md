@@ -189,10 +189,10 @@ plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 
 Given the scenario C assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function as follows.
 
-$\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{\|\bm{p}_\mathrm{r}-
-\bm{\xi}\|+\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)}
-{\mathrm{A}(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}})    
-\mathrm{A}(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}})}$
+$\hat{f}(\bm{\xi}) = \sum\limits_{n=1}^{N} \dfrac{z\left(\frac{\|\bm{p}_\mathrm{r}-
+\bm{\xi}_n\|+\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)}
+{\mathrm{A}(\frac{\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}})    
+\mathrm{A}(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_n\|}{\mathrm{c}})}$
 
 ```julia
 using ISA, LTVsystems
@@ -235,6 +235,18 @@ scatter!(p2,[𝛏₃[1]],[𝛏₃[2]],markersize = 8.5,color = :red, marker=:sta
 * the source emits an ideal impulse
 
 ### Forward Modeling
+
+Given the scenario D assumptions with the position of the source $𝐩ₛ$ and the multiple receivers at $(𝐩ᵣ)_i$ where $i=1,2,…N$ by providing the transmitted signal, $p(t)$ as an ideal impulse and multiple stationary reflectors say N.
+We obtained the closed form expression of the observed signal, $zᵢ(t)$ where $i=1,2,…N$. as follows.
+
+$z(t) = \sum\limits_{i=1}^{N}zᵢ(t)$
+
+,where
+
+$zᵢ(t) = \sum\limits_{n=1}^{N} \alpha_n \mathrm{A}\left(\frac{\|(\bm{p}_\mathrm{r})_i-\bm{\xi}_n\|}{\mathrm{c}}\right)
+\mathrm{A}\left(\frac{\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)
+p\left(t-\frac{\|(\bm{p}_\mathrm{r})_i-\bm{\xi}_n\|+\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)$
+
 
 We can simulate the scenario and plot signal at the receiver as follows.
 
