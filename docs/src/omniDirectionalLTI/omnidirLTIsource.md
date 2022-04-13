@@ -13,12 +13,10 @@
 
 ### Forward Modeling
 
-Given scenario A assumptions, we obtained the closed form expression of the observed signal, $z(t)$ as follows
+Given the scenario A assumptions with the position of the source $𝐩ₛ$, the receiver $𝐩ᵣ$ being at the same location $(𝐩ₛ=𝐩ᵣ)$, by providing the transmitted signal $p(t)$ as an ideal impulse, and an ideal point reflector $𝛏₀$. We obtained the closed form expression of the observed signal, $z(t)$ as follows
 
-$z(t) = \alpha_0 \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)
-\mathrm{A}\left(\frac{\|\bm{\xi}_0-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right) p\left(t-
-\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|+\|\bm{\xi}_0-
-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)$
+$z(t) = \alpha_0 \mathrm{A}^2\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)
+ p\left(t-2\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)$
 
 Now we can simulate the scenario and plot signal at the receiver as follows.
 
@@ -39,7 +37,7 @@ plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 
 ### Inverse Modeling
 
-Given the scenario A assumptions i.e. the position of the source,$𝐩ₛ$ and the receiver, $𝐩ᵣ$ being at the same location $(𝐩ₛ=𝐩ᵣ)$, and by providing the transmitted signal, $p(t)$ as an ideal impulse, we obtained the received signal, $z(t)$. Now we can estimate the reflector function as follows.
+Given the scenario A assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function as follows.
 
 $\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{2\|\bm{\xi}-\bm{p}_\mathrm{r}\|}{\mathrm{c}}\right)}
 {\mathrm{A}^2(\frac{\|\bm{\xi}-\bm{p}_\mathrm{r}\|}{\mathrm{c}})}$
@@ -86,6 +84,14 @@ For all simulated results, we displayed the sources as a green pentagon, the rec
 
 ### Forward Modeling
 
+Given scenario B assumptions with the position of the source $𝐩ₛ$, the receiver $𝐩ᵣ$, by providing the transmitted signal  $p(t)$ as an ideal impulse, and an ideal point reflector $𝛏₀$.
+We obtained the closed form expression of the observed signal, $z(t)$ as follows
+
+$z(t) = \alpha_0 \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)
+\mathrm{A}\left(\frac{\|\bm{\xi}_0-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right) p\left(t-
+\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|+\|\bm{\xi}_0-
+\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)$
+
 We can simulate the scenario and plot signal at the receiver as follows.
 
 ```julia
@@ -95,8 +101,8 @@ using Plots
 𝐩ᵣ =  [-1.0, 0.0]
 p(t) = δ(t-1.0e-15,1.0e-10)
 q = LTIsourcesO(𝐩ₛ, p)
-α₁ = 0.7; 𝛏₁ = [1.8,0.0]
-R₁ = LTIsourcesO(𝛏₁, t->α₁*q(𝛏₁,t))
+α₀ = 0.7; 𝛏₀ = [1.8,0.0]
+R₁ = LTIsourcesO(𝛏₀, t->α₀*q(𝛏₀,t))
 z = LTIreceiversO([R₁],𝐩ᵣ)
 t = collect(0.0:1.0e-10:15.5e-9)
 plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
@@ -105,7 +111,7 @@ plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 
 ### Inverse Modeling
 
-Given the scenario B assumptions i.e. the position of the source,$𝐩ₛ$ and the receiver, $𝐩ᵣ$, by providing the transmitted signal, $p(t)$ as an ideal impulse, we obtained the received signal, $z(t)$. Now we can estimate the reflector function as follows.
+Given the scenario B assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function as follows.
 
 $\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|+\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}  \right)}{\mathrm{A}(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}})    
 \mathrm{A}(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}})}$
@@ -117,8 +123,8 @@ using Plots
 𝐩ᵣ =  [-1.0, 0.0]
 p(t) = δ(t-1.0e-15,1.0e-10)
 q = LTIsourcesO(𝐩ₛ, p)
-α₁ = 0.7; 𝛏₁ = [1.8,0.0]
-R₁ = LTIsourcesO(𝛏₁, t->α₁*q(𝛏₁,t))
+α₀ = 0.7; 𝛏₀ = [1.8,0.0]
+R₁ = LTIsourcesO(𝛏₀, t->α₀*q(𝛏₀,t))
 z = LTIreceiversO([R₁],𝐩ᵣ)
 a₁(ξ::Vector{Float64}) = A(distBetween(ξ,𝐩ₛ)./lightSpeed).*A(distBetween(𝐩ᵣ,ξ)./lightSpeed)
 f(ξ::Vector{Float64})=(z((distBetween(ξ,𝐩ₛ) .+ distBetween(𝐩ᵣ,ξ))./lightSpeed))./(a₁(ξ::Vector{Float64}))
