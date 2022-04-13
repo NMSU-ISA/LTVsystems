@@ -87,7 +87,6 @@ For all simulated results, we displayed the sources as a green pentagon, the rec
 
 Given scenario B assumptions with the position of the source $𝐩ₛ$, the receiver $𝐩ᵣ$, by providing the transmitted signal  $p(t)$ as an ideal impulse,
 and an ideal point reflector $\bm{\xi}_0$.
-
 We obtained the closed form expression of the observed signal, $z(t)$ as follows.
 
 $z(t) = \alpha_0 \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)
@@ -159,6 +158,12 @@ scatter!(p2,[𝛏₁[1]],[𝛏₁[2]],markersize = 8.5,color = :red, marker=:sta
 
 ### Forward Modeling
 
+Given the scenario C assumptions with the position of the source $𝐩ₛ$ and the receiver $𝐩ᵣ$, by providing the transmitted signal, $p(t)$ as an ideal impulse and multiple stationary reflectors say N. We obtained the closed form expression of the observed signal, $z(t)$ as follows.
+
+$z(t) = \sum\limits_{n=1}^{N} \alpha_n \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_n\|}{\mathrm{c}}\right)
+\mathrm{A}\left(\frac{\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)
+p\left(t-\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_n\|+\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)$
+
 We can simulate the scenario and plot signal at the receiver as follows.
 
 ```julia
@@ -182,7 +187,7 @@ plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 
 ### Inverse Modeling
 
-Given the scenario C assumptions i.e. the position of the source,$𝐩ₛ$ and the receiver, $𝐩ᵣ$, by providing the transmitted signal, $p(t)$ as an ideal impulse and multiple stationary reflectors say N, we obtained the received signal, $z(t)$. Now we can estimate the reflector function as follows.
+Given the scenario C assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function as follows.
 
 $\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{\|\bm{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)}
