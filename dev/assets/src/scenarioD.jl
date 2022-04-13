@@ -7,7 +7,7 @@ using Plots
 # Multiple Receiver
 𝐩ᵣ₁ =  [-0.3, 0.0]
 𝐩ᵣ₂ =  [0.6, 0.0]
-𝐩ᵣ₃ =  [1.2, 0.0]
+𝐩ᵣ₃ =  [0.2, 0.0]
 # Transmitter's signal i.e single pulse
 p(t) = δ(t-1.0e-15,1.0e-10)
 # Signal observed due to source
