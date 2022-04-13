@@ -13,10 +13,11 @@
 
 ### Forward Modeling
 
-Given the scenario A assumptions with the position of the source $𝐩ₛ$, the receiver $𝐩ᵣ$ being at the same location $(𝐩ₛ=𝐩ᵣ)$, by providing the transmitted signal $p(t)$ as an ideal impulse, and an ideal point reflector $𝛏₀$. We obtained the closed form expression of the observed signal, $z(t)$ as follows
+Given the scenario A assumptions with the position of the source 𝐩ₛ, the receiver 𝐩ᵣ being at the same location $(𝐩ₛ=𝐩ᵣ)$, by providing the transmitted signal p(t) as an ideal impulse, and an ideal point reflector 𝛏₀. We obtained the closed form expression of the observed signal, $z(t)$ as follows
 
-$z(t) = \alpha_0 \mathrm{A}^2\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)
- p\left(t-2\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)$
+$z(t) = \alpha_0 \mathrm{A}^2
+\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}
+{\mathrm{c}}\right)p\left(t -2\frac{\|\bm{p}_\mathrm{r}\bm{\xi}_0\|}{\mathrm{c}}\right)$
 
 Now we can simulate the scenario and plot signal at the receiver as follows.
 
