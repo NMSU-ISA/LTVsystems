@@ -237,11 +237,8 @@ scatter!(p2,[𝛏₃[1]],[𝛏₃[2]],markersize = 8.5,color = :red, marker=:sta
 ### Forward Modeling
 
 Given the scenario D assumptions with the position of the source $𝐩ₛ$ and the multiple receivers at $(𝐩ᵣ)_i$ where $i=1,2,…N$ by providing the transmitted signal, $p(t)$ as an ideal impulse and multiple stationary reflectors say N.
-We obtained the closed form expression of the observed signal, $zᵢ(t)$ where $i=1,2,…N$. as follows.
+We obtained the closed form expression of the observed signals, $zᵢ(t)$ where $i=1,2,…N$. as follows.
 
-$z(t) = \sum\limits_{i=1}^{N}zᵢ(t)$
-
-,where
 
 $zᵢ(t) = \sum\limits_{n=1}^{N} \alpha_n \mathrm{A}\left(\frac{\|(\bm{p}_\mathrm{r})_i-\bm{\xi}_n\|}{\mathrm{c}}\right)
 \mathrm{A}\left(\frac{\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)
