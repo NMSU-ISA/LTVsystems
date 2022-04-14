@@ -6,18 +6,18 @@ using Plots
 𝐩ₛ =  [0.0, 0.3]
 # Multiple Receiver
 𝐩ᵣ₁ =  [-0.3, 0.0]
-𝐩ᵣ₂ =  [0.0, 0.0]
-𝐩ᵣ₃ =  [0.3, 0.0]
+𝐩ᵣ₂ =  [0.0, 0.1]
+𝐩ᵣ₃ =  [0.3, 0.3]
 # Transmitter's signal i.e single pulse
 p(t) = δ(t-1.0e-15,1.0e-10)
 # Signal observed due to source
 q = LTIsourcesO(𝐩ₛ, p)
 #Multiple Targets
-α₁ = 0.7; 𝛏₁ = [0.9,0.0]
+α₁ = 0.7; 𝛏₁ = [0.5,0.9]
 R₁ = LTIsourcesO(𝛏₁, t->α₁*q(𝛏₁,t))
-α₂ = 0.5; 𝛏₂ = [0.5,0.0]
+α₂ = 0.5; 𝛏₂ = [0.7,0.0]
 R₂ = LTIsourcesO(𝛏₂, t->α₂*q(𝛏₂,t))
-α₃ = 0.4; 𝛏₃ = [0.7,0.0]
+α₃ = 0.4; 𝛏₃ = [0.0,0.5]
 R₃ = LTIsourcesO(𝛏₃, t->α₃*q(𝛏₃,t))
 # Observed signal
 z₁ = LTIreceiversO([R₁,R₂,R₃],𝐩ᵣ₁)
@@ -48,7 +48,7 @@ xyGrid = [[x, y] for x in x_range, y in y_range]
 val = [f(𝐮) for 𝐮 ∈ xyGrid]
 
 p2 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),legend=false,zticks=false,title="Scenario D Simulation")
-scatter!(p2,[𝐩ₛ[1]], [𝐩ₛ[2]],markersize = 8.5,color = :green, marker=:pentagon, label='s')
+scatter!(p2,[𝐩ₛ[1]], [𝐩ₛ[2]],markersize = 6.5,color = :green, marker=:pentagon, label='s')
 scatter!(p2,[𝐩ᵣ₁[1]], [𝐩ᵣ₁[2]],markersize = 5.5,color = :blue, marker=:square, label='r')
 scatter!(p2,[𝐩ᵣ₂[1]], [𝐩ᵣ₂[2]],markersize = 5.5,color = :blue, marker=:square, label='r')
 scatter!(p2,[𝐩ᵣ₃[1]], [𝐩ᵣ₃[2]],markersize = 5.5,color = :blue, marker=:square, label='r')
