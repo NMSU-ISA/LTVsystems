@@ -281,7 +281,7 @@ Given the scenario D assumptions i.e. the position of the source,$𝐩ₛ$ and t
 
 $\hat{f}(\bm{\xi}) = \sum\limits_{i=1}^{N}fᵢ(\bm{\xi})$, where
 
-$fᵢ(\bm{\xi}) = \sum\limits_{n=1}^{N}\dfrac{zᵢ\left(\frac{\|(\bm{p}_\mathrm{r})_i-    \bm{\xi}_n\|+\|\bm{\xi}
+$fᵢ(\bm{\xi}) = \sum\limits_{n=1}^{N}\dfrac{zᵢ\left(\frac{\|(\bm{p}_\mathrm{r})_i-    \bm{\xi}_n\|+\|\bm{\xi}_n
 -\bm{p}_\mathrm{s}\|}
 {\mathrm{c}}\right)}{\mathrm{A}(\frac{\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}})
 \mathrm{A}(\frac{\|(\bm{p}_\mathrm{r})_i-\bm{\xi}_n\|}{\mathrm{c}})}$
@@ -354,6 +354,12 @@ p3 = plot(x_range,y_range,transpose(val1),st=:surface,camera=(0,90),
 
 ### Forward Modeling
 
+Given the scenario E assumptions with the position of the source $𝐩ₛ$ and the receivers $𝐩ᵣ$, by providing the transmitted signal, $p(t)$ as an ideal impulse and a continuous line segment reflector. We obtained the received signal, $z(t)$ as follows.
+
+$z(t) = \int_{0}^{L}\Big[\alpha_0 \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}_0+k\bm{u}]\|}{\mathrm{c}}\right)
+\mathrm{A}\left(\frac{\|[\bm{\xi}_0+k\bm{u}]-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)
+p\left(t-\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}_0+k\bm{u}]\|}{\mathrm{c}}-\frac{\|[\bm{\xi}_0+k\bm{u}]-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right) \Big] dk$
+
 We can simulate the scenario and plot signal at the receiver as follows.
 
 ```julia
@@ -386,7 +392,7 @@ display(p1)
 
 ### Inverse Modeling
 
-Given the scenario E assumptions i.e. the position of the source,$𝐩ₛ$ and the receivers at $𝐩ᵣ$ by providing the transmitted signal, $p(t)$ as an ideal impulse and with a continuous line segment reflector, we obtained the received signal, $z(t)$. Now we can estimate the reflector function as follows.
+Given the scenario E assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function as follows.
 
 $\hat{f}(\bm{\xi}) = ∫_{0}^{L}\dfrac{z\left(\dfrac{\|\bm{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\|+\|[\bm{\xi}+k\bm{u}]-\bm{p}_\mathrm{s}\|}
 {\mathrm{c}}  \right)}{\mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\|}{\mathrm{c}}\right)
