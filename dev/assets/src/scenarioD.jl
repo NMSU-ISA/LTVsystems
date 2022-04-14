@@ -6,14 +6,14 @@ using Plots
 𝐩ₛ =  [0.0, 0.3]
 # Multiple Receiver
 𝐩ᵣ₁ =  [-0.3, 0.0]
-𝐩ᵣ₂ =  [0.6, 0.0]
-𝐩ᵣ₃ =  [0.2, 0.0]
+𝐩ᵣ₂ =  [0.0, 0.0]
+𝐩ᵣ₃ =  [0.3, 0.0]
 # Transmitter's signal i.e single pulse
 p(t) = δ(t-1.0e-15,1.0e-10)
 # Signal observed due to source
 q = LTIsourcesO(𝐩ₛ, p)
 #Multiple Targets
-α₁ = 0.8; 𝛏₁ = [0.9,0.0]
+α₁ = 0.7; 𝛏₁ = [0.9,0.0]
 R₁ = LTIsourcesO(𝛏₁, t->α₁*q(𝛏₁,t))
 α₂ = 0.5; 𝛏₂ = [0.5,0.0]
 R₂ = LTIsourcesO(𝛏₂, t->α₂*q(𝛏₂,t))
