@@ -281,10 +281,10 @@ Given the scenario D assumptions i.e. the position of the source,$𝐩ₛ$ and t
 
 $\hat{f}(\bm{\xi}) = \sum\limits_{i=1}^{N}fᵢ(\bm{\xi})$, where
 
-$fᵢ(\bm{\xi}) = \dfrac{zᵢ\left(\frac{\|(\bm{p}_\mathrm{r})_i-    \bm{\xi}\|+\|\bm{\xi}
+$fᵢ(\bm{\xi}) = \sum\limits_{n=1}^{N}\dfrac{zᵢ\left(\frac{\|(\bm{p}_\mathrm{r})_i-    \bm{\xi}_n\|+\|\bm{\xi}
 -\bm{p}_\mathrm{s}\|}
-{\mathrm{c}}\right)}{\mathrm{A}(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}})
-\mathrm{A}(\frac{\|(\bm{p}_\mathrm{r})_i-\bm{\xi}\|}{\mathrm{c}})}$
+{\mathrm{c}}\right)}{\mathrm{A}(\frac{\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}})
+\mathrm{A}(\frac{\|(\bm{p}_\mathrm{r})_i-\bm{\xi}_n\|}{\mathrm{c}})}$
 
 ```julia
 using ISA, LTVsystems
