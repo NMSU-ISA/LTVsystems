@@ -190,7 +190,7 @@ plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 Given the scenario C assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function as follows.
 
 $\hat{f}(\bm{\xi}) = \sum\limits_{n=1}^{N} \dfrac{z\left(\frac{\|\bm{p}_\mathrm{r}-
-\bm{\xi}_n\|+\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)}
+\bm{\xi}_n\|+\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)}
 {\mathrm{A}(\frac{\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}})    
 \mathrm{A}(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_n\|}{\mathrm{c}})}$
 
