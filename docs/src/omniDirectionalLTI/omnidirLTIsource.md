@@ -236,8 +236,8 @@ scatter!(p2,[𝛏₃[1]],[𝛏₃[2]],markersize = 8.5,color = :red, marker=:sta
 
 ### Forward Modeling
 
-Given the scenario D assumptions with the position of the source $𝐩ₛ$ and the multiple receivers at $(𝐩ᵣ)_i$ where $i=1,2,…N$ by providing the transmitted signal, $p(t)$ as an ideal impulse and multiple stationary reflectors say N.
-We obtained the closed form expression of the observed signals, $zᵢ(t)$ where $i=1,2,…N$. as follows.
+Given the scenario D assumptions with the position of the source $𝐩ₛ$ and the multiple receivers at $(𝐩ᵣ)_i$ where $i = 1,2,…M$ by providing the transmitted signal, $p(t)$ as an ideal impulse and multiple stationary reflectors $\bm{\xi}_n$ where $n = 1,2,…,N$ and $M ≥N$.
+We obtained the closed form expression of the observed signals, $zᵢ(t)$ where $i = 1,2,…M$. as follows.
 
 
 $zᵢ(t) = \sum\limits_{n=1}^{N} \alpha_n \mathrm{A}\left(\frac{\|(\bm{p}_\mathrm{r})_i-\bm{\xi}_n\|}{\mathrm{c}}\right)
@@ -274,9 +274,9 @@ plot!(p1,t, z₃(t))
 
 ### Inverse Modeling
 
-Given the scenario D assumptions i.e. the position of the source,$𝐩ₛ$ and the multiple receivers at $(𝐩ᵣ)_i$ where $i=1,2,…N$ by providing the transmitted signal, $p(t)$ as an ideal impulse and multiple stationary reflectors say N, we obtained the received signal, $zᵢ(t)$ where $i=1,2,…N$. Now we can estimate the reflector function as follows.
+Given the scenario D assumptions, we obtained the received signals, $zᵢ(t)$ where $i=1,2,…M$. Now we can estimate the reflector function as follows.
 
-$\hat{f}(\bm{\xi}) = \sum\limits_{i=1}^{N}fᵢ(\bm{\xi})$, where
+$\hat{f}(\bm{\xi}) = \sum\limits_{i=1}^{M}fᵢ(\bm{\xi})$, where
 
 $fᵢ(\bm{\xi}) = \sum\limits_{n=1}^{N}\dfrac{zᵢ\left(\frac{\|(\bm{p}_\mathrm{r})_i-    \bm{\xi}_n\|+\|\bm{\xi}_n
 -\bm{p}_\mathrm{s}\|}
