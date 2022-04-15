@@ -8,7 +8,7 @@ using Plots
 #Receiver
 𝐩ᵣ =  [0.9, 0.9]
 # Transmitter's signal i.e single pulse
-p(t) = δ(t-1.0e-15,1.0e-10)
+p(t) = δ(t,1.0e-10)
 
 # Signal observed due to source
 q = LTIsourcesO(𝐩ₛ, p)

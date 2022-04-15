@@ -21,7 +21,7 @@ value = [α₀*(temp[i][1]) for i in 1:length(L)]
 # Both gives same results
 Tc = [α₀*(ξ₀.*L[i] .+ ([0.0,1.0].*L[i]^2)/2) for i in 1:length(L)]
 
-p(t) = δ(t-1.0e-15,1.0e-10)
+p(t) = δ(t,1.0e-10)
 W = []
 q = LTIsourcesO(𝐩ₛ, p)
 for i in 1:length(value)
