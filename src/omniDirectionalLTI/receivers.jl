@@ -32,12 +32,60 @@ sourceList = ψ.sourceList
    return val
 end
 
+#DEFINE STATIONARY ψ w/ DIRECTIONAL ANTENNA and TIME-INVARIANT BEAM CENTER
+
+struct LTIreceiversDTI
+   sourceList::Vector{LTISources}
+   position::Vector{Float64}
+   beamCenter::Vector{Float64}
+   antennaGain ::Function
+end
+
+function (ψ::LTIreceiversDTI)(t₀::Float64)
+   sourceList = ψ.sourceList
+   𝐩ᵣ = ψ.position
+   𝐛, G = ψ.beamCenter , ψ.antennaGain
+      val = 0.0
+      for i = 1:length(sourceList)
+         val+=sourceList[i](𝐩ᵣ,t₀) * G( angleBetween(𝐛, 𝐩ᵣ-sourceList[i].position) )
+      end
+      return val
+end
+
+#DEFINE STATIONARY ψ w/ DIRECTIONAL ANTENNA and TIME-VARYING BEAM CENTER
+
+struct LTIreceiversD
+   sourceList::Vector{LTISources}
+   position::Vector{Float64}
+   beamCenter::Function
+   antennaGain ::Function
+end
+
+function (ψ::LTIreceiversD)(t₀::Float64)
+   sourceList = ψ.sourceList
+   𝐩ᵣ = ψ.position
+   𝐛, G = ψ.beamCenter , ψ.antennaGain
+      val = 0.0
+      for i = 1:length(sourceList)
+         val+=sourceList[i](𝐩ᵣ,t₀) * G( angleBetween(𝐛(t₀), 𝐩ᵣ-sourceList[i].position) )
+      end
+      return val
+end
+
 
 # DISPLAY
 Base.show(io::IO, x::LTIreceiversO) = print(io, "LTI Omnidirectional Receivers")
+Base.show(io::IO, x::LTIreceiversDTI) = print(io, "LTI Receivers with Directional Antenna and Time-Invariant Beam Center")
+Base.show(io::IO, x::LTIreceiversD) = print(io, "LTI Receivers with Directional Antenna and Time-Varying Beam Center")
+
+LTIReceivers = Union{LTIreceiversO,
+                   LTIreceiversDTI,
+                   LTIreceiversD,
+                   }
+
 
 #multi-thread model evaluation over a time interval
-function (z::LTIreceiversO)(t::Vector{Float64})
+function (z::LTIReceivers)(t::Vector{Float64})
    Z = zeros( typeof(z(0.0)), size(t))
    Threads.@threads for i = 1:length(t)
       Z[i] = z(t[i])

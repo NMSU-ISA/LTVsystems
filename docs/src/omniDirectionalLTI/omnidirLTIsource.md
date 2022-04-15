@@ -13,11 +13,11 @@
 
 ### Forward Modeling
 
-Given the scenario A assumptions with the position of the source $𝐩ₛ$, the receiver $𝐩ᵣ$ being at the same location $(𝐩ₛ=𝐩ᵣ)$, by providing the transmitted signal p(t) as an ideal impulse, and an ideal point reflector $\bm{\xi}_0$. We obtained the closed form expression of the observed signal, $z(t)$ as follows.
+Given the scenario A assumptions with the position of the source $𝐩ₛ$, the receiver $𝐩ᵣ$ being at the same location $(𝐩ₛ=𝐩ᵣ)$, by providing the transmitted signal $p(t)=δ(t)$ as an ideal impulse, and an ideal point reflector $\bm{\xi}_0$. We obtained the closed form expression of the observed signal, $z(t)$ as follows.
 
 $z(t) = \alpha_0 \mathrm{A}^2
 \left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}
-{\mathrm{c}}\right)p\left(t -2\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)$
+{\mathrm{c}}\right)δ\left(t -2\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)$
 
 Now we can simulate the scenario and plot signal at the receiver as follows.
 
@@ -85,13 +85,13 @@ For all simulated results, we displayed the sources as a green pentagon, the rec
 
 ### Forward Modeling
 
-Given scenario B assumptions with the position of the source $𝐩ₛ$, the receiver $𝐩ᵣ$, by providing the transmitted signal  $p(t)$ as an ideal impulse,
+Given scenario B assumptions with the position of the source $𝐩ₛ$, the receiver $𝐩ᵣ$, by providing the transmitted signal  $p(t)=δ(t)$ as an ideal impulse,
 and an ideal point reflector $\bm{\xi}_0$.
 We obtained the closed form expression of the observed signal, $z(t)$ as follows.
 
 $z(t) = \alpha_0 \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)
 \mathrm{A}\left(\frac{\|\bm{\xi}_0-
-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right) p\left(t-
+\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right) δ\left(t-
 \frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|+\|\bm{\xi}_0-
 \bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)$
 
@@ -158,11 +158,11 @@ scatter!(p2,[𝛏₁[1]],[𝛏₁[2]],markersize = 8.5,color = :red, marker=:sta
 
 ### Forward Modeling
 
-Given the scenario C assumptions with the position of the source $𝐩ₛ$ and the receiver $𝐩ᵣ$, by providing the transmitted signal, $p(t)$ as an ideal impulse and multiple stationary reflectors say N. We obtained the closed form expression of the observed signal, $z(t)$ as follows.
+Given the scenario C assumptions with the position of the source $𝐩ₛ$ and the receiver $𝐩ᵣ$, by providing the transmitted signal, $p(t)=δ(t)$ as an ideal impulse and multiple stationary reflectors say N. We obtained the closed form expression of the observed signal, $z(t)$ as follows.
 
 $z(t) = \sum\limits_{n=1}^{N} \alpha_n \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_n\|}{\mathrm{c}}\right)
 \mathrm{A}\left(\frac{\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)
-p\left(t-\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_n\|+\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)$
+δ\left(t-\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_n\|+\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)$
 
 We can simulate the scenario and plot signal at the receiver as follows.
 
@@ -236,13 +236,13 @@ scatter!(p2,[𝛏₃[1]],[𝛏₃[2]],markersize = 8.5,color = :red, marker=:sta
 
 ### Forward Modeling
 
-Given the scenario D assumptions with the position of the source $𝐩ₛ$ and the multiple receivers at $(𝐩ᵣ)_i$ where $i = 1,2,…M$ by providing the transmitted signal, $p(t)$ as an ideal impulse and multiple stationary reflectors $\bm{\xi}_n$ where $n = 1,2,…,N$ and $M ≥N$.
+Given the scenario D assumptions with the position of the source $𝐩ₛ$ and the multiple receivers at $(𝐩ᵣ)_i$ where $i = 1,2,…M$ by providing the transmitted signal, $p(t)=δ(t)$ as an ideal impulse and multiple stationary reflectors $\bm{\xi}_n$ where $n = 1,2,…,N$ and $M ≥N$.
 We obtained the closed form expression of the observed signals, $zᵢ(t)$ where $i = 1,2,…M$. as follows.
 
 
 $zᵢ(t) = \sum\limits_{n=1}^{N} \alpha_n \mathrm{A}\left(\frac{\|(\bm{p}_\mathrm{r})_i-\bm{\xi}_n\|}{\mathrm{c}}\right)
 \mathrm{A}\left(\frac{\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)
-p\left(t-\frac{\|(\bm{p}_\mathrm{r})_i-\bm{\xi}_n\|+\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)$
+δ\left(t-\frac{\|(\bm{p}_\mathrm{r})_i-\bm{\xi}_n\|+\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)$
 
 
 We can simulate the scenario and plot signal at the receiver as follows.
@@ -306,7 +306,7 @@ a₂(ξ::Vector{Float64}) = A(distBetween(ξ,𝐩ₛ)./lightSpeed).*A(distBetwee
 a₃(ξ::Vector{Float64}) = A(distBetween(ξ,𝐩ₛ)./lightSpeed).*A(distBetween(𝐩ᵣ₃,ξ)./lightSpeed)
 f₁(ξ::Vector{Float64})=(z₁((distBetween(ξ,𝐩ₛ) .+ distBetween(𝐩ᵣ₁,ξ)). lightSpeed))./(a₁(ξ::Vector{Float64}))
 f₂(ξ::Vector{Float64})=(z₂((distBetween(ξ,𝐩ₛ) .+ distBetween(𝐩ᵣ₂,ξ))./lightSpeed))./(a₂(ξ::Vector{Float64}))
-f₃(ξ::Vector{Float64})=(z₂((distBetween(ξ,𝐩ₛ) .+ distBetween(𝐩ᵣ₃,ξ))./lightSpeed))./(a₃(ξ::Vector{Float64}))
+f₃(ξ::Vector{Float64})=(z₃((distBetween(ξ,𝐩ₛ) .+ distBetween(𝐩ᵣ₃,ξ))./lightSpeed))./(a₃(ξ::Vector{Float64}))
 f(ξ::Vector{Float64})=f₁(ξ::Vector{Float64}).+f₂(ξ::Vector{Float64}).+
 f₃(ξ::Vector{Float64})
 Δpos = 0.01
@@ -351,11 +351,11 @@ p3 = plot(x_range,y_range,transpose(val1),st=:surface,camera=(0,90),
 
 ### Forward Modeling
 
-Given the scenario E assumptions with the position of the source $𝐩ₛ$ and the receivers $𝐩ᵣ$, by providing the transmitted signal, $p(t)$ as an ideal impulse and a continuous line segment reflector. We obtained the received signal, $z(t)$ as follows.
+Given the scenario E assumptions with the position of the source $𝐩ₛ$ and the receivers $𝐩ᵣ$, by providing the transmitted signal, $p(t)=δ(t)$ as an ideal impulse and a continuous line segment reflector. We obtained the received signal, $z(t)$ as follows.
 
 $z(t) = \int_{0}^{L}\Big[\alpha_0 \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}_0+k\bm{u}]\|}{\mathrm{c}}\right)
 \mathrm{A}\left(\frac{\|[\bm{\xi}_0+k\bm{u}]-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)
-p\left(t-\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}_0+k\bm{u}]\|}{\mathrm{c}}-\frac{\|[\bm{\xi}_0+k\bm{u}]-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right) \Big] dk$
+δ\left(t-\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}_0+k\bm{u}]\|}{\mathrm{c}}-\frac{\|[\bm{\xi}_0+k\bm{u}]-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right) \Big] dk$
 
 We can simulate the scenario and plot signal at the receiver as follows.
 
