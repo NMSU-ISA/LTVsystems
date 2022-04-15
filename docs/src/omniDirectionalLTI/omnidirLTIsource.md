@@ -330,8 +330,8 @@ scatter!(p2,[𝛏₂[1]],[𝛏₂[2]],markersize = 8.5,color = :red,
         marker=:star8, label='t')
 scatter!(p2,[𝛏₃[1]],[𝛏₃[2]],markersize = 8.5,color = :red,
         marker=:star8, label='t')
-f_new(ξ::Vector{Float64})=f₁(ξ::Vector{Float64}).*f₂(ξ::Vector{Float64}).*
-f₃(ξ::Vector{Float64})
+f_new(ξ::Vector{Float64})=(f₁(ξ::Vector{Float64}).*f₂(ξ::Vector{Float64}).*
+f₃(ξ::Vector{Float64}))^(1/3)
 val1 = [f_new(𝐮) for 𝐮 ∈ xyGrid]
 p3 = plot(x_range,y_range,transpose(val1),st=:surface,camera=(0,90),
        legend=false,zticks=false,title="Scenario D reflector Estimation")

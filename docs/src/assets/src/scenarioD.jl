@@ -60,7 +60,7 @@ scatter!(p2,[𝛏₃[1]],[𝛏₃[2]],markersize = 8.5,color = :red, marker=:sta
 png(path*"scenarioD_simulation.png")
 
 # Target estimation
-f_new(ξ::Vector{Float64})=f₁(ξ::Vector{Float64}).*f₂(ξ::Vector{Float64}).*f₃(ξ::Vector{Float64})
+f_new(ξ::Vector{Float64})=(f₁(ξ::Vector{Float64}).*f₂(ξ::Vector{Float64}).*f₃(ξ::Vector{Float64}))^(1/3)
 #SPATIAL SIMULATION
 val1 = [f_new(𝐮) for 𝐮 ∈ xyGrid]
 
