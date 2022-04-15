@@ -9,7 +9,7 @@ using Plots
 𝐩ᵣ =  [0.0, 0.0]  # Considering 𝐩ₛ = 𝐩ᵣ
 
 # Transmitter's signal i.e single pulse
-p(t) = δ(t-1.0e-15,1.0e-10)
+p(t) = δ(t,1.0e-10)
 
 # Signal observed due to source
 q = LTIsourcesO(𝐩ₛ, p)
