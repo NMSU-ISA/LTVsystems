@@ -56,22 +56,22 @@ using Plots
 𝐩ᵣ =  [0.0, 0.0]  # Considering 𝐩ₛ = 𝐩ᵣ
 
 # Transmitter's signal i.e single pulse
-#p(t) = δ(t-1.0e-14,1.0e-10)
+p(t) = δ(t-1.0e-14,1.0e-10)
 #p(t) = u(t)-u(t-1.0e-9)
-p(t) = (u(mod(t,1.0e-9))-u(mod(t,1.0e-9)-1.0e-10))*u(t)
+#p(t) = (u(mod(t,1.0e-9))-u(mod(t,1.0e-9)-1.0e-10))*u(t)
 𝐛 = [1.0,0.0]
-#G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
-#𝐛(t) = [cos(2π*1.0e8*t),sin(2π*1.0e8*t)]
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
+#𝐛(t) = [cos(2π*1.0e8*t),sin(2π*1.0e8*t)]
+#G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
 # Signal observed due to source
-q = LTIsourcesDTI(𝐩ₛ, p, 𝐛, G)
+q = LTIsourcesDTI(𝐩ₛ, p,𝐛,G)
 
 #Reflectors
 α₁ = 0.7; 𝛏₁ = [1.8,0.0]
 R₁ = LTIsourcesO(𝛏₁, t->α₁*q(𝛏₁,t))
 
 # Observed signal
-z = LTIreceiversO([R₁],𝐩ᵣ)
+z = LTIreceiversDTI([R₁],𝐩ᵣ,𝐛, G)
 
 #TEMPORAL SIMULATION
 t = collect(0.0:1.0e-10:25.5e-9)
@@ -81,7 +81,8 @@ png(path*"scenarioA_DirTIsignal.png")
 
 # Estimator function
 a₁(ξ::Vector{Float64}) = α₁.*(A(distBetween(ξ,𝐩ₛ)./lightSpeed))^2
-f(ξ::Vector{Float64})=(z(2(distBetween(ξ,𝐩ₛ))./lightSpeed))./(a₁(ξ::Vector{Float64}))
+D(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ᵣ))^2
+f(ξ::Vector{Float64})=(z(2(distBetween(ξ,𝐩ₛ))./lightSpeed))./(a₁(ξ::Vector{Float64})).*D(ξ::Vector{Float64})
 
 #SPATIAL SIMULATION
 Δpos = 0.01
