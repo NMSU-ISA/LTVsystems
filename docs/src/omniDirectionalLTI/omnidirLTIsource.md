@@ -189,10 +189,10 @@ plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 
 Given the scenario C assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function as follows.
 
-$\hat{f}(\bm{\xi}) = \sum\limits_{n=1}^{N} \dfrac{z\left(\frac{\|\bm{p}_\mathrm{r}-
-\bm{\xi}_n\|+\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)}
-{\mathrm{A}(\frac{\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}})    
-\mathrm{A}(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_n\|}{\mathrm{c}})}$
+$\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{\|\bm{p}_\mathrm{r}-
+\bm{\xi}\|+\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)}
+{\mathrm{A}(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}})    
+\mathrm{A}(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}})}$
 
 ```julia
 using ISA, LTVsystems
@@ -276,12 +276,12 @@ plot!(p1,t, z₃(t))
 
 Given the scenario D assumptions, we obtained the received signals, $zᵢ(t)$ where $i=1,2,…M$. Now we can estimate the reflector function as follows.
 
-$\hat{f}(\bm{\xi}) = \sum\limits_{i=1}^{M}fᵢ(\bm{\xi})$, where
+$\hat{f}(\bm{\xi}) = (\prod\limits_{i=1}^{M}fᵢ(\bm{\xi}))^\frac{1}{M}$, where
 
-$fᵢ(\bm{\xi}) = \sum\limits_{n=1}^{N}\dfrac{zᵢ\left(\frac{\|(\bm{p}_\mathrm{r})_i-    \bm{\xi}_n\|+\|\bm{\xi}_n
+$fᵢ(\bm{\xi}) = \dfrac{zᵢ\left(\frac{\|(\bm{p}_\mathrm{r})_i-    \bm{\xi}\|+\|\bm{\xi}
 -\bm{p}_\mathrm{s}\|}
-{\mathrm{c}}\right)}{\mathrm{A}(\frac{\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}})
-\mathrm{A}(\frac{\|(\bm{p}_\mathrm{r})_i-\bm{\xi}_n\|}{\mathrm{c}})}$
+{\mathrm{c}}\right)}{\mathrm{A}(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}})
+\mathrm{A}(\frac{\|(\bm{p}_\mathrm{r})_i-\bm{\xi}\|}{\mathrm{c}})}$
 
 ```julia
 using ISA, LTVsystems
