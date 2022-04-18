@@ -1,6 +1,6 @@
 # Sources
 
-## LTI Omnidirectional Sources
+## LTI Omnidirectional Source
 
 An **LTI Omnidirectional Source**  is parameterized by taking the convolution between the transmitted signal and the impulse response from the source located at position, $\bm{p}_\mathrm{s}$. Mathematically, we can define an **LTI Omnidirectional Source** as follows.
 
@@ -17,11 +17,9 @@ using LTVsystems
 p(t) = δ(t-1.0e-15,1.0e-10)
 q = LTIsourceO(𝐩ₛ, p)
 ```
-## LTI Directional Sources
+## LTI Directional Source
 
-### LTI Directional Sources with Time-Invariant Beam Center
-
-An **LTI Directional Source** with time-invariant beam center is parameterized by accounting the direction of the antenna which is defined by directional gain,
+An **LTI Directional Source** is parameterized by accounting the direction of the antenna which is defined by directional gain,
 
 $\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,\textcolor{myLightSlateGrey}
 {\bm{p}_\mathrm{s},\bm{b}_\mathrm{s}}\right)= \mathrm{G}_\mathrm{s}
@@ -30,7 +28,7 @@ $\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,\textcolor{myLightSlateGrey}
 where $∠[⋅,⋅]$ returns the angle between the two arguments and $\mathrm{G}_\mathrm{s}(\Theta)$
 is the source antenna's $\textit{voltage gain}$ as a function of angle $\Theta$ relative to the beam center $\bm{b}_\mathrm{s}$.
 
-Mathematically, an **LTI Directional Source** with time-invariant beam center is given as follows.
+Mathematically, an **LTI Directional Source** is given as follows.
 
 $q(\bm{\xi},t)=p(t) \overset{t}{*} h(\bm{\xi},t;\,
 \textcolor{myLightSlateGrey}{\bm{p}_\mathrm{s},\bm{b}_\mathrm{s}})$
@@ -38,8 +36,8 @@ $q(\bm{\xi},t)=p(t) \overset{t}{*} h(\bm{\xi},t;\,
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTIsource_DTI.png)
 
 
-### Defining an LTI Directional Source with Time-Invariant Beam Center
-We can define an  **LTI Directional Source** with time-invariant beam center by calling `LTIsourceDTI()` with a transmitted signal, $p(t)$, the source position vector, $\bm{p}_\mathrm{s}$,time-invariant beam center,
+### Defining an LTI Directional Source
+We can define an  **LTI Directional Source** by calling `LTIsourceDTI()` with a transmitted signal, $p(t)$, the source position vector, $\bm{p}_\mathrm{s}$,time-invariant beam center,
 $\bm{b}_\mathrm{s}$ and
 $\mathrm{G}_\mathrm{s}(\Theta)$ is the source antenna's
 $\textit{voltage gain}$ as a function of angle $\Theta$ relative to the beam center $\bm{b}_\mathrm{s}$.
@@ -51,17 +49,21 @@ G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
 p(t) = δ(t-1.0e-15,1.0e-10)
 q = LTIsourceDTI(𝐩ₛ, p, 𝐛, G)
 ```
-### LTI Directional Sources with Time-Varying Beam Center
-Mathematically, an **LTI Directional Source** with time-varying beam center is given as follows.
 
-$q(\bm{\xi},t)=p(t) \overset{t}{*} h(\bm{\xi},t;\,
-\textcolor{myLightSlateGrey}{\bm{p}_\mathrm{s}},\bm{b}_\mathrm{s}(t))$
+## Stationary Direction Source
+
+### Stationary Direction Source with Time-Varying Beam Center
+
+Mathematically, a **Stationary Direction Source** with time-varying beam center is given as follows.
+
+$q(\bm{\xi},t)=p(t) \overset{t}{*} h\big(\bm{\xi},t;\,
+\textcolor{myLightSlateGrey}{\bm{p}_\mathrm{s}},\bm{b}_\mathrm{s}(t)\big)$
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTIsource_D.png)
 
 
-### Defining an LTI Directional Source with Time-Varying Beam Center
-We can define an  **LTI Directional Source** with time-varying beam center by calling `LTIsourceD()` with a transmitted signal, $p(t)$, the source position vector, $\bm{p}_\mathrm{s}$, time-varying beam center,
+### Defining an Stationary Direction Source with Time-Varying Beam Center
+We can define an  **Stationary Direction Source** with time-varying beam center by calling `LTIsourceD()` with a transmitted signal, $p(t)$, the source position vector, $\bm{p}_\mathrm{s}$, time-varying beam center,
 $\bm{b}_\mathrm{s}(t)$
 and $\mathrm{G}_\mathrm{s}(\Theta)$ is the source antenna's
 $\textit{voltage gain}$ as a function of angle $\Theta$ relative to the beam center $\bm{b}_\mathrm{s}(t)$.

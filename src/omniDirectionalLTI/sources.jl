@@ -72,8 +72,8 @@ end
 
 # DISPLAY
 Base.show(io::IO, x::LTIsourceO) = print(io, "LTI Omnidirectional Source")
-Base.show(io::IO, x::LTIsourceDTI) = print(io, "LTI Source with Directional Antenna and Time-Invariant Beam Center")
-Base.show(io::IO, x::LTIsourceD) = print(io, "LTI Source with Directional Antenna and Time-Varying Beam Center")
+Base.show(io::IO, x::LTIsourceDTI) = print(io, "LTI Directional Source")
+Base.show(io::IO, x::LTIsourceD) = print(io, "Stationary Direction Source with Time-Varying Beam Center")
 
 LTISources = Union{LTIsourceO,
                    LTIsourceDTI,

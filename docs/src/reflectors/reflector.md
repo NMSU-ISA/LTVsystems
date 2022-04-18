@@ -8,7 +8,7 @@ as follows
 
 $f(\bm{\xi}) = \sum_{n} \alpha_n \delta(\bm{\xi} - \bm{\xi}_n)$
 
-Mathematically, we can define the reflection due to the **LTI Omnidirectional Sources** as follows.
+Mathematically, we can define the reflection due to the **LTI Omnidirectional Source** as follows.
 
 $r(\bm{\xi},t) = f(\bm{\xi}) q(\bm{\xi},t)$
 

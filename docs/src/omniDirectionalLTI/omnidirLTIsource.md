@@ -276,7 +276,7 @@ plot!(p1,t, z₃(t))
 
 Given the scenario D assumptions, we obtained the received signals, $zᵢ(t)$ where $i=1,2,…M$. Now we can estimate the reflector function as follows.
 
-$\hat{f}(\bm{\xi}) = (\prod\limits_{i=1}^{M}fᵢ(\bm{\xi}))^\frac{1}{M}$, where
+$\hat{f}(\bm{\xi}) = \left(\prod\limits_{i=1}^{M}fᵢ(\bm{\xi})\right)^{\frac{1}{M}}$, where
 
 $fᵢ(\bm{\xi}) = \dfrac{zᵢ\left(\frac{\|(\bm{p}_\mathrm{r})_i-    \bm{\xi}\|+\|\bm{\xi}
 -\bm{p}_\mathrm{s}\|}

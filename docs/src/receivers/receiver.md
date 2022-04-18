@@ -1,11 +1,11 @@
 # Receivers
 
-## LTI Omnidirectional Receivers
+## LTI Omnidirectional Receiver
 
 In order to define **LTI Omnidirectional Receiver**, first we observed the signal due to the reflection which is given by taking convolution between the reflected signal, $r(\bm{\xi},t)$ and the impulse response from the receiver located at position, $\bm{p}_\mathrm{r}$. Mathematically, we can define the observed signal
 as follows
 
-$\psi(\bm{\xi},t) = r(\bm{\xi},t) \overset{t}{*} g(\bm{\xi},t;\,{\bm{p}_\mathrm{r}(\cdot)})$
+$\psi(\bm{\xi},t) = r(\bm{\xi},t) \overset{t}{*} g\big(\bm{\xi},t;\,{\bm{p}_\mathrm{r}(\cdot)}\big)$
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_Psi.png)
 
