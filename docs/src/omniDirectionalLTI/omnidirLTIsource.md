@@ -236,13 +236,13 @@ scatter!(p2,[𝛏₃[1]],[𝛏₃[2]],markersize = 8.5,color = :red, marker=:sta
 
 ### Forward Modeling
 
-Given the scenario D assumptions with the position of the source $𝐩ₛ$ and the multiple receivers at $(𝐩ᵣ)_i$ where $i = 1,2,…M$ by providing the transmitted signal, $p(t)=δ(t)$ as an ideal impulse and multiple stationary reflectors $\bm{\xi}_n$ where $n = 1,2,…,N$ and $M ≥N$.
+Given the scenario D assumptions with the position of the source $𝐩ₛ$ and the multiple receivers at $\mathbf{p}_{\mathrm{r}^{(i)}}$ where $i = 1,2,…M$ by providing the transmitted signal, $p(t)=δ(t)$ as an ideal impulse and multiple stationary reflectors $\bm{\xi}_n$ where $n = 1,2,…,N$ and $M ≥N$.
 We obtained the closed form expression of the observed signals, $zᵢ(t)$ where $i = 1,2,…M$. as follows.
 
 
-$zᵢ(t) = \sum\limits_{n=1}^{N} \alpha_n \mathrm{A}\left(\frac{\|(\bm{p}_\mathrm{r})_i-\bm{\xi}_n\|}{\mathrm{c}}\right)
+$zᵢ(t) = \sum\limits_{n=1}^{N} \alpha_n \mathrm{A}\left(\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}-\bm{\xi}_n\|}{\mathrm{c}}\right)
 \mathrm{A}\left(\frac{\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)
-δ\left(t-\frac{\|(\bm{p}_\mathrm{r})_i-\bm{\xi}_n\|+\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)$
+δ\left(t-\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}-\bm{\xi}_n\|+\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)$
 
 
 We can simulate the scenario and plot signal at the receiver as follows.
@@ -278,10 +278,10 @@ Given the scenario D assumptions, we obtained the received signals, $zᵢ(t)$ wh
 
 $\hat{f}(\bm{\xi}) = \left(\prod\limits_{i=1}^{M}fᵢ(\bm{\xi})\right)^{\frac{1}{M}}$, where
 
-$fᵢ(\bm{\xi}) = \dfrac{zᵢ\left(\frac{\|(\bm{p}_\mathrm{r})_i-    \bm{\xi}\|+\|\bm{\xi}
+$fᵢ(\bm{\xi}) = \dfrac{zᵢ\left(\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}-    \bm{\xi}\|+\|\bm{\xi}
 -\bm{p}_\mathrm{s}\|}
 {\mathrm{c}}\right)}{\mathrm{A}(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}})
-\mathrm{A}(\frac{\|(\bm{p}_\mathrm{r})_i-\bm{\xi}\|}{\mathrm{c}})}$
+\mathrm{A}(\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}-\bm{\xi}\|}{\mathrm{c}})}$
 
 ```julia
 using ISA, LTVsystems

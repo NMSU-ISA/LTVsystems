@@ -14,7 +14,7 @@ We can define an  **LTI Omnidirectional Source** by calling `LTIsourceO()` with 
 ```@example
 using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
-p(t) = δ(t-1.0e-15,1.0e-10)
+p(t) = δ(t,1.0e-10)
 q = LTIsourceO(𝐩ₛ, p)
 ```
 ## LTI Directional Source
@@ -46,7 +46,7 @@ using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
 𝐛 = [1.0,0.0]
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
-p(t) = δ(t-1.0e-15,1.0e-10)
+p(t) = δ(t,1.0e-10)
 q = LTIsourceDTI(𝐩ₛ, p, 𝐛, G)
 ```
 
@@ -72,6 +72,6 @@ using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
 𝐛(t) = [cos(2π*1.0e8*t),sin(2π*1.0e8*t)]
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
-p(t) = δ(t-1.0e-15,1.0e-10)
+p(t) = δ(t,1.0e-10)
 q = LTIsourceD(𝐩ₛ, p, 𝐛, G)
 ```

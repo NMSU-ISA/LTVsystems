@@ -9,7 +9,7 @@ the *receiver position*, 𝐩ᵣ and all the *reflections*, `Rᵢ` where i=1,2,�
 using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  [1.0, 0.0]
-p(t) = δ(t-1.0e-15,1.0e-10)
+p(t) = δ(t,1.0e-10)
 q = LTIsourceO(𝐩ₛ, p)
 α₁ = 0.7; 𝛏₁ = [1.8,0.0]
 R₁ = LTIsourceO(𝛏₁, t->α₁*q(𝛏₁,t))
