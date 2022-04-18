@@ -23,13 +23,13 @@ Tc = [α₀*(ξ₀.*L[i] .+ ([0.0,1.0].*L[i]^2)/2) for i in 1:length(L)]
 
 p(t) = δ(t,1.0e-10)
 W = []
-q = LTIsourcesO(𝐩ₛ, p)
+q = LTIsourceO(𝐩ₛ, p)
 for i in 1:length(value)
-R₁ = LTIsourcesO(value[i], t->q(value[i],t))
+R₁ = LTIsourceO(value[i], t->q(value[i],t))
 push!(W,R₁)
 end
 #println(W)
-z = LTIreceiversO(W,𝐩ᵣ)
+z = LTIreceiverO(W,𝐩ᵣ)
 #TEMPORAL SIMULATION
 t = collect(0.0:1.0e-10:15.5e-9)
 p1 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)

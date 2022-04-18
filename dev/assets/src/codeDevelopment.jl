@@ -3,41 +3,26 @@ using QuadGK
 using Plots
 𝐩ₛ =  [0.0, 0.3]
 𝐩ᵣ =  [-0.3, 0.0]
-
-# Continuos target, suppose line segment AB has length 2
-
-#--------------------
+p(t) = δ(t-1.0e-15,1.0e-10)
+q = LTIsourceO(𝐩ₛ, p)
 ξ₀=[0.0,0.3]
 α₀ = 0.6;
-#L = collect(1.0:0.01:2.0)
-#L = collect(range(1.5, 2.5, step=0.025))
 L = collect(range(1.0, 2.0, step=0.025))
-#L = [1.1,1.5,2.0] # similar to scenario C i.e mutiple targets
 g(k) = ξ₀ .+ k.*[0.0,1.0]
-temp = quadgk.(g, 0.0, L)
-value = [α₀*(temp[i][1]) for i in 1:length(L)]
+R₁(k) = LTIsourceO(ξ₀ .+ k.*[0.0,1.0], t->α₀*q(ξ₀ .+ k.*[0.0,1.0],t))
+# Continuos target, suppose line segment AB has length 2
+temp = quadgk.(k->R₁(k),0.0,L)
+z = LTIreceiverO([R₁],𝐩ᵣ)
+
 #-------------------Alternate way
 #Tc = [α₀*(ξ₀.*L[i] .+ ([1.0,0.0].*L[i]^2)/2) for i in 1:length(L)]
-
-p(t) = δ(t-1.0e-15,1.0e-10)
-W=[]
-q = LTIsourcesO(𝐩ₛ, p)
-#for i = 1:length(L)
-#R₁ = LTIsourcesO(ξ₀.+ L[i].*[1.0,0.0], t->q(ξ₀.+ L[i].*[1.0,0.0],t))
-#push!(W,R₁)
-#end
-for i in 1:length(value)
-R₁ = LTIsourcesO(value[i], t->q(value[i],t))
-#z = LTIreceiversO([R₁],𝐩ᵣ)
-push!(W,R₁)
-end
-#z = LTIreceiversO(t->R₁(value[i],t),𝐩ᵣ)
-z = LTIreceiversO(W,𝐩ᵣ)
-
 #TEMPORAL SIMULATION
 t = collect(0.0:1.0e-10:25.5e-9)
 p1=plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 display(p1)
+
+
+
 
 # Estimator function
 a₁(ξ::Vector{Float64}) = A(distBetween(ξ,𝐩ₛ)./lightSpeed).*A(distBetween(𝐩ᵣ,ξ)./lightSpeed)
@@ -69,11 +54,11 @@ using Plots
 # Transmitter's signal i.e single pulse
 p(t) = δ(t-1.0e-15,1.0e-10)
 # Signal observed due to source
-q = LTIsourcesO(𝐩ₛ, p)
+q = LTIsourceO(𝐩ₛ, p)
 
 #Reflectors
 α₁ = 0.7; 𝛏₁ = [1.8,0.0]
-R₁ = LTIsourcesO(𝛏₁, t->α₁*q(𝛏₁,t))
+R₁ = LTIsourceO(𝛏₁, t->α₁*q(𝛏₁,t))
 
 Δpos = 0.01
 x_range = collect(-3:Δpos:3)
@@ -114,7 +99,7 @@ gif(anim, "scenarioA_receiver.gif", fps = 30)
 
 
 # Observed signal
-z = LTIreceiversO([R₁],𝐩ᵣ)
+z = LTIreceiverO([R₁],𝐩ᵣ)
 #TEMPORAL SIMULATION
 t = collect(0.0:1.0e-10:15.5e-9)
 plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
