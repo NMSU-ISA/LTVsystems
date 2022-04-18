@@ -27,10 +27,10 @@ using Plots
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  [0.0, 0.0]  
 p(t) = δ(t,1.0e-10)
-q = LTIsourcesO(𝐩ₛ, p)
+q = LTIsourceO(𝐩ₛ, p)
 α₀ = 0.7; 𝛏₀ = [1.8,0.0]
-R₁ = LTIsourcesO(𝛏₀, t->α₀*q(𝛏₀,t))
-z = LTIreceiversO([R₁],𝐩ᵣ)
+R₁ = LTIsourceO(𝛏₀, t->α₀*q(𝛏₀,t))
+z = LTIreceiverO([R₁],𝐩ᵣ)
 t = collect(0.0:1.0e-10:15.5e-9)
 plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 ```
@@ -49,10 +49,10 @@ using Plots
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  [0.0, 0.0]  
 p(t) = δ(t,1.0e-10)
-q = LTIsourcesO(𝐩ₛ, p)
+q = LTIsourceO(𝐩ₛ, p)
 α₀ = 0.7; 𝛏₀ = [1.8,0.0]
-R₁ = LTIsourcesO(𝛏₀, t->α₀*q(𝛏₀,t))
-z = LTIreceiversO([R₁],𝐩ᵣ)
+R₁ = LTIsourceO(𝛏₀, t->α₀*q(𝛏₀,t))
+z = LTIreceiverO([R₁],𝐩ᵣ)
 a₁(ξ::Vector{Float64}) = (A(distBetween(ξ,𝐩ₛ)./lightSpeed))^2
 f(ξ::Vector{Float64}) = (z(2(distBetween(ξ,𝐩ₛ))./lightSpeed))./   
                         (a₁(ξ::Vector{Float64}))
@@ -103,10 +103,10 @@ using Plots
 𝐩ₛ =  [1.0, 0.0]
 𝐩ᵣ =  [-1.0, 0.0]
 p(t) = δ(t,1.0e-10)
-q = LTIsourcesO(𝐩ₛ, p)
+q = LTIsourceO(𝐩ₛ, p)
 α₀ = 0.7; 𝛏₀ = [1.8,0.0]
-R₁ = LTIsourcesO(𝛏₀, t->α₀*q(𝛏₀,t))
-z = LTIreceiversO([R₁],𝐩ᵣ)
+R₁ = LTIsourceO(𝛏₀, t->α₀*q(𝛏₀,t))
+z = LTIreceiverO([R₁],𝐩ᵣ)
 t = collect(0.0:1.0e-10:15.5e-9)
 plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 ```
@@ -127,10 +127,10 @@ using Plots
 𝐩ₛ =  [1.0, 0.0]
 𝐩ᵣ =  [-1.0, 0.0]
 p(t) = δ(t,1.0e-10)
-q = LTIsourcesO(𝐩ₛ, p)
+q = LTIsourceO(𝐩ₛ, p)
 α₀ = 0.7; 𝛏₀ = [1.8,0.0]
-R₁ = LTIsourcesO(𝛏₀, t->α₀*q(𝛏₀,t))
-z = LTIreceiversO([R₁],𝐩ᵣ)
+R₁ = LTIsourceO(𝛏₀, t->α₀*q(𝛏₀,t))
+z = LTIreceiverO([R₁],𝐩ᵣ)
 a₁(ξ::Vector{Float64}) = A(distBetween(ξ,𝐩ₛ)./lightSpeed).*A(distBetween(𝐩ᵣ,ξ)./lightSpeed)
 f(ξ::Vector{Float64})=(z((distBetween(ξ,𝐩ₛ) .+ distBetween(𝐩ᵣ,ξ))./lightSpeed))./(a₁(ξ::Vector{Float64}))
 Δpos = 0.01
@@ -172,14 +172,14 @@ using Plots
 𝐩ₛ =  [0.3, 0.3]
 𝐩ᵣ =  [0.9, 0.9]
 p(t) = δ(t,1.0e-10)
-q = LTIsourcesO(𝐩ₛ, p)
+q = LTIsourceO(𝐩ₛ, p)
 α₁ = 0.7; 𝛏₁ = [0.9,0.0]
-R₁ = LTIsourcesO(𝛏₁, t->α₁*q(𝛏₁,t))
+R₁ = LTIsourceO(𝛏₁, t->α₁*q(𝛏₁,t))
 α₂ = 0.3; 𝛏₂ = [1.8,1.8]
-R₂ = LTIsourcesO(𝛏₂, t->α₂*q(𝛏₂,t))
+R₂ = LTIsourceO(𝛏₂, t->α₂*q(𝛏₂,t))
 α₃ = 0.5; 𝛏₃ = [2.7,-0.9]
-R₃ = LTIsourcesO(𝛏₃, t->α₃*q(𝛏₃,t))
-z = LTIreceiversO([R₁,R₂,R₃],𝐩ᵣ)
+R₃ = LTIsourceO(𝛏₃, t->α₃*q(𝛏₃,t))
+z = LTIreceiverO([R₁,R₂,R₃],𝐩ᵣ)
 t = collect(0.0:1.0e-10:25.5e-9)
 plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 ```
@@ -200,14 +200,14 @@ using Plots
 𝐩ₛ =  [0.3, 0.3]
 𝐩ᵣ =  [0.9, 0.9]
 p(t) = δ(t,1.0e-10)
-q = LTIsourcesO(𝐩ₛ, p)
+q = LTIsourceO(𝐩ₛ, p)
 α₁ = 0.7; 𝛏₁ = [0.9,0.0]
-R₁ = LTIsourcesO(𝛏₁, t->α₁*q(𝛏₁,t))
+R₁ = LTIsourceO(𝛏₁, t->α₁*q(𝛏₁,t))
 α₂ = 0.3; 𝛏₂ = [1.8,1.8]
-R₂ = LTIsourcesO(𝛏₂, t->α₂*q(𝛏₂,t))
+R₂ = LTIsourceO(𝛏₂, t->α₂*q(𝛏₂,t))
 α₃ = 0.5; 𝛏₃ = [2.7,-0.9]
-R₃ = LTIsourcesO(𝛏₃, t->α₃*q(𝛏₃,t))
-z = LTIreceiversO([R₁,R₂,R₃],𝐩ᵣ)
+R₃ = LTIsourceO(𝛏₃, t->α₃*q(𝛏₃,t))
+z = LTIreceiverO([R₁,R₂,R₃],𝐩ᵣ)
 a₀(ξ::Vector{Float64}) = A(distBetween(ξ,𝐩ₛ)./lightSpeed).*A(distBetween(𝐩ᵣ,ξ)./lightSpeed)
 f(ξ::Vector{Float64})=(z((distBetween(ξ,𝐩ₛ) .+ distBetween(𝐩ᵣ,ξ))./lightSpeed))./(a₀(ξ::Vector{Float64}))
 Δpos = 0.01
@@ -255,16 +255,16 @@ using Plots
 𝐩ᵣ₂ =  [0.0, 0.1]
 𝐩ᵣ₃ =  [0.3, 0.3]
 p(t) = δ(t,1.0e-10)
-q = LTIsourcesO(𝐩ₛ, p)
+q = LTIsourceO(𝐩ₛ, p)
 α₁ = 0.7; 𝛏₁ = [0.5,0.9]
-R₁ = LTIsourcesO(𝛏₁, t->α₁*q(𝛏₁,t))
+R₁ = LTIsourceO(𝛏₁, t->α₁*q(𝛏₁,t))
 α₂ = 0.5; 𝛏₂ = [0.7,0.0]
-R₂ = LTIsourcesO(𝛏₂, t->α₂*q(𝛏₂,t))
+R₂ = LTIsourceO(𝛏₂, t->α₂*q(𝛏₂,t))
 α₃ = 0.4; 𝛏₃ = [0.0,0.5]
-R₃ = LTIsourcesO(𝛏₃, t->α₃*q(𝛏₃,t))
-z₁ = LTIreceiversO([R₁,R₂,R₃],𝐩ᵣ₁)
-z₂ = LTIreceiversO([R₁,R₂,R₃],𝐩ᵣ₂)
-z₃ = LTIreceiversO([R₁,R₂,R₃],𝐩ᵣ₃)
+R₃ = LTIsourceO(𝛏₃, t->α₃*q(𝛏₃,t))
+z₁ = LTIreceiverO([R₁,R₂,R₃],𝐩ᵣ₁)
+z₂ = LTIreceiverO([R₁,R₂,R₃],𝐩ᵣ₂)
+z₃ = LTIreceiverO([R₁,R₂,R₃],𝐩ᵣ₃)
 t = collect(0.0:1.0e-10:15.5e-9)
 p1 = plot( t, z₁(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot!(p1,t, z₂(t))
@@ -291,16 +291,16 @@ using Plots
 𝐩ᵣ₂ =  [0.0, 0.1]
 𝐩ᵣ₃ =  [0.3, 0.3]
 p(t) = δ(t,1.0e-10)
-q = LTIsourcesO(𝐩ₛ, p)
+q = LTIsourceO(𝐩ₛ, p)
 α₁ = 0.7; 𝛏₁ = [0.5,0.9]
-R₁ = LTIsourcesO(𝛏₁, t->α₁*q(𝛏₁,t))
+R₁ = LTIsourceO(𝛏₁, t->α₁*q(𝛏₁,t))
 α₂ = 0.5; 𝛏₂ = [0.7,0.0]
-R₂ = LTIsourcesO(𝛏₂, t->α₂*q(𝛏₂,t))
+R₂ = LTIsourceO(𝛏₂, t->α₂*q(𝛏₂,t))
 α₃ = 0.4; 𝛏₃ = [0.0,0.5]
-R₃ = LTIsourcesO(𝛏₃, t->α₃*q(𝛏₃,t))
-z₁ = LTIreceiversO([R₁,R₂,R₃],𝐩ᵣ₁)
-z₂ = LTIreceiversO([R₁,R₂,R₃],𝐩ᵣ₂)
-z₃ = LTIreceiversO([R₁,R₂,R₃],𝐩ᵣ₃)
+R₃ = LTIsourceO(𝛏₃, t->α₃*q(𝛏₃,t))
+z₁ = LTIreceiverO([R₁,R₂,R₃],𝐩ᵣ₁)
+z₂ = LTIreceiverO([R₁,R₂,R₃],𝐩ᵣ₂)
+z₃ = LTIreceiverO([R₁,R₂,R₃],𝐩ᵣ₃)
 a₁(ξ::Vector{Float64}) = A(distBetween(ξ,𝐩ₛ)./lightSpeed).*A(distBetween(𝐩ᵣ₁,ξ)./lightSpeed)
 a₂(ξ::Vector{Float64}) = A(distBetween(ξ,𝐩ₛ)./lightSpeed).*A(distBetween(𝐩ᵣ₂,ξ)./lightSpeed)
 a₃(ξ::Vector{Float64}) = A(distBetween(ξ,𝐩ₛ)./lightSpeed).*A(distBetween(𝐩ᵣ₃,ξ)./lightSpeed)
@@ -373,12 +373,12 @@ temp = quadgk.(g, 0.0, L)
 value = [α₀*(temp[i][1]) for i in 1:length(L)]
 p(t) = δ(t,1.0e-10)
 W = []
-q = LTIsourcesO(𝐩ₛ, p)
+q = LTIsourceO(𝐩ₛ, p)
 for i in 1:length(value)
-    R₁ = LTIsourcesO(value[i], t->q(value[i],t))
+    R₁ = LTIsourceO(value[i], t->q(value[i],t))
     push!(W,R₁)
 end
-z = LTIreceiversO(W,𝐩ᵣ)
+z = LTIreceiverO(W,𝐩ᵣ)
 t = collect(0.0:1.0e-10:15.5e-9)
 p1 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 display(p1)
@@ -409,12 +409,12 @@ temp = quadgk.(g, 0.0, L)
 value = [α₀*(temp[i][1]) for i in 1:length(L)]
 p(t) = δ(t,1.0e-10)
 W = []
-q = LTIsourcesO(𝐩ₛ, p)
+q = LTIsourceO(𝐩ₛ, p)
 for i in 1:length(value)
-    R₁ = LTIsourcesO(value[i], t->q(value[i],t))
+    R₁ = LTIsourceO(value[i], t->q(value[i],t))
     push!(W,R₁)
 end
-z = LTIreceiversO(W,𝐩ᵣ)
+z = LTIreceiverO(W,𝐩ᵣ)
 a₁(ξ::Vector{Float64}) = A(distBetween(ξ,𝐩ₛ)./lightSpeed).*A(distBetween(𝐩ᵣ,ξ)./lightSpeed)
 f(ξ::Vector{Float64})=(z((distBetween(ξ,𝐩ₛ) .+ distBetween(𝐩ᵣ,ξ))./lightSpeed))./(a₁(ξ::Vector{Float64}))
 T_val1 = map(x->x[1],value)

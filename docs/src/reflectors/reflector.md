@@ -8,6 +8,12 @@ as follows
 
 $f(\bm{\xi}) = \sum_{n} \alpha_n \delta(\bm{\xi} - \bm{\xi}_n)$
 
+Mathematically, we can define the reflection due to the **LTI Omnidirectional Sources** as follows.
+
+$r(\bm{\xi},t) = f(\bm{\xi}) q(\bm{\xi},t)$
+
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_primaryRef.png)
+
 ## Continuous Reflectors as a Line Segment
 
 We can define a simple continuous reflector in term of a line segment, $AB$ of

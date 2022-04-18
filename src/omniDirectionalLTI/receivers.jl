@@ -1,28 +1,27 @@
 """
-    z = LTIreceiversO([R₁,R₂,…Rₙ],𝐩ᵣ)
+    z = LTIreceiverO([R₁,R₂,…Rₙ],𝐩ᵣ)
 
-Create an LTI Omnidirectional Receiver by calling `LTIreceiversO()` with
+Create an LTI Omnidirectional Receiver by calling `LTIreceiverO()` with
 the *receiver position*, 𝐩ᵣ and all the *reflections*, `Rᵢ` where i=1,2,…n.
 
 # Examples
 ```@example
-using ISA, LTVsystems
-using Plots
+using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  [1.0, 0.0]
 p(t) = δ(t-1.0e-15,1.0e-10)
-q = LTIsourcesO(𝐩ₛ, p)
+q = LTIsourceO(𝐩ₛ, p)
 α₁ = 0.7; 𝛏₁ = [1.8,0.0]
-R₁ = LTIsourcesO(𝛏₁, t->α₁*q(𝛏₁,t))
-z = LTIreceiversO([R₁],𝐩ᵣ)
+R₁ = LTIsourceO(𝛏₁, t->α₁*q(𝛏₁,t))
+z = LTIreceiverO([R₁],𝐩ᵣ)
 ```
 """
-struct LTIreceiversO
+struct LTIreceiverO
    sourceList::Vector{LTISources}
    position::Vector{Float64}
 end
 
-function (ψ::LTIreceiversO)(t₀::Float64)
+function (ψ::LTIreceiverO)(t₀::Float64)
 sourceList = ψ.sourceList
 𝐩ᵣ = ψ.position
    val = 0.0
@@ -34,14 +33,14 @@ end
 
 #DEFINE STATIONARY ψ w/ DIRECTIONAL ANTENNA and TIME-INVARIANT BEAM CENTER
 
-struct LTIreceiversDTI
+struct LTIreceiverDTI
    sourceList::Vector{LTISources}
    position::Vector{Float64}
    beamCenter::Vector{Float64}
    antennaGain ::Function
 end
 
-function (ψ::LTIreceiversDTI)(t₀::Float64)
+function (ψ::LTIreceiverDTI)(t₀::Float64)
    sourceList = ψ.sourceList
    𝐩ᵣ = ψ.position
    𝐛, G = ψ.beamCenter , ψ.antennaGain
@@ -54,14 +53,14 @@ end
 
 #DEFINE STATIONARY ψ w/ DIRECTIONAL ANTENNA and TIME-VARYING BEAM CENTER
 
-struct LTIreceiversD
+struct LTIreceiverD
    sourceList::Vector{LTISources}
    position::Vector{Float64}
    beamCenter::Function
    antennaGain ::Function
 end
 
-function (ψ::LTIreceiversD)(t₀::Float64)
+function (ψ::LTIreceiverD)(t₀::Float64)
    sourceList = ψ.sourceList
    𝐩ᵣ = ψ.position
    𝐛, G = ψ.beamCenter , ψ.antennaGain
@@ -74,13 +73,13 @@ end
 
 
 # DISPLAY
-Base.show(io::IO, x::LTIreceiversO) = print(io, "LTI Omnidirectional Receivers")
-Base.show(io::IO, x::LTIreceiversDTI) = print(io, "LTI Receivers with Directional Antenna and Time-Invariant Beam Center")
-Base.show(io::IO, x::LTIreceiversD) = print(io, "LTI Receivers with Directional Antenna and Time-Varying Beam Center")
+Base.show(io::IO, x::LTIreceiverO) = print(io, "LTI Omnidirectional Receiver")
+Base.show(io::IO, x::LTIreceiverDTI) = print(io, "LTI Receiver with Directional Antenna and Time-Invariant Beam Center")
+Base.show(io::IO, x::LTIreceiverD) = print(io, "LTI Receiver with Directional Antenna and Time-Varying Beam Center")
 
-LTIReceivers = Union{LTIreceiversO,
-                   LTIreceiversDTI,
-                   LTIreceiversD,
+LTIReceivers = Union{LTIreceiverO,
+                   LTIreceiverDTI,
+                   LTIreceiverD,
                    }
 
 

@@ -11,18 +11,18 @@ using Plots
 # Transmitter's signal i.e single pulse
 p(t) = δ(t,1.0e-10)
 # Signal observed due to source
-q = LTIsourcesO(𝐩ₛ, p)
+q = LTIsourceO(𝐩ₛ, p)
 #Multiple Targets
 α₁ = 0.7; 𝛏₁ = [0.5,0.9]
-R₁ = LTIsourcesO(𝛏₁, t->α₁*q(𝛏₁,t))
+R₁ = LTIsourceO(𝛏₁, t->α₁*q(𝛏₁,t))
 α₂ = 0.5; 𝛏₂ = [0.7,0.0]
-R₂ = LTIsourcesO(𝛏₂, t->α₂*q(𝛏₂,t))
+R₂ = LTIsourceO(𝛏₂, t->α₂*q(𝛏₂,t))
 α₃ = 0.4; 𝛏₃ = [0.0,0.5]
-R₃ = LTIsourcesO(𝛏₃, t->α₃*q(𝛏₃,t))
+R₃ = LTIsourceO(𝛏₃, t->α₃*q(𝛏₃,t))
 # Observed signal
-z₁ = LTIreceiversO([R₁,R₂,R₃],𝐩ᵣ₁)
-z₂ = LTIreceiversO([R₁,R₂,R₃],𝐩ᵣ₂)
-z₃ = LTIreceiversO([R₁,R₂,R₃],𝐩ᵣ₃)
+z₁ = LTIreceiverO([R₁,R₂,R₃],𝐩ᵣ₁)
+z₂ = LTIreceiverO([R₁,R₂,R₃],𝐩ᵣ₂)
+z₃ = LTIreceiverO([R₁,R₂,R₃],𝐩ᵣ₃)
 t = collect(0.0:1.0e-10:15.5e-9)
 p1 = plot( t, z₁(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot!(p1,t, z₂(t))
@@ -81,16 +81,16 @@ using Plots
 𝐩ᵣ2 =  [0.6, 0.0]
 𝐩ᵣ3 =  [1.2, 1.2]
 p(t) = δ(t-1.0e-15,1.0e-10)
-q = LTIsourcesO(𝐩ₛ, p)
+q = LTIsourceO(𝐩ₛ, p)
 α₁ = 0.7; 𝛏₁ = [0.9,0.0]
-R₁ = LTIsourcesO(𝛏₁, t->α₁*q(𝛏₁,t))
+R₁ = LTIsourceO(𝛏₁, t->α₁*q(𝛏₁,t))
 α₂ = 0.3; 𝛏₂ = [1.8,1.8]
-R₂ = LTIsourcesO(𝛏₂, t->α₂*q(𝛏₂,t))
+R₂ = LTIsourceO(𝛏₂, t->α₂*q(𝛏₂,t))
 α₃ = 0.5; 𝛏₃ = [2.7,0.0]
-R₃ = LTIsourcesO(𝛏₃, t->α₃*q(𝛏₃,t))
-z₁ = LTIreceiversO([R₁,R₂,R₃],𝐩ᵣ1)
-z₂ = LTIreceiversO([R₁,R₂,R₃],𝐩ᵣ2)
-z₃ = LTIreceiversO([R₁,R₂,R₃],𝐩ᵣ3)
+R₃ = LTIsourceO(𝛏₃, t->α₃*q(𝛏₃,t))
+z₁ = LTIreceiverO([R₁,R₂,R₃],𝐩ᵣ1)
+z₂ = LTIreceiverO([R₁,R₂,R₃],𝐩ᵣ2)
+z₃ = LTIreceiverO([R₁,R₂,R₃],𝐩ᵣ3)
 t = collect(0.0:1.0e-10:25.5e-9)
 p1 = plot( t, z₁(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot!(p1,t, z₂(t))
