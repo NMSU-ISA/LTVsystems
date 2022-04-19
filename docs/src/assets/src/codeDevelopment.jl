@@ -7,21 +7,27 @@ p(t) = δ(t-1.0e-15,1.0e-10)
 q = LTIsourceO(𝐩ₛ, p)
 ξ₀=[0.0,0.3]
 α₀ = 0.6;
-L = collect(range(1.0, 2.0, step=0.025))
-g(k) = ξ₀ .+ k.*[0.0,1.0]
-R₁(k) = LTIsourceO(ξ₀ .+ k.*[0.0,1.0], t->α₀*q(ξ₀ .+ k.*[0.0,1.0],t))
+step = 0.025;
+temp = [quadgk(x->ξ₀.+x.*[0.0,1.0],i,i+step)[1] for i in 1.0:step:2.0]
+#line_seg = reduce(vcat,temp) or vcat(temp...)
+#RR=Array{LTISources, 1}
+#g(k) = ξ₀ .+ k.*[0.0,1.0]
+#W=[]
+#line = []
+R₁ = [LTIsourceO(temp[i], t->α₀*q(temp[i],t)) for i in 1:length(temp)]
+#line = [cat(R₁[i],dims=1) for i in 1:length(temp) ]
 # Continuos target, suppose line segment AB has length 2
-temp = quadgk.(k->R₁(k),0.0,L)
-z = LTIreceiverO([R₁],𝐩ᵣ)
+z = LTIreceiverO(vcat(R₁...),𝐩ᵣ)
 
 #-------------------Alternate way
 #Tc = [α₀*(ξ₀.*L[i] .+ ([1.0,0.0].*L[i]^2)/2) for i in 1:length(L)]
 #TEMPORAL SIMULATION
 t = collect(0.0:1.0e-10:25.5e-9)
-p1=plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+p1=plot(t,z(t),xlab="time (sec)", ylab="z(t)", legend=:false)
+
+#[plot!(t, LTIreceiverO([R₁[i]],𝐩ᵣ)(t),  for i in 1:length(R₁)]
+
 display(p1)
-
-
 
 
 # Estimator function
