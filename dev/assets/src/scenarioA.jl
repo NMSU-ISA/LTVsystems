@@ -3,26 +3,14 @@ path = "docs/src/assets/"
 using ISA, LTVsystems
 using Plots
 
-#Source
 𝐩ₛ =  [0.0, 0.0]
-#Receiver
-𝐩ᵣ =  [0.0, 0.0]  # Considering 𝐩ₛ = 𝐩ᵣ
-
-# Transmitter's signal i.e single pulse
+𝐩ᵣ =  [0.0, 0.0]
 p(t) = δ(t,1.0e-10)
-
-# Signal observed due to source
 q = LTIsourceO(𝐩ₛ, p)
-
-#Reflectors
-α₁ = 0.7; 𝛏₁ = [1.8,0.0]
-#α = [0.3,0.2];
-#ξ = [[0.3,0.0],[0.5,0.6]]
-#T = pointReflector(ξ,α,[q])
-R₁ = LTIsourceO(𝛏₁, t->α₁*q(𝛏₁,t))
-
-# Observed signal
+α₀ = 0.7; 𝛏₀ = [1.8,0.0]
+R₁ = LTIsourceO(𝛏₀, t->α₀*q(𝛏₀,t))
 z = LTIreceiverO([R₁],𝐩ᵣ)
+
 
 #TEMPORAL SIMULATION
 t = collect(0.0:1.0e-10:15.5e-9)
@@ -32,9 +20,9 @@ png(path*"scenarioA_signal.png")
 
 #----------------------------------------------------------------
 # Estimator function
-a₁(ξ::Vector{Float64}) = α₁.*(A(distBetween(ξ,𝐩ₛ)./lightSpeed))^2
-f(ξ::Vector{Float64})=(z(2(distBetween(ξ,𝐩ₛ))./lightSpeed))./(a₁(ξ::Vector{Float64}))
-
+a₁(ξ::Vector{Float64}) = (A(distBetween(ξ,𝐩ₛ)./lightSpeed))^2
+f(ξ::Vector{Float64}) = (z(2(distBetween(ξ,𝐩ₛ))./lightSpeed))./
+                        (a₁(ξ::Vector{Float64}))
 #SPATIAL SIMULATION
 Δpos = 0.01
 x_range = collect(-5:Δpos:5)
