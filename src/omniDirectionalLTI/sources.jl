@@ -34,7 +34,7 @@ end
 # Methods
 function (𝚽::LTIsourceO)(𝛏₀::Vector{Float64}, t₀::Float64)
    𝐩ₛ, p = 𝚽.position, 𝚽.transmission
-   delay = distBetween(𝐩ₛ,𝛏₀)/lightSpeed
+   delay = norm(𝐩ₛ-𝛏₀)/lightSpeed
    return A(delay) * p(t₀-delay)
 end
 
@@ -50,7 +50,7 @@ end
 function (𝚽::LTIsourceDTI)(𝛏₀::Vector{Float64}, t₀::Float64)
    𝐩ₛ, p, = 𝚽.position, 𝚽.transmission
    𝐛, G = 𝚽.beamCenter , 𝚽.antennaGain
-   delay = distBetween(𝐩ₛ,𝛏₀)/lightSpeed
+   delay = norm(𝐩ₛ-𝛏₀)/lightSpeed
    return A(delay) * p(t₀-delay) * G( angleBetween(𝐛, 𝛏₀-𝐩ₛ) )
 end
 
@@ -66,7 +66,7 @@ end
 function (source::LTIsourceD)(𝛏₀::Vector{Float64}, t₀::Float64)
    𝐩ₛ, p, = source.position, source.transmission
    𝐛, G = source.beamCenter , source.antennaGain
-   delay = distBetween(𝐩ₛ,𝛏₀)/lightSpeed
+   delay = norm(𝐩ₛ-𝛏₀)/lightSpeed
    return A(delay) * p(t₀-delay) * G( angleBetween(𝐛(t₀-delay), 𝛏₀-𝐩ₛ) )
 end
 

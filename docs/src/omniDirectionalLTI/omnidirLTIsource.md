@@ -440,3 +440,14 @@ display(p2)
 ```
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioE_simulation.png)
+
+## Scenario F
+
+### Scenario Assumptions
+
+* single stationary omnidirectional source
+* multiple stationary omnidirectional receivers
+* a continuous line segment reflector
+* the source emits an ideal impulse
+
+### Forward Modeling
