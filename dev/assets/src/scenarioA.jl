@@ -16,6 +16,9 @@ q = LTIsourceO(𝐩ₛ, p)
 
 #Reflectors
 α₁ = 0.7; 𝛏₁ = [1.8,0.0]
+#α = [0.3,0.2];
+#ξ = [[0.3,0.0],[0.5,0.6]]
+#T = pointReflector(ξ,α,[q])
 R₁ = LTIsourceO(𝛏₁, t->α₁*q(𝛏₁,t))
 
 # Observed signal
@@ -56,7 +59,7 @@ using Plots
 𝐩ᵣ =  [0.0, 0.0]  # Considering 𝐩ₛ = 𝐩ᵣ
 
 # Transmitter's signal i.e single pulse
-p(t) = δ(t-1.0e-14,1.0e-10)
+p(t) = δ(t,1.0e-10)
 #p(t) = u(t)-u(t-1.0e-9)
 #p(t) = (u(mod(t,1.0e-9))-u(mod(t,1.0e-9)-1.0e-10))*u(t)
 𝐛 = [1.0,0.0]
@@ -91,7 +94,7 @@ y_range = collect(-4:Δpos:4)
 xyGrid = [[x, y] for x in x_range, y in y_range]
 
 val = [f(𝐮) for 𝐮 ∈ xyGrid]
-p2 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),aspect_ratio=:equal,legend=false,zticks=false,title="Scenario A Simulation")
+p2 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),aspect_ratio=:equal,legend=true,zticks=false,bg = RGB(0.1, 0.1, 0.1))
 scatter!(p2,[𝐩ₛ[1]], [𝐩ₛ[2]],markersize = 8.5,color = :green, marker=:pentagon, label='s' )
 scatter!(p2,[𝐩ᵣ[1]], [𝐩ᵣ[2]],markersize = 3.5,color = :blue, marker=:square, label='r' )
 scatter!(p2,[𝛏₁[1]],[𝛏₁[2]],markersize = 8.5,color = :red, marker=:star8, label='t')

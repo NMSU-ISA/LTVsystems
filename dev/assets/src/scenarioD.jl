@@ -45,7 +45,7 @@ f₃(ξ::Vector{Float64})=(z₃((distBetween(ξ,𝐩ₛ) .+ distBetween(𝐩ᵣ�
 f₄(ξ::Vector{Float64})=(z₄((distBetween(ξ,𝐩ₛ) .+ distBetween(𝐩ᵣ₄,ξ))./lightSpeed))./(a₄(ξ::Vector{Float64}))
 
 f(ξ::Vector{Float64})=f₁(ξ::Vector{Float64}).+f₂(ξ::Vector{Float64}).+f₃(ξ::Vector{Float64}).+f₄(ξ::Vector{Float64})
-#SPATIAL SIMULATION
+#SPATIAL SIMULATION3
 Δpos = 0.01
 x_range = collect(-3:Δpos:3)
 y_range = collect(-2:Δpos:2)
@@ -69,7 +69,6 @@ png(path*"scenarioD_simulation.png")
 f_new(ξ::Vector{Float64})=(f₁(ξ::Vector{Float64}).*f₂(ξ::Vector{Float64}).*f₃(ξ::Vector{Float64}).*f₄(ξ::Vector{Float64}))^(1/3)
 #SPATIAL SIMULATION
 val1 = [f_new(𝐮) for 𝐮 ∈ xyGrid]
-
 p3 = plot(x_range,y_range,transpose(val1),st=:surface,camera=(0,90),aspect_ratio=:equal,legend=true,zticks=false,bg = RGB(0.1, 0.1, 0.1))
 #scatter!(p3,[𝐩ₛ[1]], [𝐩ₛ[2]],markersize = 8.5,color = :green, marker=:pentagon, label='s' )
 #scatter!(p3,[𝐩ᵣ1[1]], [𝐩ᵣ1[2]],markersize = 5.5,color = :blue, marker=:square, label='r')
