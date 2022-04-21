@@ -74,8 +74,8 @@ end
 
 # DISPLAY
 Base.show(io::IO, x::LTIreceiverO) = print(io, "LTI Omnidirectional Receiver")
-Base.show(io::IO, x::LTIreceiverDTI) = print(io, "LTI Receiver with Directional Antenna and Time-Invariant Beam Center")
-Base.show(io::IO, x::LTIreceiverD) = print(io, "LTI Receiver with Directional Antenna and Time-Varying Beam Center")
+Base.show(io::IO, x::LTIreceiverDTI) = print(io, "LTI Directional Receiver")
+Base.show(io::IO, x::LTIreceiverD) = print(io, "Stationary Direction Receiver with Time-Varying Beam Center")
 
 LTIReceivers = Union{LTIreceiverO,
                    LTIreceiverDTI,
