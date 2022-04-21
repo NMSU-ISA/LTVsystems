@@ -3,9 +3,10 @@ module LTVsystems
 using LinearAlgebra: norm, dot, normalize
 using Plots
 
+export norm
+
 include("other/types.jl")
 export SourcesReflectors, Sources, Reflectors, Receivers
-
 
 include("omniDirectionalLTI/sources.jl")
 export LTIsourceO, LTIsourceDTI, LTIsourceD, LTISources
