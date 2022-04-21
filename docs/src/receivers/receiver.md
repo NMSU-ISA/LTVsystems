@@ -93,7 +93,7 @@ all the reflections at the receiver location. Mathematically, we can given the e
 
 $z(t) = ∭ \psi(\bm{\xi},t) dS$
 
-### Defining an LTI Directional Receiver
+### Defining an Stationary Direction Receiver
 
 we can define a  **Stationary Direction Receiver** with time-varying beam center by calling `LTIreceiverD()` with the defined reflected signal and the receiver position, $\bm{p}_\mathrm{r}$.
 
