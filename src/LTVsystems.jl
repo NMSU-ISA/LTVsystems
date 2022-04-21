@@ -1,6 +1,7 @@
 module LTVsystems
 
 using LinearAlgebra: norm, dot, normalize
+using Plots
 
 include("other/types.jl")
 export SourcesReflectors, Sources, Reflectors, Receivers
