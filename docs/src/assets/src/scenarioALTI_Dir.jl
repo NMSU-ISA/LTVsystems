@@ -44,7 +44,7 @@ y_range = collect(-4:Δpos:4)
 xyGrid = [[x, y] for x in x_range, y in y_range]
 
 val = [f(𝐮) for 𝐮 ∈ xyGrid]
-p2 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),aspect_ratio=:equal,legend=true,legendfontsize=7,colorbar=false,zticks=false,bg = RGB(0.1, 0.1, 0.1))
+p2 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),aspect_ratio=:equal,legend=true,legendfontsize=7,colorbar=false,zticks=false,bg = RGB(0.0, 0.0, 0.0))
 scatter!(p2,[𝐩ₛ[1]], [𝐩ₛ[2]],markersize = 8.5,color = :green, marker=:pentagon,label=["Source" ""] )
 scatter!(p2,[𝐩ᵣ[1]], [𝐩ᵣ[2]],markersize = 3.5,color = :blue, marker=:square,label=["Receiver" ""] )
 scatter!(p2,[𝛏₁[1]],[𝛏₁[2]],markersize = 8.5,color = :red, marker=:star8,label=["Reflector" ""])

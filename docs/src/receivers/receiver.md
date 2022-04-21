@@ -97,7 +97,8 @@ $z(t) = ∭ \psi(\bm{\xi},t) dS$
 
 we can define a  **Stationary Direction Receiver** with time-varying beam center by calling `LTIreceiverD()` with the defined reflected signal and the receiver position, $\bm{p}_\mathrm{r}$.
 
-[BD]
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_Receivers_Dobs.png)
+
 ```@example
 using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
