@@ -5,7 +5,7 @@ using Plots
 p(t) = δ(t,1.0e-10)
 q = LTIsourceO(𝐩ₛ, p)
 α₀ = 0.7; 𝛏₀ = [1.8,0.0]
-R₁ = LTIsourceO(𝛏₀, t->α₀*q(𝛏₀,t))
+R₁ = stationaryPointReflectorO(𝛏₀,α₀,[q])
 z = LTIreceiverO([R₁],𝐩ᵣ)
 
 f(ξ::Vector{Float64}) = (z(2(distBetween(ξ,𝐩ₛ))./lightSpeed))./
