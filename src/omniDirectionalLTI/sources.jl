@@ -26,7 +26,7 @@ q = LTIsourceO(𝐩ₛ, p)
 R₁ = LTIsourceO(𝛏₁, t->α₁*q(𝛏₁,t))
 ```
 """
-struct LTIsourceO
+struct LTIsourceO <: Sources
   position::Vector{Float64}
   transmission ::Function
 end
@@ -40,7 +40,7 @@ end
 
 #DEFINE STATIONARY SOURCE w/ DIRECTIONAL ANTENNA and TIME-INVARIANT BEAM CENTER
 
-struct LTIsourceDTI
+struct LTIsourceDTI <: Sources
   position::Vector{Float64}
   transmission ::Function
   beamCenter::Vector{Float64}
@@ -56,7 +56,7 @@ end
 
 #DEFINE STATIONARY SOURCE w/ DIRECTIONAL ANTENNA and TIME-VARYING BEAM CENTER
 
-struct LTIsourceD
+struct LTIsourceD <: Sources
   position::Vector{Float64}
   transmission ::Function
   beamCenter::Function
@@ -74,26 +74,3 @@ end
 Base.show(io::IO, x::LTIsourceO) = print(io, "LTI Omnidirectional Source")
 Base.show(io::IO, x::LTIsourceDTI) = print(io, "LTI Directional Source")
 Base.show(io::IO, x::LTIsourceD) = print(io, "Stationary Direction Source with Time-Varying Beam Center")
-
-LTISources = Union{LTIsourceO,
-                   LTIsourceDTI,
-                   LTIsourceD,
-                   }
-
-#multi-thread model evaluation over a 2D/3D space
-function (q::LTISources)(𝛏::Array{Array{Float64,1}}, t₀::Float64)
-   Q = zeros( typeof(q(𝛏[1], t₀)), size(𝛏))
-   Threads.@threads for i =1:length(𝛏)
-      Q[i] = q(𝛏[i], t₀)
-   end
-   return Q
-end
-
-#multi-thread model evaluation over a time interval
-function (q::LTISources)(𝛏₀::Vector{Float64}, t::Vector{Float64})
-   Q = zeros( typeof(q(𝛏₀, 0.0)), size(𝛏))
-   Threads.@threads for i =1:length(t)
-      Q[i] = q(𝛏₀, t[i])
-   end
-   return Q
-end
