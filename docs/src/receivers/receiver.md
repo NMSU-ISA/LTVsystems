@@ -63,7 +63,8 @@ $z(t) = ∭ \psi(\bm{\xi},t) dS$
 
 we can define a  **LTI Directional Receiver** by calling `LTIreceiverDTI()` with the defined reflected signal and the receiver position, $\bm{p}_\mathrm{r}$.
 
-[BD]
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_Receivers_DTIobs.png)
+
 ```@example
 using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
