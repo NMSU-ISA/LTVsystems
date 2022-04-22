@@ -2,11 +2,11 @@ struct pointReflector <: Reflectors
         S::LTIsourceO
 end
 
-function pointReflector(𝛏::Vector{Float64},α₀::Float64,sourceList::Vector{<:Sources})
+function pointReflector(𝛏::Vector{Float64},α₀::Float64,sourceList::Vector{<:SourcesReflectors})
     return pointReflector(LTIsourceO(𝛏, t->α₀*sourceList[1](𝛏,t)))
 end
 
-function pointReflector(𝛏::Vector{Vector{Float64}},α₀::Vector{Float64},sourceList::Vector{<:Sources})
+function pointReflector(𝛏::Vector{Vector{Float64}},α₀::Vector{Float64},sourceList::Vector{<:SourcesReflectors})
     return [pointReflector(LTIsourceO(𝛏[i], t->α₀[i]*sourceList[1](𝛏[i],t))) for i in 1:length(𝛏)]
 end
 
@@ -21,6 +21,7 @@ struct lineSegment <: Reflectors
         position::Vector{Float64}
         direction::Vector{Float64}
         length::Float64
+        sourceList::Vector{<:SourcesReflectors}
 end
 
 function lineSegment(𝛏₀::Vector{Float64},𝛏₁::Vector{Float64})
