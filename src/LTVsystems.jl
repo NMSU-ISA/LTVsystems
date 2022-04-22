@@ -15,7 +15,7 @@ include("omniDirectionalLTI/sources.jl")
 export LTIsourceO, LTIsourceDTI, LTIsourceD, LTISources
 
 include("omniDirectionalLTI/reflectors.jl")
-export stationaryPointReflectorO
+export pointReflector
 
 include("omniDirectionalLTI/receivers.jl")
 export LTIreceiverO, LTIreceiverDTI, LTIreceiverD, LTIReceivers
