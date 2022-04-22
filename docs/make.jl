@@ -1,8 +1,8 @@
-using Pkg
-Pkg.Registry.update()
-Pkg.develop(url="https://github.com/NMSU-ISA/ISA/src/ISA.jl")
-Pkg.develop(PackageSpec(path=pwd()))
-Pkg.instantiate()
+#using Pkg
+#Pkg.Registry.update()
+#Pkg.develop(url="https://github.com/NMSU-ISA/ISA/src/ISA.jl")
+#Pkg.develop(PackageSpec(path=pwd()))
+#Pkg.instantiate()
 
 using Documenter
 using LTVsystems
