@@ -1,5 +1,4 @@
-using ISA, LTVsystems
-using Plots
+using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  [0.0, 0.0]
 p(t) = δ(t,1.0e-10)

@@ -1,9 +1,12 @@
 module LTVsystems
 
 using LinearAlgebra: norm, dot, normalize
+export norm
+
 using Plots
 
-export norm
+using ISA
+export u, 𝒩ᵤ, 𝒩, δ, δn
 
 include("other/types.jl")
 export SourcesReflectors, Sources, Reflectors, Receivers
