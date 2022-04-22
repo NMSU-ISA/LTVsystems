@@ -21,17 +21,11 @@ struct lineSegment <: Reflectors
         position::Vector{Float64}
         direction::Vector{Float64}
         length::Float64
+        reflectionFunction::Function
         sourceList::Vector{<:SourcesReflectors}
 end
 
-function lineSegment(𝛏₀::Vector{Float64},𝛏₁::Vector{Float64})
-    𝐮L = 𝛏₁-𝛏₀
-    L = norm(𝐮L)
-    𝐮 = 𝐮L./L
-    return lineSegment(𝛏₀,𝐮,L)
-end
-
 #function (R::lineSegment)(𝛏::Vector{Float64}, t::Float64)
-#    f() =
+#    f(k) =     R.reflectionFunction(k)*R.sourceList[1](R.position+k*R.direction , t)
 #    return quadgk( f() ,0.0,R.length)
 #end
