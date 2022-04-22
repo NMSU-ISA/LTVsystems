@@ -26,6 +26,6 @@ include("other/plots.jl")
 export inverse2D
 
 include("auxiliaryFunctions/auxiliaryFunction.jl")
-export A, NaNnormalize, angleBetween, distBetween, lightSpeed
+export A, NaNnormalize, angleBetween, distBetween, 𝕔
 
 end
