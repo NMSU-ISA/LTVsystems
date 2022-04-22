@@ -1,3 +1,9 @@
+using Pkg
+Pkg.Registry.update()
+Pkg.develop(url="https://github.com/NMSU-ISA/ISA")
+Pkg.develop(PackageSpec(path=pwd())) # I'm assuming we are in the SHbundle directory
+Pkg.instantiate()
+
 using Documenter
 using LTVsystems
 
