@@ -5,8 +5,8 @@ export norm
 
 using Plots
 
-using ISA
-export u, 𝒩ᵤ, 𝒩, δ, δn
+#using ISA
+#export u, 𝒩ᵤ, 𝒩, δ, δn
 
 include("other/types.jl")
 export SourcesReflectors, Sources, Reflectors, Receivers
