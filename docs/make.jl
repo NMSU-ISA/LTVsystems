@@ -1,6 +1,6 @@
 using Pkg
 Pkg.Registry.update()
-Pkg.develop(url="https://github.com/NMSU-ISA/ISA")
+Pkg.develop(url="https://github.com/NMSU-ISA/ISA/src/ISA.jl")
 Pkg.instantiate()
 
 using Documenter
