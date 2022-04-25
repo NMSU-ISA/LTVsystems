@@ -37,10 +37,10 @@ function scene2Dplot(
         T::Vector{<:Reflectors},
         R::Vector{<:Receivers};
         Δpos = 0.01,
-        x_min = -5.0,
-        x_max = 5.0,
-        y_min = -5.0,
-        y_max = 5.0,
+        x_min = -3.0,
+        x_max = 3.0,
+        y_min = -3.0,
+        y_max = 3.0,
 )
 cmap=cgrad(:default)
 x_range = collect(x_min:Δpos:x_max)
@@ -58,7 +58,7 @@ for i = 1:length(T)
                 marker=:star8,label="Reflector")
 end
 for i = 1:length(R)
-        scatter!(p2,[R[i].position[1]], [R[i].position[2]],markersize = 3.5,color = :blue,
+        scatter!(p2,[R[i].position[1]], [R[i].position[2]],markersize = 2.0,color = :blue,
                 marker=:square,label="Receiver")
 end
 return p2
