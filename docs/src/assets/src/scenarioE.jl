@@ -1,42 +1,57 @@
 path = "docs/src/assets/"
 
-using ISA, LTVsystems
-using QuadGK
+using LTVsystems
 using Plots
+𝐩ₛ₁ =  [-0.5, 0.0]
+𝐩ₛ₂ =  [0.0, 0.0]
+𝐩ₛ₃ =  [0.0, 0.5]
 
-𝐩ₛ =  [0.0, 0.3]
-𝐩ᵣ =  [-0.3, 0.0]
-ξ₀=[0.2,0.3]
-α₀ = 0.6;
-u_vec = [1/√(2),1/√(2)]
-step = 0.015;
-line_seg = [quadgk(x->ξ₀ .+ x.*u_vec,0.0,i+step)[1] for i in 1.0:step:2.0]
-p(t) = δ(t,1.0e-10)
-q = LTIsourceO(𝐩ₛ, p)
-z = LTIreceiverO([LTIsourceO(line_seg[i], t->α₀*q(line_seg[i],t)) for i in 1:length(line_seg)],𝐩ᵣ)
+𝐩ᵣ₁ =  [-0.2, 0.0]
+𝐩ᵣ₂ =  [0.3, 0.0]
+𝐩ᵣ₃ =  [0.0, 0.8]
+
+p(t) = δn(t,1.0e-10)
+q₁ = LTIsourceO(𝐩ₛ₁, p)
+q₂ = LTIsourceO(𝐩ₛ₂, p)
+q₃ = LTIsourceO(𝐩ₛ₃, p)
+#Multiple Targets
+α₁ = 0.7; 𝛏₁ = [-0.4,0.5]
+α₂ = 0.5; 𝛏₂ = [0.6,0.2]
+α₃ = 0.4; 𝛏₃ = [0.6,1.0]
+r₁ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₁])
+r₂ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₂])
+r₃ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₃])
+
+# Observed signal
+z₁ = LTIreceiverO(r₁,𝐩ᵣ₁)
+z₂ = LTIreceiverO(r₂,𝐩ᵣ₂)
+z₃ = LTIreceiverO(r₃,𝐩ᵣ₃)
+
 t = collect(0.0:1.0e-10:15.5e-9)
-p1 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
-display(p1)
+p1 = plot( t, z₁(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+plot!(p1,t, z₂(t))
+plot!(p1,t, z₃(t))
+
 
 png(path*"scenarioE_signal.png")
 
-#-----------------------------------------------------------------------
-# Estimator function
-a₁(ξ::Vector{Float64}) = A(distBetween(ξ,𝐩ₛ)./lightSpeed).*A(distBetween(𝐩ᵣ,ξ)./lightSpeed)
-f(ξ::Vector{Float64})=(z((distBetween(ξ,𝐩ₛ) .+ distBetween(𝐩ᵣ,ξ))./lightSpeed))./(a₁(ξ::Vector{Float64}))
-T_val1 = map(x->x[1],line_seg)
-T_val2 = map(x->x[2],line_seg)
-line = Any[collect(zip(T_val1,T_val2))]
-#SPATIAL SIMULATION
-Δpos = 0.01
-x_range = collect(-3:Δpos:3)
-y_range = collect(-3:Δpos:3)
-xyGrid = [[x, y] for x in x_range, y in y_range]
-val = [f(𝐮) for 𝐮 ∈ xyGrid]
-p2 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),aspect_ratio=:equal,legend=true,zticks=false,bg = RGB(0.0, 0.0, 0.0))
-plot!(p2,line[1],color = :red, lw=5,label='t')
-scatter!(p2,[𝐩ₛ[1]], [𝐩ₛ[2]],markersize = 8.5,color = :green, marker=:pentagon, label='s' )
-scatter!(p2,[𝐩ᵣ[1]], [𝐩ᵣ[2]],markersize = 5.5,color = :blue, marker=:square, label='r' )
-display(p2)
+scene2Dplot([q₁,q₂,q₃],r,[z₁,z₂,z₃])
+
+png(path*"scenarioE.png")
+
+f₁(ξ::Vector{Float64})=(z₁((norm(ξ-𝐩ₛ₁) .+ norm(𝐩ᵣ₁-ξ))./c))./A(norm(ξ-𝐩ₛ₁)./c).*A(norm(𝐩ᵣ₁-ξ)./c)
+f₂(ξ::Vector{Float64})=(z₂((norm(ξ-𝐩ₛ₂) .+ norm(𝐩ᵣ₂-ξ))./c))./A(norm(ξ-𝐩ₛ₂)./c).*A(norm(𝐩ᵣ₂-ξ)./c)
+f₃(ξ::Vector{Float64})=(z₃((norm(ξ-𝐩ₛ₃) .+ norm(𝐩ᵣ₃-ξ))./c))./A(norm(ξ-𝐩ₛ₃)./c).*A(norm(𝐩ᵣ₃-ξ)./c)
+
+
+f(ξ::Vector{Float64})=f₁(ξ::Vector{Float64}).+f₂(ξ::Vector{Float64}).+f₃(ξ::Vector{Float64})
+inverse2Dplot([q₁,q₂,q₃],r,[z₁,z₂,z₃],f;x_min = -3.0,x_max = 3.0,y_min = -2.0,y_max = 2.0)
 
 png(path*"scenarioE_simulation.png")
+
+# Target estimation
+f_new(ξ::Vector{Float64})=(f₁(ξ::Vector{Float64}).*f₂(ξ::Vector{Float64}).*f₃(ξ::Vector{Float64}))^(1/3)
+#SPATIAL SIMULATION
+inverse2Dplot([q₁,q₂,q₃],r,[z₁,z₂,z₃],f_new;Δpos = 0.01,x_min = -3.0,x_max = 3.0,y_min = -2.0,y_max = 2.0,)
+
+png(path*"scenarioD_target_estimation.png")

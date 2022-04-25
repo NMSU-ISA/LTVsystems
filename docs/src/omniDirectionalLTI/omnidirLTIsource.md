@@ -286,7 +286,7 @@ $r(\bm{\xi},t) = \sum\limits_{n=1}^{N}\alpha_n \delta(\bm{\xi} - \bm{\xi}_n)
 \mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
 {\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)$
 
-Now the signal observed at $\bm{p}_\mathrm{r}$ due to the reflection from the position $\bm{\xi}$ is given as follows.
+Now the signal observed at $\mathbf{p}_{\mathrm{r}^{(i)}}$ due to the reflection from the position $\bm{\xi}$ is given as follows.
 
 $\psi(\bm{\xi},t) = \mathrm{A}\left(\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}-\bm{\xi}\|}{\mathrm{c}}\right) r\left(\bm{\xi},t-\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}-\bm{\xi}\|}{\mathrm{c}}\right)$
 
@@ -381,6 +381,21 @@ inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f_new;x_min = -3.0,x_max = 3.0,
 
 ### Scenario Assumptions
 
+* multiple stationary omnidirectional sources
+* multiple stationary omnidirectional receivers
+* multiple stationary ideal point reflectors
+* the source emits an impulse
+
+### Forward Modeling
+
+
+### Inverse Modeling
+
+
+## Scenario F
+
+### Scenario Assumptions
+
 * single stationary omnidirectional source
 * single stationary omnidirectional receiver
 * a continuous line segment reflector
@@ -396,26 +411,7 @@ $z(t) = \int_{0}^{L}\Big[\alpha_0 \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-[\bm
 
 We can simulate the scenario and plot signal at the receiver as follows.
 
-```julia
-using ISA, LTVsystems
-using QuadGK
-using Plots
-𝐩ₛ =  [0.0, 0.3]
-𝐩ᵣ =  [-0.3, 0.0]
-ξ₀=[0.2,0.3]
-α₀ = 0.6;
-u_vec = [1/√(2),1/√(2)]
-step = 0.015;
-line_seg = [quadgk(x->ξ₀ .+ x.*u_vec,0.0,i+step)[1] for i in 1.0:step:2.0]
-p(t) = δ(t,1.0e-10)
-q = LTIsourceO(𝐩ₛ, p)
-z = LTIreceiverO([LTIsourceO(line_seg[i], t->α₀*q(line_seg[i],t)) for i in 1:length(line_seg)],𝐩ᵣ)
-t = collect(0.0:1.0e-10:15.5e-9)
-p1 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
-display(p1)
-```
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioE_signal.png)
 
 
 ### Inverse Modeling
@@ -426,46 +422,9 @@ $\hat{f}(\bm{\xi}) = ∫_{0}^{L}\dfrac{z\left(\dfrac{\|\bm{p}_\mathrm{r}-[\bm{\x
 {\mathrm{c}}  \right)}{\mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\|}{\mathrm{c}}\right)
 \mathrm{A}\left(\frac{\|[\bm{\xi}+k\bm{u}]-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)} dk$
 
-```julia
-using ISA, LTVsystems
-using QuadGK
-using Plots
-𝐩ₛ =  [0.0, 0.3]
-𝐩ᵣ =  [-0.3, 0.0]
-ξ₀=[0.2,0.3]
-α₀ = 0.6;
-u_vec = [1/√(2),1/√(2)]
-step = 0.015;
-line_seg = [quadgk(x->ξ₀ .+ x.*u_vec,0.0,i+step)[1] for i in 1.0:step:2.0]
-p(t) = δ(t,1.0e-10)
-q = LTIsourceO(𝐩ₛ, p)
-z = LTIreceiverO([LTIsourceO(line_seg[i], t->α₀*q(line_seg[i],t))
-                 for i in 1:length(line_seg)],𝐩ᵣ)
-a₁(ξ::Vector{Float64}) = A(distBetween(ξ,𝐩ₛ)./lightSpeed).*A(distBetween(𝐩ᵣ,ξ)
-                           ./lightSpeed)
-f(ξ::Vector{Float64})=(z((distBetween(ξ,𝐩ₛ) .+ distBetween(𝐩ᵣ,ξ))./lightSpeed))
-                         ./(a₁(ξ::Vector{Float64}))
-T_val1 = map(x->x[1],line_seg)
-T_val2 = map(x->x[2],line_seg)
-line = Any[collect(zip(T_val1,T_val2))]
-Δpos = 0.01
-x_range = collect(-3:Δpos:3)
-y_range = collect(-3:Δpos:3)
-xyGrid = [[x, y] for x in x_range, y in y_range]
-val = [f(𝐮) for 𝐮 ∈ xyGrid]
-p2 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),
-          aspect_ratio=:equal,legend=true,zticks=false,bg = RGB(0.0, 0.0, 0.0))
-plot!(p2,line[1],color = :red, lw=5,label='t')
-scatter!(p2,[𝐩ₛ[1]], [𝐩ₛ[2]],markersize = 8.5,color = :green,
-         marker=:pentagon, label='s' )
-scatter!(p2,[𝐩ᵣ[1]], [𝐩ᵣ[2]],markersize = 5.5,color = :blue,
-         marker=:square, label='r' )
-display(p2)
-```
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioE_simulation.png)
 
-## Scenario F
+## Scenario G
 
 ### Scenario Assumptions
 
