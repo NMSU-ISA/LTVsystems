@@ -22,10 +22,13 @@ export LTIreceiverO, LTIreceiverDTI, LTIreceiverD, LTIReceivers
 
 include("other/threading.jl")
 
+include("other/utilityFunctions.jl")
+export u, 𝒩ᵤ, 𝒩, δ, δn
+
 include("other/plots.jl")
-export inverse2D
+export inverse2Dplot, scene2Dplot
 
 include("auxiliaryFunctions/auxiliaryFunction.jl")
-export A, NaNnormalize, angleBetween, distBetween, 𝕔
+export A, NaNnormalize, angleBetween, distBetween, c
 
 end

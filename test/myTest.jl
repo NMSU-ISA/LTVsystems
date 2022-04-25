@@ -9,4 +9,4 @@ z = LTIreceiverO([R₁],𝐩ᵣ)
 
 f(ξ::Vector{Float64}) = z(2(norm(ξ-𝐩ₛ))./lightSpeed)./(A(norm(ξ-𝐩ₛ)./lightSpeed))^2
 
-inverse2D([q],[R₁],[z],f)
+inverse2Dplot([q],[R₁],[z],f)

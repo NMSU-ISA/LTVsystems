@@ -1,12 +1,12 @@
 #DECLARE PHYSICAL CONSTANTS AND FUNCTIONS
 
-const 𝕔 = 299_792_458.0
+const c = 299_792_458.0
 const μ₀ = 1.25663706212e-6
-const Z₀ = μ₀*𝕔
+const Z₀ = μ₀*c
 
 #amplitude-scale due to divergence
 function A(t₀::Float64)::Float64
-   return sqrt(Z₀)/(sqrt(4π)*𝕔*t₀)
+   return sqrt(Z₀)/(sqrt(4π)*c*t₀)
 end
 
 #---------------------------------------------
@@ -25,9 +25,9 @@ function distBetween(𝛏₀::Vector{Float64}, 𝛏₁::Vector{Float64})::Float6
 end
 
 function TXₜ2RXₜ(𝛏₀::Vector{Float64}, t₀::Float64, 𝐩ₛ::Function)::Float64
-   return t₀ + distBetween(𝛏₀, 𝐩ₛ(t₀))/𝕔
+   return t₀ + distBetween(𝛏₀, 𝐩ₛ(t₀))/c
 end
 
 function RXₜ2TXₜ(𝛏₀::Vector{Float64}, t₀::Float64, 𝐩ₛ::Function)::Float64
-   return find_zero(t -> (TXₜ2RXₜ(𝛏₀, t, 𝐩ₛ) - t₀), t₀ + distBetween(𝛏₀, 𝐩ₛ(t₀))/𝕔)
+   return find_zero(t -> (TXₜ2RXₜ(𝛏₀, t, 𝐩ₛ) - t₀), t₀ + distBetween(𝛏₀, 𝐩ₛ(t₀))/c)
 end
