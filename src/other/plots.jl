@@ -17,16 +17,16 @@ val = [f(𝐮) for 𝐮 ∈ xyGrid]
 p2 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),
          aspect_ratio=:equal,legend=:outertopright,colorbar=false,zticks=false,bg = cmap[1])
 for i = 1:length(S)
-        scatter!(p2,[S[i].position[1]], [S[i].position[2]],markersize = 5.5,color = :green,
-                marker=:pentagon,label="Source")
+        scatter!(p2,[S[i].position[1]], [S[i].position[2]],markersize = 5.5,color = :green,label="Source",
+                marker=:pentagon)
 end
 for i = 1:length(T)
-        scatter!(p2,[T[i].S.position[1]],[T[i].S.position[2]],markersize = 5.5,color = :red,
-                marker=:star8,label="Reflector")
+        scatter!(p2,[T[i].S.position[1]],[T[i].S.position[2]],markersize = 5.5,color = :red,label="Reflector",
+                marker=:star8)
 end
 for i = 1:length(R)
-        scatter!(p2,[R[i].position[1]], [R[i].position[2]],markersize = 3.5,color = :blue,
-                marker=:square,label="Receiver")
+        scatter!(p2,[R[i].position[1]], [R[i].position[2]],markersize = 3.5,color = :blue,label="Receiver",
+                marker=:square)
 end
 return p2
 end
