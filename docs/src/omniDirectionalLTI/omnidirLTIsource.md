@@ -288,7 +288,7 @@ $r(\bm{\xi},t) = \sum\limits_{n=1}^{N}\alpha_n \delta(\bm{\xi} - \bm{\xi}_n)
 
 Now the signal observed at $\mathbf{p}_{\mathrm{r}^{(i)}}$ due to the reflection from the position $\bm{\xi}$ is given as follows.
 
-$\psi(\bm{\xi},t) = \mathrm{A}\left(\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}-\bm{\xi}\|}{\mathrm{c}}\right) r\left(\bm{\xi},t-\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}-\bm{\xi}\|}{\mathrm{c}}\right)$
+$\psi_i(\bm{\xi},t) = \mathrm{A}\left(\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}-\bm{\xi}\|}{\mathrm{c}}\right) r\left(\bm{\xi},t-\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}-\bm{\xi}\|}{\mathrm{c}}\right)$
 
 Finally, we obtained the closed form expression of the observed signals, $zᵢ(t)$ where $i = 1,2,…M$. as follows.
 
