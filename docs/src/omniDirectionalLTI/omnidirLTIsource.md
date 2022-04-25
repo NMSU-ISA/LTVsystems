@@ -11,26 +11,52 @@
   * single stationary ideal point reflector
   * the source emits an impulse
 
+Given the scenario A assumptions, we simulated the scenario as follows.
+
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA.png)
+
 ### Forward Modeling
 
-Given the scenario A assumptions with the position of the source $𝐩ₛ$, the receiver $𝐩ᵣ$ being at the same location $(𝐩ₛ=𝐩ᵣ)$, by providing the transmitted signal $p(t)$, and an ideal point reflector $\bm{\xi}_0$. We obtained the closed form expression of the observed signal, $z(t)$ as follows.
+For scenario A, given the position of the source $𝐩ₛ$, the receiver $𝐩ᵣ$ being at the same location $(𝐩ₛ=𝐩ᵣ)$, by providing the transmitted signal $p(t)$, and an ideal point reflector $\bm{\xi}_0$. We obtained the expression for the reflector function as follows
+
+$f(\bm{\xi}) = \alpha_0 \delta(\bm{\xi} - \bm{\xi}_0)$
+
+The signal observed at position $\bm{\xi}$ and time $t$ due to the source emitting from position $\bm{p}_\mathrm{s}$ is given as follows.
+
+$q(\bm{\xi},t)=\mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
+{\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)$
+
+Mathematically, we defined the reflection due to the source as follows.
+
+$r(\bm{\xi},t) = \alpha_0 \delta(\bm{\xi} - \bm{\xi}_0)
+\mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
+{\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)$
+
+Now the signal observed at $\bm{p}_\mathrm{r}$ due to the reflection from the
+position $\bm{\xi}$ is given as follows.
+
+$\psi(\bm{\xi},t) = \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) r\left(\bm{\xi},t-\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right)$
+
+
+Finally, we obtained the closed form expression of the observed signal, $z(t)$
+with $(𝐩ₛ=𝐩ᵣ)$ as follows.
 
 $z(t) = \alpha_0 \mathrm{A}^2
 \left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}
 {\mathrm{c}}\right)p\left(t -2\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)$
 
-Now we can simulate the scenario and plot signal at the receiver as follows.
+Now we plot the signal at the receiver as follows.
 
 ```julia
-using ISA, LTVsystems
+using LTVsystems
 using Plots
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  𝐩ₛ
 p(t) = δn(t,1.0e-10)
 q = LTIsourceO(𝐩ₛ, p)
 α₀ = 0.7; 𝛏₀ = [1.8,0.0]
-R₁ = pointReflector(𝛏₀,α₀,[q])
-z = LTIreceiverO([R₁],𝐩ᵣ)
+r = pointReflector(𝛏₀,α₀,[q])
+z = LTIreceiverO([r],𝐩ᵣ)
 t = collect(0.0:1.0e-10:15.5e-9)
 plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 ```
@@ -51,11 +77,11 @@ using Plots
 p(t) = δn(t,1.0e-10)
 q = LTIsourceO(𝐩ₛ, p)
 α₀ = 0.7; 𝛏₀ = [1.8,0.0]
-R₁ = pointReflector(𝛏₀,α₀,[q])
-z = LTIreceiverO([R₁],𝐩ᵣ)
-f(ξ::Vector{Float64}) = (z(2(norm(ξ-𝐩ₛ))./𝕔))./
-                        (A(norm(ξ-𝐩ₛ)./𝕔))^2
-inverse2D([q],[R₁],[z],f)
+r = pointReflector(𝛏₀,α₀,[q])
+z = LTIreceiverO([r],𝐩ᵣ)
+f(ξ::Vector{Float64}) = (z(2(norm(ξ-𝐩ₛ))./c))./
+                        (A(norm(ξ-𝐩ₛ)./c))^2
+inverse2Dplot([q],[r],[z],f)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_simulation.png)
 

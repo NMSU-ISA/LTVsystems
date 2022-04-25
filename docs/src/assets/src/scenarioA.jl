@@ -1,6 +1,6 @@
 path = "docs/src/assets/"
 
-using LTVsystems
+using LTVsystems, Plots
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  𝐩ₛ
 p(t) = δn(t,1.0e-10)
@@ -14,10 +14,12 @@ plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 
 png(path*"scenarioA_signal.png")
 
+scene2Dplot([q],[r],[z])
+png(path*"scenarioA.png")
 #----------------------------------------------------------------
 # Estimator function
-f(ξ::Vector{Float64}) = (z(2(norm(ξ-𝐩ₛ))./𝕔))./
-                        (A(norm(ξ-𝐩ₛ)./𝕔))^2
+f(ξ::Vector{Float64}) = (z(2(norm(ξ-𝐩ₛ))./c))./
+                        (A(norm(ξ-𝐩ₛ)./c))^2
 #SPATIAL SIMULATION
-inverse2Dplot([q],[R₁],[z],f)
+inverse2Dplot([q],[r],[z],f)
 png(path*"scenarioA_simulation.png")

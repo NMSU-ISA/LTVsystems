@@ -46,9 +46,9 @@ cmap=cgrad(:default)
 x_range = collect(x_min:Δpos:x_max)
 y_range = collect(y_min:Δpos:y_max)
 xyGrid = [[x, y] for x in x_range, y in y_range]
-val = 0.0
+val = [0.0]
 p2 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),
-         aspect_ratio=:equal,legend=:outertopright,colorbar=false,zticks=false,bg = cmap[1])
+         aspect_ratio=:equal,legend=:outertopright,colorbar=false,bg = cmap[1],zticks=false)
 for i = 1:length(S)
         scatter!(p2,[S[i].position[1]], [S[i].position[2]],markersize = 5.5,color = :green,
                 marker=:pentagon,label="Source")
