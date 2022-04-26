@@ -23,7 +23,7 @@ scene2Dplot([q],r,[z])
 png(path*"scenarioC.png")
 #-----------------------------------------------------------------
 # Estimator function
-f(ξ::Vector{Float64})=(z((norm(ξ-𝐩ₛ) .+norm(𝐩ᵣ-ξ))./c))./A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ-ξ)./c)
+f(ξ::Vector{Float64})=(z((norm(ξ-𝐩ₛ) .+norm(𝐩ᵣ-ξ))./c))./(A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ-ξ)./c))
 
 #SPATIAL SIMULATION
 inverse2Dplot([q],r,[z],f)
