@@ -2,6 +2,14 @@
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_model.png)
 
+
+| Symbol | Type | Description |
+|:-----------| ---------- |:------------:|
+| p(t)    | scalar function of time |  transmitted signal  |
+| $\bm{p}_\mathrm{s}$ | vector    | position of source |
+| $h(\bm{\xi},t)$  | scalar function of position and time         |impulse response from $\bm{p}_\mathrm{s}$ to  $\bm{\xi}$        
+      $h(\bm{\xi},t)=\mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)\delta(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}})$ |
+
 ## Scenario A
 
 ### Scenario Assumptions
