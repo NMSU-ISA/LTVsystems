@@ -23,7 +23,7 @@ $f(\bm{\xi}) = \alpha_0 \delta(\bm{\xi} - \bm{\xi}_0).$
 
 The signal observed at position $\bm{\xi}$ and time $t$ due to the source emitting from position $\bm{p}_\mathrm{s}$ is given as
 
-$q(\bm{\xi},t) = p(t) \overset{t}{*} h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}}),$
+$q(\bm{\xi},t) = p(t) \overset{t}{*} h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}}) ,$
 
 $q(\bm{\xi},t) = \mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
 {\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
@@ -37,7 +37,7 @@ $r(\bm{\xi},t) = \alpha_0 \delta(\bm{\xi} - \bm{\xi}_0)
 Now the signal observed at $\bm{p}_\mathrm{r}$ due to the reflection from the
 position $\bm{\xi}$ is given by
 
-$\psi(\bm{\xi},t) = r(\bm{\xi},t) \overset{t}{*} g\big(\bm{\xi},t;\,{\bm{p}_\mathrm{r}(\cdot)}\big),$
+$\psi(\bm{\xi},t) = r(\bm{\xi},t) \overset{t}{*} g\big(\bm{\xi},t;\,{\bm{p}_\mathrm{r}(\cdot)}\big) ,$
 
 $\psi(\bm{\xi},t) = \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) r\left(\bm{\xi},t-\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right).$
 
@@ -96,41 +96,44 @@ inverse2Dplot([q],[r],[z],f)
 * single stationary ideal point reflector
 * the source emits an impulse
 
-Given the scenario B assumptions, we simulated the geometry of scenario as follows.
+Given the assumptions, we simulate the following geometry for scenario B.
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioB.png)
 
 ### Forward Modeling
 
-For scenario B, given the position of the source $𝐩ₛ$, the receiver $𝐩ᵣ$, by providing the transmitted signal $p(t)$, and an ideal point reflector $\bm{\xi}_0$, we obtained the expression for the reflector function as follows
+For scenario B, given the position of the source $𝐩ₛ$, the receiver $𝐩ᵣ$, by providing the transmitted signal $p(t)$, and an ideal point reflector $\bm{\xi}_0$, the expression for the reflector function is given by
 
-$f(\bm{\xi}) = \alpha_0 \delta(\bm{\xi} - \bm{\xi}_0)$
+$f(\bm{\xi}) = \alpha_0 \delta(\bm{\xi} - \bm{\xi}_0).$
 
-The signal observed at position $\bm{\xi}$ and time $t$ due to the source emitting from position $\bm{p}_\mathrm{s}$ is given as follows.
+The signal observed at position $\bm{\xi}$ and time $t$ due to the source emitting from position $\bm{p}_\mathrm{s}$ is given by
 
-$q(\bm{\xi},t)=\mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
-{\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)$
+$q(\bm{\xi},t) = p(t) \overset{t}{*} h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}}) ,$
 
-Mathematically, we defined the reflection due to the source as follows.
+$q(\bm{\xi},t) = \mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
+{\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
+
+Mathematically, we define the reflection due to the source as follows
 
 $r(\bm{\xi},t) = \alpha_0 \delta(\bm{\xi} - \bm{\xi}_0)
 \mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
-{\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)$
+{\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
-Now the signal observed at $\bm{p}_\mathrm{r}$ due to the reflection from the position $\bm{\xi}$ is given as follows.
+Now the signal observed at $\bm{p}_\mathrm{r}$ due to the reflection from the position $\bm{\xi}$ is given by
 
-$\psi(\bm{\xi},t) = \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) r\left(\bm{\xi},t-\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right)$
+$\psi(\bm{\xi},t) = r(\bm{\xi},t) \overset{t}{*} g\big(\bm{\xi},t;\,{\bm{p}_\mathrm{r}(\cdot)}\big) ,$
+
+$\psi(\bm{\xi},t) = \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) r\left(\bm{\xi},t-\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right).$
 
 
-We obtained the closed form expression of the observed signal, $z(t)$ as follows.
+Finally, the closed form expression of the observed signal, $z(t)$ is given by
 
 $z(t) = \alpha_0 \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)
 \mathrm{A}\left(\frac{\|\bm{\xi}_0-
 \bm{p}_\mathrm{s}\|}{\mathrm{c}}\right) p\left(t-
 \frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|+\|\bm{\xi}_0-
-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)$
+\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
-We plot the signal at the receiver as follows.
 
 ```julia
 using LTVsystems
@@ -149,12 +152,12 @@ plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 
 ### Inverse Modeling
 
-Given the scenario B assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function by considering the transmitted signal $p(t)=δ(t)$ as follows.
+Given the scenario B assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function by considering the transmitted signal $p(t)=δ(t)$ as follows
 
 $\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{\|\bm{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
 {\mathrm{c}}  \right)}{\mathrm{A}(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}})    
-\mathrm{A}(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}})}$
+\mathrm{A}(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}})}.$
 
 ```julia
 using LTVsystems
@@ -165,8 +168,8 @@ q = LTIsourceO(𝐩ₛ, p)
 α₀ = 0.7; 𝛏₀ = [1.8,0.0]
 r = pointReflector(𝛏₀,α₀,[q])
 z = LTIreceiverO([r],𝐩ᵣ)
-f(ξ::Vector{Float64})=(z((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c))./
-                       A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ-ξ)./c)
+f(ξ::Vector{Float64})=(z((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))/c))/
+                       A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)
 inverse2Dplot([q],[r],[z],f)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioB_simulation.png)
