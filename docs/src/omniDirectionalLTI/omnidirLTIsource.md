@@ -169,7 +169,7 @@ q = LTIsourceO(𝐩ₛ, p)
 r = pointReflector(𝛏₀,α₀,[q])
 z = LTIreceiverO([r],𝐩ᵣ)
 f(ξ::Vector{Float64})=(z((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))/c))/
-                       A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)
+                      (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
 inverse2Dplot([q],[r],[z],f)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioB_simulation.png)
@@ -259,7 +259,7 @@ q = LTIsourceO(𝐩ₛ, p)
 r = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q])
 z = LTIreceiverO(r,𝐩ᵣ)
 f(ξ::Vector{Float64}) = (z((norm(ξ-𝐩ₛ).+norm(𝐩ᵣ-ξ))/c))/
-                         A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)   
+                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))   
 inverse2Dplot([q],r,[z],f)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioC_simulation.png)
@@ -365,17 +365,17 @@ z₁ = LTIreceiverO(r,𝐩ᵣ₁); z₂ = LTIreceiverO(r,𝐩ᵣ₂)
 z₃ = LTIreceiverO(r,𝐩ᵣ₃); z₄ = LTIreceiverO(r,𝐩ᵣ₄)
 z₅ = LTIreceiverO(r,𝐩ᵣ₅)
 f₁(ξ::Vector{Float64})=(z₁((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₁-ξ))/c))/
-                       A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ₁-ξ)/c)
+                       (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ₁-ξ)/c))
 f₂(ξ::Vector{Float64})=(z₂((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₂-ξ))/c))/
-                       A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ₂-ξ)/c)
+                       (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ₂-ξ)/c))
 f₃(ξ::Vector{Float64})=(z₃((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₃-ξ))/c))/
-                       A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ₃-ξ)/c)
+                       (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ₃-ξ)/c))
 f₄(ξ::Vector{Float64})=(z₄((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₄-ξ))/c))/
-                       A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ₄-ξ)/c)
+                       (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ₄-ξ)/c))
 f₅(ξ::Vector{Float64})=(z₅((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₅-ξ))/c))/
-                       A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ₅-ξ)/c)
+                       (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ₅-ξ)/c))
 f(ξ::Vector{Float64})=f₁(ξ::Vector{Float64}).+f₂(ξ::Vector{Float64}).+
-                      f₃(ξ::Vector{Float64}).+f₄(ξ::Vector{Float64}).+f₅(ξ::Vector{Float64})
+                    f₃(ξ::Vector{Float64}).+f₄(ξ::Vector{Float64}).+f₅(ξ::Vector{Float64})
 inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f;x_min = -3.0,x_max = 3.0,
              y_min = -2.0,y_max = 2.0)
 f_new(ξ::Vector{Float64})=(f₁(ξ::Vector{Float64}).*f₂(ξ::Vector{Float64}).*
