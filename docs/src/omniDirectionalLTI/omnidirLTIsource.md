@@ -184,39 +184,42 @@ inverse2Dplot([q],[r],[z],f)
 * multiple stationary ideal point reflectors
 * the source emits an impulse
 
-Given the scenario C assumptions, we simulated the geometry of scenario as follows.
+Given the assumptions, we simulate the following geometry for scenario C.
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioC.png)
 
 ### Forward Modeling
 
-For scenario C, given the position of the source $𝐩ₛ$, the receiver $𝐩ᵣ$, by providing the transmitted signal $p(t)$, and multiple stationary reflectors say N, we obtained the expression for the reflector function as follows
+For scenario C, given the position of the source $𝐩ₛ$, the receiver $𝐩ᵣ$, by providing the transmitted signal $p(t)$, and multiple stationary reflectors say N, the expression for the reflector function is given by
 
-$f(\bm{\xi}) = \sum\limits_{n=1}^{N}\alpha_n \delta(\bm{\xi} - \bm{\xi}_n)$
+$f(\bm{\xi}) = \sum\limits_{n=1}^{N}\alpha_n \delta(\bm{\xi} - \bm{\xi}_n).$
 
-The signal observed at position $\bm{\xi}$ and time $t$ due to the source emitting from position $\bm{p}_\mathrm{s}$ is given as follows.
+The signal observed at position $\bm{\xi}$ and time $t$ due to the source emitting from position $\bm{p}_\mathrm{s}$ is given by
+
+$q(\bm{\xi},t) = p(t) \overset{t}{*} h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}}) ,$
 
 $q(\bm{\xi},t)=\mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
-{\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)$
+{\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
-Mathematically, we defined the reflection due to the source as follows.
+Mathematically, we define the reflection due to the source as follows
 
 $r(\bm{\xi},t) = \sum\limits_{n=1}^{N}\alpha_n \delta(\bm{\xi} - \bm{\xi}_n)
 \mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
-{\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)$
+{\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
-Now the signal observed at $\bm{p}_\mathrm{r}$ due to the reflection from the position $\bm{\xi}$ is given as follows.
+Now the signal observed at $\bm{p}_\mathrm{r}$ due to the reflection from the position $\bm{\xi}$ is given by
 
-$\psi(\bm{\xi},t) = \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) r\left(\bm{\xi},t-\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right)$
+$\psi(\bm{\xi},t) = r(\bm{\xi},t) \overset{t}{*} g\big(\bm{\xi},t;\,{\bm{p}_\mathrm{r}(\cdot)}\big) ,$
+
+$\psi(\bm{\xi},t) = \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) r\left(\bm{\xi},t-\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right).$
 
 
-We obtained the closed form expression of the observed signal, $z(t)$ as follows.
+Finally, the closed form expression of the observed signal, $z(t)$ is given by
 
 $z(t) = \sum\limits_{n=1}^{N} \alpha_n \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_n\|}{\mathrm{c}}\right)
 \mathrm{A}\left(\frac{\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)
-p\left(t-\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_n\|+\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)$
+p\left(t-\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_n\|+\|\bm{\xi}_n-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
-We plot the signal at the receiver as follows.
 
 ```julia
 using LTVsystems
@@ -225,7 +228,7 @@ using Plots
 𝐩ᵣ =  [0.9, 0.9]
 p(t) = δn(t,1.0e-10)
 q = LTIsourceO(𝐩ₛ, p)
-α₁ = 0.7; 𝛏₁ = [0.9,0.0]
+α₁ = 0.7; 𝛏₁ = [1.2,0.0]
 α₂ = 0.4; 𝛏₂ = [1.8,1.8]
 α₃ = 0.5; 𝛏₃ = [2.7,-0.9]
 r = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q])
@@ -237,12 +240,12 @@ plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 
 ### Inverse Modeling
 
-Given the scenario C assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function by considering the transmitted signal $p(t)=δ(t)$ as follows.
+Given the scenario C assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function by considering the transmitted signal $p(t)=δ(t)$ as follows
 
 $\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{\|\bm{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)}
 {\mathrm{A}(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}})    
-\mathrm{A}(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}})}$
+\mathrm{A}(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}})}.$
 
 ```julia
 using LTVsystems
@@ -250,13 +253,13 @@ using LTVsystems
 𝐩ᵣ =  [0.9, 0.9]
 p(t) = δn(t,1.0e-10)
 q = LTIsourceO(𝐩ₛ, p)
-α₁ = 0.7; 𝛏₁ = [0.9,0.0]
+α₁ = 0.7; 𝛏₁ = [1.2,0.0]
 α₂ = 0.4; 𝛏₂ = [1.8,1.8]
 α₃ = 0.5; 𝛏₃ = [2.7,-0.9]
 r = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q])
 z = LTIreceiverO(r,𝐩ᵣ)
-f(ξ::Vector{Float64}) = (z((norm(ξ-𝐩ₛ).+norm(𝐩ᵣ-ξ))./c))./
-                         A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ-ξ)./c)   
+f(ξ::Vector{Float64}) = (z((norm(ξ-𝐩ₛ).+norm(𝐩ᵣ-ξ))/c))/
+                         A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)   
 inverse2Dplot([q],r,[z],f)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioC_simulation.png)

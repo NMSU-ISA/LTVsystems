@@ -67,10 +67,10 @@ for i = 1:length(T)
         scatter!(p2,[T[i].S.position[1]],[T[i].S.position[2]],markersize = 5.5,color = :red,
                 marker=:star8,label="")
 end
-scatter!(p2,[R[1].position[1]], [R[1].position[2]],markersize = 3.0,color = :blue,
+scatter!(p2,[R[1].position[1]], [R[1].position[2]],markersize = 3.5,color = :blue,
         marker=:square,label="Receiver")
 for i = 1:length(R)
-        scatter!(p2,[R[i].position[1]], [R[i].position[2]],markersize = 3.0,color = :blue,
+        scatter!(p2,[R[i].position[1]], [R[i].position[2]],markersize = 3.5,color = :blue,
                 marker=:square,label="")
 end
 return p2
