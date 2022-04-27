@@ -4,12 +4,20 @@
 | :---------- | :----------: | :----------- |
 | p(t)                  | scalar function of time |  transmitted signal   |
 | $\bm{p}_\mathrm{s}$   | vector                  | position of source |
+| $\bm{p}_\mathrm{r}$   | vector                  | position of receiver |
+| $f(\bm{\xi})$         | scalar function of position |  reflectivity function   |
 | $h(\bm{\xi},t)$       |  scalar function of position and time  | impulse response from    $\bm{p}_\mathrm{s}$ to  $\bm{\xi}$ |
 | $q(\bm{\xi},t)$  |  scalar function of position and time  | observation of source emission at $\bm{\xi}$ |
+| $r(\bm{\xi},t)$  |  scalar function of position and time  | signal reflection from $\bm{\xi}$ due to source|
+| $g(\bm{\xi},t)$  |  scalar function of position and time  | impulse response from    $\bm{\xi}$ to $\bm{p}_\mathrm{r}$ |
+| $\psi(\bm{\xi},t)$ |  scalar function of position and time  | observation of signal reflection from $\bm{\xi}$ |
+| z(t)                  | scalar function of time |   observation of reflections at $\bm{p}_\mathrm{r}$   |
+
 
 
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_model.png)
+
 
 
 The impulse response from $\bm{p}_\mathrm{s}$ to  $\bm{\xi}$ is given by
