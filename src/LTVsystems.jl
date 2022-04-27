@@ -5,6 +5,8 @@ export norm
 
 using Plots
 
+using QuadGK
+
 #using ISA
 #export u, 𝒩ᵤ, 𝒩, δ, δn
 
@@ -15,7 +17,7 @@ include("omniDirectionalLTI/sources.jl")
 export LTIsourceO, LTIsourceDTI, LTIsourceD, LTISources
 
 include("omniDirectionalLTI/reflectors.jl")
-export pointReflector
+export pointReflector, lineSegment
 
 include("omniDirectionalLTI/receivers.jl")
 export LTIreceiverO, LTIreceiverDTI, LTIreceiverD, LTIReceivers
