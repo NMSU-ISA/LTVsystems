@@ -29,13 +29,10 @@ $h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}}) = \mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\
 
 The signal observed at position $\bm{\xi}$ and time $t$ due to the source emitting from position $\bm{p}_\mathrm{s}$ is given as
 
-```math
-\begin{eqnarray}
-q(\bm{\xi},t) &=& p(t) \overset{t}{*} h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}})\\
-              &=& \mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
-              {\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)
-\end{eqnarray}.
-```
+ $q(\bm{\xi},t) = \begin{array}{l} p(t) \overset{t}{*} h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}}) \\ \mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
+ {\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)\end{array}$
+
+
 $q(\bm{\xi},t) = p(t) \overset{t}{*} h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}}) ,$
 
 $q(\bm{\xi},t) = \mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
