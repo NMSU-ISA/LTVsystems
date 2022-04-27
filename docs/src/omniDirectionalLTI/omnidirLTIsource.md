@@ -1,12 +1,11 @@
 # LTI Omnidirectional Modeling
 
 | Symbol     | Type       | Description |
-| ---------- | ---------- | ----------- |
-| p(t)    | scalar function of time |  transmitted signal   |
-| $\bm{p}_\mathrm{s}$   | vector  | position of source |
-| $h(\bm{\xi},t)$  |  scalar function of position and time  | impulse response from  $\bm{p}_\mathrm{s}$ to  $\bm{\xi}$ |
-| $q(\bm{\xi},t)$  |  scalar function of position and time  | observation of source   
-emission at $\bm{\xi}$ |
+| :---------- | :----------: | :----------- |
+| p(t)                  | scalar function of time |  transmitted signal   |
+| $\bm{p}_\mathrm{s}$   | vector                  | position of source |
+| $h(\bm{\xi},t)$       |  scalar function of position and time  | impulse response from    $\bm{p}_\mathrm{s}$ to  $\bm{\xi}$ |
+| $q(\bm{\xi},t)$  |  scalar function of position and time  | observation of source emission at $\bm{\xi}$ |
 
 
 
@@ -17,6 +16,16 @@ The impulse response from $\bm{p}_\mathrm{s}$ to  $\bm{\xi}$ is given by
 
 $h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}}) = \mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
 {\mathrm{c}}\right) \delta\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
+
+
+The reflection due to source is given by
+
+$r(\bm{\xi},t) = f(\bm{\xi}) q(\bm{\xi},t).$
+
+
+The impulse response from an arbitrary position $\bm{\xi}$ to the receiver at position $\bm{p}_\mathrm{r}$ is given by
+
+$g(\bm{\xi},t;\,{\bm{p}_\mathrm{r}}) = \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) \delta\left(t-\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right).$
 
 
 ## Scenario A
