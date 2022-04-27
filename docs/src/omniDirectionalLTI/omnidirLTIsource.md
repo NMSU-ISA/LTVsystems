@@ -1,12 +1,17 @@
 # LTI Omnidirectional Modeling
 
-| Symbol | Type | Description |
-|:---------- | ---------- |:------------:|
+| Symbol     | Type       | Description |
+| ---------- | ---------- | ----------- |
 | p(t)    | scalar function of time |  transmitted signal   |
 | $\bm{p}_\mathrm{s}$   | vector  | position of source |
-| $h(\bm{\xi},t)$  |  scalar function of position and time  | impulse response from $\bm{p}_\mathrm{s}$ to  $\bm{\xi}$ |
+| $h(\bm{\xi},t)$  |  scalar function of position and time  | impulse response from  $\bm{p}_\mathrm{s}$ to  $\bm{\xi}$ |
+| $q(\bm{\xi},t)$  |  scalar function of position and time  | observation of source   
+emission at $\bm{\xi}$ |
+
+
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_model.png)
+
 
 The impulse response from $\bm{p}_\mathrm{s}$ to  $\bm{\xi}$ is given by
 
