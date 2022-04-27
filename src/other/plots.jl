@@ -31,7 +31,7 @@ for i = 1:length(T)
                                 marker=:star8)
         elseif isa(T[i],lineSegment)
                 endPt = T[i].position+T[i].length*T[i].direction
-                plot([T[i].position[1],endPt[1]],[T[i].position[2],endPt[2]],color=:red)
+                plot!(p2,[T[i].position[1],endPt[1]],[T[i].position[2],endPt[2]],color=:red)
         else
 
         end
