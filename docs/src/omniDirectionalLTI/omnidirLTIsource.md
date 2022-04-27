@@ -2,7 +2,7 @@
 
 | Symbol     | Type       | Description |
 | :---------- | :----------: | :----------- |
-| p(t)                  | scalar function of time |  transmitted signal   |
+| $p(t)$                  | scalar function of time |  transmitted signal   |
 | $\bm{p}_\mathrm{s}$   | vector                  | position of source |
 | $\bm{p}_\mathrm{r}$   | vector                  | position of receiver |
 | $f(\bm{\xi})$         | scalar function of position |  reflectivity function   |
@@ -11,7 +11,7 @@
 | $r(\bm{\xi},t)$  |  scalar function of position and time  | signal reflection from $\bm{\xi}$ due to source|
 | $g(\bm{\xi},t)$  |  scalar function of position and time  | impulse response from    $\bm{\xi}$ to $\bm{p}_\mathrm{r}$ |
 | $\psi(\bm{\xi},t)$ |  scalar function of position and time  | observation of signal reflection from $\bm{\xi}$ |
-| z(t)                  | scalar function of time |   observation of reflections at $\bm{p}_\mathrm{r}$   |
+| $z(t)$                | scalar function of time |   observation of reflections at $\bm{p}_\mathrm{r}$   |
 
 
 
@@ -25,11 +25,16 @@ The impulse response from $\bm{p}_\mathrm{s}$ to  $\bm{\xi}$ is given by
 $h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}}) = \mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
 {\mathrm{c}}\right) \delta\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
+The signal observed at position $\bm{\xi}$ and time $t$ due to the source emitting from position $\bm{p}_\mathrm{s}$ is given as
+
+$q(\bm{\xi},t) = p(t) \overset{t}{*} h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}}) ,$
+
+$q(\bm{\xi},t) = \mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
+{\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
 The reflection due to source is given by
 
 $r(\bm{\xi},t) = f(\bm{\xi}) q(\bm{\xi},t).$
-
 
 The impulse response from an arbitrary position $\bm{\xi}$ to the receiver at position $\bm{p}_\mathrm{r}$ is given by
 
