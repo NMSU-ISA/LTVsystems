@@ -2,15 +2,17 @@
 
 | Symbol     | Type       | Description |
 | :---------- | :----------: | :----------- |
+| $t$                     | scalar variable |  time   |
+| $\bm{\xi}$              | vector variable |  position   |
 | $p(t)$                  | scalar function of time |  transmitted signal   |
-| $\bm{p}_\mathrm{s}$   | vector                  | position of source |
-| $\bm{p}_\mathrm{r}$   | vector                  | position of receiver |
-| $f(\bm{\xi})$         | scalar function of position |  reflectivity function   |
-| $h(\bm{\xi},t)$       |  scalar function of position and time  | impulse response from    $\bm{p}_\mathrm{s}$ to  $\bm{\xi}$ |
+| $\bm{p}_\mathrm{s}$     | vector                  | position of source |
+| $\bm{p}_\mathrm{r}$     | vector                  | position of receiver |
+| $f(\bm{\xi})$           | scalar function of position |  reflectivity function   |
+| $h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}})$       |  scalar function of position and time  | The LTI impulse response from    $\bm{p}_\mathrm{s}$ to  $\bm{\xi}$ |
 | $q(\bm{\xi},t)$  |  scalar function of position and time  | observation of source emission at $\bm{\xi}$ |
 | $r(\bm{\xi},t)$  |  scalar function of position and time  | signal reflection from $\bm{\xi}$ due to source|
-| $g(\bm{\xi},t)$  |  scalar function of position and time  | impulse response from    $\bm{\xi}$ to $\bm{p}_\mathrm{r}$ |
-| $\psi(\bm{\xi},t)$ |  scalar function of position and time  | observation of signal reflection from $\bm{\xi}$ |
+| $g(\bm{\xi},t;\,{\bm{p}_\mathrm{r}})$  |  scalar function of position and time  | The LTI impulse response from    $\bm{\xi}$ to $\bm{p}_\mathrm{r}$ |
+| $\psi(\bm{\xi},t)$ |  scalar function of position and time  | observation of signal reflections at $\bm{\xi}$ |
 | $z(t)$                | scalar function of time |   observation of reflections at $\bm{p}_\mathrm{r}$   |
 
 
@@ -43,7 +45,9 @@ $g(\bm{\xi},t;\,{\bm{p}_\mathrm{r}}) = \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}
 The signal observed at $\bm{p}_\mathrm{r}$ due to the reflection from the
 position $\bm{\xi}$ is given by
 
-$\psi(\bm{\xi},t) = r(\bm{\xi},t) \overset{t}{*} g\big(\bm{\xi},t;\,{\bm{p}_\mathrm{r}(\cdot)}\big).$
+$\psi(\bm{\xi},t) = r(\bm{\xi},t) \overset{t}{*} g\big(\bm{\xi},t;\,{\bm{p}_\mathrm{r}}\big) ,$
+
+$\psi(\bm{\xi},t) = \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) r\left(\bm{\xi},t-\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right).$
 
 
 ## Scenario A
@@ -74,9 +78,7 @@ $r(\bm{\xi},t) = \alpha_0 \delta(\bm{\xi} - \bm{\xi}_0)
 {\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
 Now the signal observed at $\bm{p}_\mathrm{r}$ due to the reflection from the
-position $\bm{\xi}$ is given by
-
-$\psi(\bm{\xi},t) = \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) r\left(\bm{\xi},t-\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right).$
+position $\bm{\xi}$ is given by $\psi(\bm{\xi},t).$
 
 Finally, the closed form expression of the observed signal, $z(t)$
 with $(𝐩ₛ=𝐩ᵣ)$ is given by
@@ -150,10 +152,7 @@ $r(\bm{\xi},t) = \alpha_0 \delta(\bm{\xi} - \bm{\xi}_0)
 \mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
 {\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
-Now the signal observed at $\bm{p}_\mathrm{r}$ due to the reflection from the position $\bm{\xi}$ is given by
-
-$\psi(\bm{\xi},t) = \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) r\left(\bm{\xi},t-\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right).$
-
+Now the signal observed at $\bm{p}_\mathrm{r}$ due to the reflection from the position $\bm{\xi}$ is given by $\psi(\bm{\xi},t).$
 
 Finally, the closed form expression of the observed signal, $z(t)$ is given by
 
@@ -231,9 +230,7 @@ $r(\bm{\xi},t) = \sum\limits_{n=1}^{N}\alpha_n \delta(\bm{\xi} - \bm{\xi}_n)
 \mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
 {\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
-Now the signal observed at $\bm{p}_\mathrm{r}$ due to the reflection from the position $\bm{\xi}$ is given by
-
-$\psi(\bm{\xi},t) = \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) r\left(\bm{\xi},t-\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right).$
+Now the signal observed at $\bm{p}_\mathrm{r}$ due to the reflection from the position $\bm{\xi}$ is given by $\psi(\bm{\xi},t).$
 
 Finally, the closed form expression of the observed signal, $z(t)$ is given by
 
