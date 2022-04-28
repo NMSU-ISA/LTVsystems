@@ -29,9 +29,13 @@ $h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}}) = \mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\
 
 The signal observed at position $\bm{\xi}$ and time $t$ due to the source emitting from position $\bm{p}_\mathrm{s}$ is given as
 
- $q(\bm{\xi},t) = \begin{array}{l} p(t) \overset{t}{*} h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}}) \\ \mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
- {\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)\end{array}$
-
+```math
+\begin{aligned}
+q(\bm{\xi},t)  &= p(t) \overset{t}{*} h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}}) \\
+               &= \mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
+               {\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)
+\end{aligned}
+```
 
 $q(\bm{\xi},t) = p(t) \overset{t}{*} h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}}) ,$
 
@@ -443,7 +447,7 @@ We can simulate the scenario and plot signal at the receiver as follows.
 
 Given the scenario E assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function as follows.
 
-$\hat{f}(\bm{\xi}) = ∫_{0}^{L}\dfrac{z\left(\dfrac{\|\bm{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\|+\|[\bm{\xi}+k\bm{u}]-\bm{p}_\mathrm{s}\|}
+$\hat{f}(\bm{\xi}) = \dfrac{z\left(\dfrac{\|\bm{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\|+\|[\bm{\xi}+k\bm{u}]-\bm{p}_\mathrm{s}\|}
 {\mathrm{c}}  \right)}{\mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\|}{\mathrm{c}}\right)
 \mathrm{A}\left(\frac{\|[\bm{\xi}+k\bm{u}]-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)} \mathrm{d}k$
 
