@@ -37,11 +37,6 @@ q(\bm{\xi},t)  &= p(t) \overset{t}{*} h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}}) \\
 \end{aligned}
 ```
 
-$q(\bm{\xi},t) = p(t) \overset{t}{*} h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}}) ,$
-
-$q(\bm{\xi},t) = \mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
-{\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
-
 The reflection due to source is given by
 
 $r(\bm{\xi},t) = f(\bm{\xi}) q(\bm{\xi},t).$
@@ -53,9 +48,12 @@ $g(\bm{\xi},t;\,{\bm{p}_\mathrm{r}}) = \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}
 The signal observed at $\bm{p}_\mathrm{r}$ due to the reflection from the
 position $\bm{\xi}$ is given by
 
-$\psi(\bm{\xi},t) = r(\bm{\xi},t) \overset{t}{*} g\big(\bm{\xi},t;\,{\bm{p}_\mathrm{r}}\big) ,$
-
-$\psi(\bm{\xi},t) = \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) r\left(\bm{\xi},t-\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right).$
+```math
+\begin{aligned}
+\psi(\bm{\xi},t) &= r(\bm{\xi},t) \overset{t}{*} g\big(\bm{\xi},t;\,{\bm{p}_\mathrm{r}}\big) \\
+                 &= \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) r\left(\bm{\xi},t-\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right)
+\end{aligned}
+```
 
 
 ## Scenario A
