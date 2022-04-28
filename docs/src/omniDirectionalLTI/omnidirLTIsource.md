@@ -444,7 +444,7 @@ The signal observed at position $\bm{\xi}$ and time $t$ due to the source emitti
 
 We define the reflection due to the source as follows
 
-$r(\bm{\xi},t)  = \int_{0}^{L}\alpha_0 \delta(\bm{\xi} - [\bm{\xi}_0+k\bm{u}])\mathrm{d}k q(\bm{\xi},t).$
+$r(\bm{\xi},t)  = \int_{0}^{L}\alpha_0 \delta(\bm{\xi} - [\bm{\xi}_0+k\bm{u}])\mathrm{d}k ~~ q(\bm{\xi},t).$
 
 Now the signal observed at $\bm{p}_\mathrm{r}$ due to the reflection from the position $\bm{\xi}$ is given by $\psi(\bm{\xi},t).$
 
