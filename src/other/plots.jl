@@ -23,6 +23,15 @@ for i = 2:length(S)
         scatter!(p2,[S[i].position[1]], [S[i].position[2]],markersize = 5.5,color = :green,label="",
                 marker=:pentagon)
 end
+if isa(T[1],pointReflector)
+        scatter!(p2,[T[1].S.position[1]],[T[1].S.position[2]],markersize = 5.5,color = :red,label="Reflector",
+                        marker=:star8)
+elseif isa(T[1],lineSegment)
+         endPt = T[1].position+T[1].length*T[1].direction
+        plot!(p2,[T[1].position[1],endPt[1]],[T[1].position[2],endPt[2]],color=:red,lw=3.0,label="Reflector")
+else
+
+end
 #scatter!(p2,[T[1].S.position[1]],[T[1].S.position[2]],markersize = 5.5,color = :red,
 #        marker=:star8,label="Reflector")
 for i = 1:length(T)
@@ -31,7 +40,7 @@ for i = 1:length(T)
                                 marker=:star8)
         elseif isa(T[i],lineSegment)
                 endPt = T[i].position+T[i].length*T[i].direction
-                plot!(p2,[T[i].position[1],endPt[1]],[T[i].position[2],endPt[2]],color=:red)
+                plot!(p2,[T[i].position[1],endPt[1]],[T[i].position[2],endPt[2]],color=:red,label="")
         else
 
         end
@@ -70,12 +79,34 @@ for i = 1:length(S)
         scatter!(p2,[S[i].position[1]], [S[i].position[2]],markersize = 5.5,color = :green,
                 marker=:pentagon,label="")
 end
-scatter!(p2,[T[1].S.position[1]],[T[1].S.position[2]],markersize = 5.5,color = :red,
-        marker=:star8,label="Reflector")
-for i = 1:length(T)
-        scatter!(p2,[T[i].S.position[1]],[T[i].S.position[2]],markersize = 5.5,color = :red,
-                marker=:star8,label="")
+#scatter!(p2,[T[1].S.position[1]],[T[1].S.position[2]],markersize = 5.5,color = :red,
+#        marker=:star8,label="Reflector")
+#for i = 1:length(T)
+#        scatter!(p2,[T[i].S.position[1]],[T[i].S.position[2]],markersize = 5.5,color = :red,
+#                marker=:star8,label="")
+#end
+if isa(T[1],pointReflector)
+        scatter!(p2,[T[1].S.position[1]],[T[1].S.position[2]],markersize = 5.5,color = :red,label="Reflector",
+                        marker=:star8)
+elseif isa(T[1],lineSegment)
+         endPt = T[1].position+T[1].length*T[1].direction
+        plot!(p2,[T[1].position[1],endPt[1]],[T[1].position[2],endPt[2]],color=:red,lw=3.0,label="Reflector")
+else
+
 end
+
+for i = 1:length(T)
+        if isa(T[i],pointReflector)
+                scatter!(p2,[T[i].S.position[1]],[T[i].S.position[2]],markersize = 5.5,color = :red,label="",
+                                marker=:star8)
+        elseif isa(T[i],lineSegment)
+                endPt = T[i].position+T[i].length*T[i].direction
+                plot!(p2,[T[i].position[1],endPt[1]],[T[i].position[2],endPt[2]],color=:red,label="")
+        else
+
+        end
+end
+
 scatter!(p2,[R[1].position[1]], [R[1].position[2]],markersize = 3.5,color = :blue,
         marker=:square,label="Receiver")
 for i = 1:length(R)

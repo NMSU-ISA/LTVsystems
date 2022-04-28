@@ -410,7 +410,7 @@ inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f_new;x_min = -3.0,x_max = 3.0,
 
 * multiple stationary omnidirectional sources
 * multiple stationary omnidirectional receivers
-* multiple stationary ideal point reflectors
+* a stationary ideal point reflector
 * the source emits an impulse
 
 ### Forward Modeling
@@ -428,28 +428,43 @@ inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f_new;x_min = -3.0,x_max = 3.0,
 * a continuous line segment reflector
 * the source emits an ideal impulse
 
+Given the assumptions, we simulate the following geometry for scenario F.
+
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioF.png)
+
 ### Forward Modeling
 
-Given the scenario E assumptions with the position of the source $𝐩ₛ$ and the receivers $𝐩ᵣ$, by providing the transmitted signal, $p(t)=δ(t)$ as an ideal impulse and a continuous line segment reflector. We obtained the received signal, $z(t)$ as follows.
+Given the scenario F assumptions with the position of the source $𝐩ₛ$ and the receivers $𝐩ᵣ$, by providing the transmitted signal, $p(t)$ as an ideal impulse and a continuous line segment reflector, the expression for the reflector function is given by
+
+$f(\bm{\xi}) = \int_{0}^{L}\alpha_0 \delta(\bm{\xi} - [\bm{\xi}_0+k\bm{u}]) \mathrm{d}k$
+
+where $α₀$ is a reflection coefficient, $\bm{ξ₀}$ is an initial position vector, $\bm{u}$ is an unit vector in the direction of line segment, $AB$ and $k$ is any scalar quantity.
+
+The signal observed at position $\bm{\xi}$ and time $t$ due to the source emitting from position $\bm{p}_\mathrm{s}$ is provided by $q(\bm{\xi},t).$
+
+We define the reflection due to the source as follows
+
+$r(\bm{\xi},t)  = \int_{0}^{L}\alpha_0 \delta(\bm{\xi} - [\bm{\xi}_0+k\bm{u}])\mathrm{d}k q(\bm{\xi},t).$
+
+Now the signal observed at $\bm{p}_\mathrm{r}$ due to the reflection from the position $\bm{\xi}$ is given by $\psi(\bm{\xi},t).$
+
+Finally, the closed form expression of the observed signal, $z(t)$ is given by
 
 $z(t) = \int_{0}^{L}\Big[\alpha_0 \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}_0+k\bm{u}]\|}{\mathrm{c}}\right)
 \mathrm{A}\left(\frac{\|[\bm{\xi}_0+k\bm{u}]-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)
-p\left(t-\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}_0+k\bm{u}]\|}{\mathrm{c}}-\frac{\|[\bm{\xi}_0+k\bm{u}]-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right) \Big] \mathrm{d}k$
+p\left(t-\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}_0+k\bm{u}]\|}{\mathrm{c}}-\frac{\|[\bm{\xi}_0+k\bm{u}]-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right) \Big] \mathrm{d}k.$
 
-We can simulate the scenario and plot signal at the receiver as follows.
-
-
-
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioF_signal.png)
 
 ### Inverse Modeling
 
-Given the scenario E assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function as follows.
+Given the scenario F assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function by considering the transmitted signal $p(t)=δ(t)$ as follows
 
 $\hat{f}(\bm{\xi}) = \dfrac{z\left(\dfrac{\|\bm{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\|+\|[\bm{\xi}+k\bm{u}]-\bm{p}_\mathrm{s}\|}
 {\mathrm{c}}  \right)}{\mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\|}{\mathrm{c}}\right)
-\mathrm{A}\left(\frac{\|[\bm{\xi}+k\bm{u}]-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)} \mathrm{d}k$
+\mathrm{A}\left(\frac{\|[\bm{\xi}+k\bm{u}]-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)} \mathrm{d}k.$
 
-
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioF_simulation.png)
 
 ## Scenario G
 
