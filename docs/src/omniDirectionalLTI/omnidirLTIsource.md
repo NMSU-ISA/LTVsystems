@@ -8,11 +8,11 @@
 | $\bm{p}_\mathrm{r}$     | vector                  | position of receiver |
 | $p(t)$                  | scalar function of time |  source emission   |
 | $f(\bm{\xi})$           | scalar function of position |  reflectivity function   |
-| $h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}})$       |  scalar function of position and time  | The LTI impulse response from    $\bm{p}_\mathrm{s}$ to  $\bm{\xi}$ |
+| $h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}})$       |  scalar function of position and time  | LTI impulse response from    $\bm{p}_\mathrm{s}$ to  $\bm{\xi}$ |
 | $q(\bm{\xi},t)$  |  scalar function of position and time  | observation of source emission at $\bm{\xi}$ |
 | $r(\bm{\xi},t)$  |  scalar function of position and time  | reflection from $\bm{\xi}$ due to source|
-| $g(\bm{\xi},t;\,{\bm{p}_\mathrm{r}})$  |  scalar function of position and time  | The LTI impulse response from    $\bm{\xi}$ to $\bm{p}_\mathrm{r}$ |
-| $\psi(\bm{\xi},t)$ |  scalar function of position and time  | observation of reflections at $\bm{\xi}$ |
+| $g(\bm{\xi},t;\,{\bm{p}_\mathrm{r}})$  |  scalar function of position and time  | LTI impulse response from    $\bm{\xi}$ to $\bm{p}_\mathrm{r}$ |
+| $\psi(\bm{\xi},t)$ |  scalar function of position and time  | observation of reflections from $\bm{\xi}$ at $\bm{p}_\mathrm{r}$ |
 | $z(t)$                | scalar function of time |   observation of reflections at $\bm{p}_\mathrm{r}$   |
 
 
@@ -22,7 +22,7 @@
 
 
 
-The impulse response from $\bm{p}_\mathrm{s}$ to  $\bm{\xi}$ is given by
+The LTI impulse response from $\bm{p}_\mathrm{s}$ to  $\bm{\xi}$ is given by
 
 $h(\bm{\xi},t;\,{\bm{p}_\mathrm{s}}) = \mathrm{A}\left(\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}
 {\mathrm{c}}\right) \delta\left(t-\frac{\|\bm{\xi}-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
@@ -41,7 +41,7 @@ The reflection due to source is given by
 
 $r(\bm{\xi},t) = f(\bm{\xi}) q(\bm{\xi},t).$
 
-The impulse response from an arbitrary position $\bm{\xi}$ to the receiver at position $\bm{p}_\mathrm{r}$ is given by
+The LTI impulse response from an arbitrary position $\bm{\xi}$ to the receiver at position $\bm{p}_\mathrm{r}$ is given by
 
 $g(\bm{\xi},t;\,{\bm{p}_\mathrm{r}}) = \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) \delta\left(t-\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right).$
 
@@ -462,7 +462,7 @@ Given the scenario F assumptions, we obtained the received signal, $z(t)$. Now w
 
 $\hat{f}(\bm{\xi}) = \dfrac{z\left(\dfrac{\|\bm{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\|+\|[\bm{\xi}+k\bm{u}]-\bm{p}_\mathrm{s}\|}
 {\mathrm{c}}  \right)}{\mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\|}{\mathrm{c}}\right)
-\mathrm{A}\left(\frac{\|[\bm{\xi}+k\bm{u}]-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)} \mathrm{d}k.$
+\mathrm{A}\left(\frac{\|[\bm{\xi}+k\bm{u}]-\bm{p}_\mathrm{s}\|}{\mathrm{c}}\right)}.$
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioF_simulation.png)
 
