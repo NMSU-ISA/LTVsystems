@@ -4,10 +4,10 @@ function inverse2Dplot(
         R::Vector{<:Receivers},
         f::Function;
         Δpos = 0.01,
-        x_min = -5.0,
-        x_max = 5.0,
-        y_min = -5.0,
-        y_max = 5.0,
+        x_min = -4.0,
+        x_max = 4.0,
+        y_min = -4.0,
+        y_max = 4.0,
 )
 cmap=cgrad(:default)
 x_range = collect(x_min:Δpos:x_max)
@@ -24,7 +24,7 @@ for i = 2:length(S)
                 marker=:pentagon)
 end
 if isa(T[1],pointReflector)
-        scatter!(p2,[T[1].S.position[1]],[T[1].S.position[2]],markersize = 5.5,color = :red,label="Reflector",
+        scatter!(p2,[T[1].S.position[1]],[T[1].S.position[2]],markersize = 2.5,color = :red,label="Reflector",
                         marker=:star8)
 elseif isa(T[1],lineSegment)
          endPt = T[1].position+T[1].length*T[1].direction
@@ -36,7 +36,7 @@ end
 #        marker=:star8,label="Reflector")
 for i = 1:length(T)
         if isa(T[i],pointReflector)
-                scatter!(p2,[T[i].S.position[1]],[T[i].S.position[2]],markersize = 5.5,color = :red,label="",
+                scatter!(p2,[T[i].S.position[1]],[T[i].S.position[2]],markersize = 2.5,color = :red,label="",
                                 marker=:star8)
         elseif isa(T[i],lineSegment)
                 endPt = T[i].position+T[i].length*T[i].direction
@@ -86,7 +86,7 @@ end
 #                marker=:star8,label="")
 #end
 if isa(T[1],pointReflector)
-        scatter!(p2,[T[1].S.position[1]],[T[1].S.position[2]],markersize = 5.5,color = :red,label="Reflector",
+        scatter!(p2,[T[1].S.position[1]],[T[1].S.position[2]],markersize = 2.5,color = :red,label="Reflector",
                         marker=:star8)
 elseif isa(T[1],lineSegment)
          endPt = T[1].position+T[1].length*T[1].direction
@@ -97,7 +97,7 @@ end
 
 for i = 1:length(T)
         if isa(T[i],pointReflector)
-                scatter!(p2,[T[i].S.position[1]],[T[i].S.position[2]],markersize = 5.5,color = :red,label="",
+                scatter!(p2,[T[i].S.position[1]],[T[i].S.position[2]],markersize = 2.5,color = :red,label="",
                                 marker=:star8)
         elseif isa(T[i],lineSegment)
                 endPt = T[i].position+T[i].length*T[i].direction
