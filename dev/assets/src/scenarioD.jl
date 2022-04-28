@@ -43,14 +43,14 @@ f₅(ξ::Vector{Float64})=(z₅((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₅-ξ))./c))./
 
 f(ξ::Vector{Float64})=f₁(ξ::Vector{Float64}).+f₂(ξ::Vector{Float64}).+f₃(ξ::Vector{Float64}).+f₄(ξ::Vector{Float64}).+f₅(ξ::Vector{Float64})
 #SPATIAL SIMULATION3
-inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f;x_min = -3.0,x_max = 3.0,y_min = -2.0,y_max = 2.0)
+inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f)
 
 png(path*"scenarioD_simulation.png")
 
 # Target estimation
 f_new(ξ::Vector{Float64})=(f₁(ξ::Vector{Float64}).*f₂(ξ::Vector{Float64}).*f₃(ξ::Vector{Float64}).*f₄(ξ::Vector{Float64}).*f₅(ξ::Vector{Float64}))^(1/3)
 #SPATIAL SIMULATION
-inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f_new;Δpos = 0.01,x_min = -3.0,x_max = 3.0,y_min = -2.0,y_max = 2.0,)
+inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f_new)
 
 png(path*"scenarioD_target_estimation.png")
 #-----------------------------------------------------------------
