@@ -14,13 +14,19 @@ include("other/types.jl")
 export SourcesReflectors, Sources, Reflectors, Receivers
 
 include("omniDirectionalLTI/sources.jl")
-export LTIsourceO, LTIsourceDTI, LTIsourceD, LTISources
+export LTIsourceO, LTISources
+
+include("directionalLTI/dirSources.jl")
+export LTIsourceDTI, LTIsourceD
+
+include("directionalLTI/dirReceivers.jl")
+export LTIreceiverDTI, LTIreceiverD
 
 include("omniDirectionalLTI/reflectors.jl")
 export pointReflector, lineSegment
 
 include("omniDirectionalLTI/receivers.jl")
-export LTIreceiverO, LTIreceiverDTI, LTIreceiverD, LTIReceivers
+export LTIreceiverO,  LTIReceivers
 
 include("other/threading.jl")
 
