@@ -50,7 +50,7 @@ png(path*"scenarioD_simulation.png")
 # Target estimation
 f_new(ξ::Vector{Float64})=(f₁(ξ::Vector{Float64}).*f₂(ξ::Vector{Float64}).*f₃(ξ::Vector{Float64}).*f₄(ξ::Vector{Float64}).*f₅(ξ::Vector{Float64}))^(1/3)
 #SPATIAL SIMULATION
-inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f_new)
+inverse2Dfinalplot([q],[z₁,z₂,z₃,z₄,z₅],f_new)
 
 png(path*"scenarioD_target_estimation.png")
 #-----------------------------------------------------------------

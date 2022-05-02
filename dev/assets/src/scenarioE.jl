@@ -28,7 +28,7 @@ z₁ = LTIreceiverO([r₁],𝐩ᵣ₁)
 z₂ = LTIreceiverO([r₂],𝐩ᵣ₂)
 z₃ = LTIreceiverO([r₃],𝐩ᵣ₃)
 
-t = collect(0.0:1.0e-10:15.5e-9)
+t = 0.0:1.0e-10:15.5e-9
 p1 = plot( t, z₁(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot!(p1,t, z₂(t))
 plot!(p1,t, z₃(t))
@@ -54,7 +54,7 @@ png(path*"scenarioE_simulation.png")
 # Target estimation
 f_new(ξ::Vector{Float64})=(f₁(ξ::Vector{Float64}).*f₂(ξ::Vector{Float64}).*f₃(ξ::Vector{Float64}))
 #SPATIAL SIMULATION
-inverse2Dplot([q₁,q₂,q₃],[r₁,r₂,r₃],[z₁,z₂,z₃],f_new)
+inverse2Dfinalplot([q₁,q₂,q₃],[z₁,z₂,z₃],f_new)
 
 png(path*"scenarioE_target_estimation.png")
 
