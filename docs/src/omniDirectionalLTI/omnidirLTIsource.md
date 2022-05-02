@@ -594,8 +594,81 @@ inverse2Dplot([q],[r],[z],f)
 ### Scenario Assumptions
 
 * single stationary omnidirectional source
-* multiple stationary omnidirectional receivers
-* a continuous line segment reflector
-* the source emits an ideal impulse
+* single stationary omnidirectional receiver
+* multiple continuous line segment reflectors
+* the source emits an impulse
+
+Given the assumptions, we simulate the following geometry for scenario G.
+
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioG.png)
 
 ### Forward Modeling
+Given the scenario F assumptions with the position of the source $𝐩ₛ$ and the receivers $𝐩ᵣ$, by providing the transmitted signal, $p(t)$ as an ideal impulse and a continuous line segment reflector, the expression for the reflector function is given by
+
+$f(\bm{\xi}) = \sum\limits_{n=1}^{N}\big[\int_{0}^{L_n}\alpha_n \delta(\bm{\xi} - [\bm{\xi}_n+k\bm{u}_n]) \mathrm{d}k\big]$
+
+where $αₙ$ is reflection coefficients, $\bm{ξₙ}$ is an initial position vectors, $\bm{u}_n$ is an unit vectors in the direction of line segments, and $k$ is any scalar quantity.
+
+The signal observed at position $\bm{\xi}$ and time $t$ due to the source emitting from position $\mathbf{p}_\mathrm{s}$ is provided by $q(\bm{\xi},t).$
+
+We define the reflection due to the source as follows
+
+$r(\bm{\xi},t)  = \sum\limits_{n=1}^{N}\big[\int_{0}^{L_n}\alpha_n \delta(\bm{\xi} - [\bm{\xi}_n+k\bm{u}_n]) \mathrm{d}k\big] ~~ q(\bm{\xi},t).$
+
+Now the signal observed at $\bm{p}_\mathrm{r}$ due to the reflection from the position $\bm{\xi}$ is given by $\psi(\bm{\xi},t).$
+
+Finally, the closed form expression of the observed signal, $z(t)$ is given by
+
+$z(t) = \sum\limits_{n=1}^{N}\Big(\int_{0}^{L}\Big[\alpha_n \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}_n+k\bm{u}_n]\|}{\mathrm{c}}\right)
+\mathrm{A}\left(\frac{\|[\bm{\xi}_n+k\bm{u}_n]-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)
+p\left(t-\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}_n+k\bm{u}_n]\|}{\mathrm{c}}-\frac{\|[\bm{\xi}_n+k\bm{u}_n]-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right) \Big] \mathrm{d}k\Big).$
+
+```julia
+using LTVsystems
+using QuadGK
+using Plots
+𝐩ₛ =  [0.1, 0.0]
+𝐩ᵣ =  [0.6, 0.0]
+p(t) = δn(t,1.0e-10)
+q = LTIsourceO(𝐩ₛ, p)
+α₁ = 0.7; 𝛏₁ = [1.2,1.0]; 𝐮₁ = [1.0,0.0]; L₁=1.0
+α₂ = 0.5; 𝛏₂ = [1.2,1.0]; 𝐮₂ = [0.0,1.0]; L₂=1.0
+α₃ = 0.3; 𝛏₃ = [2.2,1.0]; 𝐮₃ = [-1/√2,1/√2]; L₃=1.35
+r₁ = lineSegment(𝛏₁,𝐮₁,L₁,k->α₁,[q])
+r₂ = lineSegment(𝛏₂,𝐮₂,L₂,k->α₂,[q])
+r₃ = lineSegment(𝛏₃,𝐮₃,L₃,k->α₃,[q])
+z = LTIreceiverO([r₁,r₂,r₃],𝐩ᵣ)
+t = 0.0:1.0e-10:35.5e-9
+plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+```
+
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioG_signal.png)
+
+### Inverse Modeling
+
+Given the scenario G assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function by considering the transmitted signal $p(t)=δ(t)$ as follows
+
+$\hat{f}(\bm{\xi}) = \dfrac{z\left(\dfrac{\|\bm{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\|+\|[\bm{\xi}+k\bm{u}]-\mathbf{p}_\mathrm{s}\|}
+{\mathrm{c}}  \right)}{\mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\|}{\mathrm{c}}\right)
+\mathrm{A}\left(\frac{\|[\bm{\xi}+k\bm{u}]-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)}.$
+
+```julia
+using LTVsystems
+using QuadGK
+𝐩ₛ =  [0.1, 0.0]
+𝐩ᵣ =  [0.6, 0.0]
+p(t) = δn(t,1.0e-10)
+q = LTIsourceO(𝐩ₛ, p)
+α₁ = 0.7; 𝛏₁ = [1.2,1.0]; 𝐮₁ = [1.0,0.0]; L₁=1.0
+α₂ = 0.5; 𝛏₂ = [1.2,1.0]; 𝐮₂ = [0.0,1.0]; L₂=1.0
+α₃ = 0.3; 𝛏₃ = [2.2,1.0]; 𝐮₃ = [-1/√2,1/√2]; L₃=1.35
+r₁ = lineSegment(𝛏₁,𝐮₁,L₁,k->α₁,[q])
+r₂ = lineSegment(𝛏₂,𝐮₂,L₂,k->α₂,[q])
+r₃ = lineSegment(𝛏₃,𝐮₃,L₃,k->α₃,[q])
+z = LTIreceiverO([r₁,r₂,r₃],𝐩ᵣ)
+f(ξ::Vector{Float64})=(z((norm(ξ-𝐩ₛ) .+norm(𝐩ᵣ-ξ))./c))./  
+                      (A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ-ξ)./c))
+inverse2Dplot([q],[r₁,r₂,r₃],[z],f)
+```
+
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioG_simulation.png)
