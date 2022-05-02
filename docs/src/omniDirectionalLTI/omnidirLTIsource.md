@@ -603,7 +603,7 @@ Given the assumptions, we simulate the following geometry for scenario G.
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioG.png)
 
 ### Forward Modeling
-Given the scenario F assumptions with the position of the source $𝐩ₛ$ and the receivers $𝐩ᵣ$, by providing the transmitted signal, $p(t)$ as an ideal impulse and a continuous line segment reflector, the expression for the reflector function is given by
+Given the scenario G assumptions with the position of the source $𝐩ₛ$ and the receivers $𝐩ᵣ$, by providing the transmitted signal, $p(t)$ as an ideal impulse and multiple continuous line segment reflectors say N, the expression for the reflector function is given by
 
 $f(\bm{\xi}) = \sum\limits_{n=1}^{N}\big[\int_{0}^{L_n}\alpha_n \delta(\bm{\xi} - [\bm{\xi}_n+k\bm{u}_n]) \mathrm{d}k\big]$
 
@@ -619,7 +619,7 @@ Now the signal observed at $\bm{p}_\mathrm{r}$ due to the reflection from the po
 
 Finally, the closed form expression of the observed signal, $z(t)$ is given by
 
-$z(t) = \sum\limits_{n=1}^{N}\Big(\int_{0}^{L}\Big[\alpha_n \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}_n+k\bm{u}_n]\|}{\mathrm{c}}\right)
+$z(t) = \sum\limits_{n=1}^{N}\Big(\int_{0}^{L_n}\Big[\alpha_n \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}_n+k\bm{u}_n]\|}{\mathrm{c}}\right)
 \mathrm{A}\left(\frac{\|[\bm{\xi}_n+k\bm{u}_n]-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)
 p\left(t-\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}_n+k\bm{u}_n]\|}{\mathrm{c}}-\frac{\|[\bm{\xi}_n+k\bm{u}_n]-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right) \Big] \mathrm{d}k\Big).$
 
