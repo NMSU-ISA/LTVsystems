@@ -12,7 +12,7 @@ q = LTIsourceO(𝐩ₛ, p)
 r = lineSegment(𝛏₀,𝛖,len,k->α₀,[q])
 z = LTIreceiverO([r],𝐩ᵣ)
 
-t = collect(0.0:1.0e-10:35.5e-9)
+t = 0.0:1.0e-10:35.5e-9
 plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 
 png(path*"scenarioF_signal.png")

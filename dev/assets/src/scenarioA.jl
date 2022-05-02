@@ -9,7 +9,7 @@ q = LTIsourceO(𝐩ₛ, p)
 r = pointReflector(𝛏₀,α₀,[q])
 z = LTIreceiverO([r],𝐩ᵣ)
 #TEMPORAL SIMULATION
-t = collect(0.0:1.0e-10:15.5e-9)
+t = 0.0:1.0e-10:15.5e-9
 plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 
 png(path*"scenarioA_signal.png")
