@@ -103,7 +103,7 @@ q = LTIsourceO(𝐩ₛ, p)
 α₀ = 0.7; 𝛏₀ = [1.8,0.0]
 r = pointReflector(𝛏₀,α₀,[q])
 z = LTIreceiverO([r],𝐩ᵣ)
-t = collect(0.0:1.0e-10:15.5e-9)
+t = 0.0:1.0e-10:15.5e-9
 plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_signal.png)
@@ -179,7 +179,7 @@ q = LTIsourceO(𝐩ₛ, p)
 α₀ = 0.7; 𝛏₀ = [1.8,0.0]
 r = pointReflector(𝛏₀,α₀,[q])
 z = LTIreceiverO([r],𝐩ᵣ)
-t = collect(0.0:1.0e-10:15.5e-9)
+t = 0.0:1.0e-10:15.5e-9
 plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioB_signal.png)
@@ -257,7 +257,7 @@ q = LTIsourceO(𝐩ₛ, p)
 α₃ = 0.5; 𝛏₃ = [2.7,-0.9]
 r = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q])
 z = LTIreceiverO(r,𝐩ᵣ)
-t = collect(0.0:1.0e-10:25.5e-9)
+t = 0.0:1.0e-10:25.5e-9
 plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioC_signal.png)
@@ -344,7 +344,7 @@ r = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q])
 z₁ = LTIreceiverO(r,𝐩ᵣ₁); z₂ = LTIreceiverO(r,𝐩ᵣ₂)
 z₃ = LTIreceiverO(r,𝐩ᵣ₃); z₄ = LTIreceiverO(r,𝐩ᵣ₄)
 z₅ = LTIreceiverO(r,𝐩ᵣ₅)
-t = collect(0.0:1.0e-10:15.5e-9)
+t = 0.0:1.0e-10:15.5e-9
 p1 = plot( t, z₁(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot!(p1,t, z₂(t))
 plot!(p1,t, z₃(t))
@@ -396,7 +396,7 @@ f(ξ::Vector{Float64})=f₁(ξ::Vector{Float64}).+f₂(ξ::Vector{Float64}).+
 inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f)
 f_new(ξ::Vector{Float64})=(f₁(ξ::Vector{Float64}).*f₂(ξ::Vector{Float64}).*
                           f₃(ξ::Vector{Float64}).*f₄(ξ::Vector{Float64}).*f₅(ξ::Vector{Float64}))^(1/3)
-inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f_new)
+inverse2Dfinalplot([q],[z₁,z₂,z₃,z₄,z₅],f_new)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_simulation.png)
 
@@ -459,7 +459,7 @@ r₃ = pointReflector(𝛏₁,α₁,[q₃])
 z₁ = LTIreceiverO([r₁],𝐩ᵣ₁)
 z₂ = LTIreceiverO([r₂],𝐩ᵣ₂)
 z₃ = LTIreceiverO([r₃],𝐩ᵣ₃)
-t = collect(0.0:1.0e-10:15.5e-9)
+t = 0.0:1.0e-10:15.5e-9
 p1 = plot( t, z₁(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot!(p1,t, z₂(t))
 plot!(p1,t, z₃(t))
@@ -504,7 +504,7 @@ f(ξ::Vector{Float64})=f₁(ξ::Vector{Float64}).+f₂(ξ::Vector{Float64}).+
 inverse2Dplot([q₁,q₂,q₃],[r₁,r₂,r₃],[z₁,z₂,z₃],f)
 f_new(ξ::Vector{Float64})=(f₁(ξ::Vector{Float64}).*f₂(ξ::Vector{Float64}).*
                            f₃(ξ::Vector{Float64}))
-inverse2Dplot([q₁,q₂,q₃],[r₁,r₂,r₃],[z₁,z₂,z₃],f_new)
+inverse2Dfinalplot([q₁,q₂,q₃],[z₁,z₂,z₃],f_new)
 ```
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioE_simulation.png)
@@ -547,6 +547,21 @@ $z(t) = \int_{0}^{L}\Big[\alpha_0 \mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-[\bm
 \mathrm{A}\left(\frac{\|[\bm{\xi}_0+k\bm{u}]-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)
 p\left(t-\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}_0+k\bm{u}]\|}{\mathrm{c}}-\frac{\|[\bm{\xi}_0+k\bm{u}]-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right) \Big] \mathrm{d}k.$
 
+```julia
+using LTVsystems
+using QuadGK
+using Plots
+𝐩ₛ =  [0.1, 0.0]
+𝐩ᵣ =  [0.6, 0.0]
+p(t) = δn(t,1.0e-10)
+q = LTIsourceO(𝐩ₛ, p)
+α₀ = 0.7; 𝛏₀ = [1.8,2.0]; 𝛖 = [1.0,0.0]; len=1.0
+r = lineSegment(𝛏₀,𝛖,len,k->α₀,[q])
+z = LTIreceiverO([r],𝐩ᵣ)
+t = 0.0:1.0e-10:35.5e-9
+plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+```
+
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioF_signal.png)
 
 ### Inverse Modeling
@@ -556,6 +571,21 @@ Given the scenario F assumptions, we obtained the received signal, $z(t)$. Now w
 $\hat{f}(\bm{\xi}) = \dfrac{z\left(\dfrac{\|\bm{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\|+\|[\bm{\xi}+k\bm{u}]-\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}}  \right)}{\mathrm{A}\left(\frac{\|\bm{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\|}{\mathrm{c}}\right)
 \mathrm{A}\left(\frac{\|[\bm{\xi}+k\bm{u}]-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)}.$
+
+```julia
+using LTVsystems
+using QuadGK
+using Plots
+𝐩ₛ =  [0.1, 0.0]
+𝐩ᵣ =  [0.6, 0.0]
+p(t) = δn(t,1.0e-10)
+q = LTIsourceO(𝐩ₛ, p)
+α₀ = 0.7; 𝛏₀ = [1.8,2.0]; 𝛖 = [1.0,0.0]; len=1.0
+r = lineSegment(𝛏₀,𝛖,len,k->α₀,[q])
+z = LTIreceiverO([r],𝐩ᵣ)
+f(ξ::Vector{Float64})=(z((norm(ξ-𝐩ₛ) .+norm(𝐩ᵣ-ξ))./c))./(A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ-ξ)./c))
+inverse2Dplot([q],[r],[z],f)
+```
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioF_simulation.png)
 
