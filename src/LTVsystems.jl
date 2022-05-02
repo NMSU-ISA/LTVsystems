@@ -34,7 +34,7 @@ include("other/utilityFunctions.jl")
 export u, 𝒩ᵤ, 𝒩, δ, δn
 
 include("other/plots.jl")
-export inverse2Dplot, scene2Dplot
+export inverse2Dplot, scene2Dplot, inverse2Dfinalplot
 
 include("auxiliaryFunctions/auxiliaryFunction.jl")
 export A, NaNnormalize, angleBetween, distBetween, c
