@@ -466,8 +466,8 @@ $\hat{f}(\bm{\xi}) = \left(\prod\limits_{i=1}^{N}fᵢ(\bm{\xi})\right)$, where
 
 $fᵢ(\bm{\xi}) = \dfrac{zᵢ\left(\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}- \bm{\xi}\|+\|\bm{\xi}
 -\bm{p}_{\mathrm{s}^{(i)}}\|}
-{\mathrm{c}}\right)}{\mathrm{A}(\frac{\|\bm{\xi}-\bm{p}_{\mathrm{s}^{(i)}}\|}{\mathrm{c}})
-\mathrm{A}(\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}-\bm{\xi}\|}{\mathrm{c}})}.$
+{\mathrm{c}}\right)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\bm{p}_{\mathrm{s}^{(i)}}\|}{\mathrm{c}}\big)
+\mathrm{A}\big(\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}-\bm{\xi}\|}{\mathrm{c}}\big)}.$
 
 ```julia
 using LTVsystems
@@ -535,9 +535,9 @@ $r(\bm{\xi},t)  = \int_{0}^{L}\alpha_0 \delta(\bm{\xi} - [\bm{\xi}_0+k\bm{u}])\m
 
 Finally, the closed form expression of the observed signal, $z(t)$ is given by
 
-$z(t) = \int_{0}^{L}\Big[\alpha_0 \mathrm{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-[\bm{\xi}_0+k\bm{u}]\|}{\mathrm{c}}\right)
-\mathrm{A}\left(\frac{\|[\bm{\xi}_0+k\bm{u}]-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)
-p\left(t-\frac{\|\mathbf{p}_\mathrm{r}-[\bm{\xi}_0+k\bm{u}]\|}{\mathrm{c}}-\frac{\|[\bm{\xi}_0+k\bm{u}]-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right) \Big] \mathrm{d}k.$
+$z(t) = \int_{0}^{L}\Big[\alpha_0 \mathrm{A}\left(\frac{\big\|\mathbf{p}_\mathrm{r}-[\bm{\xi}_0+k\bm{u}]\big\|}{\mathrm{c}}\right)
+\mathrm{A}\left(\frac{\big\|[\bm{\xi}_0+k\bm{u}]-\mathbf{p}_\mathrm{s}\big\|}{\mathrm{c}}\right)
+p\left(t-\frac{\big\|\mathbf{p}_\mathrm{r}-[\bm{\xi}_0+k\bm{u}]\big\|}{\mathrm{c}}-\frac{\big\|[\bm{\xi}_0+k\bm{u}]-\mathbf{p}_\mathrm{s}\big\|}{\mathrm{c}}\right) \Big] \mathrm{d}k.$
 
 ```julia
 using LTVsystems
@@ -561,8 +561,8 @@ plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 Given the scenario F assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function by considering the transmitted signal $p(t)=δ(t)$ as follows
 
 $\hat{f}(\bm{\xi}) = \dfrac{z\left(\dfrac{\|\mathbf{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\|+\|[\bm{\xi}+k\bm{u}]-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}}  \right)}{\mathrm{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\|}{\mathrm{c}}\right)
-\mathrm{A}\left(\frac{\|[\bm{\xi}+k\bm{u}]-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)}.$
+{\mathrm{c}}  \right)}{\mathrm{A}\left(\frac{\big\|\mathbf{p}_\mathrm{r}-[\bm{\xi}+k\bm{u}]\big\|}{\mathrm{c}}\right)
+\mathrm{A}\left(\frac{\big\|[\bm{\xi}+k\bm{u}]-\mathbf{p}_\mathrm{s}\big\|}{\mathrm{c}}\right)}.$
 
 ```julia
 using LTVsystems
