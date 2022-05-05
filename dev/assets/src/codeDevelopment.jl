@@ -3,13 +3,63 @@ using LTVsystems
 using QuadGK
 using Plots
 𝐩ₛ =  [0.0, 0.3]
-𝐩ᵣ =  [-0.3, 0.0]
-p(t) = δn(t,1.0e-10)
-q = LTIsourceO(𝐩ₛ, p)
+𝐩ᵣ =  [0.0, 0.3]
+p(t) = δn(t,1.0e-10)# emittied signal
+q = LTIsourceO(𝐩ₛ, p)#observed signal--1st video at ps location
 #Reflectors
 α₁ = 0.7; 𝛏₁ = [1.8,0.0]
-R₁ = pointReflector(𝛏₀,α₀,[q])
-z = LTIreceiverO([R₁],𝐩ᵣ)
+R₁ = pointReflector(𝛏₀,α₀,[q])# primary reflections--2nd video
+z = LTIreceiverO([R₁],𝐩ᵣ)# final signal observed at pr
+Δpos = 0.01
+x_range = collect(-2:Δpos:2)
+y_range = collect(-2:Δpos:2)
+xyGrid = [[x, y] for x in x_range, y in y_range]
+
+
+allPlots = []
+t₀1 = collect(0.0:0.2e-9:4.5e-9)
+t₀2 = collect(4.6e-9:0.2e-9:6.5e-9)
+
+for t₀ ∈ 0.0:0.2e-9:4.5e-9,
+val1 = [q(𝐮,t₀) for 𝐮 ∈ xyGrid]
+#val2 = [R₁(𝐮,0.1) for 𝐮 ∈ xyGrid]
+p11 = plot(x_range,y_range,transpose(val1),st=:surface,camera=(0,90),legend=false,clims=(-1,1),aspect_ratio=:equal,xticks=:false,yticks=:false,zticks=:false)
+p12 = plot!(p11,x_range,y_range,transpose(val2))
+scatter!(p12,[𝐩ₛ[1]], [𝐩ₛ[2]],markersize = 8.5,color = :green, marker=:pentagon, label='s' )
+scatter!(p12,[𝐩ᵣ[1]], [𝐩ᵣ[2]],markersize = 3.5,color = :blue, marker=:square, label='r' )
+scatter!(p12,[𝛏₁[1]],[𝛏₁[2]],markersize = 8.5,color = :red, marker=:star8, label='t')
+frame = plot(p12, size = (600, 600) )
+    push!(allPlots, frame)
+anim = @animate for i ∈ 1:length(allPlots)
+    plot(allPlots[i])
+end
+gif(anim, "scenarioA.gif", fps = 30)
+
+for t₀1 ∈ 4.5e-9:0.2e-9:6.5e-9
+    val1 = [R₁(𝐮,t₀1) for 𝐮 ∈ xyGrid]
+    p11 = plot(x_range,y_range,transpose(val1),st=:surface,camera=(0,90),legend=false,clims=(-1,1),aspect_ratio=:equal,xticks=:false,yticks=:false,zticks=:false)
+    #p12 = plot!(p11,x_range,y_range,transpose(val2))
+    scatter!(p11,[𝐩ₛ[1]], [𝐩ₛ[2]],markersize = 8.5,color = :green, marker=:pentagon, label='s' )
+    scatter!(p11,[𝐩ᵣ[1]], [𝐩ᵣ[2]],markersize = 3.5,color = :blue, marker=:square, label='r' )
+    scatter!(p11,[𝛏₁[1]],[𝛏₁[2]],markersize = 8.5,color = :red, marker=:star8, label='t')
+    frame = plot(p11, size = (600, 600) )
+    push!(allPlots, frame)
+ end
+anim = @animate for i ∈ 1:length(allPlots)
+    plot(allPlots[i])
+end
+gif(anim, "scenarioA_reflector.gif", fps = 30)
+
+
+
+
+
+
+
+
+
+
+
 t = 0.0:1.0e-10:15.5e-9
 plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 
