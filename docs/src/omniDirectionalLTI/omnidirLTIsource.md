@@ -5,7 +5,7 @@
 | $t$                     | scalar variable |  time   |
 | $\bm{\xi}$              | vector variable |  position   |
 | $\mathbf{p}_\mathrm{s}$     | vector                  | position of source |
-| $\bm{p}_\mathrm{r}$     | vector                  | position of receiver |
+| $\mathbf{p}_\mathrm{r}$     | vector                  | position of receiver |
 | $p(t)$                  | scalar function of time |  source emission   |
 | $f(\bm{\xi})$           | scalar function of position |  reflectivity function   |
 | $h(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s}})$       |  scalar function of position and time  | LTI impulse response from    $\mathbf{p}_\mathrm{s}$ to  $\bm{\xi}$ |
