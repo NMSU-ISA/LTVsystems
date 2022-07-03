@@ -6,7 +6,7 @@ An **LTI Omnidirectional Source**  is parameterized by taking the convolution be
 
 $q(\bm{\xi},t)=p(t) \overset{t}{*} h(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s}})$
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_source.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTISource_omni.png)
 
 
 ### Defining an LTI Omnidirectional Source
@@ -33,7 +33,7 @@ Mathematically, an **LTI Directional Source** is given as follows.
 $q(\bm{\xi},t)=p(t) \overset{t}{*} h(\bm{\xi},t;\,
 \textcolor{myLightSlateGrey}{\mathbf{p}_\mathrm{s},\bm{b}_\mathrm{s}})$
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTIsource_DTI.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTISource_Dir.png)
 
 
 ### Defining an LTI Directional Source
@@ -59,7 +59,7 @@ Mathematically, a **Stationary Direction Source** with time-varying beam center 
 $q(\bm{\xi},t)=p(t) \overset{t}{*} h\big(\bm{\xi},t;\,
 \textcolor{myLightSlateGrey}{\mathbf{p}_\mathrm{s}},\bm{b}_\mathrm{s}(t)\big)$
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTIsource_D.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/StationarySource_Dir.png)
 
 
 ### Defining an Stationary Direction Source with Time-Varying Beam Center
