@@ -6,7 +6,7 @@ using LTVsystems, Plots
 p(t) = δn(t,1.0e-10)
 q = LTIsourceO(𝐩ₛ, p)
 α₀ = 0.7; 𝛏₀ = [1.8,0.0]
-r = pointReflector(𝛏₀,α₀,[q])
+r = pointReflector(𝛏₀,α₀,q)
 z = LTIreceiverO([r],𝐩ᵣ)
 #TEMPORAL SIMULATION
 t = 0.0:1.0e-10:15.5e-9
