@@ -2,6 +2,10 @@ struct pointReflector <: Reflectors
         S::LTIsourceO
 end
 
+function pointReflector(𝛏::Vector{Float64},α₀::Float64,sourceList::SourcesReflectors)
+    return pointReflector(LTIsourceO(𝛏, t->α₀*sourceList(𝛏,t)))
+end
+
 function pointReflector(𝛏::Vector{Float64},α₀::Float64,sourceList::Vector{<:SourcesReflectors})
     return pointReflector(LTIsourceO(𝛏, t->α₀*sourceList[1](𝛏,t)))
 end
