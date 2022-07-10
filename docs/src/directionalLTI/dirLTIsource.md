@@ -2,8 +2,8 @@
 
 | Symbol     | Type       | Description |
 | :---------- | :----------: | :----------- |
-| $\bm{b}_\mathrm{s}$               | vector|  source beam center   |
-| $\bm{b}_\mathrm{r}$               | vector|  receiver beam center   |
+| $\mathbf{b}_\mathrm{s}$               | vector|  source beam center   |
+| $\mathbf{b}_\mathrm{r}$               | vector|  receiver beam center   |
 | $\Theta$     | scalar           | angle relative to beam center |
 | $\mathrm{G}_\mathrm{s}(\Theta)$   | scalar function of angle  |  Gain of the source antenna |
 | $\mathrm{G}_\mathrm{r}(\Theta)$   | scalar function of angle  |  Gain of the receiver antenna |
@@ -19,7 +19,7 @@
 
 The LTI impulse response from $\mathbf{p}_\mathrm{s}$ to  $\bm{\xi}$ is given by
 
-$h(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s},\bm{b}_\mathrm{s}}) = \mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\bm{b}_\mathrm{s}}\right)
+$h(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}) = \mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
 \mathrm{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}}\right) \delta\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
@@ -40,7 +40,7 @@ Given the scenario A assumptions with the position of the source $𝐩ₛ$, the 
 $z(t) = \alpha_0 \mathrm{A}^2
 \left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}
 {\mathrm{c}}\right)\mathrm{D}^2_\mathrm{r}\left(\bm{\xi_0};\,\textcolor{myLightSlateGrey}
-{\bm{p}_\mathrm{r},\bm{b}_\mathrm{r}}\right)
+{\bm{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)
 p\left(t -2\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)$
 
 Now we can simulate the scenario and plot signal at the receiver as follows.

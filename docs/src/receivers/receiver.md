@@ -39,18 +39,18 @@ z = LTIreceiverO([R₁],𝐩ᵣ)
 An **LTI Directional Receiver** is parameterized by accounting the direction of the antenna which is defined by directional gain,
 
 $\mathrm{D}_\mathrm{r}\left(\bm{\xi};\,\textcolor{myLightSlateGrey}
-{\mathbf{p}_\mathrm{r},\bm{b}_\mathrm{r}}\right)= \mathrm{G}_\mathrm{r}
-\left(∠[\,\bm{b}\,,\,\bm{\xi}-\mathbf{p}_\mathrm{r}\,]\right)$
+{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)= \mathrm{G}_\mathrm{r}
+\left(∠[\,\mathbf{b}\,,\,\bm{\xi}-\mathbf{p}_\mathrm{r}\,]\right)$
 
 where $∠[⋅,⋅]$ returns the angle between the two arguments and $\mathrm{G}_\mathrm{r}(\Theta)$
-is the receiver antenna's $\textit{voltage gain}$ as a function of angle $\Theta$ relative to the beam center $\bm{b}_\mathrm{r}$.
+is the receiver antenna's $\textit{voltage gain}$ as a function of angle $\Theta$ relative to the beam center $\mathbf{b}_\mathrm{r}$.
 
 We define an **LTI Directional Receiver** by observing the signal due to the reflection given by taking convolution between the reflected signal, $r(\bm{\xi},t)$ and the impulse response from the receiver located at position, $\mathbf{p}_\mathrm{r}$.
 Mathematically, we can define the observed signal as follows.
 
 
 $\psi(\bm{\xi},t)=r(\bm{\xi},t) \overset{t}{*} g(\bm{\xi},t;\,
-\textcolor{myLightSlateGrey}{\mathbf{p}_\mathrm{r},\bm{b}_\mathrm{r}})$
+\textcolor{myLightSlateGrey}{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}})$
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_ReceiverDTI.png)
 
@@ -84,7 +84,7 @@ z = LTIreceiverDTI([R₁],𝐩ᵣ, 𝐛, G)
 Mathematically, a **Stationary Direction Receiver** with time-varying beam center is given as follows.
 
 $\psi(\bm{\xi},t)=r(\bm{\xi},t) \overset{t}{*} g(\bm{\xi},t;\,
-\textcolor{myLightSlateGrey}{\mathbf{p}_\mathrm{r},\bm{b}_\mathrm{r}(t)})$
+\textcolor{myLightSlateGrey}{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}(t)})$
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_ReceiverD.png)
 
