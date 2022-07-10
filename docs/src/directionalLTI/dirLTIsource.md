@@ -1,6 +1,6 @@
 # LTI Directional Modeling
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_directmodel.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_model__directional.png)
 
 ## Scenario A
 

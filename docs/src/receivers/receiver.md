@@ -52,7 +52,7 @@ Mathematically, we can define the observed signal as follows.
 $\psi(\bm{\xi},t)=r(\bm{\xi},t) \overset{t}{*} g(\bm{\xi},t;\,
 \textcolor{myLightSlateGrey}{\mathbf{p}_\mathrm{r},\bm{b}_\mathrm{r}})$
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_Receivers_DTI.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_ReceiverDTI.png)
 
 Finally, the observed signal, $z(t)$ is parameterized by considering
 all the reflections at the receiver location. Mathematically, we can given the expression for the final observed signal as follows
@@ -63,7 +63,7 @@ $z(t) = ∭ \psi(\bm{\xi},t) dS$
 
 we can define a  **LTI Directional Receiver** by calling `LTIreceiverDTI()` with the defined reflected signal and the receiver position, $\mathbf{p}_\mathrm{r}$.
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_Receivers_DTIobs.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_ReceiversDTIobs.png)
 
 ```@example
 using LTVsystems
@@ -86,7 +86,7 @@ Mathematically, a **Stationary Direction Receiver** with time-varying beam cente
 $\psi(\bm{\xi},t)=r(\bm{\xi},t) \overset{t}{*} g(\bm{\xi},t;\,
 \textcolor{myLightSlateGrey}{\mathbf{p}_\mathrm{r},\bm{b}_\mathrm{r}(t)})$
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_Receivers_D.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_ReceiverD.png)
 
 Finally, the observed signal, $z(t)$ is parameterized by considering
 all the reflections at the receiver location. Mathematically, we can given the expression for the final observed signal as follows
@@ -97,7 +97,7 @@ $z(t) = ∭ \psi(\bm{\xi},t) dS$
 
 we can define a  **Stationary Direction Receiver** with time-varying beam center by calling `LTIreceiverD()` with the defined reflected signal and the receiver position, $\mathbf{p}_\mathrm{r}$.
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_Receivers_Dobs.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_ReceiversDobs.png)
 
 ```@example
 using LTVsystems
