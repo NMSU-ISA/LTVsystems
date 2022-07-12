@@ -1,34 +1,23 @@
 path = "docs/src/assets/"
 
 # Scenario A with LTI directional antenna and time inavriant beam center
-using LTVsystems, ISA
-using Plots, LinearAlgebra
-#Source
+using LTVsystems, Plots
 𝐩ₛ =  [0.0, 0.0]
-#Receiver
-𝐩ᵣ =  [0.0, 0.0]  # Considering 𝐩ₛ = 𝐩ᵣ
+𝐩ᵣ =  𝐩ₛ
+p(t) = δn(t,1.0e-10)
 
-# Transmitter's signal i.e single pulse
-p(t) = δ(t,1.0e-10)
-#p(t) = u(t)-u(t-1.0e-9)
-#p(t) = (u(mod(t,1.0e-9))-u(mod(t,1.0e-9)-1.0e-10))*u(t)
 𝐛 = [1.0,0.0]
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
-#𝐛(t) = [cos(2π*1.0e8*t),sin(2π*1.0e8*t)]
-#G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
-# Signal observed due to source
-q = LTIsourceDTI(𝐩ₛ, p,𝐛,G)
-
-#Reflectors
-α₁ = 0.7; 𝛏₁ = [1.8,0.0]
-R₁ = LTIsourceO(𝛏₁, t->α₁*q(𝛏₁,t))
-
-# Observed signal
-z = LTIreceiverDTI([R₁],𝐩ᵣ,𝐛, G)
-
+q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
+#q = LTIsourceO(𝐩ₛ, p)
+α₀ = 0.7; 𝛏₀ = [1.8,0.0]
+r = pointReflector(𝛏₀,α₀,q)
+#z = LTIreceiverO([r],𝐩ᵣ)
+z = LTIreceiverDTI([r],𝐩ᵣ,𝐛,G)
 #TEMPORAL SIMULATION
-t = collect(0.0:1.0e-10:25.5e-9)
-plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+t = 0.0:1.0e-10:15.5e-9
+plot(t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+
 
 png(path*"scenarioA_LTIDirsignal.png")
 
