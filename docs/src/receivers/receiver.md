@@ -26,12 +26,12 @@ we can define a  **LTI Omnidirectional Receiver** by calling `LTIreceiverO()` wi
 ```@example
 using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
-𝐩ᵣ =  [1.0, 0.0]  
-p(t) = δ(t,1.0e-10)
+𝐩ᵣ =  𝐩ₛ
+p(t) = δn(t,1.0e-10)
 q = LTIsourceO(𝐩ₛ, p)
-α₁ = 0.7; 𝛏₁ = [1.8,0.0]
-R₁ = LTIsourceO(𝛏₁, t->α₁*q(𝛏₁,t))
-z = LTIreceiverO([R₁],𝐩ᵣ)
+α₀ = 0.7; 𝛏₀ = [1.8,0.0]
+r = pointReflector(𝛏₀,α₀,q)
+z = LTIreceiverO([r],𝐩ᵣ)
 ```
 
 ## LTI Directional Receiver
@@ -68,14 +68,14 @@ we can define a  **LTI Directional Receiver** by calling `LTIreceiverDTI()` with
 ```@example
 using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
-𝐩ᵣ =  [1.0, 0.0]  
-p(t) = δ(t,1.0e-10)
+𝐩ᵣ =  𝐩ₛ
+p(t) = δn(t,1.0e-10)
 𝐛 = [1.0,0.0]
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
 q = LTIsourceDTI(𝐩ₛ, p, 𝐛, G)
-α₁ = 0.7; 𝛏₁ = [1.8,0.0]
-R₁ = LTIsourceO(𝛏₁, t->α₁*q(𝛏₁,t))
-z = LTIreceiverDTI([R₁],𝐩ᵣ, 𝐛, G)
+α₀ = 0.7; 𝛏₀ = [1.8,0.0]
+r = pointReflector(𝛏₀,α₀,q)
+z = LTIreceiverDTI([r],𝐩ᵣ,𝐛,G)
 ```
 ## Stationary Direction Receiver
 
@@ -102,12 +102,12 @@ we can define a  **Stationary Direction Receiver** with time-varying beam center
 ```@example
 using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
-𝐩ᵣ =  [1.0, 0.0]  
-p(t) = δ(t,1.0e-10)
+𝐩ᵣ =  𝐩ₛ
+p(t) = δn(t,1.0e-10)
 𝐛(t) = [cos(2π*1.0e8*t),sin(2π*1.0e8*t)]
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
 q = LTIsourceD(𝐩ₛ, p, 𝐛, G)
-α₁ = 0.7; 𝛏₁ = [1.8,0.0]
-R₁ = LTIsourceO(𝛏₁, t->α₁*q(𝛏₁,t))
-z = LTIreceiverD([R₁],𝐩ᵣ, 𝐛, G)
+α₀ = 0.7; 𝛏₀ = [1.8,0.0]
+r = pointReflector(𝛏₀,α₀,q)
+z = LTIreceiverD([r],𝐩ᵣ,𝐛,G)
 ```

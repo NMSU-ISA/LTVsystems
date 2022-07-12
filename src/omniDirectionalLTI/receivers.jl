@@ -8,12 +8,12 @@ the *receiver position*, 𝐩ᵣ and all the *reflections*, `Rᵢ` where i=1,2,�
 ```@example
 using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
-𝐩ᵣ =  [1.0, 0.0]
-p(t) = δ(t,1.0e-10)
+𝐩ᵣ =  𝐩ₛ
+p(t) = δn(t,1.0e-10)
 q = LTIsourceO(𝐩ₛ, p)
-α₁ = 0.7; 𝛏₁ = [1.8,0.0]
-R₁ = LTIsourceO(𝛏₁, t->α₁*q(𝛏₁,t))
-z = LTIreceiverO([R₁],𝐩ᵣ)
+α₀ = 0.7; 𝛏₀ = [1.8,0.0]
+r = pointReflector(𝛏₀,α₀,q)
+z = LTIreceiverO([r],𝐩ᵣ)
 ```
 """
 struct  LTIreceiverO <: Receivers

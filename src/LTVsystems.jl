@@ -17,10 +17,16 @@ include("omniDirectionalLTI/sources.jl")
 export LTIsourceO, LTISources
 
 include("directionalLTI/dirSources.jl")
-export LTIsourceDTI, LTIsourceD
+export LTIsourceDTI
+
+include("stationaryDirection/statDirSources.jl")
+export LTIsourceD
 
 include("directionalLTI/dirReceivers.jl")
-export LTIreceiverDTI, LTIreceiverD
+export LTIreceiverDTI
+
+include("stationaryDirection/statDirReceivers.jl")
+export LTIreceiverD
 
 include("omniDirectionalLTI/reflectors.jl")
 export pointReflector, lineSegment
