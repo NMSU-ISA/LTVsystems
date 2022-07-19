@@ -63,6 +63,11 @@ position $\bm{\xi}$ is given by
   * single stationary ideal point reflector
   * the source emits an impulse
 
+  Given the assumptions, we simulate the following geometry for scenario A.
+
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_LTIDir.png)
+
+
 ### Forward Modeling
 
 Given the scenario A assumptions with the position of the source $𝐩ₛ$, the receiver $𝐩ᵣ$ being at the same location $(𝐩ₛ=𝐩ᵣ)$, by providing the transmitted signal $p(t)$ as an ideal impulse, and an ideal point reflector $\bm{\xi}_0$. We obtained the closed form expression of the observed signal, $z(t)$ as follows.
@@ -74,3 +79,11 @@ $z(t) = \alpha_0 \mathrm{A}^2
 p\left(t -2\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)$
 
 Now we can simulate the scenario and plot signal at the receiver as follows.
+
+
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_LTIDirsignal.png)
+
+
+### Inverse Modeling
+
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_DirTIsimulation.png)
