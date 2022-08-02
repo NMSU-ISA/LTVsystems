@@ -58,32 +58,81 @@ position $\bm{\xi}$ is given by
 
 ### Scenario Assumptions
 
-  * single LTI directional source
-  * single LTI directional receiver at same location as the source
-  * single stationary ideal point reflector
-  * the source emits an impulse
+* single stationary directional source
+* single stationary directional receiver at same location as the source
+* single stationary ideal point reflector
+* the source emits an impulse
 
-  Given the assumptions, we simulate the following geometry for scenario A.
+Given the assumptions, we simulate the following geometry for scenario A.
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_LTIDir.png)
 
 
 ### Forward Modeling
 
-Given the scenario A assumptions with the position of the source $𝐩ₛ$, the receiver $𝐩ᵣ$ being at the same location $(𝐩ₛ=𝐩ᵣ)$, by providing the transmitted signal $p(t)$ as an ideal impulse, and an ideal point reflector $\bm{\xi}_0$. We obtained the closed form expression of the observed signal, $z(t)$ as follows.
+For scenario A, we provided the position of the directional source $𝐩ₛ$, the directional receiver's position $𝐩ᵣ$, being at the same location $(𝐩ₛ=𝐩ᵣ)$, the transmitted signal $p(t)$, and an ideal point reflector $\bm{\xi}_0$.
 
-$z(t) = \alpha_0 \mathrm{A}^2
-\left(\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}
-{\mathrm{c}}\right)\mathrm{D}^2_\mathrm{r}\left(\bm{\xi_0};\,\textcolor{myLightSlateGrey}
-{\bm{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)
-p\left(t -2\frac{\|\bm{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)$
+Now the expression for the reflector function is given by
 
-Now we can simulate the scenario and plot signal at the receiver as follows.
+$f(\bm{\xi}) = \alpha_0 \delta(\bm{\xi} - \bm{\xi}_0).$
 
+We compute the reflection due to the directional source as follows
 
+$r(\bm{\xi},t) = \alpha_0 \delta(\bm{\xi} - \bm{\xi}_0)
+\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
+\mathrm{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
+{\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
+
+Finally, the closed form expression of the observed signal, $z(t)$
+with $(𝐩ₛ=𝐩ᵣ)$ is given by
+
+$z(t) = \alpha_0 \mathrm{D}_
+\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},
+\mathbf{b}_\mathrm{s}}\right)\mathrm{A}^2
+\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}
+{\mathrm{c}}\right)p\left(t -2\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right).$
+
+```julia
+using LTVsystems
+using Plots
+𝐩ₛ =  [0.0, 0.0]
+𝐩ᵣ =  𝐩ₛ
+p(t) = δn(t,1.0e-10)
+𝐛 = [1.0,0.0]
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
+q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
+α₀ = 0.7; 𝛏₀ = [1.8,0.0]
+r = pointReflector(𝛏₀,α₀,q)
+z = LTIreceiverDTI([r],𝐩ᵣ,𝐛,G)
+t = 0.0:1.0e-10:15.5e-9
+plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_LTIDirsignal.png)
 
 
 ### Inverse Modeling
 
+Given the scenario A assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function by considering the transmitted signal $p(t)=δ(t)$ as follows
+
+$\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\right)}
+{\mathrm{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\big)}
+\mathrm{D}^2_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right).$
+
+```julia
+using LTVsystems
+using Plots
+𝐩ₛ =  [0.0, 0.0]
+𝐩ᵣ =  𝐩ₛ
+p(t) = δn(t,1.0e-10)
+𝐛 = [1.0,0.0]
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
+q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
+α₀ = 0.7; 𝛏₀ = [1.8,0.0]
+r = pointReflector(𝛏₀,α₀,q)
+z = LTIreceiverDTI([r],𝐩ᵣ,𝐛,G)
+D(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ᵣ))^2
+f(ξ::Vector{Float64}) = z(2(norm(ξ-𝐩ₛ))/c).*D(ξ::Vector{Float64})/
+                        (A(norm(ξ-𝐩ₛ)/c))^2
+inverse2Dplot([q],[r],[z],f)                        
+```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_DirTIsimulation.png)
