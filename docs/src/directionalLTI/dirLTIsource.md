@@ -86,9 +86,9 @@ $r(\bm{\xi},t) = \alpha_0 \delta(\bm{\xi} - \bm{\xi}_0)
 Finally, the closed form expression of the observed signal, $z(t)$
 with $(𝐩ₛ=𝐩ᵣ)$ is given by
 
-$z(t) = \alpha_0 \mathrm{D}_
-\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},
-\mathbf{b}_\mathrm{s}}\right)\mathrm{A}^2
+$z(t) = \alpha_0 \mathrm{D}^2_
+\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},
+\mathbf{b}_\mathrm{r}}\right)\mathrm{A}^2
 \left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}
 {\mathrm{c}}\right)p\left(t -2\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right).$
 
@@ -130,8 +130,8 @@ q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
 α₀ = 0.7; 𝛏₀ = [1.8,0.0]
 r = pointReflector(𝛏₀,α₀,q)
 z = LTIreceiverDTI([r],𝐩ᵣ,𝐛,G)
-D(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ᵣ))^2
-f(ξ::Vector{Float64}) = z(2(norm(ξ-𝐩ₛ))/c).*D(ξ::Vector{Float64})/
+D(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ᵣ))
+f(ξ::Vector{Float64}) = z(2(norm(ξ-𝐩ₛ))/c).*(D(ξ::Vector{Float64}))^2/
                         (A(norm(ξ-𝐩ₛ)/c))^2
 inverse2Dplot([q],[r],[z],f)                        
 ```

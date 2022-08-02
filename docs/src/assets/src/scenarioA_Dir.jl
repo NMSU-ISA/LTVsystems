@@ -23,8 +23,8 @@ png(path*"scenarioA_LTIDirsignal.png")
 scene2Dplot([q],[r],[z])
 png(path*"scenarioA_LTIDir.png")
 # Estimator function
-D(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ᵣ))^2
-f(ξ::Vector{Float64}) = z(2(norm(ξ-𝐩ₛ))/c).*D(ξ::Vector{Float64})/
+D(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ᵣ))
+f(ξ::Vector{Float64}) = z(2(norm(ξ-𝐩ₛ))/c).*(D(ξ::Vector{Float64}))^2/
                         (A(norm(ξ-𝐩ₛ)/c))^2
 #SPATIAL SIMULATION
 inverse2Dplot([q],[r],[z],f)
