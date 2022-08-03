@@ -168,7 +168,7 @@ $r(\bm{\xi},t) = \alpha_0 \delta(\bm{\xi} - \bm{\xi}_0)
 {\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
 Finally, the closed form expression of the observed signal, $z(t)$
-with $(𝐩ₛ=𝐩ᵣ)$ is given by
+is given by
 
 $z(t) = \alpha_0 \mathrm{D}_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},
 \mathbf{b}_\mathrm{r}}\right) \mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},
