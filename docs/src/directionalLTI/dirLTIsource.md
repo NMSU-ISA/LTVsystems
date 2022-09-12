@@ -87,7 +87,7 @@ Finally, the closed form expression of the observed signal, $z(t)$
 with $(𝐩ₛ=𝐩ᵣ)$ is given by
 
 $z(t) = \alpha_0 \mathrm{D}^2_
-\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},
+\mathrm{r}\left(\bm{\xi}_0;\,{\mathbf{p}_\mathrm{r},
 \mathbf{b}_\mathrm{r}}\right)\mathrm{A}^2
 \left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}
 {\mathrm{c}}\right)p\left(t -2\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right).$
@@ -170,8 +170,8 @@ $r(\bm{\xi},t) = \alpha_0 \delta(\bm{\xi} - \bm{\xi}_0)
 Finally, the closed form expression of the observed signal, $z(t)$
 is given by
 
-$z(t) = \alpha_0 \mathrm{D}_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},
-\mathbf{b}_\mathrm{r}}\right) \mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},
+$z(t) = \alpha_0 \mathrm{D}_\mathrm{r}\left(\bm{\xi}_0;\,{\mathbf{p}_\mathrm{r},
+\mathbf{b}_\mathrm{r}}\right) \mathrm{D}_\mathrm{s}\left(\bm{\xi}_0;\,{\mathbf{p}_\mathrm{s},
 \mathbf{b}_\mathrm{s}}\right)
 \mathrm{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)
 \mathrm{A}\left(\frac{\|\bm{\xi}_0-
@@ -255,3 +255,33 @@ $r(\bm{\xi},t) = \sum\limits_{n=1}^{N}\alpha_n \delta(\bm{\xi} - \bm{\xi}_n)
 \mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
 \mathrm{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
+
+Finally, the closed form expression of the observed signal, $z(t)$ is given by
+
+$z(t) = \sum\limits_{n=1}^{N} \alpha_n \mathrm{D}_\mathrm{r}\left(\bm{\xi}_n;\,{\mathbf{p}_\mathrm{r},
+\mathbf{b}_\mathrm{r}}\right) \mathrm{D}_\mathrm{s}\left(\bm{\xi}_n;\,{\mathbf{p}_\mathrm{s},
+\mathbf{b}_\mathrm{s}}\right)
+\mathrm{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_n\|}{\mathrm{c}}\right)
+\mathrm{A}\left(\frac{\|\bm{\xi}_n-
+\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right) p\left(t-
+\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_n\|+\|\bm{\xi}_n-
+\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
+
+```julia
+using LTVsystems
+using Plots
+𝐩ₛ =  [0.3, 0.3]
+𝐩ᵣ =  [0.9, 0.9]
+p(t) = δn(t,1.0e-10)
+𝐛 = [1.0,0.0]
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/2)
+q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
+α₁ = 0.7; 𝛏₁ = [1.2,0.0]
+α₂ = 0.6; 𝛏₂ = [1.8,1.8]
+α₃ = 0.5; 𝛏₃ = [2.7,-0.9]
+r = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q])
+z = LTIreceiverDTI(r,𝐩ᵣ,𝐛,G)
+t = collect(0.0:1.0e-10:25.5e-9)
+plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+```
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioC_LTIDirsignal.png)
