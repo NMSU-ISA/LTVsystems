@@ -111,4 +111,26 @@ q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
 r = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q])
 z = LTIreceiverDTI(r,𝐩ᵣ,𝐛,G)
 t = collect(0.0:1.0e-10:25.5e-9)
-plot( t, z(t), xlab=&quot;time (sec)&quot;, ylab=&quot;z(t)&quot;, legend=:false)</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioC_LTIDirsignal.png" alt/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../omniDirectionalLTI/omnidirLTIsource/">« LTI Omnidirectional Modeling</a><a class="docs-footer-nextpage" href="../../typesMethodsFunctions/">Types/Methods/Functions »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.16 on <span class="colophon-date" title="Monday 12 September 2022 17:51">Monday 12 September 2022</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+plot( t, z(t), xlab=&quot;time (sec)&quot;, ylab=&quot;z(t)&quot;, legend=:false)</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioC_LTIDirsignal.png" alt/></p><h3 id="Inverse-Modeling-3"><a class="docs-heading-anchor" href="#Inverse-Modeling-3">Inverse Modeling</a><a class="docs-heading-anchor-permalink" href="#Inverse-Modeling-3" title="Permalink"></a></h3><p>Given the scenario C assumptions, we obtained the received signal, <span>$z(t)$</span>. Now we can estimate the reflector function by considering the transmitted signal <span>$p(t)=δ(t)$</span> as follows</p><p class="math-container">\[\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{\|\mathbf{p}_\mathrm{r}-
+\bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
+{\mathrm{c}}  \right)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
+\mathrm{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}
+\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
+\mathrm{D}_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right).\]</p><pre><code class="language-julia hljs">using LTVsystems
+using Plots
+𝐩ₛ =  [0.3, 0.3]
+𝐩ᵣ =  [0.9, 0.9]
+p(t) = δn(t,1.0e-10)
+𝐛 = [1.0,0.0]
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/2)
+q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
+α₁ = 0.7; 𝛏₁ = [1.2,0.0]
+α₂ = 0.6; 𝛏₂ = [1.8,1.8]
+α₃ = 0.5; 𝛏₃ = [2.7,-0.9]
+r = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q])
+z = LTIreceiverDTI(r,𝐩ᵣ,𝐛,G)
+Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ᵣ))
+Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ₛ))
+f(ξ::Vector{Float64}) = z((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ(ξ::Vector{Float64}).*Dᵣ(ξ::Vector{Float64})/
+                        A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)
+inverse2Dplot([q],r,[z],f)</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioC_DirTIsimulation.png" alt/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../omniDirectionalLTI/omnidirLTIsource/">« LTI Omnidirectional Modeling</a><a class="docs-footer-nextpage" href="../../typesMethodsFunctions/">Types/Methods/Functions »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.16 on <span class="colophon-date" title="Monday 12 September 2022 18:11">Monday 12 September 2022</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
