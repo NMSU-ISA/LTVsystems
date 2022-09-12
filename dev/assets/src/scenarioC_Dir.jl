@@ -28,8 +28,8 @@ png(path*"scenarioC_LTIDir.png")
 
 Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ᵣ))
 Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ₛ))
-f(ξ::Vector{Float64}) = z((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ(ξ::Vector{Float64}).*Dᵣ(ξ::Vector{Float64})/
-                        A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)
+f(ξ::Vector{Float64}) = z((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c)/
+                        A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c).*Dₛ(ξ::Vector{Float64}).*Dᵣ(ξ::Vector{Float64})
 
 #SPATIAL SIMULATION
 inverse2Dplot([q],r,[z],f)
