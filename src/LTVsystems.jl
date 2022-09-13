@@ -16,16 +16,16 @@ export SourcesReflectors, Sources, Reflectors, Receivers
 include("omniDirectionalLTI/sources.jl")
 export LTIsourceO, LTISources
 
-include("directionalLTI/dirSources.jl")
+include("directionalLTI/sources.jl")
 export LTIsourceDTI
 
-include("stationaryDirection/statDirSources.jl")
+include("stationaryDirection/sources.jl")
 export LTIsourceD
 
-include("directionalLTI/dirReceivers.jl")
+include("directionalLTI/receivers.jl")
 export LTIreceiverDTI
 
-include("stationaryDirection/statDirReceivers.jl")
+include("stationaryDirection/receivers.jl")
 export LTIreceiverD
 
 include("omniDirectionalLTI/reflectors.jl")
@@ -33,6 +33,10 @@ export pointReflector, lineSegment
 
 include("omniDirectionalLTI/receivers.jl")
 export LTIreceiverO,  LTIReceivers
+
+include("omniDirectionalLTV/receivers.jl")
+export LTVreceiverO
+
 
 include("other/threading.jl")
 
