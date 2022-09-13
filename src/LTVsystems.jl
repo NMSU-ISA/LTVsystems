@@ -2,7 +2,7 @@ module LTVsystems
 
 using LinearAlgebra: norm, dot, normalize
 export norm
-
+using Roots
 using Plots
 
 using QuadGK
@@ -47,6 +47,6 @@ include("other/plots.jl")
 export inverse2Dplot, scene2Dplot, inverse2Dfinalplot
 
 include("auxiliaryFunctions/auxiliaryFunction.jl")
-export A, NaNnormalize, angleBetween, distBetween, c
+export A, NaNnormalize, angleBetween, distBetween, c, TXₜ2RXₜ
 
 end
