@@ -17,6 +17,9 @@ Pages = ["sources/source.md",
          "receivers/receiver.md",
          "omniDirectionalLTI/omnidirLTIsource.md",
          "directionalLTI/dirLTIsource.md",
+         "modelingLTV Doppler/modelLTVDoppler.md",
+         "omniDirectionalLTV/omnidirLTVsource.md",
+         "directionalLTV/dirLTVsource.md",
          "typesMethodsFunctions.md",
          "cite.md"]
 ```
