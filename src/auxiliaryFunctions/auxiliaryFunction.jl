@@ -20,14 +20,7 @@ function angleBetween(𝛏₀::Vector{Float64},𝛏₁::Vector{Float64})::Float6
    return acos(dot(NaNnormalize(𝛏₁),NaNnormalize(𝛏₀)))
 end
 
-function distBetween(𝛏₀::Vector{Float64}, 𝛏₁::Vector{Float64})::Float64
-   return norm(𝛏₀ - 𝛏₁)
-end
-
-function TXₜ2RXₜ(𝛏₀::Vector{Float64}, t₀::Float64, 𝐩ₛ::Function)::Float64
-   return t₀ + distBetween(𝛏₀, 𝐩ₛ(t₀))/c
-end
-
-function RXₜ2TXₜ(𝛏₀::Vector{Float64}, t₀::Float64, 𝐩ₛ::Function)::Float64
-   return find_zero(t -> (TXₜ2RXₜ(𝛏₀, t, 𝐩ₛ) - t₀), t₀ + distBetween(𝛏₀, 𝐩ₛ(t₀))/c)
+function TXₜ2RXₜ(τ,𝛏,𝐩ₛ)
+   f(t) = τ + norm(𝛏-𝐩ₛ(τ))/c-t
+   return find_zero( f , 0)[1]
 end
