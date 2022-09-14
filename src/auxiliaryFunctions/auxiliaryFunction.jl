@@ -17,7 +17,9 @@ function NaNnormalize(𝛏₀::Vector{Float64})::Vector{Float64}
 end
 
 function angleBetween(𝛏₀::Vector{Float64},𝛏₁::Vector{Float64})::Float64
-   return acos(dot(NaNnormalize(𝛏₁),NaNnormalize(𝛏₀)))
+   temp = dot(NaNnormalize(𝛏₁),NaNnormalize(𝛏₀))
+   temp = ifelse(abs(temp)<1,temp,temp/(abs(temp)) )
+   return acos(temp)
 end
 
 function TXₜ2RXₜ(τ,𝛏,𝐩ₛ)
