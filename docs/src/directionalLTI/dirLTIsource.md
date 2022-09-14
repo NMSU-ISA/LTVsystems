@@ -243,7 +243,7 @@ Given the assumptions, we simulate the following geometry for scenario C.
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioC_LTIDir.png)
 
 
-For scenario C, we provided the position of the directional source $𝐩ₛ$, the directional receiver's position $𝐩ᵣ$, the transmitted signal $p(t)$, and and multiple stationary reflectors say N.
+For scenario C, we provided the position of the directional source $𝐩ₛ$, the directional receiver's position $𝐩ᵣ$, the transmitted signal $p(t)$, and multiple stationary reflectors say N.
 
 Now the expression for the reflector function is given by
 
@@ -320,3 +320,30 @@ f(ξ::Vector{Float64}) = z((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c)/
 inverse2Dplot([q],r,[z],f)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioC_DirTIsimulation.png)
+
+## Scenario D
+
+### Scenario Assumptions
+
+* single stationary directional source
+* single stationary directional receiver
+* multiple stationary ideal point reflectors
+* the source emits multiple impulse with corresponding directed beam centers
+
+Given the assumptions, we simulate the following geometry for scenario D.
+
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioC_LTIDir.png)
+
+
+For scenario D, we provided the position of the directional source $𝐩ₛ$, the directional receiver's position $𝐩ᵣ$, the transmitted signal $p₁(t),p₂(t),p₃(t)$, and multiple stationary reflectors say N.
+
+Now the expression for the reflector function is given by
+
+$f(\bm{\xi}) = \sum\limits_{n=1}^{N}\alpha_n \delta(\bm{\xi} - \bm{\xi}_n).$
+
+We compute the reflections $r_i(\bm{\xi},t)$ where $i=1,2,3$, due to the multiple impulses emitted by the directional source as follows
+
+$r_i(\bm{\xi},t) = \sum\limits_{n=1}^{N}\alpha_n \delta(\bm{\xi} - \bm{\xi}_n)
+\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
+\mathrm{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
+{\mathrm{c}}\right) p_i\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$

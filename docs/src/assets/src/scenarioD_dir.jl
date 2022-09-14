@@ -8,6 +8,12 @@ using Plots
 p₁(t) = δn(t,2.0e-10)
 p₂(t) = δn(t+25e-10,2.0e-10)
 p₃(t) = δn(t+50e-10,2.0e-10)
+
+#Reflectors
+α₁ = 0.7; 𝛏₁ = [1.2,0.0]
+α₂ = 0.6; 𝛏₂ = [1.8,1.8]
+α₃ = 0.5; 𝛏₃ = [2.7,-0.9]
+
 𝐛₁ = 𝛏₁/norm(𝛏₁)
 𝐛₂ = 𝛏₂/norm(𝛏₂)
 𝐛₃ = 𝛏₃/norm(𝛏₃)
@@ -18,10 +24,7 @@ q₁ = LTIsourceDTI(𝐩ₛ,p₁,𝐛₁,G)
 q₂ = LTIsourceDTI(𝐩ₛ,p₂,𝐛₂,G)
 q₃ = LTIsourceDTI(𝐩ₛ,p₃,𝐛₃,G)
 
-#Reflectors
-α₁ = 0.7; 𝛏₁ = [1.2,0.0]
-α₂ = 0.6; 𝛏₂ = [1.8,1.8]
-α₃ = 0.5; 𝛏₃ = [2.7,-0.9]
+
 
 r₁ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₁])
 r₂ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₂])
@@ -55,7 +58,7 @@ f₃(ξ::Vector{Float64}) = z₃((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c)/
 
 f(ξ::Vector{Float64})=f₁(ξ::Vector{Float64}).+f₂(ξ::Vector{Float64}).+f₃(ξ::Vector{Float64})
 
-inverse2Dplot([q₁],r₁,[z₁],f)
+inverse2Dplot([q₁],r₁,[z₁],f,x_min = -5.0,x_max = 5.0,y_min = -5.0,y_max = 5.0,)
 
 f_new(ξ::Vector{Float64})=(f₁(ξ::Vector{Float64}).*f₂(ξ::Vector{Float64}).*f₃(ξ::Vector{Float64}))^(1/3)
 #SPATIAL SIMULATION
