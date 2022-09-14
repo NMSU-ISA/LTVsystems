@@ -24,3 +24,14 @@ plot(t,z)
 
 
 
+
+
+function TXₜ2RXₜ(τ,𝛏,𝐩ₛ)
+    return τ - norm(𝛏-𝐩ₛ(τ))/c
+end
+
+ z = [ t₀ - TXₜ2RXₜ(t₀,𝛏₀,𝐩ₛ) for t₀∈t] 
+ plot(t,z)
+
+
+ A(t₀) * p(t₀)
