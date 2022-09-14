@@ -21,6 +21,5 @@ function angleBetween(𝛏₀::Vector{Float64},𝛏₁::Vector{Float64})::Float6
 end
 
 function TXₜ2RXₜ(τ,𝛏,𝐩ₛ)
-   f(t) = τ + norm(𝛏-𝐩ₛ(τ))/c-t
-   return find_zero( f , 0)[1]
+   return τ - norm(𝛏-𝐩ₛ(τ))/c
 end

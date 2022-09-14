@@ -1,25 +1,26 @@
 using Roots, LinearAlgebra, LTVsystems, Plots
 
-τ = 2.0
 
-𝐩ₛ(t) = [0.0, 0.0] + [10.0, 0.0]*t
-
-
-𝐩ₛ(3.0)
-
-𝛏 = [5000000000.0, 5.0]
-
-function TXₜ2RXₜ(τ,𝛏,𝐩ₛ)
-    f(t) = τ + norm(𝛏-𝐩ₛ(τ))/c-t
-    return find_zero( f , 0)[1]
-end
+𝐩ₛ(t) = [0.0, 0.0] + [1.0, 0.0]*t
 
 
+𝛏₀ = [1.0c, 0.0]
 
-TXₜ2RXₜ(τ,𝛏,𝐩ₛ)
 
-t= 0:0.01:10
-plot(t, f.(t))
-plot!([t₀],[f(t₀)], marker = :circle)
+p(t) = exp(-t^2)
+q = LTVsourceO(𝐩ₛ,p)
+
+
+t₀ = 0.0
+q(𝛏₀,t₀)
+
+t = collect(0.0:0.01:5.0)
+z = [ q(𝛏₀,t₀) for t₀∈t] 
+
+plot(t,p)
+plot(t,z)
+
+
+
 
 
