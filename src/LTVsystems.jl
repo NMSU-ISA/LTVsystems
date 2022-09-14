@@ -2,7 +2,6 @@ module LTVsystems
 
 using LinearAlgebra: norm, dot, normalize
 export norm
-using Roots
 using Plots
 
 using QuadGK
