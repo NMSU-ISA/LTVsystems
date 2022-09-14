@@ -2,12 +2,16 @@ module LTVsystems
 
 using LinearAlgebra: norm, dot, normalize
 export norm
-using Plots
 
+using Plots
+using Roots
 using QuadGK
 
 #using ISA
 #export u, 𝒩ᵤ, 𝒩, δ, δn
+
+include("auxiliaryFunctions/auxiliaryFunction.jl")
+export A, NaNnormalize, angleBetween, distBetween, c, TXₜ2RXₜ, RXₜ2TXₜ
 
 include("other/types.jl")
 export SourcesReflectors, Sources, Reflectors, Receivers
@@ -49,7 +53,5 @@ export u, 𝒩ᵤ, 𝒩, δ, δn
 include("other/plots.jl")
 export inverse2Dplot, scene2Dplot, inverse2Dfinalplot
 
-include("auxiliaryFunctions/auxiliaryFunction.jl")
-export A, NaNnormalize, angleBetween, distBetween, c, TXₜ2RXₜ
 
 end
