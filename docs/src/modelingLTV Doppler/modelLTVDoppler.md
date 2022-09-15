@@ -60,4 +60,27 @@ t = collect(-5.0:0.01:5.0)
 plot(t,z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 
 ```
-  ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTVreceiverDoppler_signalB.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTVreceiverDoppler_signalB.png)
+
+## Scenario C
+
+### Scenario Assumptions
+
+  * single moving omnidirectional source
+  * single stationary omnidirectional receiver
+  * single stationary ideal point reflector
+  * the source emits a complex exponential signal
+
+```julia
+using LTVsystems, Plots
+𝐩ₛ(t) = [1.0c, 1.0c] + [0.9c, 1.0]*t
+α₀ = 0.7; 𝛏₀ = [1.8,0.0]
+𝐩ᵣ = [1.0, 2.0]
+p(t) = exp(1im*2π*5*t)
+q = LTVsourceO(𝐩ₛ,p)
+r = pointReflector(𝛏₀,α₀,q)
+z = LTIreceiverO([r,q],𝐩ᵣ)
+t = collect(-3.0:0.001:3.0)
+plot(t,z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+```
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTVreceiverDoppler_signalC.png)
