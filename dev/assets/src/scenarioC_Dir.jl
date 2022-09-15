@@ -6,7 +6,7 @@ using Plots
 𝐩ᵣ =  [0.9, 0.9]
 p(t) = δn(t,1.0e-10)
 𝐛 = [1.0,0.0]
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/2)
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/3)
 q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
 #Reflectors
 α₁ = 0.7; 𝛏₁ = [1.2,0.0]
@@ -28,8 +28,8 @@ png(path*"scenarioC_LTIDir.png")
 
 Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ᵣ))
 Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ₛ))
-f(ξ::Vector{Float64}) = z((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c)/
-                        A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c).*Dₛ(ξ::Vector{Float64}).*Dᵣ(ξ::Vector{Float64})
+f(ξ::Vector{Float64}) = (z((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ(ξ::Vector{Float64}).*Dᵣ(ξ::Vector{Float64}))/
+                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
 
 #SPATIAL SIMULATION
 inverse2Dplot([q],r,[z],f)

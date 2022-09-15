@@ -29,8 +29,8 @@ q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
 r = pointReflector(𝛏₀,α₀,q)
 z = LTIreceiverDTI([r],𝐩ᵣ,𝐛,G)
 t = 0.0:1.0e-10:15.5e-9
-plot( t, z(t), xlab=&quot;time (sec)&quot;, ylab=&quot;z(t)&quot;, legend=:false)</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_LTIDirsignal.png" alt/></p><h3 id="Inverse-Modeling"><a class="docs-heading-anchor" href="#Inverse-Modeling">Inverse Modeling</a><a id="Inverse-Modeling-1"></a><a class="docs-heading-anchor-permalink" href="#Inverse-Modeling" title="Permalink"></a></h3><p>Given the scenario A assumptions, we obtained the received signal, <span>$z(t)$</span>. Now we can estimate the reflector function by considering the transmitted signal <span>$p(t)=δ(t)$</span> as follows</p><p class="math-container">\[\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\right)}
-{\mathrm{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\big) \mathrm{D}^2_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)}
+plot( t, z(t), xlab=&quot;time (sec)&quot;, ylab=&quot;z(t)&quot;, legend=:false)</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_LTIDirsignal.png" alt/></p><h3 id="Inverse-Modeling"><a class="docs-heading-anchor" href="#Inverse-Modeling">Inverse Modeling</a><a id="Inverse-Modeling-1"></a><a class="docs-heading-anchor-permalink" href="#Inverse-Modeling" title="Permalink"></a></h3><p>Given the scenario A assumptions, we obtained the received signal, <span>$z(t)$</span>. Now we can estimate the reflector function by considering the transmitted signal <span>$p(t)=δ(t)$</span> as follows</p><p class="math-container">\[\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\right)\mathrm{D}^2_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)}
+{\mathrm{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\big) }
 .\]</p><pre><code class="language-julia hljs">using LTVsystems
 using Plots
 𝐩ₛ =  [0.0, 0.0]
@@ -42,8 +42,8 @@ q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
 α₀ = 0.7; 𝛏₀ = [1.8,0.0]
 r = pointReflector(𝛏₀,α₀,q)
 z = LTIreceiverDTI([r],𝐩ᵣ,𝐛,G)
-f(ξ::Vector{Float64}) = z(2(norm(ξ-𝐩ₛ))/c)/
-                        (A(norm(ξ-𝐩ₛ)/c))^2 .*(D(ξ::Vector{Float64}))^2
+f(ξ::Vector{Float64}) = (z(2(norm(ξ-𝐩ₛ))/c).*(D(ξ::Vector{Float64}))^2)/
+                        (A(norm(ξ-𝐩ₛ)/c))^2
 inverse2Dplot([q],[r],[z],f)                        </code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_DirTIsimulation.png" alt/></p><h2 id="Scenario-B"><a class="docs-heading-anchor" href="#Scenario-B">Scenario B</a><a id="Scenario-B-1"></a><a class="docs-heading-anchor-permalink" href="#Scenario-B" title="Permalink"></a></h2><h3 id="Scenario-Assumptions-2"><a class="docs-heading-anchor" href="#Scenario-Assumptions-2">Scenario Assumptions</a><a class="docs-heading-anchor-permalink" href="#Scenario-Assumptions-2" title="Permalink"></a></h3><ul><li>single stationary directional source</li><li>single stationary directional receiver</li><li>single stationary ideal point reflector</li><li>the source emits an impulse</li></ul><p>Given the assumptions, we simulate the following geometry for scenario B.</p><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioB_LTIDir.png" alt/></p><h3 id="Forward-Modeling-2"><a class="docs-heading-anchor" href="#Forward-Modeling-2">Forward Modeling</a><a class="docs-heading-anchor-permalink" href="#Forward-Modeling-2" title="Permalink"></a></h3><p>For scenario B, we provided the position of the directional source <span>$𝐩ₛ$</span>, the directional receiver&#39;s position <span>$𝐩ᵣ$</span>, the transmitted signal <span>$p(t)$</span>, and an ideal point reflector <span>$\bm{\xi}_0$</span>.</p><p>Now the expression for the reflector function is given by</p><p class="math-container">\[f(\bm{\xi}) = \alpha_0 \delta(\bm{\xi} - \bm{\xi}_0).\]</p><p>We compute the reflection due to the directional source as follows</p><p class="math-container">\[r(\bm{\xi},t) = \alpha_0 \delta(\bm{\xi} - \bm{\xi}_0)
 \mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
 \mathrm{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
@@ -68,9 +68,9 @@ z = LTIreceiverDTI([r],𝐩ᵣ,𝐛,G)t = 0.0:1.0e-10:15.5e-9
 t = collect(0.0:1.0e-10:15.5e-9)
 plot( t, z(t), xlab=&quot;time (sec)&quot;, ylab=&quot;z(t)&quot;, legend=:false)</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioB_LTIDirsignal.png" alt/></p><h3 id="Inverse-Modeling-2"><a class="docs-heading-anchor" href="#Inverse-Modeling-2">Inverse Modeling</a><a class="docs-heading-anchor-permalink" href="#Inverse-Modeling-2" title="Permalink"></a></h3><p>Given the scenario B assumptions, we obtained the received signal, <span>$z(t)$</span>. Now we can estimate the reflector function by considering the transmitted signal <span>$p(t)=δ(t)$</span> as follows</p><p class="math-container">\[\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}}  \right)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
-\mathrm{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big) \mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
-\mathrm{D}_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)}
+{\mathrm{c}}  \right)\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
+\mathrm{D}_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
+\mathrm{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}
 .\]</p><pre><code class="language-julia hljs">using LTVsystems
 using Plots
 𝐩ₛ =  [1.0, 0.0]
@@ -84,9 +84,9 @@ r = pointReflector(𝛏₀,α₀,q)
 z = LTIreceiverDTI([r],𝐩ᵣ,𝐛,G)t = 0.0:1.0e-10:15.5e-9
 Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ᵣ))
 Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ₛ))
-f(ξ::Vector{Float64}) = z((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c)/
-                        A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)
-                        .*Dₛ(ξ::Vector{Float64}).*Dᵣ(ξ::Vector{Float64})
+f(ξ::Vector{Float64}) = (z((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./   
+                        c).*Dₛ(ξ::Vector{Float64}).*Dᵣ(ξ::Vector{Float64}))/
+                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
 inverse2Dplot([q],[r],[z],f)</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioB_DirTIsimulation.png" alt/></p><h2 id="Scenario-C"><a class="docs-heading-anchor" href="#Scenario-C">Scenario C</a><a id="Scenario-C-1"></a><a class="docs-heading-anchor-permalink" href="#Scenario-C" title="Permalink"></a></h2><h3 id="Scenario-Assumptions-3"><a class="docs-heading-anchor" href="#Scenario-Assumptions-3">Scenario Assumptions</a><a class="docs-heading-anchor-permalink" href="#Scenario-Assumptions-3" title="Permalink"></a></h3><ul><li>single stationary directional source</li><li>single stationary directional receiver</li><li>multiple stationary ideal point reflectors</li><li>the source emits an impulse</li></ul><p>Given the assumptions, we simulate the following geometry for scenario C.</p><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioC_LTIDir.png" alt/></p><p>For scenario C, we provided the position of the directional source <span>$𝐩ₛ$</span>, the directional receiver&#39;s position <span>$𝐩ᵣ$</span>, the transmitted signal <span>$p(t)$</span>, and multiple stationary reflectors say N.</p><p>Now the expression for the reflector function is given by</p><p class="math-container">\[f(\bm{\xi}) = \sum\limits_{n=1}^{N}\alpha_n \delta(\bm{\xi} - \bm{\xi}_n).\]</p><p>We compute the reflection due to the directional source as follows</p><p class="math-container">\[r(\bm{\xi},t) = \sum\limits_{n=1}^{N}\alpha_n \delta(\bm{\xi} - \bm{\xi}_n)
 \mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
 \mathrm{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
@@ -103,7 +103,7 @@ using Plots
 𝐩ᵣ =  [0.9, 0.9]
 p(t) = δn(t,1.0e-10)
 𝐛 = [1.0,0.0]
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/2)
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/3)
 q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
 α₁ = 0.7; 𝛏₁ = [1.2,0.0]
 α₂ = 0.6; 𝛏₂ = [1.8,1.8]
@@ -113,17 +113,16 @@ z = LTIreceiverDTI(r,𝐩ᵣ,𝐛,G)
 t = collect(0.0:1.0e-10:25.5e-9)
 plot( t, z(t), xlab=&quot;time (sec)&quot;, ylab=&quot;z(t)&quot;, legend=:false)</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioC_LTIDirsignal.png" alt/></p><h3 id="Inverse-Modeling-3"><a class="docs-heading-anchor" href="#Inverse-Modeling-3">Inverse Modeling</a><a class="docs-heading-anchor-permalink" href="#Inverse-Modeling-3" title="Permalink"></a></h3><p>Given the scenario C assumptions, we obtained the received signal, <span>$z(t)$</span>. Now we can estimate the reflector function by considering the transmitted signal <span>$p(t)=δ(t)$</span> as follows</p><p class="math-container">\[\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}}  \right)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
-\mathrm{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)
-\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
-\mathrm{D}_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)}
+{\mathrm{c}}  \right)\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
+\mathrm{D}_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
+\mathrm{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}
 .\]</p><pre><code class="language-julia hljs">using LTVsystems
 using Plots
 𝐩ₛ =  [0.3, 0.3]
 𝐩ᵣ =  [0.9, 0.9]
 p(t) = δn(t,1.0e-10)
 𝐛 = [1.0,0.0]
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/2)
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/3)
 q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
 α₁ = 0.7; 𝛏₁ = [1.2,0.0]
 α₂ = 0.6; 𝛏₂ = [1.8,1.8]
@@ -132,9 +131,9 @@ r = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q])
 z = LTIreceiverDTI(r,𝐩ᵣ,𝐛,G)
 Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ᵣ))
 Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ₛ))
-f(ξ::Vector{Float64}) = z((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c)/
-                        A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)
-                        .*Dₛ(ξ::Vector{Float64}).*Dᵣ(ξ::Vector{Float64})
+f(ξ::Vector{Float64}) = (z((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./
+                        c).*Dₛ(ξ::Vector{Float64}).*Dᵣ(ξ::Vector{Float64}))/
+                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
 inverse2Dplot([q],r,[z],f)</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioC_DirTIsimulation.png" alt/></p><h2 id="Scenario-D"><a class="docs-heading-anchor" href="#Scenario-D">Scenario D</a><a id="Scenario-D-1"></a><a class="docs-heading-anchor-permalink" href="#Scenario-D" title="Permalink"></a></h2><h3 id="Scenario-Assumptions-4"><a class="docs-heading-anchor" href="#Scenario-Assumptions-4">Scenario Assumptions</a><a class="docs-heading-anchor-permalink" href="#Scenario-Assumptions-4" title="Permalink"></a></h3><ul><li>single stationary directional source</li><li>single stationary directional receiver</li><li>multiple stationary ideal point reflectors</li><li>the source emits multiple impulse with corresponding directed beam centers</li></ul><p>Given the assumptions, we simulate the following geometry for scenario D.</p><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_LTIDir.png" alt/></p><p>For scenario D, we provided the position of the directional source <span>$𝐩ₛ$</span>, the directional receiver&#39;s position <span>$𝐩ᵣ$</span>, the transmitted signals <span>$p_i(t)$</span> where <span>$i=1,2,…M$</span>, and multiple stationary reflectors say N.</p><p>Now the expression for the reflector function is given by</p><p class="math-container">\[f(\bm{\xi}) = \sum\limits_{n=1}^{N}\alpha_n \delta(\bm{\xi} - \bm{\xi}_n).\]</p><p>We compute the reflections <span>$r_i(\bm{\xi},t)$</span> where <span>$i=1,2,…M$</span>, due to the multiple impulses emitted by the directional source as follows</p><p class="math-container">\[r_i(\bm{\xi},t) = \sum\limits_{n=1}^{N}\alpha_n \delta(\bm{\xi} - \bm{\xi}_n)
 \mathrm{D}_i\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
 \mathrm{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
@@ -212,4 +211,4 @@ f₂(ξ::Vector{Float64}) = (z₂((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*D�
 f₃(ξ::Vector{Float64}) = (z₃((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ₃(ξ::Vector{Float64}).*Dᵣ₃(ξ::Vector{Float64}))/
                         (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
 f(ξ::Vector{Float64})=f₁(ξ::Vector{Float64}).+f₂(ξ::Vector{Float64}).+f₃(ξ::Vector{Float64})
-inverse2Dplot([q₁],r₁,[z₁],f)</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_DirTIsimulation.png" alt/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../omniDirectionalLTI/omnidirLTIsource/">« LTI Omnidirectional Modeling</a><a class="docs-footer-nextpage" href="../../modelingLTV Doppler/modelLTVDoppler/">LTV Modeling Doppler Effect »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.16 on <span class="colophon-date" title="Thursday 15 September 2022 22:10">Thursday 15 September 2022</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+inverse2Dplot([q₁],r₁,[z₁],f)</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_DirTIsimulation.png" alt/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../omniDirectionalLTI/omnidirLTIsource/">« LTI Omnidirectional Modeling</a><a class="docs-footer-nextpage" href="../../modelingLTV Doppler/modelLTVDoppler/">LTV Modeling Doppler Effect »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.16 on <span class="colophon-date" title="Thursday 15 September 2022 23:01">Thursday 15 September 2022</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
