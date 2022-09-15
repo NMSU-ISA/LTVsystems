@@ -26,14 +26,16 @@ inherently in term of time-scale and shift.
 using LTVsystems
 using Plots
 𝐩ₛ = [0.0, 0.0]
-𝐩ᵣ(t) = [0.0, 0.0] + [1.0, 0.0]*t
+𝐩ᵣ(t) = [1.0c, 0.0] + [1.0c, 0.0]*t
 p(t) = exp(-t^2)
 q = LTIsourceO(𝐩ₛ, p)
-α₀ = 0.7; 𝛏₀ = [1.8,0.0]
+α₀ = 0.7; 𝛏₀ = [1.8c,0.0]
 r = pointReflector(𝛏₀,α₀,q)
-z = LTVreceiverO([r,q],𝐩ᵣ)
-t = collect(-5.0:0.01:5.0)
-plot(t,z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+z = LTVreceiverO([r],𝐩ᵣ)
+t = collect(-2.0:0.001:2.0)
+p1=plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
+p2=plot(t,z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+plot(p1,p2,layout=(2,1))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTVreceiverDoppler_signalA.png)
 
@@ -50,15 +52,16 @@ plot(t,z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 using LTVsystems
 using Plots
 𝐩ₛ = [0.0, 0.0]
-𝐩ᵣ(t) = [0.0, 0.0] + [1.0, 0.0]*t
-p(t) = cos(10.0π*t)
+𝐩ᵣ(t) = [1.0c, 1.0c] + [1.0c, 0.0]*t
+p(t) = 100cos(10.0π*t)
 q = LTIsourceO(𝐩ₛ, p)
-α₀ = 0.7; 𝛏₀ = [1.8,0.0]
+α₀ = 0.7; 𝛏₀ = [1.8c,0.0]
 r = pointReflector(𝛏₀,α₀,q)
-z = LTVreceiverO([r,q],𝐩ᵣ)
-t = collect(-5.0:0.01:5.0)
-plot(t,z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
-
+z = LTVreceiverO([r],𝐩ᵣ)
+t = collect(-2.0:0.001:2.0)
+p1=plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
+p2=plot(t,z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+plot(p1,p2,layout=(2,1))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTVreceiverDoppler_signalB.png)
 
@@ -72,15 +75,24 @@ plot(t,z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
   * the source emits a complex exponential signal
 
 ```julia
-using LTVsystems, Plots
-𝐩ₛ(t) = [1.0c, 1.0c] + [0.9c, 1.0]*t
-α₀ = 0.7; 𝛏₀ = [1.8,0.0]
-𝐩ᵣ = [1.0, 2.0]
-p(t) = exp(1im*2π*5*t)
-q = LTVsourceO(𝐩ₛ,p)
+using LTVsystems
+using Plots
+𝐩ₛ = [0.0, 0.0]
+𝐩ᵣ(t) = [1.0c, 1.0c] + [1.0c, 0.0]*t
+p(t) = 100exp(1im*2π*5*t)
+#p(t) = exp(im*2π*1.0e09*t)
+q = LTIsourceO(𝐩ₛ, p)
+α₀ = 0.7; 𝛏₀ = [1.8c,0.0]
 r = pointReflector(𝛏₀,α₀,q)
-z = LTIreceiverO([r,q],𝐩ᵣ)
-t = collect(-3.0:0.001:3.0)
-plot(t,z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+z = LTVreceiverO([r],𝐩ᵣ)
+t = collect(-2.0:0.001:2.0)
+p1=plot(t,real.(p.(t)), xlab="time (sec)", ylab="p(t)", legend=:false)
+p2=plot(t,real.(z(t)), xlab="time (sec)", ylab="z(t)", legend=:false)
+plot(p1,p2,layout=(2,1))
+p11=plot(t,p.(t), xlab="time (sec)", ylab="p(t)", legend=:false)
+p12=plot(t,z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+plot(p11,p12,layout=(2,1))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTVreceiverDoppler_signalC.png)
+
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTVreceiverDoppler_signalC1.png)
