@@ -114,8 +114,8 @@ plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 
 Given the scenario A assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function by considering the transmitted signal $p(t)=δ(t)$ as follows
 
-$\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\right)}
-{\mathrm{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\big) \mathrm{D}^2_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)}
+$\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\right)\mathrm{D}^2_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)}
+{\mathrm{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\big) }
 .$
 
 ```julia
@@ -130,8 +130,8 @@ q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
 α₀ = 0.7; 𝛏₀ = [1.8,0.0]
 r = pointReflector(𝛏₀,α₀,q)
 z = LTIreceiverDTI([r],𝐩ᵣ,𝐛,G)
-f(ξ::Vector{Float64}) = z(2(norm(ξ-𝐩ₛ))/c)/
-                        (A(norm(ξ-𝐩ₛ)/c))^2 .*(D(ξ::Vector{Float64}))^2
+f(ξ::Vector{Float64}) = (z(2(norm(ξ-𝐩ₛ))/c).*(D(ξ::Vector{Float64}))^2)/
+                        (A(norm(ξ-𝐩ₛ)/c))^2
 inverse2Dplot([q],[r],[z],f)                        
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_DirTIsimulation.png)
@@ -202,9 +202,9 @@ Given the scenario B assumptions, we obtained the received signal, $z(t)$. Now w
 
 $\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}}  \right)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
-\mathrm{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big) \mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
-\mathrm{D}_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)}
+{\mathrm{c}}  \right)\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
+\mathrm{D}_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
+\mathrm{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}
 .$
 
 ```julia
@@ -221,9 +221,9 @@ r = pointReflector(𝛏₀,α₀,q)
 z = LTIreceiverDTI([r],𝐩ᵣ,𝐛,G)t = 0.0:1.0e-10:15.5e-9
 Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ᵣ))
 Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ₛ))
-f(ξ::Vector{Float64}) = z((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c)/
-                        A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)
-                        .*Dₛ(ξ::Vector{Float64}).*Dᵣ(ξ::Vector{Float64})
+f(ξ::Vector{Float64}) = (z((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./   
+                        c).*Dₛ(ξ::Vector{Float64}).*Dᵣ(ξ::Vector{Float64}))/
+                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
 inverse2Dplot([q],[r],[z],f)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioB_DirTIsimulation.png)
@@ -274,7 +274,7 @@ using Plots
 𝐩ᵣ =  [0.9, 0.9]
 p(t) = δn(t,1.0e-10)
 𝐛 = [1.0,0.0]
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/2)
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/3)
 q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
 α₁ = 0.7; 𝛏₁ = [1.2,0.0]
 α₂ = 0.6; 𝛏₂ = [1.8,1.8]
@@ -292,10 +292,9 @@ Given the scenario C assumptions, we obtained the received signal, $z(t)$. Now w
 
 $\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}}  \right)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
-\mathrm{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)
-\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
-\mathrm{D}_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)}
+{\mathrm{c}}  \right)\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
+\mathrm{D}_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
+\mathrm{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}
 .$
 
 ```julia
@@ -305,7 +304,7 @@ using Plots
 𝐩ᵣ =  [0.9, 0.9]
 p(t) = δn(t,1.0e-10)
 𝐛 = [1.0,0.0]
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/2)
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/3)
 q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
 α₁ = 0.7; 𝛏₁ = [1.2,0.0]
 α₂ = 0.6; 𝛏₂ = [1.8,1.8]
@@ -314,9 +313,9 @@ r = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q])
 z = LTIreceiverDTI(r,𝐩ᵣ,𝐛,G)
 Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ᵣ))
 Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ₛ))
-f(ξ::Vector{Float64}) = z((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c)/
-                        A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)
-                        .*Dₛ(ξ::Vector{Float64}).*Dᵣ(ξ::Vector{Float64})
+f(ξ::Vector{Float64}) = (z((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./
+                        c).*Dₛ(ξ::Vector{Float64}).*Dᵣ(ξ::Vector{Float64}))/
+                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
 inverse2Dplot([q],r,[z],f)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioC_DirTIsimulation.png)
