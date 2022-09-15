@@ -10,8 +10,6 @@ q = LTVsourceO(𝐩ₛ, p)
 α₀ = 0.7; 𝛏₀ = [1.8,0.0]
 r = pointReflector(𝛏₀,α₀,q)
 z = LTIreceiverO([r,q],𝐩ᵣ)
-#zn = LTIreceiverO([r],𝐩ᵣ)
-#zq = LTIreceiverO([q],𝐩ᵣ)
 #TEMPORAL SIMULATION
 #t = collect(0.0:1.0e-10:25.5e-9)
 t = collect(0.0:0.01:5.0)
