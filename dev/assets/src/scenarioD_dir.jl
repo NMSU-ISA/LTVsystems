@@ -17,14 +17,13 @@ p₃(t) = δn(t+50e-10,2.0e-10)
 𝐛₁ = 𝛏₁/norm(𝛏₁)
 𝐛₂ = 𝛏₂/norm(𝛏₂)
 𝐛₃ = 𝛏₃/norm(𝛏₃)
+
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/3)
 
 #q = LTIsourceO(𝐩ₛ, p)
 q₁ = LTIsourceDTI(𝐩ₛ,p₁,𝐛₁,G)
 q₂ = LTIsourceDTI(𝐩ₛ,p₂,𝐛₂,G)
 q₃ = LTIsourceDTI(𝐩ₛ,p₃,𝐛₃,G)
-
-
 
 r₁ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₁])
 r₂ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₂])
@@ -38,6 +37,13 @@ t = collect(0.0:1.0e-10:20.5e-9)
 p1 = plot( t, z₁(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot!(p1,t, z₂(t))
 plot!(p1,t, z₃(t))
+
+png(path*"scenarioD_LTIDirsignal.png")
+
+scene2Dplot([q₁],r₁,[z₁])
+
+png(path*"scenarioD_LTIDir.png")
+
 
 Dᵣ1(ξ::Vector{Float64}) = G(angleBetween(𝐛₁, ξ.-𝐩ᵣ))
 Dₛ1(ξ::Vector{Float64}) = G(angleBetween(𝐛₁, ξ.-𝐩ₛ))
@@ -58,8 +64,6 @@ f₃(ξ::Vector{Float64}) = z₃((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c)/
 
 f(ξ::Vector{Float64})=f₁(ξ::Vector{Float64}).+f₂(ξ::Vector{Float64}).+f₃(ξ::Vector{Float64})
 
-inverse2Dplot([q₁],r₁,[z₁],f,x_min = -5.0,x_max = 5.0,y_min = -5.0,y_max = 5.0,)
+inverse2Dplot([q₁],r₁,[z₁],f)
 
-f_new(ξ::Vector{Float64})=(f₁(ξ::Vector{Float64}).*f₂(ξ::Vector{Float64}).*f₃(ξ::Vector{Float64}))^(1/3)
-#SPATIAL SIMULATION
-inverse2Dfinalplot([q₁],[z₁],f_new)
+png(path*"scenarioD_DirTIsimulation.png")
