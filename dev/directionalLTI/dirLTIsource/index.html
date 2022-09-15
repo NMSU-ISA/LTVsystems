@@ -173,10 +173,9 @@ p1 = plot( t, z₁(t), xlab=&quot;time (sec)&quot;, ylab=&quot;z(t)&quot;, legen
 plot!(p1,t, z₂(t))
 plot!(p1,t, z₃(t))</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_LTIDirsignal.png" alt/></p><h3 id="Inverse-Modeling-4"><a class="docs-heading-anchor" href="#Inverse-Modeling-4">Inverse Modeling</a><a class="docs-heading-anchor-permalink" href="#Inverse-Modeling-4" title="Permalink"></a></h3><p>Given the scenario D assumptions, we obtained the received signals, <span>$z_i(t)$</span>. Now we can estimate the reflector function by considering the transmitted signals <span>$p_i(t)=δ(t+t₀)$</span> as follows</p><p class="math-container">\[f_i(\bm{\xi}) = \dfrac{z_i\left(\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}}  \right)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
-\mathrm{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)
-\mathrm{D}_i\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
-\mathrm{D}_i\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)}
+{\mathrm{c}} \right)\mathrm{D}_i\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
+\mathrm{D}_i\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
+\mathrm{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}
 .\]</p><pre><code class="language-julia hljs">using LTVsystems
 using Plots
 𝐩ₛ =  [0.3, 0.3]
@@ -206,11 +205,11 @@ Dᵣ₂(ξ::Vector{Float64}) = G(angleBetween(𝐛₂, ξ.-𝐩ᵣ))
 Dₛ₂(ξ::Vector{Float64}) = G(angleBetween(𝐛₂, ξ.-𝐩ₛ))
 Dᵣ₃(ξ::Vector{Float64}) = G(angleBetween(𝐛₃, ξ.-𝐩ᵣ))
 Dₛ₃(ξ::Vector{Float64}) = G(angleBetween(𝐛₃, ξ.-𝐩ₛ))
-f₁(ξ::Vector{Float64}) = z₁((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c)/
-                        A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c).*Dₛ₁(ξ::Vector{Float64}).*Dᵣ₁(ξ::Vector{Float64})
-f₂(ξ::Vector{Float64}) = z₂((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c)/
-                        A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c).*Dₛ₁(ξ::Vector{Float64}).*Dᵣ₂(ξ::Vector{Float64})
-f₃(ξ::Vector{Float64}) = z₃((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c)/
-                        A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c).*Dₛ₃(ξ::Vector{Float64}).*Dᵣ₃(ξ::Vector{Float64})
+f₁(ξ::Vector{Float64}) = (z₁((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ₁(ξ::Vector{Float64}).*Dᵣ₁(ξ::Vector{Float64}))/
+                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
+f₂(ξ::Vector{Float64}) = (z₂((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ₂(ξ::Vector{Float64}).*Dᵣ₂(ξ::Vector{Float64}))/
+                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
+f₃(ξ::Vector{Float64}) = (z₃((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ₃(ξ::Vector{Float64}).*Dᵣ₃(ξ::Vector{Float64}))/
+                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
 f(ξ::Vector{Float64})=f₁(ξ::Vector{Float64}).+f₂(ξ::Vector{Float64}).+f₃(ξ::Vector{Float64})
-inverse2Dplot([q₁],r₁,[z₁],f)</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_DirTIsimulation.png" alt/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../omniDirectionalLTI/omnidirLTIsource/">« LTI Omnidirectional Modeling</a><a class="docs-footer-nextpage" href="../../modelingLTV Doppler/modelLTVDoppler/">LTV Modeling Doppler Effect »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.16 on <span class="colophon-date" title="Thursday 15 September 2022 06:43">Thursday 15 September 2022</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+inverse2Dplot([q₁],r₁,[z₁],f)</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_DirTIsimulation.png" alt/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../omniDirectionalLTI/omnidirLTIsource/">« LTI Omnidirectional Modeling</a><a class="docs-footer-nextpage" href="../../modelingLTV Doppler/modelLTVDoppler/">LTV Modeling Doppler Effect »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.16 on <span class="colophon-date" title="Thursday 15 September 2022 22:10">Thursday 15 September 2022</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
