@@ -21,11 +21,11 @@ plot!(t,z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 using LTVsystems
 using Plots
 𝐩ₛ = [0.0, 0.0]
-𝐩ᵣ(t) = [1.0c, 0.0] + [1.0c, 0.0]*t
+𝐩ᵣ(t) = 𝐩ₛ + [0.8c, 0.0]*t
 p(t) = exp(-t^2)
 #p(t) = exp(im*2π*1.0e09*t)
 q = LTIsourceO(𝐩ₛ, p)
-α₀ = 0.7; 𝛏₀ = [1.8c,0.0]
+α₀ = 0.7; 𝛏₀ = [0.5c,0.0]
 r = pointReflector(𝛏₀,α₀,q)
 z = LTVreceiverO([r],𝐩ᵣ)
 #TEMPORAL SIMULATION
@@ -42,10 +42,10 @@ png(path*"LTVreceiverDoppler_signalA.png")
 using LTVsystems
 using Plots
 𝐩ₛ = [0.0, 0.0]
-𝐩ᵣ(t) = [1.0c, 1.0c] + [1.0c, 0.0]*t
+𝐩ᵣ(t) = [0.5c, 0.5c] + [0.8c, 0.0]*t
 p(t) = 100cos(10.0π*t)
 q = LTIsourceO(𝐩ₛ, p)
-α₀ = 0.7; 𝛏₀ = [1.8c,0.0]
+α₀ = 0.7; 𝛏₀ = [0.5c,0.0]
 r = pointReflector(𝛏₀,α₀,q)
 z = LTVreceiverO([r],𝐩ᵣ)
 #TEMPORAL SIMULATION
@@ -60,11 +60,10 @@ png(path*"LTVreceiverDoppler_signalB.png")
 using LTVsystems
 using Plots
 𝐩ₛ = [0.0, 0.0]
-𝐩ᵣ(t) = [1.0c, 1.0c] + [1.0c, 0.0]*t
-p(t) = 100exp(1im*2π*5*t)
-#p(t) = exp(im*2π*1.0e09*t)
+𝐩ᵣ(t) = [0.5c, 0.5c] + [0.8c, 0.0]*t
+p(t) = 100exp(1im*2π*10*t)
 q = LTIsourceO(𝐩ₛ, p)
-α₀ = 0.7; 𝛏₀ = [1.8c,0.0]
+α₀ = 0.7; 𝛏₀ = [0.5c,0.0]
 r = pointReflector(𝛏₀,α₀,q)
 z = LTVreceiverO([r],𝐩ᵣ)
 t = collect(-2.0:0.001:2.0)
