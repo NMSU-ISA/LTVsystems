@@ -13,7 +13,7 @@ function (ψ::LTIreceiverD)(t₀::Float64)
    𝐛, G = ψ.beamCenter , ψ.antennaGain
       val = 0.0
       for i = 1:length(sourceList)
-         val+=sourceList[i](𝐩ᵣ,t₀) * G( angleBetween(𝐛(t₀), 𝐩ᵣ-sourceList[i].position) )
+         val+=sourceList[i](𝐩ᵣ,t₀) * G(angleBetween(𝐛(t₀), 𝐩ᵣ-sourceList[i].S.position))
       end
       return val
 end

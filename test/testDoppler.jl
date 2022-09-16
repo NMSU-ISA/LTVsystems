@@ -4,7 +4,7 @@
 using LTVsystems
 using Plots
 𝐩ₛ = [0.0, 0.0]
-𝐩ᵣ(t) = 𝐩ₛ + [0.8c, 0.0]*t
+𝐩ᵣ(t) = 𝐩ₛ + [0.1c, 0.0]*t
 p(t) = exp(-t^2)
 #p(t) = exp(im*2π*1.0e09*t)
 q = LTIsourceO(𝐩ₛ, p)
@@ -19,7 +19,7 @@ p2=plot(t,z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot(p1,p2,layout=(2,1))
 
 
-
+plot(t,z(t))
 
 #-----------------------------------example 2------------------------
 using LTVsystems
