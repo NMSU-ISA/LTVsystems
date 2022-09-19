@@ -63,15 +63,15 @@ $q(\bm{\xi},t)=p(t) \overset{t}{*} h\big(\bm{\xi},t;\,
 
 
 ### Defining an Stationary Direction Source with Time-Varying Beam Center
-We can define an  **Stationary Direction Source** with time-varying beam center by calling `LTIsourceD()` with a transmitted signal, $p(t)$, the source position vector, $\mathbf{p}_\mathrm{s}$, time-varying beam center,
+We can define an  **Stationary Direction Source** with time-varying beam center by calling `STATsourceD()` with a transmitted signal, $p(t)$, the source position vector, $\mathbf{p}_\mathrm{s}$, time-varying beam center,
 $\bm{b}_\mathrm{s}(t)$
 and $\mathrm{G}_\mathrm{s}(\Theta)$ is the source antenna's
 $\textit{voltage gain}$ as a function of angle $\Theta$ relative to the beam center $\bm{b}_\mathrm{s}(t)$.
 ```@example
 using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
-𝐛(t) = [cos(2π*1.0e8*t),sin(2π*1.0e8*t)]
+𝐛(t) = [cos(2π*10*t),0.0]/(norm(cos(2π*10*t)))
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
 p(t) = δn(t,1.0e-10)
-q = LTIsourceD(𝐩ₛ, p, 𝐛, G)
+q = STATsourceD(𝐩ₛ, p, 𝐛, G)
 ```

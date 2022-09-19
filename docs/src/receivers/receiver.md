@@ -95,7 +95,7 @@ $z(t) = ∭ \psi(\bm{\xi},t) dS$
 
 ### Defining an Stationary Direction Receiver
 
-we can define a  **Stationary Direction Receiver** with time-varying beam center by calling `LTIreceiverD()` with the defined reflected signal and the receiver position, $\mathbf{p}_\mathrm{r}$.
+we can define a  **Stationary Direction Receiver** with time-varying beam center by calling `STATreceiverD()` with the defined reflected signal and the receiver position, $\mathbf{p}_\mathrm{r}$.
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_ReceiversDobs.png)
 
@@ -104,10 +104,10 @@ using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  𝐩ₛ
 p(t) = δn(t,1.0e-10)
-𝐛(t) = [cos(2π*1.0e8*t),sin(2π*1.0e8*t)]
+𝐛(t) = [cos(2π*10*t),0.0]/(norm(cos(2π*10*t)))
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
-q = LTIsourceD(𝐩ₛ, p, 𝐛, G)
+q = STATsourceD(𝐩ₛ, p, 𝐛, G)
 α₀ = 0.7; 𝛏₀ = [1.8,0.0]
 r = pointReflector(𝛏₀,α₀,q)
-z = LTIreceiverD([r],𝐩ᵣ,𝐛,G)
+z = STATreceiverD([r],𝐩ᵣ,𝐛,G)
 ```

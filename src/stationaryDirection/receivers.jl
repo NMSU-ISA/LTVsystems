@@ -1,13 +1,13 @@
 #DEFINE STATIONARY ψ w/ DIRECTIONAL ANTENNA and TIME-VARYING BEAM CENTER
 
-struct LTIreceiverD <: Receivers
+struct STATreceiverD <: Receivers
    sourceList::Vector{SourcesReflectors}
    position::Vector{Float64}
    beamCenter::Function
    antennaGain ::Function
 end
 
-function (ψ::LTIreceiverD)(t₀::Float64)
+function (ψ::STATreceiverD)(t₀::Float64)
    sourceList = ψ.sourceList
    𝐩ᵣ = ψ.position
    𝐛, G = ψ.beamCenter , ψ.antennaGain
@@ -18,4 +18,4 @@ function (ψ::LTIreceiverD)(t₀::Float64)
       return val
 end
 
-Base.show(io::IO, x::LTIreceiverD) = print(io, "Stationary Direction Receiver with Time-Varying Beam Center")
+Base.show(io::IO, x::STATreceiverD) = print(io, "Stationary Direction Receiver with Time-Varying Beam Center")

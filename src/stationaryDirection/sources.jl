@@ -1,13 +1,13 @@
 #DEFINE STATIONARY SOURCE w/ DIRECTIONAL ANTENNA and TIME-VARYING BEAM CENTER
 
-struct LTIsourceD <: Sources
+struct STATsourceD <: Sources
   position::Vector{Float64}
   transmission ::Function
   beamCenter::Function
   antennaGain ::Function
 end
 
-function (𝚽::LTIsourceD)(𝛏₀::Vector{Float64}, t₀::Float64)
+function (𝚽::STATsourceD)(𝛏₀::Vector{Float64}, t₀::Float64)
    𝐩ₛ, p, = 𝚽.position, 𝚽.transmission
    𝐛, G = 𝚽.beamCenter , 𝚽.antennaGain
    delay = norm(𝐩ₛ-𝛏₀)/c
@@ -15,4 +15,4 @@ function (𝚽::LTIsourceD)(𝛏₀::Vector{Float64}, t₀::Float64)
 end
 
 
-Base.show(io::IO, x::LTIsourceD) = print(io, "Stationary Direction Source with Time-Varying Beam Center")
+Base.show(io::IO, x::STATsourceD) = print(io, "Stationary Direction Source with Time-Varying Beam Center")

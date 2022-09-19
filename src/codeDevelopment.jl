@@ -12,7 +12,7 @@ t₀ = 0.0
 q(𝛏₀,t₀)
 
 t = collect(-3.0:0.001:3.0)
-z = [ q(𝛏₀,t₀) for t₀∈t] 
+z = [ q(𝛏₀,t₀) for t₀∈t]
 
 plot(t,real(p.(t)))
 plot(t,real(z))
@@ -26,7 +26,7 @@ function makeFrame(q,Δpos,x_min,x_max,y_min,y_max,t₀)
     x_range = collect(x_min:Δpos:x_max)
     y_range = collect(y_min:Δpos:y_max)
     xyGrid = [[x, y] for x in x_range, y in y_range]
-    val = [ifelse( norm(𝛏₀.-q.position(t₀))>1.0c, q(𝛏₀,t₀), NaN) for 𝛏₀ ∈ xyGrid]
+    val = [ifelse( norm(𝛏₀.-q.position(t₀))>0.5c, q(𝛏₀,t₀), NaN) for 𝛏₀ ∈ xyGrid]
 
     p2 = surface(x_range, y_range, real(transpose(val)),
                 camera=(0,90),
@@ -36,7 +36,7 @@ function makeFrame(q,Δpos,x_min,x_max,y_min,y_max,t₀)
              zticks=false,
              bg = cmap[1],
              size=(720,720))
-    #scatter!(p2,[q.position(t₀)[1]], [q.position(t₀)[2]],markersize = 5.0,color = :green)
+    scatter!(p2,[q.position(t₀)[1]], [q.position(t₀)[2]],markersize = 5.0,color = :green)
 
     return p2
 end
@@ -66,3 +66,7 @@ end
 
 t = 1.0:0.1:3.0
 makeAnimation(Δpos,x_min,x_max,y_min,y_max,t)
+
+p1=plot(t,p,xlab="time (sec)", ylab="p(t)")
+p2=plot(t,A.(t),xlab="time (sec)", ylab="A(t)")
+plot(p1,p2,layout=(2,1))

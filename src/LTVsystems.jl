@@ -23,13 +23,13 @@ include("directionalLTI/sources.jl")
 export LTIsourceDTI
 
 include("stationaryDirection/sources.jl")
-export LTIsourceD
+export STATsourceD
 
 include("directionalLTI/receivers.jl")
 export LTIreceiverDTI
 
 include("stationaryDirection/receivers.jl")
-export LTIreceiverD
+export STATreceiverD
 
 include("omniDirectionalLTI/reflectors.jl")
 export pointReflector, lineSegment
