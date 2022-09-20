@@ -1,3 +1,5 @@
+path = "docs/src/assets/"
+
 using LTVsystems, Plots
 𝐩ₛ =  [1.0, 0.0]
 𝐩ᵣ =  [-1.0, 0.0]
@@ -13,6 +15,8 @@ z = STATreceiverD([r],𝐩ᵣ,𝐛,G)
 t = 0.0:1.0e-10:15.5e-9
 plot(t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 
+png(path*"scenarioB_STATDirsignal.png")
+
 
 Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ᵣ))
 Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
@@ -21,3 +25,5 @@ f(ξ::Vector{Float64}) = (z((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ(ξ:
 
 #SPATIAL SIMULATION
 inverse2Dplot([q],[r],[z],f)
+
+png(path*"scenarioB_STATDirsimulation.png")
