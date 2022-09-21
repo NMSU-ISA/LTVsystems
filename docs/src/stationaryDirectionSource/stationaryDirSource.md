@@ -315,12 +315,12 @@ inverse2Dplot([q],r,[z],f)
 ### Scenario Assumptions
 
 * single stationary directional source with time-varying beam center
-* single stationary directional receiver with time-varying beam center
+* single stationary directional receiver at the same location as source
 * multiple stationary ideal point reflectors
-* the source emits multiple impulse with corresponding time-varying beam centers
+* the source emits multiple impulses
 
 
-For scenario D, we provided the position of the directional source $𝐩ₛ$, the directional receiver's position $𝐩ᵣ$, with time-varying beam center $𝐛(t)$, the transmitted signals $p_i(t)$ where $i=1,2,…M$, and multiple stationary reflectors say N.
+For scenario D, we provided the position of the directional source $𝐩ₛ$, the directional receiver's position $𝐩ᵣ$ where $𝐩ₛ=𝐩ᵣ$, with time-varying beam center $𝐛(t)$, multiple stationary reflectors say N and the transmitted signal, $p(t)$.
 
 Now the expression for the reflector function is given by
 
@@ -328,64 +328,55 @@ $f(\bm{\xi}) = \sum\limits_{n=1}^{N}\alpha_n \delta(\bm{\xi} - \bm{\xi}_n).$
 
 We compute the reflections $r_i(\bm{\xi},t)$ where $i=1,2,…M$, due to the multiple impulses emitted by the directional source as follows
 
-$r_i(\bm{\xi},t) = \sum\limits_{n=1}^{N}\alpha_n \delta(\bm{\xi} - \bm{\xi}_n)
-\mathrm{D}_i\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)}\big)
+$r(\bm{\xi},t) = \sum\limits_{n=1}^{N}\alpha_n \delta(\bm{\xi} - \bm{\xi}_n)
+\mathrm{D}\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)}\big)
 \mathrm{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}}\right) p_i\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
+{\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
 
-Finally, the closed form expression of the observed signals, $z_i(t)$ where $i=1,2,…M$ is given by
+Finally, the closed form expression of the observed signals, $z(t)$ is given by
 
-$z_i(t) = \sum\limits_{n=1}^{N} \alpha_n \mathrm{D}_i\mathrm{r}\big(\bm{\xi}_n;\,{\mathbf{p}_\mathrm{r},
-\mathbf{b}_\mathrm{r}(\cdot)}\big) \mathrm{D}_i\mathrm{s}\big(\bm{\xi}_n;\,{\mathbf{p}_\mathrm{s},
+$z(t) = \sum\limits_{n=1}^{N} \alpha_n \mathrm{D}\mathrm{r}\big(\bm{\xi}_n;\,{\mathbf{p}_\mathrm{r},
+\mathbf{b}_\mathrm{r}(\cdot)}\big) \mathrm{D}\mathrm{s}\big(\bm{\xi}_n;\,{\mathbf{p}_\mathrm{s},
 \mathbf{b}_\mathrm{s}(\cdot)}\big)
 \mathrm{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_n\|}{\mathrm{c}}\right)
 \mathrm{A}\left(\frac{\|\bm{\xi}_n-
-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right) p_i\left(t-
+\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right) p\left(t-
 \frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_n\|+\|\bm{\xi}_n-
 \mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
 ```julia
 using LTVsystems
 using Plots
-𝐩ₛ =  [0.3, 0.3]
-𝐩ᵣ =  [0.9, 0.9]
-p₁(t) = δn(t,2.0e-10)
-p₂(t) = δn(t+25e-10,2.0e-10)
-p₃(t) = δn(t+50e-10,2.0e-10)
-α₁ = 0.7; 𝛏₁ = [1.2,0.0]
-α₂ = 0.6; 𝛏₂ = [1.8,1.8]
-α₃ = 0.5; 𝛏₃ = [2.7,-0.9]
-𝐛₁(t) = 𝛏₁/norm(𝛏₁)*t
-𝐛₂(t) = 𝛏₂/norm(𝛏₂)*t
-𝐛₃(t) = 𝛏₃/norm(𝛏₃)*t
+𝐩ₛ =  [0.0, 0.0]
+𝐩ᵣ =  [0.0, 0.0]
+T  = 10.0e-09
+p(t) = δn(t,1.0e-10) + δn(t-T,1.0e-10) + δn(t-2T,1.0e-10) + δn(t-3T,1.0e-10)
+α₁ = 0.7; 𝛏₁ = [1.0,0.0]
+α₂ = 0.6; 𝛏₂ = [-1.0,0.0]
+α₃ = 0.5; 𝛏₃ = [0.0,1.0]
+α₄ = 0.6; 𝛏₄ = [0.0,-1.0]
+ω = 1.0e09/4
+𝐛(t) = [cos(2π*ω*t), sin(2π*ω*t)]
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/3)
-q₁ = STATsourceD(𝐩ₛ,p₁,𝐛₁,G)
-q₂ = STATsourceD(𝐩ₛ,p₂,𝐛₂,G)
-q₃ = STATsourceD(𝐩ₛ,p₃,𝐛₃,G)
-r₁ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₁])
-r₂ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₂])
-r₃ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₃])
-z₁ = STATreceiverD(r₁,𝐩ᵣ,𝐛₁,G)
-z₂ = STATreceiverD(r₂,𝐩ᵣ,𝐛₂,G)
-z₃ = STATreceiverD(r₃,𝐩ᵣ,𝐛₃,G)
-t = collect(0.0:1.0e-10:20.5e-9)
-p1 = plot( t, z₁(t), xlab="time (sec)", ylab="z(t)", legend=:false)
-plot!(p1,t, z₂(t))
-plot!(p1,t, z₃(t))
+q = STATsourceD(𝐩ₛ,p,𝐛,G)
+r = pointReflector([𝛏₁,𝛏₂,𝛏₃,𝛏₄],[α₁,α₂,α₃,α₄],[q])
+z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
+t = collect(0.0:1.0e-10:40.5e-9)
+p1 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 ```
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_STATDirsignal.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_STATDsignal.png)
 
 ### Inverse Modeling
 
-Given the scenario D assumptions, we obtained the received signals, $z_i(t)$. Now we can estimate the reflector function by considering the transmitted signals $p_i(t)=δ(t+t₀)$ as follows
+Given the scenario D assumptions, we obtained the received signals, $z(t)$. Now we can estimate the reflector function by considering the transmitted signal $p(t)=∑_{k=0}^{M-1}δ(t-kT)$ where $kT=td$ is the delayed time as follows
 
-${f}_i(\bm{\xi}) =\dfrac{z_i\left(\frac{\|\mathbf{p}_\mathrm{r}-
+${f}(\bm{\xi}) =\dfrac{z\left(td+\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}}  \right)\mathrm{D}_i\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}\left(\frac{\|\mathbf{p}_\mathrm{r}-
+{\mathrm{c}}  \right)\mathrm{D}\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}\left(\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}}\right)}\big)
-\mathrm{D}_i\mathrm{r}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}
+\mathrm{D}\mathrm{r}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}
 \left(\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}} \right)}\big)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
@@ -395,45 +386,40 @@ ${f}_i(\bm{\xi}) =\dfrac{z_i\left(\frac{\|\mathbf{p}_\mathrm{r}-
 ```julia
 using LTVsystems
 using Plots
-𝐩ₛ =  [0.3, 0.3]
-𝐩ᵣ =  [0.9, 0.9]
-p₁(t) = δn(t,2.0e-10)
-p₂(t) = δn(t+25e-10,2.0e-10)
-p₃(t) = δn(t+50e-10,2.0e-10)
-α₁ = 0.7; 𝛏₁ = [1.2,0.0]
-α₂ = 0.6; 𝛏₂ = [1.8,1.8]
-α₃ = 0.5; 𝛏₃ = [2.7,-0.9]
-𝐛₁(t) = 𝛏₁/norm(𝛏₁)*t
-𝐛₂(t) = 𝛏₂/norm(𝛏₂)*t
-𝐛₃(t) = 𝛏₃/norm(𝛏₃)*t
+𝐩ₛ =  [0.0, 0.0]
+𝐩ᵣ =  [0.0, 0.0]
+T  = 10.0e-09
+p(t) = δn(t,1.0e-10) + δn(t-T,1.0e-10) + δn(t-2T,1.0e-10) + δn(t-3T,1.0e-10)
+α₁ = 0.7; 𝛏₁ = [1.0,0.0]
+α₂ = 0.6; 𝛏₂ = [-1.0,0.0]
+α₃ = 0.5; 𝛏₃ = [0.0,1.0]
+α₄ = 0.6; 𝛏₄ = [0.0,-1.0]
+ω = 1.0e09/4
+𝐛(t) = [cos(2π*ω*t), sin(2π*ω*t)]
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/3)
-q₁ = STATsourceD(𝐩ₛ,p₁,𝐛₁,G)
-q₂ = STATsourceD(𝐩ₛ,p₂,𝐛₂,G)
-q₃ = STATsourceD(𝐩ₛ,p₃,𝐛₃,G)
-r₁ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₁])
-r₂ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₂])
-r₃ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₃])
-z₁ = STATreceiverD(r₁,𝐩ᵣ,𝐛₁,G)
-z₂ = STATreceiverD(r₂,𝐩ᵣ,𝐛₂,G)
-z₃ = STATreceiverD(r₃,𝐩ᵣ,𝐛₃,G)
-Dᵣ₁(ξ::Vector{Float64}) = G(angleBetween(𝐛₁((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ᵣ))
-Dₛ₁(ξ::Vector{Float64}) = G(angleBetween(𝐛₁((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
-
-Dᵣ₂(ξ::Vector{Float64}) = G(angleBetween(𝐛₂((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ᵣ))
-Dₛ₂(ξ::Vector{Float64}) = G(angleBetween(𝐛₂((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
-
-Dᵣ₃(ξ::Vector{Float64}) = G(angleBetween(𝐛₃((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ᵣ))
-Dₛ₃(ξ::Vector{Float64}) = G(angleBetween(𝐛₃((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
-
-
-f₁(ξ::Vector{Float64}) = (z₁((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ₁(ξ::Vector{Float64}).*Dᵣ₁(ξ::Vector{Float64}))/
-                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
-f₂(ξ::Vector{Float64}) = (z₂((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ₂(ξ::Vector{Float64}).*Dᵣ₂(ξ::Vector{Float64}))/
-                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
-f₃(ξ::Vector{Float64}) = (z₃((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ₃(ξ::Vector{Float64}).*Dᵣ₃(ξ::Vector{Float64}))/
-                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
-
-f(ξ::Vector{Float64})=f₁(ξ::Vector{Float64}).+f₂(ξ::Vector{Float64}).+f₃(ξ::Vector{Float64})
-inverse2Dplot([q₁],r₁,[z₁],f)
+q = STATsourceD(𝐩ₛ,p,𝐛,G)
+r = pointReflector([𝛏₁,𝛏₂,𝛏₃,𝛏₄],[α₁,α₂,α₃,α₄],[q])
+z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
+Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ᵣ))
+Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
+x_range = collect(-4.0:0.01:4.0)
+y_range = collect(-4.0:0.01:4.0)
+xyGrid = [[x, y] for x in x_range, y in y_range]
+tᵢ = 0.0
+for ξ ∈ xyGrid
+      tᵢ = (norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c
+end
+    if tᵢ<T
+          td=0.0
+    elseif T<tᵢ<2T
+          td=T
+    elseif 2T<tᵢ<3T
+          td=2T
+    else tᵢ>3T
+          td=3T
+    end
+f(ξ::Vector{Float64}) = (z(td+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ(ξ::Vector{Float64}).*Dᵣ(ξ::Vector{Float64}))/
+                            (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
+inverse2Dplot([q],r,[z],f)
 ```
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_STATDirsimulation.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_STATDsimulation.png)
