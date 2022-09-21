@@ -6,8 +6,8 @@ using Plots
 𝐩ᵣ =  [0.9, 0.9]
 T = 25e-09
 p₁(t) = δn(t,2.0e-10)
-p₂(t) = δn(t+T,2.0e-10)
-p₃(t) = δn(t+2T,2.0e-10)
+p₂(t) = δn(t-T,2.0e-10)
+p₃(t) = δn(t-2T,2.0e-10)
 
 #Reflectors
 α₁ = 0.7; 𝛏₁ = [1.2,0.0]
@@ -33,7 +33,7 @@ z₁ = LTIreceiverDTI(𝐑₁,𝐩ᵣ,𝐛₁,G)
 z₂ = LTIreceiverDTI(𝐑₂,𝐩ᵣ,𝐛₂,G)
 z₃ = LTIreceiverDTI(𝐑₃,𝐩ᵣ,𝐛₃,G)
 
-t = collect(-50.5e-9:1.0e-10:50.5e-9)
+t = collect(0.0:1.0e-10:70.5e-9)
 p1 = plot( t, z₁(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot!(p1,t, z₂(t))
 plot!(p1,t, z₃(t))
