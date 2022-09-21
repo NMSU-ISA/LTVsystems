@@ -28,8 +28,8 @@ p1 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 png(path*"scenarioD_STATDsignal.png")
 # Inverse modeling
 
-Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ᵣ))
-Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
+#Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ᵣ))
+#Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
 
 x_range = collect(-4.0:0.01:4.0)
 y_range = collect(-4.0:0.01:4.0)
@@ -47,6 +47,9 @@ end
     else tᵢ>3T
           td=3T
     end
+
+Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛(td+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ᵣ))
+Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛(td+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
 f(ξ::Vector{Float64}) = (z(td+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ(ξ::Vector{Float64}).*Dᵣ(ξ::Vector{Float64}))/
                             (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
 
