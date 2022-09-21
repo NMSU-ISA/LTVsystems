@@ -2,7 +2,7 @@ path = "docs/src/assets/"
 
 using LTVsystems
 using Plots
-𝐩ₛ =  [1.0, 0.0]
+𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  [-1.0, 0.0]
 p(t) = δn(t,1.0e-10)
 𝐛 = [1.0,0.0]
@@ -12,6 +12,7 @@ q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
 r = pointReflector(𝛏₀,α₀,q)
 z = LTIreceiverDTI([r],𝐩ᵣ,𝐛,G)
 #TEMPORAL SIMULATION
+t = 0.0:1.0e-10:25.5e-9
 plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 
 
@@ -19,6 +20,7 @@ png(path*"scenarioB_LTIDirsignal.png")
 
 scene2Dplot([q],[r],[z])
 
+scene2Ddirplot([q],[r],[z],𝐛)
 png(path*"scenarioB_LTIDir.png")
 
 # Inverse modeling
