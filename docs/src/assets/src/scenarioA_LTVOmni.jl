@@ -1,3 +1,4 @@
+path = "docs/src/assets/"
 using LTVsystems
 using Plots
 𝐩ₛ(t) = [0.5c, 0.0]*t
@@ -17,6 +18,7 @@ p1=plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2=plot(t,z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot(p1,p2,layout=(2,1))
 
+png(path*"scenarioALTV_signal.png")
 
 #Inverse modeling
 f(ξ::Vector{Float64})=(z((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c))./
