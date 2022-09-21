@@ -220,7 +220,7 @@ function scene2Dmultidirplot(
         S::Vector{<:Sources},
         T::Vector{<:Reflectors},
         R::Vector{<:Receivers},
-        𝐛::Vector{Float64};
+        𝐛::Vector{Vector{Float64}};
         Δpos = 0.01,
         x_min = -3.0,
         x_max = 3.0,
@@ -274,6 +274,11 @@ for i = 1:length(R)
         scatter!(p2,[R[i].position[1]], [R[i].position[2]],markersize = 3.0,color = :blue,
                 marker=:square,label="")
 end
-plot!(p2,[S[1].position[1],𝐛[1]],[S[1].position[2],𝐛[2]],arrow=true,color=:red,linewidth=2,label="Beam Center")
+
+plot!(p2,[S[1].position[1],𝐛[1][1]],[S[1].position[2],𝐛[1][2]],arrow=true,color=:red,linewidth=2,label="Beam Center")
+
+for i = 1:length(𝐛)
+    plot!(p2,[S[1].position[1],𝐛[i][1]],[S[1].position[2],𝐛[i][2]],arrow=true,color=:red,linewidth=2,label="")
+end
 return p2
 end
