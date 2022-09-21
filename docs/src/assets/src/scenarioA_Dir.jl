@@ -21,6 +21,8 @@ plot(t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 png(path*"scenarioA_LTIDirsignal.png")
 
 scene2Dplot([q],[r],[z])
+
+scene2Ddirplot([q],[r],[z],𝐛)
 png(path*"scenarioA_LTIDir.png")
 # Estimator function
 D(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ᵣ))

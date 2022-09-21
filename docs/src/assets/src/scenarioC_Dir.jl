@@ -22,6 +22,8 @@ png(path*"scenarioC_LTIDirsignal.png")
 
 scene2Dplot([q],r,[z])
 
+
+scene2Ddirplot([q],r,[z],𝐛)
 png(path*"scenarioC_LTIDir.png")
 
 #Inverse modeling

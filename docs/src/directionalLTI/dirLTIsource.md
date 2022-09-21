@@ -181,7 +181,7 @@ $z(t) = \alpha_0 \mathrm{D}_\mathrm{r}\left(\bm{\xi}_0;\,{\mathbf{p}_\mathrm{r},
 ```julia
 using LTVsystems
 using Plots
-𝐩ₛ =  [1.0, 0.0]
+𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  [-1.0, 0.0]
 p(t) = δn(t,1.0e-10)
 𝐛 = [1.0,0.0]
@@ -210,7 +210,7 @@ $\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{\|\mathbf{p}_\mathrm{r}-
 ```julia
 using LTVsystems
 using Plots
-𝐩ₛ =  [1.0, 0.0]
+𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  [-1.0, 0.0]
 p(t) = δn(t,1.0e-10)
 𝐛 = [1.0,0.0]
