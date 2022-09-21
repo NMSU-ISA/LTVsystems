@@ -364,9 +364,10 @@ using LTVsystems
 using Plots
 𝐩ₛ =  [0.3, 0.3]
 𝐩ᵣ =  [0.9, 0.9]
+T = 25e-09
 p₁(t) = δn(t,2.0e-10)
-p₂(t) = δn(t+25e-10,2.0e-10)
-p₃(t) = δn(t+50e-10,2.0e-10)
+p₂(t) = δn(t-T,2.0e-10)
+p₃(t) = δn(t-2T,2.0e-10)
 α₁ = 0.7; 𝛏₁ = [1.2,0.0]
 α₂ = 0.6; 𝛏₂ = [1.8,1.8]
 α₃ = 0.5; 𝛏₃ = [2.7,-0.9]
@@ -377,13 +378,13 @@ G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/3)
 q₁ = LTIsourceDTI(𝐩ₛ,p₁,𝐛₁,G)
 q₂ = LTIsourceDTI(𝐩ₛ,p₂,𝐛₂,G)
 q₃ = LTIsourceDTI(𝐩ₛ,p₃,𝐛₃,G)
-r₁ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₁])
-r₂ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₂])
-r₃ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₃])
-z₁ = LTIreceiverDTI(r₁,𝐩ᵣ,𝐛₁,G)
-z₂ = LTIreceiverDTI(r₂,𝐩ᵣ,𝐛₂,G)
-z₃ = LTIreceiverDTI(r₃,𝐩ᵣ,𝐛₃,G)
-t = collect(0.0:1.0e-10:20.5e-9)
+𝐑₁ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₁])
+𝐑₂ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₂])
+𝐑₃ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₃])
+z₁ = LTIreceiverDTI(𝐑₁,𝐩ᵣ,𝐛₁,G)
+z₂ = LTIreceiverDTI(𝐑₂,𝐩ᵣ,𝐛₂,G)
+z₃ = LTIreceiverDTI(𝐑₃,𝐩ᵣ,𝐛₃,G)
+t = collect(0.0:1.0e-10:70.5e-9)
 p1 = plot( t, z₁(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot!(p1,t, z₂(t))
 plot!(p1,t, z₃(t))
@@ -392,9 +393,10 @@ plot!(p1,t, z₃(t))
 
 ### Inverse Modeling
 
-Given the scenario D assumptions, we obtained the received signals, $z_i(t)$. Now we can estimate the reflector function by considering the transmitted signals $p_i(t)=δ(t+t₀)$ as follows
+Given the scenario D assumptions, we obtained the received signals, $z_i(t)$. Now we can estimate the reflector function by considering the transmitted signals
+$p_i(t)=δ(t-td)$ where $td$ is the time delay as follows
 
-$f_i(\bm{\xi}) = \dfrac{z_i\left(\frac{\|\mathbf{p}_\mathrm{r}-
+$f_i(\bm{\xi}) = \dfrac{z_i\left(td+\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}} \right)\mathrm{D}_i\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
 \mathrm{D}_i\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
@@ -406,9 +408,10 @@ using LTVsystems
 using Plots
 𝐩ₛ =  [0.3, 0.3]
 𝐩ᵣ =  [0.9, 0.9]
+T = 25e-09
 p₁(t) = δn(t,2.0e-10)
-p₂(t) = δn(t+25e-10,2.0e-10)
-p₃(t) = δn(t+50e-10,2.0e-10)
+p₂(t) = δn(t+T,2.0e-10)
+p₃(t) = δn(t+2T,2.0e-10)
 α₁ = 0.7; 𝛏₁ = [1.2,0.0]
 α₂ = 0.6; 𝛏₂ = [1.8,1.8]
 α₃ = 0.5; 𝛏₃ = [2.7,-0.9]
@@ -419,12 +422,12 @@ G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/3)
 q₁ = LTIsourceDTI(𝐩ₛ,p₁,𝐛₁,G)
 q₂ = LTIsourceDTI(𝐩ₛ,p₂,𝐛₂,G)
 q₃ = LTIsourceDTI(𝐩ₛ,p₃,𝐛₃,G)
-r₁ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₁])
-r₂ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₂])
-r₃ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₃])
-z₁ = LTIreceiverDTI(r₁,𝐩ᵣ,𝐛₁,G)
-z₂ = LTIreceiverDTI(r₂,𝐩ᵣ,𝐛₂,G)
-z₃ = LTIreceiverDTI(r₃,𝐩ᵣ,𝐛₃,G)
+𝐑₁ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₁])
+𝐑₂ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₂])
+𝐑₃ = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q₃])
+z₁ = LTIreceiverDTI(𝐑₁,𝐩ᵣ,𝐛₁,G)
+z₂ = LTIreceiverDTI(𝐑₂,𝐩ᵣ,𝐛₂,G)
+z₃ = LTIreceiverDTI(𝐑₃,𝐩ᵣ,𝐛₃,G)
 Dᵣ₁(ξ::Vector{Float64}) = G(angleBetween(𝐛₁, ξ.-𝐩ᵣ))
 Dₛ₁(ξ::Vector{Float64}) = G(angleBetween(𝐛₁, ξ.-𝐩ₛ))
 Dᵣ₂(ξ::Vector{Float64}) = G(angleBetween(𝐛₂, ξ.-𝐩ᵣ))
@@ -433,11 +436,11 @@ Dᵣ₃(ξ::Vector{Float64}) = G(angleBetween(𝐛₃, ξ.-𝐩ᵣ))
 Dₛ₃(ξ::Vector{Float64}) = G(angleBetween(𝐛₃, ξ.-𝐩ₛ))
 f₁(ξ::Vector{Float64}) = (z₁((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ₁(ξ::Vector{Float64}).*Dᵣ₁(ξ::Vector{Float64}))/
                         (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
-f₂(ξ::Vector{Float64}) = (z₂((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ₂(ξ::Vector{Float64}).*Dᵣ₂(ξ::Vector{Float64}))/
+f₂(ξ::Vector{Float64}) = (z₂(T+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ₂(ξ::Vector{Float64}).*Dᵣ₂(ξ::Vector{Float64}))/
                         (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
-f₃(ξ::Vector{Float64}) = (z₃((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ₃(ξ::Vector{Float64}).*Dᵣ₃(ξ::Vector{Float64}))/
+f₃(ξ::Vector{Float64}) = (z₃(2T+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ₃(ξ::Vector{Float64}).*Dᵣ₃(ξ::Vector{Float64}))/
                         (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
 f(ξ::Vector{Float64})=f₁(ξ::Vector{Float64}).+f₂(ξ::Vector{Float64}).+f₃(ξ::Vector{Float64})
-inverse2Dplot([q₁],r₁,[z₁],f)
+inverse2Dplot([q₁],𝐑₁,[z₁],f)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_DirTIsimulation.png)

@@ -400,8 +400,6 @@ G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/3)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
 r = pointReflector([𝛏₁,𝛏₂,𝛏₃,𝛏₄],[α₁,α₂,α₃,α₄],[q])
 z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
-Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ᵣ))
-Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
 x_range = collect(-4.0:0.01:4.0)
 y_range = collect(-4.0:0.01:4.0)
 xyGrid = [[x, y] for x in x_range, y in y_range]
@@ -418,8 +416,10 @@ end
     else tᵢ>3T
           td=3T
     end
+Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛(td+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ᵣ))
+Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛(td+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
 f(ξ::Vector{Float64}) = (z(td+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ(ξ::Vector{Float64}).*Dᵣ(ξ::Vector{Float64}))/
-                            (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
+                                (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
 inverse2Dplot([q],r,[z],f)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_STATDsimulation.png)
