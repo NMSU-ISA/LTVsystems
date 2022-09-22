@@ -12,7 +12,7 @@ p(t) = δn(t,1.0e-10) + δn(t-T,1.0e-10) + δn(t-2T,1.0e-10) + δn(t-3T,1.0e-10)
 α₃ = 0.5; 𝛏₃ = [0.0,1.0]
 α₄ = 0.6; 𝛏₄ = [0.0,-1.0]
 
-ω = 1.0e09/4
+ω = 10.0e-09/4
 𝐛(t) = [cos(2π*ω*t), sin(2π*ω*t)]
 
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/3)
@@ -31,22 +31,22 @@ png(path*"scenarioD_STATDsignal.png")
 #Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ᵣ))
 #Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
 
-x_range = collect(-4.0:0.01:4.0)
-y_range = collect(-4.0:0.01:4.0)
-xyGrid = [[x, y] for x in x_range, y in y_range]
-tᵢ = 0.0
-for ξ ∈ xyGrid
-      tᵢ = (norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c
-end
-    if tᵢ<T
-          td=0.0
-    elseif T<tᵢ<2T
-          td=T
-    elseif 2T<tᵢ<3T
-          td=2T
-    else tᵢ>3T
-          td=3T
-    end
+#x_range = collect(-4.0:0.01:4.0)
+#y_range = collect(-4.0:0.01:4.0)
+#xyGrid = [[x, y] for x in x_range, y in y_range]
+#tᵢ = 0.0
+#for ξ ∈ xyGrid
+#      tᵢ = (norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c
+#end
+#if tᵢ<T
+#      td=0.0
+#elseif T<tᵢ<2T
+#      td=T
+#elseif 2T<tᵢ<3T
+#      td=2T
+#else tᵢ>3T
+#      td=3T
+#end
 
 Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛(td+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ᵣ))
 Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛(td+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
