@@ -42,8 +42,8 @@ png(path*"scenarioD_LTIDirsignal.png")
 
 scene2Dplot([q₁],𝐑₁,[z₁])
 
-scene2Dmultidirplot([q₁],r₁,[z₁],[𝐛₁,𝐛₂,𝐛₃])
-
+scene2Dmultidirplot([q₁],𝐑₁,[z₁],[𝐛₁,𝐛₂,𝐛₃])
+scene2Ddirplot([q₁],𝐑₁,[z₁],𝐛₁)
 png(path*"scenarioD_LTIDir.png")
 
 
