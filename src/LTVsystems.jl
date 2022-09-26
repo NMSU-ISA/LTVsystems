@@ -26,7 +26,7 @@ include("stationaryDirection/sources.jl")
 export STATsourceD
 
 include("stationaryDirection/newsources.jl")
-export NewSources
+export NewSources, PulseTrainReceivers
 
 include("directionalLTI/receivers.jl")
 export LTIreceiverDTI
