@@ -365,7 +365,7 @@ z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
 t = collect(0.0:1.0e-10:40.5e-9)
 p1 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 ```
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_STATDsignal.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_STATDsignal1.png)
 
 ### Inverse Modeling
 

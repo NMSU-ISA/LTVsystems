@@ -64,8 +64,16 @@ f₂(ξ::Vector{Float64}) = (z₂(T+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*
 f₃(ξ::Vector{Float64}) = (z₃(2T+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ₃(ξ::Vector{Float64}).*Dᵣ₃(ξ::Vector{Float64}))/
                         (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
 
+
+fnew(ξ::Vector{Float64}) = f₁(ξ::Vector{Float64}).*f₂(ξ::Vector{Float64}).*f₃(ξ::Vector{Float64})
+
+
 f(ξ::Vector{Float64})=f₁(ξ::Vector{Float64}).+f₂(ξ::Vector{Float64}).+f₃(ξ::Vector{Float64})
 
-inverse2Dplot([q₁],𝐑₁,[z₁],f)
+inverse2Dplot([q₁],𝐑₁,[z₁],fnew)
 
-png(path*"scenarioD_DirTIsimulation.png")
+png(path*"scenarioD_DirTIsimulationfinal.png")
+
+inverse2Dplot([q₁],𝐑₁,[z₁],f₃)
+
+png(path*"scenarioD_DirTIsimulation_f3.png")

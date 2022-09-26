@@ -440,7 +440,16 @@ f₂(ξ::Vector{Float64}) = (z₂(T+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*
                         (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
 f₃(ξ::Vector{Float64}) = (z₃(2T+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ₃(ξ::Vector{Float64}).*Dᵣ₃(ξ::Vector{Float64}))/
                         (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
-f(ξ::Vector{Float64})=f₁(ξ::Vector{Float64}).+f₂(ξ::Vector{Float64}).+f₃(ξ::Vector{Float64})
-inverse2Dplot([q₁],𝐑₁,[z₁],f)
+fnew(ξ::Vector{Float64}) = f₁(ξ::Vector{Float64}).*f₂(ξ::Vector{Float64}).*f₃(ξ::Vector{Float64})
+inverse2Dplot([q₁],𝐑₁,[z₁],f₁)
+inverse2Dplot([q₁],𝐑₁,[z₁],f₂)
+inverse2Dplot([q₁],𝐑₁,[z₁],f₃)
+inverse2Dplot([q₁],𝐑₁,[z₁],fnew)
 ```
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_DirTIsimulation.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_DirTIsimulation_f1.png)
+
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_DirTIsimulation_f2.png)
+
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_DirTIsimulation_f3.png)
+
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_DirTIsimulationfinal.png)

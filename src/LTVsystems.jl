@@ -25,6 +25,9 @@ export LTIsourceDTI
 include("stationaryDirection/sources.jl")
 export STATsourceD
 
+include("stationaryDirection/newsources.jl")
+export NewSources
+
 include("directionalLTI/receivers.jl")
 export LTIreceiverDTI
 
