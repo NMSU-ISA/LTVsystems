@@ -33,7 +33,50 @@ p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot(p1,p2,layout=(2,1))
 
-png(path*"scenarioD_STATDsignal.png")
+png(path*"scenarioD_STATDsignal1.png")
+
+
+zₚ(t)= ifelse(0.0<t<T,t->z(t),ifelse(T<t<2T,t->z(t+T),t->z(t+2T)))
+z_new = NewSources(zₚ)
+#gg(ξ::Vector{Float64})=zₚ((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c)
+
+Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ᵣ))
+Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
+
+f(ξ::Vector{Float64}) = (z_new((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ(ξ).*Dᵣ(ξ))/
+                           (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
+
+x_range = collect(-4.0:0.01:4.0)
+y_range = collect(-4.0:0.01:4.0)
+xyGrid = [[x, y] for x in x_range, y in y_range]
+val = [f(𝐮) for 𝐮 ∈ xyGrid]
+
+
+p2 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),
+                                    aspect_ratio=:equal,legend=:outertopright,colorbar=false,zticks=false,bg = cmap[1])
+
+
+inverse2Dplot([q],r,[z],f)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Inverse modeling
 
 Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ᵣ))
@@ -51,9 +94,6 @@ f₂(ξ::Vector{Float64}) = (z(T+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*D�
 f(ξ::Vector{Float64}) = f₁(ξ::Vector{Float64})+f₂(ξ::Vector{Float64})
 
 inverse2Dplot([q],r,[z],f,Δpos = 0.01,x_min = -6.0,x_max = 6.0,y_min = -6.0,y_max = 6.0)
-
-
-
 
 
 # correct one
