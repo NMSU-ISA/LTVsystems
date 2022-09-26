@@ -152,22 +152,24 @@ inverse2Dplot([q],r,[z],f)</code></pre><p><img src="https://raw.githubuserconten
 \frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_n\|+\|\bm{\xi}_n-
 \mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).\]</p><pre><code class="language-julia hljs">using LTVsystems
 using Plots
-𝐩ₛ =  [0.0, 0.0]
-𝐩ᵣ =  [0.0, 0.0]
-T  = 10.0e-09
-p(t) = δn(t,1.0e-10) + δn(t-T,1.0e-10) + δn(t-2T,1.0e-10) + δn(t-3T,1.0e-10)
-α₁ = 0.7; 𝛏₁ = [1.0,0.0]
-α₂ = 0.6; 𝛏₂ = [-1.0,0.0]
-α₃ = 0.5; 𝛏₃ = [0.0,1.0]
-α₄ = 0.6; 𝛏₄ = [0.0,-1.0]
-ω = 1.0e09/4
+𝐩ₛ = [0.3, 0.3]
+𝐩ᵣ = [0.9, 0.9]
+T  = 15.0e-09
+p(t) = δn(t,2.0e-10) + δn(t-T,2.0e-10) + δn(t-2T,2.0e-10)
+α₁ = 0.7; 𝛏₁ = [1.2,0.0]
+α₂ = 0.6; 𝛏₂ = [1.8,1.8]
+α₃ = 0.5; 𝛏₃ = [2.7,-0.9]
+
+ω = T/3
 𝐛(t) = [cos(2π*ω*t), sin(2π*ω*t)]
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/3)
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/4)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
-r = pointReflector([𝛏₁,𝛏₂,𝛏₃,𝛏₄],[α₁,α₂,α₃,α₄],[q])
+r = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q])
 z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
-t = collect(0.0:1.0e-10:40.5e-9)
-p1 = plot( t, z(t), xlab=&quot;time (sec)&quot;, ylab=&quot;z(t)&quot;, legend=:false)</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_STATDsignal1.png" alt/></p><h3 id="Inverse-Modeling-4"><a class="docs-heading-anchor" href="#Inverse-Modeling-4">Inverse Modeling</a><a class="docs-heading-anchor-permalink" href="#Inverse-Modeling-4" title="Permalink"></a></h3><p>Given the scenario D assumptions, we obtained the received signals, <span>$z(t)$</span>. Now we can estimate the reflector function by considering the transmitted signal <span>$p(t)=∑_{k=0}^{M-1}δ(t-kT)$</span> where <span>$kT=td$</span> is the delayed time as follows</p><p class="math-container">\[{f}(\bm{\xi}) =\dfrac{z\left(td+\frac{\|\mathbf{p}_\mathrm{r}-
+t = collect(-10.5e-9:1.0e-10:50.5e-9)
+p1 = plot(t,p, xlab=&quot;time (sec)&quot;, ylab=&quot;p(t)&quot;, legend=:false)
+p2 = plot( t, z(t), xlab=&quot;time (sec)&quot;, ylab=&quot;z(t)&quot;, legend=:false)
+plot(p1,p2,layout=(2,1))</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_STATDsignal1.png" alt/></p><h3 id="Inverse-Modeling-4"><a class="docs-heading-anchor" href="#Inverse-Modeling-4">Inverse Modeling</a><a class="docs-heading-anchor-permalink" href="#Inverse-Modeling-4" title="Permalink"></a></h3><p>Given the scenario D assumptions, we obtained the received signals, <span>$z(t)$</span>. Now we can estimate the reflector function by considering the transmitted signal <span>$p(t)=∑_{k=0}^{M-1}δ(t-kT)$</span> where <span>$kT=td$</span> is the delayed time as follows</p><p class="math-container">\[{f}(\bm{\xi}) =\dfrac{z\left(td+\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}}  \right)\mathrm{D}\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}\left(\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
@@ -177,4 +179,4 @@ p1 = plot( t, z(t), xlab=&quot;time (sec)&quot;, ylab=&quot;z(t)&quot;, legend=:
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}} \right)}\big)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
 \mathrm{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}
-.\]</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../directionalLTI/dirLTIsource/">« LTI Directional Modeling</a><a class="docs-footer-nextpage" href="../../modelingLTV Doppler/modelLTVDoppler/">LTV Modeling Doppler Effect »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.16 on <span class="colophon-date" title="Monday 26 September 2022 22:27">Monday 26 September 2022</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+.\]</p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../directionalLTI/dirLTIsource/">« LTI Directional Modeling</a><a class="docs-footer-nextpage" href="../../modelingLTV Doppler/modelLTVDoppler/">LTV Modeling Doppler Effect »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.16 on <span class="colophon-date" title="Monday 26 September 2022 23:00">Monday 26 September 2022</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
