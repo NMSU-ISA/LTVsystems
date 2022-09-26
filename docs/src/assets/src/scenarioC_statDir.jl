@@ -15,8 +15,10 @@ q = STATsourceD(𝐩ₛ,p,𝐛,G)
 r = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q])
 z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
 #TEMPORAL SIMULATION
-t = collect(0.0:1.0e-10:25.5e-9)
-plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+t = collect(-10.5e-9:1.0e-10:25.5e-9)
+p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
+p2 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+plot(p1,p2,layout=(2,1))
 
 png(path*"scenarioC_STATDirsignal.png")
 
