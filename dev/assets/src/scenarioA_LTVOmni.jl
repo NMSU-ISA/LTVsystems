@@ -1,7 +1,7 @@
 path = "docs/src/assets/"
 using LTVsystems
 using Plots
-𝐩ₛ(t) = [0.5c, 0.0]*t
+𝐩ₛ(t) = [0.1c, 0.0] + [0.5c, 0.0]*t
 𝐩ᵣ(t) = 𝐩ₛ(t)
 p(t) = δn(t,0.05)
 q = LTVsourceO(𝐩ₛ, p)
@@ -20,10 +20,19 @@ plot(p1,p2,layout=(2,1))
 
 png(path*"scenarioALTV_signal.png")
 
+scene2Dplot([q],[r],[z])
+
 #Inverse modeling
 
-f(ξ::Vector{Float64})=(z((norm(ξ-𝐩ₛ(?)) .+ norm(𝐩ᵣ(?)-ξ))./c)+?)./
-                       (A(norm(ξ-𝐩ₛ(?))./c).*A(norm(𝐩ᵣ(?)-ξ)./c))
+#f(ξ::Vector{Float64}) = [z(2(norm(ξ-𝐩ₛ(t₀)))/c)/
+#                        (A(norm(ξ-𝐩ₛ(t₀))/c))^2 for t₀ ∈ collect(0.0:0.1:1.0) ]
 
-#SPATIAL SIMULATION
-inverse2Dplot([q],[r],[z],f)
+
+f(ξ::Vector{Float64}) = z(2(norm(ξ-𝐩ₛ(0.1)))/c)/
+                        (A(norm(ξ-𝐩ₛ(0.1))/c))^2
+x_range = collect(-4.0:0.01:4.0)
+y_range = collect(-4.0:0.01:4.0)
+xyGrid = [[x, y] for x in x_range, y in y_range]
+val = [f(𝐮)[1] for 𝐮 ∈ xyGrid]
+p2 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),
+    aspect_ratio=:equal,legend=:outertopright,colorbar=false,zticks=false)
