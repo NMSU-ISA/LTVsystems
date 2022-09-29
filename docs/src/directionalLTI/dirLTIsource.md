@@ -607,16 +607,12 @@ z₃ = LTIreceiverDTI(R₃,𝐩ᵣ,𝐛₃,G)
 z₄ = LTIreceiverDTI(R₄,𝐩ᵣ,𝐛₄,G)
 Dᵣ₁(ξ::Vector{Float64}) = G(angleBetween(𝐛₁, ξ.-𝐩ᵣ))
 Dₛ₁(ξ::Vector{Float64}) = G(angleBetween(𝐛₁, ξ.-𝐩ₛ))
-
 Dᵣ₂(ξ::Vector{Float64}) = G(angleBetween(𝐛₂, ξ.-𝐩ᵣ))
 Dₛ₂(ξ::Vector{Float64}) = G(angleBetween(𝐛₂, ξ.-𝐩ₛ))
-
 Dᵣ₃(ξ::Vector{Float64}) = G(angleBetween(𝐛₃, ξ.-𝐩ᵣ))
 Dₛ₃(ξ::Vector{Float64}) = G(angleBetween(𝐛₃, ξ.-𝐩ₛ))
-
 Dᵣ₄(ξ::Vector{Float64}) = G(angleBetween(𝐛₄, ξ.-𝐩ᵣ))
 Dₛ₄(ξ::Vector{Float64}) = G(angleBetween(𝐛₄, ξ.-𝐩ₛ))
-#znew = PulseTrainReceivers(z,T)
 zₜ₁ = PulseTrainReceivers(z₁,T)
 zₜ₂ = PulseTrainReceivers(z₂,T)
 zₜ₃ = PulseTrainReceivers(z₃,T)
