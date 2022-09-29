@@ -588,7 +588,7 @@ inverse2Dplot([q],[r],[z],f)
 * single stationary omnidirectional source
 * single stationary omnidirectional receiver at the same location as source
 * mutliple ideal point reflectors
-* the source emits multiple impulses
+* the source emits multiple impulse
 
 Given the assumptions, we simulate the following geometry for scenario F.
 
