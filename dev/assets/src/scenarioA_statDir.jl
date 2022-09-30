@@ -18,8 +18,8 @@ plot(t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 png(path*"scenarioA_STATDirsignal.png")
 
 
-D(ξ::Vector{Float64}) = G(angleBetween(𝐛(2norm(ξ-𝐩ₛ)/c), ξ.-𝐩ᵣ))
-f(ξ::Vector{Float64}) = (z(2(norm(ξ-𝐩ₛ))/c).*(D(ξ::Vector{Float64})^2))/
+D(ξ::Vector{Float64}) = G(angleBetween(𝐛(2norm(ξ-𝐩ₛ)/c), ξ.-𝐩ₛ))
+f(ξ::Vector{Float64}) = (z(2(norm(ξ-𝐩ₛ))/c).*(D(ξ::Vector{Float64})))/
                         (A(norm(ξ-𝐩ₛ)/c))^2
 #SPATIAL SIMULATION
 inverse2Dplot([q],[r],[z],f)
