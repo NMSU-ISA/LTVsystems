@@ -8,7 +8,7 @@
 | $\mathrm{G}_\mathrm{r}(\Theta)$   | scalar function of angle  |  Gain of the receiver antenna |
 | $\mathrm{D}_\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathrm{G}_\mathrm{s}(\cdot)}\big)$   | scalar function of position |  directivity of source |
 | $h\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s},\mathrm{G}_\mathrm{s}(\cdot)}\big)$       |  scalar function of position and time  | LTI impulse response from    $\mathbf{p}_\mathrm{s}$ to  $\bm{\xi}$ |
-| $g\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r}\big)$  |  scalar function of position and time  | LTI impulse response from    $\bm{\xi}$ to $\mathbf{p}_\mathrm{r}$ |
+| $g(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r}})$   |  scalar function of position and time  | LTI impulse response from    $\bm{\xi}$ to $\mathbf{p}_\mathrm{r}$ |
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/STAT_directionSource__model.png)
 
@@ -212,11 +212,11 @@ inverse2Dplot([q],[r],[z],f)
 ### Scenario Assumptions
 
 * single stationary directional source with time-varying beam center
-* single stationary directional receiver with time-varying beam center
+* single stationary receiver
 * multiple stationary ideal point reflectors
 * the source emits an impulse
 
-For scenario C, we provided the position of the stationary direction source $𝐩ₛ$, the stationary direction receiver's position $𝐩ᵣ$ with time-varying beam center $𝐛(t)$, the transmitted signal $p(t)$, and multiple stationary reflectors say N.
+For scenario C, we provided the position of the stationary direction source $𝐩ₛ$, with time-varying beam center $𝐛(t)$, the stationary direction receiver's position $𝐩ᵣ$, the transmitted signal $p(t)$, and multiple stationary reflectors say N.
 
 Now the expression for the reflector function is given by
 
@@ -231,8 +231,7 @@ $r(\bm{\xi},t) = \sum\limits_{n=1}^{N}\alpha_n \delta(\bm{\xi} - \bm{\xi}_n)
 
 Finally, the closed form expression of the observed signal, $z(t)$ is given by
 
-$z(t) = \sum\limits_{n=1}^{N} \alpha_n \mathrm{D}_\mathrm{r}\big(\bm{\xi}_n;\,{\mathbf{p}_\mathrm{r},
-\mathbf{b}_\mathrm{r}(\cdot)}\big) \mathrm{D}_\mathrm{s}\big(\bm{\xi}_n;\,{\mathbf{p}_\mathrm{s},
+$z(t) = \sum\limits_{n=1}^{N} \alpha_n  \mathrm{D}_\mathrm{s}\big(\bm{\xi}_n;\,{\mathbf{p}_\mathrm{s},
 \mathbf{b}_\mathrm{s}(\cdot)}\big)
 \mathrm{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_n\|}{\mathrm{c}}\right)
 \mathrm{A}\left(\frac{\|\bm{\xi}_n-
@@ -267,11 +266,7 @@ $\hat{f}(\bm{\xi}) =\dfrac{z\left(\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}}  \right)\mathrm{D}_\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}\left(\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}}\right)}\big)
-\mathrm{D}_\mathrm{r}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}
-\left(\frac{\|\mathbf{p}_\mathrm{r}-
-\bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}} \right)}\big)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
+{\mathrm{c}}\right)}\big)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
 \mathrm{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}
 .$
 
@@ -289,9 +284,8 @@ q = STATsourceD(𝐩ₛ,p,𝐛,G)
 α₃ = 0.5; 𝛏₃ = [2.7,-0.9]
 r = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q])
 z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
-Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ᵣ))
 Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
-f(ξ::Vector{Float64}) = (z((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ(ξ::Vector{Float64}).*Dᵣ(ξ::Vector{Float64}))/
+f(ξ::Vector{Float64}) = (z((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ(ξ))/
                         (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
 inverse2Dplot([q],r,[z],f)
 ```
@@ -303,13 +297,14 @@ inverse2Dplot([q],r,[z],f)
 
 ### Scenario Assumptions
 
-* single stationary directional source with time-varying beam center
-* single stationary directional receiver
+* single stationary directional source with time-
+  varying beam center
+* single stationary receiver
 * multiple stationary ideal point reflectors
-* the source emits multiple impulses
+* the source emits multiple impulse
 
 
-For scenario D, we provided the position of the directional source $𝐩ₛ$, the directional receiver's position $𝐩ᵣ$, with time-varying beam center $𝐛(t)$, multiple stationary reflectors say N and the transmitted signal, $p(t)$.
+For scenario D, we provided the position of the directional source $𝐩ₛ$, with time-varying beam center $𝐛(t)$, the directional receiver's position $𝐩ᵣ$, multiple stationary reflectors say N and the transmitted signal, $p(t)$.
 
 Now the expression for the reflector function is given by
 
@@ -325,8 +320,7 @@ $r(\bm{\xi},t) = \sum\limits_{n=1}^{N}\alpha_n \delta(\bm{\xi} - \bm{\xi}_n)
 
 Finally, the closed form expression of the observed signals, $z(t)$ is given by
 
-$z(t) = \sum\limits_{n=1}^{N} \alpha_n \mathrm{D}\mathrm{r}\big(\bm{\xi}_n;\,{\mathbf{p}_\mathrm{r},
-\mathbf{b}_\mathrm{r}(\cdot)}\big) \mathrm{D}\mathrm{s}\big(\bm{\xi}_n;\,{\mathbf{p}_\mathrm{s},
+$z(t) = \sum\limits_{n=1}^{N} \alpha_n  \mathrm{D}\mathrm{s}\big(\bm{\xi}_n;\,{\mathbf{p}_\mathrm{s},
 \mathbf{b}_\mathrm{s}(\cdot)}\big)
 \mathrm{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_n\|}{\mathrm{c}}\right)
 \mathrm{A}\left(\frac{\|\bm{\xi}_n-
@@ -404,7 +398,7 @@ inverse2Dplot([q],r,[z],f)
 ### Scenario Assumptions
 
 * single stationary directional source with time-varying beam center
-* single stationary directional receiver
+* single stationary receiver
 * multiple stationary ideal point reflectors
 * the source emits multiple impulses
 
