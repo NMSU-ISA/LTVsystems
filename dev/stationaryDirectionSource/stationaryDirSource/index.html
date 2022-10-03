@@ -19,20 +19,22 @@ q(\bm{\xi},t)  &amp;= p(t) \overset{t}{*} h\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm
 {\mathrm{c}}\right)p\left(t -2\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right).\]</p><pre><code class="language-julia hljs">using LTVsystems, Plots
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  𝐩ₛ
-p(t) = δn(t,1.0e-10)
+p(t) = δn(t-0.5e-09,1.0e-10)
 𝐛(t) = [cos(2π*10*t),0.0]/(norm(cos(2π*10*t)))
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
 α₀ = 0.7; 𝛏₀ = [1.8,0.0]
 r = pointReflector(𝛏₀,α₀,q)
 z = STATreceiverD([r],𝐩ᵣ,𝐛,G)
-t = 0.0:1.0e-10:15.5e-9
-plot(t, z(t), xlab=&quot;time (sec)&quot;, ylab=&quot;z(t)&quot;, legend=:false)</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_STATDirsignal.png" alt/></p><h3 id="Inverse-Modeling"><a class="docs-heading-anchor" href="#Inverse-Modeling">Inverse Modeling</a><a id="Inverse-Modeling-1"></a><a class="docs-heading-anchor-permalink" href="#Inverse-Modeling" title="Permalink"></a></h3><p>Given the scenario A assumptions, we obtained the received signal, <span>$z(t)$</span>. Now we can estimate the reflector function by considering the transmitted signal <span>$p(t)=δ(t)$</span> as follows</p><p class="math-container">\[\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\right)\mathrm{D}_\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}\left(\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\right)}\big)}
+t = -5.5e-9:1.0e-10:15.5e-9
+p1 = plot(t,p, xlab=&quot;time (sec)&quot;, ylab=&quot;p(t)&quot;, legend=:false)
+p2 = plot( t, z(t), xlab=&quot;time (sec)&quot;, ylab=&quot;z(t)&quot;, legend=:false)
+plot(p1,p2,layout=(2,1))</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_STATDirsignal.png" alt/></p><h3 id="Inverse-Modeling"><a class="docs-heading-anchor" href="#Inverse-Modeling">Inverse Modeling</a><a id="Inverse-Modeling-1"></a><a class="docs-heading-anchor-permalink" href="#Inverse-Modeling" title="Permalink"></a></h3><p>Given the scenario A assumptions, we obtained the received signal, <span>$z(t)$</span>. Now we can estimate the reflector function by considering the transmitted signal <span>$p(t)=δ(t)$</span> as follows</p><p class="math-container">\[\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\right)\mathrm{D}_\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}\left(\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\right)}\big)}
 {\mathrm{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\big) }
 .\]</p><pre><code class="language-julia hljs">using LTVsystems, Plots
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  𝐩ₛ
-p(t) = δn(t,1.0e-10)
+p(t) = δn(t-0.5e-09,1.0e-10)
 𝐛(t) = [cos(2π*10*t),0.0]/(norm(cos(2π*10*t)))
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
@@ -54,15 +56,17 @@ inverse2Dplot([q],[r],[z],f)</code></pre><p><img src="https://raw.githubusercont
 \mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).\]</p><pre><code class="language-julia hljs">using LTVsystems, Plots
 𝐩ₛ =  [1.0, 0.0]
 𝐩ᵣ =  [-1.0, 0.0]
-p(t) = δn(t,1.0e-10)
+p(t) = δn(t-0.5e-09,1.0e-10)
 𝐛(t) = [cos(2π*10*t),0.0]/(norm(cos(2π*10*t)))
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
 α₀ = 0.7; 𝛏₀ = [1.8,0.0]
 r = pointReflector(𝛏₀,α₀,q)
 z = STATreceiverD([r],𝐩ᵣ,𝐛,G)
-t = 0.0:1.0e-10:15.5e-9
-plot(t, z(t), xlab=&quot;time (sec)&quot;, ylab=&quot;z(t)&quot;, legend=:false)</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioB_STATDirsignal.png" alt/></p><h3 id="Inverse-Modeling-2"><a class="docs-heading-anchor" href="#Inverse-Modeling-2">Inverse Modeling</a><a class="docs-heading-anchor-permalink" href="#Inverse-Modeling-2" title="Permalink"></a></h3><p>Given the scenario B assumptions, we obtained the received signal, <span>$z(t)$</span>. Now we can estimate the reflector function by considering the transmitted signal <span>$p(t)=δ(t)$</span> as follows</p><p class="math-container">\[\hat{f}(\bm{\xi}) =\dfrac{z\left(\frac{\|\mathbf{p}_\mathrm{r}-
+t = -5.5e-9:1.0e-10:15.5e-9
+p1 = plot(t,p, xlab=&quot;time (sec)&quot;, ylab=&quot;p(t)&quot;, legend=:false)
+p2 = plot( t, z(t), xlab=&quot;time (sec)&quot;, ylab=&quot;z(t)&quot;, legend=:false)
+plot(p1,p2,layout=(2,1))</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioB_STATDirsignal.png" alt/></p><h3 id="Inverse-Modeling-2"><a class="docs-heading-anchor" href="#Inverse-Modeling-2">Inverse Modeling</a><a class="docs-heading-anchor-permalink" href="#Inverse-Modeling-2" title="Permalink"></a></h3><p>Given the scenario B assumptions, we obtained the received signal, <span>$z(t)$</span>. Now we can estimate the reflector function by considering the transmitted signal <span>$p(t)=δ(t)$</span> as follows</p><p class="math-container">\[\hat{f}(\bm{\xi}) =\dfrac{z\left(\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}}  \right)\mathrm{D}_\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}\left(\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
@@ -71,7 +75,7 @@ plot(t, z(t), xlab=&quot;time (sec)&quot;, ylab=&quot;z(t)&quot;, legend=:false)
 .\]</p><pre><code class="language-julia hljs">using LTVsystems, Plots
 𝐩ₛ =  [1.0, 0.0]
 𝐩ᵣ =  [-1.0, 0.0]
-p(t) = δn(t,1.0e-10)
+p(t) = δn(t-0.5e-09,1.0e-10)
 𝐛(t) = [cos(2π*10*t),0.0]/(norm(cos(2π*10*t)))
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
@@ -94,7 +98,7 @@ inverse2Dplot([q],[r],[z],f)</code></pre><p><img src="https://raw.githubusercont
 using Plots
 𝐩ₛ =  [0.3, 0.3]
 𝐩ᵣ =  [0.9, 0.9]
-p(t) = δn(t,1.0e-10)
+p(t) = δn(t-0.5e-09,1.0e-10)
 𝐛(t) = [cos(2π*10*t),0.0]
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/3)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
@@ -103,8 +107,10 @@ q = STATsourceD(𝐩ₛ,p,𝐛,G)
 α₃ = 0.5; 𝛏₃ = [2.7,-0.9]
 r = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q])
 z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
-t = collect(0.0:1.0e-10:25.5e-9)
-plot( t, z(t), xlab=&quot;time (sec)&quot;, ylab=&quot;z(t)&quot;, legend=:false)</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioC_STATDirsignal.png" alt/></p><h3 id="Inverse-Modeling-3"><a class="docs-heading-anchor" href="#Inverse-Modeling-3">Inverse Modeling</a><a class="docs-heading-anchor-permalink" href="#Inverse-Modeling-3" title="Permalink"></a></h3><p>Given the scenario C assumptions, we obtained the received signal, <span>$z(t)$</span>. Now we can estimate the reflector function by considering the transmitted signal <span>$p(t)=δ(t)$</span> as follows</p><p class="math-container">\[\hat{f}(\bm{\xi}) =\dfrac{z\left(\frac{\|\mathbf{p}_\mathrm{r}-
+t = -5.5e-9:1.0e-10:35.5e-9
+p1 = plot(t,p, xlab=&quot;time (sec)&quot;, ylab=&quot;p(t)&quot;, legend=:false)
+p2 = plot( t, z(t), xlab=&quot;time (sec)&quot;, ylab=&quot;z(t)&quot;, legend=:false)
+plot(p1,p2,layout=(2,1))</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioC_STATDirsignal.png" alt/></p><h3 id="Inverse-Modeling-3"><a class="docs-heading-anchor" href="#Inverse-Modeling-3">Inverse Modeling</a><a class="docs-heading-anchor-permalink" href="#Inverse-Modeling-3" title="Permalink"></a></h3><p>Given the scenario C assumptions, we obtained the received signal, <span>$z(t)$</span>. Now we can estimate the reflector function by considering the transmitted signal <span>$p(t)=δ(t)$</span> as follows</p><p class="math-container">\[\hat{f}(\bm{\xi}) =\dfrac{z\left(\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}}  \right)\mathrm{D}_\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}\left(\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
@@ -225,4 +231,4 @@ Dₛ(ξ::Vector{Float64}) = G(angleBetween(beam((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ
 zₜ = PulseTrainReceivers(z,T)
 f(ξ::Vector{Float64}) = (zₜ((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ(ξ))/
                         (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
-inverse2Dplot([q],r,[z],f)</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioE_STATDir_simulation.png" alt/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../directionalLTI/dirLTIsource/">« LTI Directional Modeling</a><a class="docs-footer-nextpage" href="../../modelingLTV Doppler/modelLTVDoppler/">LTV Modeling Doppler Effect »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.16 on <span class="colophon-date" title="Monday 3 October 2022 06:54">Monday 3 October 2022</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+inverse2Dplot([q],r,[z],f)</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioE_STATDir_simulation.png" alt/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../directionalLTI/dirLTIsource/">« LTI Directional Modeling</a><a class="docs-footer-nextpage" href="../../modelingLTV Doppler/modelLTVDoppler/">LTV Modeling Doppler Effect »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.16 on <span class="colophon-date" title="Monday 3 October 2022 19:14">Monday 3 October 2022</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
