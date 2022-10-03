@@ -84,15 +84,17 @@ $z(t) = \alpha_0 \mathrm{D}_
 using LTVsystems, Plots
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  𝐩ₛ
-p(t) = δn(t,1.0e-10)
+p(t) = δn(t-0.5e-09,1.0e-10)
 𝐛(t) = [cos(2π*10*t),0.0]/(norm(cos(2π*10*t)))
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
 α₀ = 0.7; 𝛏₀ = [1.8,0.0]
 r = pointReflector(𝛏₀,α₀,q)
 z = STATreceiverD([r],𝐩ᵣ,𝐛,G)
-t = 0.0:1.0e-10:15.5e-9
-plot(t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+t = -5.5e-9:1.0e-10:15.5e-9
+p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
+p2 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+plot(p1,p2,layout=(2,1))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_STATDirsignal.png)
 
@@ -108,7 +110,7 @@ $\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\m
 using LTVsystems, Plots
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  𝐩ₛ
-p(t) = δn(t,1.0e-10)
+p(t) = δn(t-0.5e-09,1.0e-10)
 𝐛(t) = [cos(2π*10*t),0.0]/(norm(cos(2π*10*t)))
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
@@ -163,15 +165,17 @@ $z(t) = \alpha_0 \mathrm{D}_
 using LTVsystems, Plots
 𝐩ₛ =  [1.0, 0.0]
 𝐩ᵣ =  [-1.0, 0.0]
-p(t) = δn(t,1.0e-10)
+p(t) = δn(t-0.5e-09,1.0e-10)
 𝐛(t) = [cos(2π*10*t),0.0]/(norm(cos(2π*10*t)))
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
 α₀ = 0.7; 𝛏₀ = [1.8,0.0]
 r = pointReflector(𝛏₀,α₀,q)
 z = STATreceiverD([r],𝐩ᵣ,𝐛,G)
-t = 0.0:1.0e-10:15.5e-9
-plot(t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+t = -5.5e-9:1.0e-10:15.5e-9
+p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
+p2 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+plot(p1,p2,layout=(2,1))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioB_STATDirsignal.png)
 
@@ -192,7 +196,7 @@ $\hat{f}(\bm{\xi}) =\dfrac{z\left(\frac{\|\mathbf{p}_\mathrm{r}-
 using LTVsystems, Plots
 𝐩ₛ =  [1.0, 0.0]
 𝐩ᵣ =  [-1.0, 0.0]
-p(t) = δn(t,1.0e-10)
+p(t) = δn(t-0.5e-09,1.0e-10)
 𝐛(t) = [cos(2π*10*t),0.0]/(norm(cos(2π*10*t)))
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
@@ -244,7 +248,7 @@ using LTVsystems
 using Plots
 𝐩ₛ =  [0.3, 0.3]
 𝐩ᵣ =  [0.9, 0.9]
-p(t) = δn(t,1.0e-10)
+p(t) = δn(t-0.5e-09,1.0e-10)
 𝐛(t) = [cos(2π*10*t),0.0]
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/3)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
@@ -253,8 +257,10 @@ q = STATsourceD(𝐩ₛ,p,𝐛,G)
 α₃ = 0.5; 𝛏₃ = [2.7,-0.9]
 r = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q])
 z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
-t = collect(0.0:1.0e-10:25.5e-9)
-plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+t = -5.5e-9:1.0e-10:35.5e-9
+p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
+p2 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+plot(p1,p2,layout=(2,1))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioC_STATDirsignal.png)
 
