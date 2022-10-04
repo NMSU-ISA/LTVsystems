@@ -355,7 +355,7 @@ p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot(p1,p2,layout=(2,1))
 ```
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_STATDsignal1.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_STATDsignal.png)
 
 ### Inverse Modeling
 
@@ -367,11 +367,7 @@ ${f}(\bm{\xi}) =\dfrac{z_\mathrm{t}\left(\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}}  \right)\mathrm{D}\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}\left(\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}}\right)}\big)
-\mathrm{D}\mathrm{r}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}
-\left(\frac{\|\mathbf{p}_\mathrm{r}-
-\bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}} \right)}\big)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
+{\mathrm{c}}\right)}\big)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
 \mathrm{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}
 .$
 
@@ -391,14 +387,13 @@ G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/4)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
 r = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q])
 z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
-Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ᵣ))
 Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
 zₜ = PulseTrainReceivers(z,T)
-f(ξ::Vector{Float64}) = (zₜ((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dᵣ(ξ).*Dₛ(ξ))/
+f(ξ::Vector{Float64}) = (zₜ((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ(ξ))/
                         (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
 inverse2Dplot([q],r,[z],f)
 ```
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_STATDsimulationnew.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_STATDsimulation.png)
 
 
 ## Scenario E
