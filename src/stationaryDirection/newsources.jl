@@ -19,5 +19,5 @@ struct PulseTrainReceivers <: Receivers
  function (𝐒::PulseTrainReceivers)(t₀::Float64)
    T=𝐒.Period
    k = floor(t₀/T)
-  return ifelse(t₀<T, 𝐒.s(t₀.+k*T), 0.0)
+  return ifelse(t₀<T, 𝐒.s(t₀.+k*T),0.0)
 end
