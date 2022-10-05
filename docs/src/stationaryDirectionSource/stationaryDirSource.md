@@ -455,6 +455,7 @@ G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/16)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
 r = pointReflector([𝛏₁,𝛏₂,𝛏₃,𝛏₄],[α₁,α₂,α₃,α₄],[q])
 z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
+zₜ = PulseTrainReceivers(z,T)
 Dₛ1(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
 f1(ξ::Vector{Float64}) = (zₜ((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ1(ξ))/
                         (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
