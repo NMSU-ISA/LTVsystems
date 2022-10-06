@@ -5,7 +5,7 @@ using Plots
 𝐩ₛ = [0.0, 0.0]
 𝐩ᵣ = [0.0, 0.0]
 T  = 15.0e-9
-p(t) = δn(t-0.5e-9,1.0e-10) + δn(t-0.5e-9-T,1.0e-10) + δn(t-0.5e-9-2T,1.0e-10)+ δn(t-0.5e-9-3T,1.0e-10)
+p(t) = δn(t,1.0e-10) + δn(t-T,1.0e-10) + δn(t-2T,1.0e-10)+ δn(t-3T,1.0e-10)
 α₁ = 0.7; 𝛏₁ = [2.0,0.0]
 α₂ = 0.7; 𝛏₂ = [-2.0,0.0]
 α₃ = 0.7; 𝛏₃ = [0.0,2.0]
@@ -16,7 +16,7 @@ G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/16)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
 r = pointReflector([𝛏₁,𝛏₂,𝛏₃,𝛏₄],[α₁,α₂,α₃,α₄],[q])
 z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
-t = -5.0e-9:1.0e-11:75.0e-9
+t = -5.0e-9:1.0e-10:75.0e-9
 p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot(p1,p2,layout=(2,1))
@@ -29,40 +29,32 @@ png(path*"scenarioE_STATD.png")
 
 png(path*"scenarioESTAT_signal.png")
 
-
+# Inverse Modeling
 
 zₜ = PulseTrainReceivers(z,T)
-Dₛ1(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
-f1(ξ::Vector{Float64}) = (zₜ((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ1(ξ))/
-                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
+Dₛ₁(ξ::Vector{Float64}) = G(angleBetween(𝐛(2norm(ξ-𝐩ₛ)/c), ξ.-𝐩ₛ))
+f₁(ξ::Vector{Float64}) = (zₜ(2(norm(ξ-𝐩ₛ))/c).*Dₛ₁(ξ))/(A(norm(ξ-𝐩ₛ)/c))^2
 
-Dₛ2(ξ::Vector{Float64}) = G(angleBetween(𝐛(T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
-f2(ξ::Vector{Float64}) = (zₜ((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ2(ξ))/
-                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
+Dₛ₂(ξ::Vector{Float64}) = G(angleBetween(𝐛(T+2norm(ξ-𝐩ₛ)/c), ξ.-𝐩ₛ))
+f₂(ξ::Vector{Float64}) = (zₜ(2(norm(ξ-𝐩ₛ))/c).*Dₛ₂(ξ))/(A(norm(ξ-𝐩ₛ)/c))^2
 
-Dₛ3(ξ::Vector{Float64}) = G(angleBetween(𝐛(2T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
-f3(ξ::Vector{Float64}) = (zₜ((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ3(ξ))/
-                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
+Dₛ₃(ξ::Vector{Float64}) = G(angleBetween(𝐛(2T+2norm(ξ-𝐩ₛ)/c), ξ.-𝐩ₛ))
+f₃(ξ::Vector{Float64}) = (zₜ(2(norm(ξ-𝐩ₛ))/c).*Dₛ₃(ξ))/(A(norm(ξ-𝐩ₛ)/c))^2
 
-Dₛ4(ξ::Vector{Float64}) = G(angleBetween(𝐛(3T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
-f4(ξ::Vector{Float64}) = (zₜ((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ4(ξ))/
-                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
+Dₛ₄(ξ::Vector{Float64}) = G(angleBetween(𝐛(3T+2norm(ξ-𝐩ₛ)/c), ξ.-𝐩ₛ))
+f₄(ξ::Vector{Float64}) = (zₜ(2(norm(ξ-𝐩ₛ))/c).*Dₛ₄(ξ))/(A(norm(ξ-𝐩ₛ)/c))^2
 
 
-f(ξ::Vector{Float64}) = f1(ξ).+ f2(ξ) .+f3(ξ).+f4(ξ)
+f(ξ::Vector{Float64}) = f₁(ξ).+ f₂(ξ) .+f₃(ξ).+f₄(ξ)
 
-Δpos = 0.001
-x_min = -4.0
-x_max = 4.0
-y_min = -4.0
-y_max = 4.0
+inverse2Dplot([q],r,[z],f)
+png(path*"scenarioESTAT_simulationa2.png")
 
-inverse2Dplot([q],r,[z],f;Δpos,x_min,x_max,y_min,y_max)
 
-p11 = inverse2Dplot([q],r,[z],f1)
-p12 = inverse2Dplot([q],r,[z],f2)
-p13 = inverse2Dplot([q],r,[z],f3)
-p14 = inverse2Dplot([q],r,[z],f4)
+p11 = inverse2Dplot([q],r,[z],f₁)
+p12 = inverse2Dplot([q],r,[z],f₂)
+p13 = inverse2Dplot([q],r,[z],f₃)
+p14 = inverse2Dplot([q],r,[z],f₄)
 
 plot(p11,p12,p13,p14,layout=(2,2),size=(1000,1000))
 
@@ -101,22 +93,26 @@ f(ξ::Vector{Float64}) = (zₜ((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ(�
 
 
 
+function beam(t::Float64)
+     return ifelse(0.0<t<T,𝐛(t) , ifelse(T<t<2T, 𝐛(T+t), ifelse(2T<t<3T, 𝐛(2T+t), 𝐛(3T+t))))
+ end
+                      
+                      
+Dₛ(ξ::Vector{Float64}) = G(angleBetween(beam((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
+                      
+f(ξ::Vector{Float64}) = (zₜ((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ(ξ))/
+                                              (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
+                      
+ inverse2Dplot([q],r,[z],f)
 
 
 
-#function beam(t::Float64)
-#    return ifelse(0.0<t<T,𝐛(t) , ifelse(T<t<2T, 𝐛(T+t), ifelse(2T<t<3T, 𝐛(2T+t), 𝐛(3T+t))))
-#end
 
-
-#Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛(3T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
-
-#f(ξ::Vector{Float64}) = (zₜ((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ(ξ))/
-#                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
-
-
-
-
+ Δpos = 0.001
+ x_min = -4.0
+ x_max = 4.0
+ y_min = -4.0
+ y_max = 4.0
 
 
 
