@@ -49,9 +49,15 @@ f4(ξ::Vector{Float64}) = (zₜ((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ4
                         (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
 
 
-#f(ξ::Vector{Float64}) = f1(ξ).+ f2(ξ) .+f3(ξ).+f4(ξ)
+f(ξ::Vector{Float64}) = f1(ξ).+ f2(ξ) .+f3(ξ).+f4(ξ)
 
-inverse2Dplot([q],r,[z],f1)
+Δpos = 0.001
+x_min = -4.0
+x_max = 4.0
+y_min = -4.0
+y_max = 4.0
+
+inverse2Dplot([q],r,[z],f;Δpos,x_min,x_max,y_min,y_max)
 
 p11 = inverse2Dplot([q],r,[z],f1)
 p12 = inverse2Dplot([q],r,[z],f2)

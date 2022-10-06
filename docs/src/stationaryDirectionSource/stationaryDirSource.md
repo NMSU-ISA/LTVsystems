@@ -46,7 +46,7 @@ position $\bm{\xi}$ is given by
 \end{aligned}
 ```
 
-## Scenario A
+## Scenario A [Single pulse, single reflector, transmitter and receiver at same location]
 
 ### Scenario Assumptions
 
@@ -84,14 +84,14 @@ $z(t) = \alpha_0 \mathrm{D}_
 using LTVsystems, Plots
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  𝐩ₛ
-p(t) = δn(t-0.5e-09,1.0e-10)
+p(t) = δn(t,1.0e-10)
 𝐛(t) = [cos(2π*10*t),0.0]/(norm(cos(2π*10*t)))
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
 α₀ = 0.7; 𝛏₀ = [1.8,0.0]
 r = pointReflector(𝛏₀,α₀,q)
 z = STATreceiverD([r],𝐩ᵣ,𝐛,G)
-t = -5.5e-9:1.0e-10:15.5e-9
+t = -5.5e-9:1.0e-10:25.5e-9
 p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot(p1,p2,layout=(2,1))
@@ -110,7 +110,7 @@ $\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\m
 using LTVsystems, Plots
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  𝐩ₛ
-p(t) = δn(t-0.5e-09,1.0e-10)
+p(t) = δn(t,1.0e-10)
 𝐛(t) = [cos(2π*10*t),0.0]/(norm(cos(2π*10*t)))
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
@@ -125,7 +125,7 @@ inverse2Dplot([q],[r],[z],f)
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_STATDirsimulation.png)
 
 
-## Scenario B
+## Scenario B [Single pulse, single reflector, transmitter and receiver at different location]
 
 ### Scenario Assumptions
 
@@ -165,7 +165,7 @@ $z(t) = \alpha_0 \mathrm{D}_
 using LTVsystems, Plots
 𝐩ₛ =  [1.0, 0.0]
 𝐩ᵣ =  [-1.0, 0.0]
-p(t) = δn(t-0.5e-09,1.0e-10)
+p(t) = δn(t,1.0e-10)
 𝐛(t) = [cos(2π*10*t),0.0]/(norm(cos(2π*10*t)))
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
@@ -196,7 +196,7 @@ $\hat{f}(\bm{\xi}) =\dfrac{z\left(\frac{\|\mathbf{p}_\mathrm{r}-
 using LTVsystems, Plots
 𝐩ₛ =  [1.0, 0.0]
 𝐩ᵣ =  [-1.0, 0.0]
-p(t) = δn(t-0.5e-09,1.0e-10)
+p(t) = δn(t,1.0e-10)
 𝐛(t) = [cos(2π*10*t),0.0]/(norm(cos(2π*10*t)))
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
@@ -212,12 +212,12 @@ inverse2Dplot([q],[r],[z],f)
 
 
 
-## Scenario C
+## Scenario C [Pulse train, multiple reflector, transmitter and receiver at same location]
 
 ### Scenario Assumptions
 
 * single stationary directional source with time-varying beam center
-* single stationary receiver
+* single stationary receiver at same location as the source
 * multiple stationary ideal point reflectors
 * the source emits a periodic impulse train
 
@@ -226,6 +226,29 @@ Given the assumptions, we simulate the following geometry for scenario E.
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioE_STATDir.png)
 
 ### Forward Modeling
+
+For scenario C, we provided the position of the stationary direction source $𝐩ₛ$, with time-varying beam center $𝐛(t)$, the stationary direction receiver's position $𝐩ᵣ$, being at the same location $(𝐩ₛ=𝐩ᵣ)$, the transmitted signal $p(t)$, and multiple reflector say, N.
+
+Now the expression for the reflector function is given by
+
+$f(\bm{\xi}) = \sum\limits_{n=1}^{N}\alpha_n \delta(\bm{\xi} - \bm{\xi}_n).$
+
+We compute the reflection due to the directional source as follows
+
+$r(\bm{\xi},t) = \sum\limits_{n=1}^{N}\alpha_n \delta(\bm{\xi} - \bm{\xi}_n)
+\mathrm{D}_\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)}\big)
+\mathrm{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
+{\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
+
+Finally, the closed form expression of the observed signal, $z(t)$
+is given by
+
+$z(t) = \sum\limits_{n=1}^{N} \alpha_n \mathrm{D}_
+\mathrm{s}\big(\bm{\xi}_n;\,{\mathbf{p}_\mathrm{s},
+\mathbf{b}_\mathrm{r}(\cdot)}\big)\mathrm{A}^2
+\left(\frac{\|\mathbf{p}_\mathrm{s}-\bm{\xi}_n\|}
+{\mathrm{c}}\right)p\left(t -2\frac{\|\mathbf{p}_\mathrm{s}-\bm{\xi}_n\|}{\mathrm{c}}\right).$
+
 
 ```julia
 using LTVsystems
@@ -254,7 +277,15 @@ plot(p1,p2,layout=(2,1))
 
 ### Inverse Modeling
 
-```julia
+Given the scenario C assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function by considering the transmitted signal as impulse train $p(t)=∑_{k=0}^{M-1}δ(t-kT)$ as follows
+
+$z_\mathrm{t} = z(t+kT)$ where T is period of the impulse train
+
+$\hat{f}(\bm{\xi}) = \dfrac{z_\mathrm{t}\left(\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\right)\mathrm{D}_\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}\left(\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\right)}\big)}
+{\mathrm{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\big) }
+.$
+
+```julia 
 using LTVsystems
 using Plots
 𝐩ₛ = [0.0, 0.0]
