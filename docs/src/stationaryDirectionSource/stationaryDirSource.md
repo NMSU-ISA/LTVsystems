@@ -88,7 +88,7 @@ p(t) = δn(t,1.0e-10)
 𝐛(t) = [cos(2π*10*t),0.0]/(norm(cos(2π*10*t)))
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
-α₀ = 0.7; 𝛏₀ = [1.8,0.0]
+α₀ = 0.7; 𝛏₀ = [1.8,0.0] 
 r = pointReflector(𝛏₀,α₀,q)
 z = STATreceiverD([r],𝐩ᵣ,𝐛,G)
 t = -5.5e-9:1.0e-10:25.5e-9
@@ -256,7 +256,7 @@ using Plots
 𝐩ₛ = [0.0, 0.0]
 𝐩ᵣ = [0.0, 0.0]
 T  = 15.0e-9
-p(t) = δn(t-0.5e-9,1.0e-10) + δn(t-0.5e-9-T,1.0e-10) + δn(t-0.5e-9-2T,1.0e-10)+ δn(t-0.5e-9-3T,1.0e-10)
+p(t) = δn(t,1.0e-10) + δn(t-T,1.0e-10) + δn(t-2T,1.0e-10)+ δn(t-3T,1.0e-10)
 α₁ = 0.7; 𝛏₁ = [2.0,0.0]
 α₂ = 0.7; 𝛏₂ = [-2.0,0.0]
 α₃ = 0.7; 𝛏₃ = [0.0,2.0]
@@ -279,11 +279,19 @@ plot(p1,p2,layout=(2,1))
 
 Given the scenario C assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function by considering the transmitted signal as impulse train $p(t)=∑_{k=0}^{M-1}δ(t-kT)$ as follows
 
+We incorporated the time delays in the received signal, $z(t)$ with respect to each periodic impulse as follows
+
 $z_\mathrm{t} = z(t+kT)$ where T is period of the impulse train
 
-$\hat{f}(\bm{\xi}) = \dfrac{z_\mathrm{t}\left(\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\right)\mathrm{D}_\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}\left(\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\right)}\big)}
-{\mathrm{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\big) }
-.$
+In order to consider the total time delay in the time-varying beam with respect to each periodic impulse, we computed the reflector function corresponding to each periodic impulse as follows
+
+$f_k(\bm{\xi})=\dfrac{z_\mathrm{t}\left(\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)\mathrm{D}_\mathrm{sk}}{\mathrm{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)}$
+
+where $\mathrm{D}_\mathrm{sk}(\bm{\xi}) = ∠(𝐛(\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}+kT), \bm{\xi}.-\mathbf{p}_\mathrm{s})$ 
+
+Finally, the reflector function for the scenario is given as follows
+
+$\hat{f}(\bm{\xi}) = ∑_{k=0}^{M-1} f_k.$
 
 ```julia 
 using LTVsystems
@@ -291,7 +299,7 @@ using Plots
 𝐩ₛ = [0.0, 0.0]
 𝐩ᵣ = [0.0, 0.0]
 T  = 15.0e-9
-p(t) = δn(t-0.5e-9,1.0e-10) + δn(t-0.5e-9-T,1.0e-10) + δn(t-0.5e-9-2T,1.0e-10)+ δn(t-0.5e-9-3T,1.0e-10)
+p(t) = δn(t,1.0e-10) + δn(t-T,1.0e-10) + δn(t-2T,1.0e-10)+ δn(t-3T,1.0e-10)
 α₁ = 0.7; 𝛏₁ = [2.0,0.0]
 α₂ = 0.7; 𝛏₂ = [-2.0,0.0]
 α₃ = 0.7; 𝛏₃ = [0.0,2.0]
@@ -303,25 +311,21 @@ q = STATsourceD(𝐩ₛ,p,𝐛,G)
 r = pointReflector([𝛏₁,𝛏₂,𝛏₃,𝛏₄],[α₁,α₂,α₃,α₄],[q])
 z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
 zₜ = PulseTrainReceivers(z,T)
-Dₛ1(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
-f1(ξ::Vector{Float64}) = (zₜ((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ1(ξ))/
-                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
-Dₛ2(ξ::Vector{Float64}) = G(angleBetween(𝐛(T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
-f2(ξ::Vector{Float64}) = (zₜ((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ2(ξ))/
-                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
-Dₛ3(ξ::Vector{Float64}) = G(angleBetween(𝐛(2T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
-f3(ξ::Vector{Float64}) = (zₜ((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ3(ξ))/
-                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
-Dₛ4(ξ::Vector{Float64}) = G(angleBetween(𝐛(3T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
-f4(ξ::Vector{Float64}) = (zₜ((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ4(ξ))/
-                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
-p11 = inverse2Dplot([q],r,[z],f1)
-p12 = inverse2Dplot([q],r,[z],f2)
-p13 = inverse2Dplot([q],r,[z],f3)
-p14 = inverse2Dplot([q],r,[z],f4)
-plot(p11,p12,p13,p14,layout=(2,2))
-f(ξ::Vector{Float64}) = f1(ξ).+ f2(ξ) .+f3(ξ).+f4(ξ)
-inverse2Dplot([q],r,[z],f)
+zₜ = PulseTrainReceivers(z,T)
+Dₛ₁(ξ::Vector{Float64}) = G(angleBetween(𝐛(2norm(ξ-𝐩ₛ)/c), ξ.-𝐩ₛ))
+f₁(ξ::Vector{Float64}) = (zₜ(2(norm(ξ-𝐩ₛ))/c).*Dₛ₁(ξ))/(A(norm(ξ-𝐩ₛ)/c))^2
+Dₛ₂(ξ::Vector{Float64}) = G(angleBetween(𝐛(T+2norm(ξ-𝐩ₛ)/c), ξ.-𝐩ₛ))
+f₂(ξ::Vector{Float64}) = (zₜ(2(norm(ξ-𝐩ₛ))/c).*Dₛ₂(ξ))/(A(norm(ξ-𝐩ₛ)/c))^2
+Dₛ₃(ξ::Vector{Float64}) = G(angleBetween(𝐛(2T+2norm(ξ-𝐩ₛ)/c), ξ.-𝐩ₛ))
+f₃(ξ::Vector{Float64}) = (zₜ(2(norm(ξ-𝐩ₛ))/c).*Dₛ₃(ξ))/(A(norm(ξ-𝐩ₛ)/c))^2
+Dₛ₄(ξ::Vector{Float64}) = G(angleBetween(𝐛(3T+2norm(ξ-𝐩ₛ)/c), ξ.-𝐩ₛ))
+f₄(ξ::Vector{Float64}) = (zₜ(2(norm(ξ-𝐩ₛ))/c).*Dₛ₄(ξ))/(A(norm(ξ-𝐩ₛ)/c))^2
+f(ξ::Vector{Float64}) = f₁(ξ).+ f₂(ξ) .+f₃(ξ).+f₄(ξ)
+p11 = inverse2Dplot([q],r,[z],f₁)
+p12 = inverse2Dplot([q],r,[z],f₂)
+p13 = inverse2Dplot([q],r,[z],f₃)
+p14 = inverse2Dplot([q],r,[z],f₄)
+plot(p11,p12,p13,p14,layout=(2,2),size=(1000,1000))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioESTAT_simulationa2.png)
 
