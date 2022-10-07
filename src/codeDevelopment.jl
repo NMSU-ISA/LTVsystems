@@ -26,8 +26,8 @@ plot(t,p.(t))
 plot(t,z.(t))
 
 Δpos = 0.01
-x_range = -3.0:Δpos:3.0
-y_range = -3.0:Δpos:3.0
+x_range = -5.0:Δpos:5.0
+y_range = -5.0:Δpos:5.0
 xyGrid = [[x, y] for x in x_range, y in y_range]
 val = [q(𝐮,5.0e-9) for 𝐮 ∈ xyGrid]
 plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90))
@@ -36,8 +36,8 @@ plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90))
 
 
 allPlots = []
-for t ∈ 0:T/100:T
-    val = [q(𝐮,t) + r[1](𝐮,t) for 𝐮 ∈ xyGrid]
+for t ∈ 0:T/100:5T
+    val = [q(𝐮,t) + r[1](𝐮,t)+r[2](𝐮,t)+r[3](𝐮,t)+r[4](𝐮,t) for 𝐮 ∈ xyGrid]
     p1 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),legend=false,clims=(-1,1),aspect_ratio=:equal,xticks=:false,yticks=:false,zticks=:false)
     frame = plot(p1, size = (800, 800) )
     push!(allPlots, frame)
@@ -45,7 +45,7 @@ end
 anim = @animate for i ∈ 1:length(allPlots)
     plot(allPlots[i])
 end
-gif(anim, "fileName.gif", fps = 30)
+gif(anim, "fileName1.gif", fps = 30)
 
 
 

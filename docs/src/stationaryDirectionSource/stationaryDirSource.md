@@ -285,15 +285,6 @@ $z_\mathrm{t} = z(t+kT)$ where T is period of the impulse train
 
 In order to consider the total time delay in the time-varying beam with respect to each periodic impulse, we computed the reflector function corresponding to each periodic impulse as follows
 
-<<<<<<< HEAD
-$f_k(\bm{\xi})=\dfrac{z_\mathrm{t}\left(\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)\mathrm{D}_\mathrm{sk}}{\mathrm{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)}$
-
-where $\mathrm{D}_\mathrm{sk}(\bm{\xi}) = ∠(𝐛(\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}+kT), \bm{\xi}.-\mathbf{p}_\mathrm{s})$ 
-
-Finally, the reflector function for the scenario is given as follows
-
-$\hat{f}(\bm{\xi}) = ∑_{k=0}^{M-1} f_k.$
-=======
 $f_k(\bm{\xi})=\dfrac{z_\mathrm{t}\left(\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)\mathrm{D}_\mathrm{sk}(\bm{\xi})}{\mathrm{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)}$
 
 where $\mathrm{D}_\mathrm{sk}(\bm{\xi}) = \mathbf{G}\big(∠(𝐛(\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}+kT), \bm{\xi}.-\mathbf{p}_\mathrm{s})\big)$ 
@@ -301,7 +292,6 @@ where $\mathrm{D}_\mathrm{sk}(\bm{\xi}) = \mathbf{G}\big(∠(𝐛(\frac{2\|\bm{\
 Finally, the reflector function for the scenario is given as follows
 
 $\hat{f}(\bm{\xi}) = ∑_{k=0}^{M-1} f_k(\bm{\xi}).$
->>>>>>> main
 
 ```julia 
 using LTVsystems
