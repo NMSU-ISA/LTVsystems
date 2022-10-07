@@ -50,7 +50,7 @@ p14 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₄)
 p15 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₅)
 p6 = inverse2Dfinalplot([q],[z₁,z₂,z₃,z₄,z₅],f)
 
-plot(p11,p12,p13,p14,p15,p6,layout=(3,2),size=(1000,1000))
+plot(p11,p12,p13,p14,p15,p6,layout=(3,2),size=(2000,2000))
 
 inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f)
 
