@@ -21,3 +21,4 @@ struct PulseTrainReceivers <: Receivers
    k = floor(t₀/T)
   return ifelse(t₀<T, 𝐒.s(t₀.+k*T),0.0)
 end
+

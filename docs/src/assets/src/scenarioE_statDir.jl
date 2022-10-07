@@ -72,23 +72,24 @@ png(path*"scenarioESTAT_simulationaall2.png")
 
 
 
-struct PulseTrain <: Receivers
-    s::Receivers
-    Period ::Float64
-    beam::Function
-   end
-  
-   function (𝐒::PulseTrain)(t₀::Float64)
-     T=𝐒.Period
-     k = floor(t₀/T)
-    return ifelse(t₀<T, [𝐒.s(t₀.+k*T),𝐒.beam(t₀.+k*T)], 0.0)
-end
 
 
-zc= PulseTrain(z,T,𝐛)
-zz=getindex(zc.(t),1)
-zb=getindex(zc.(t),2)
-getindex(zc.((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c),2)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 Dₛ(ξ::Vector{Float64}) = G(angleBetween(getindex(zc.((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c),2), ξ.-𝐩ₛ))
