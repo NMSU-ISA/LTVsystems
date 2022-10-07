@@ -1,4 +1,4 @@
-### LTV Doppler Effect Modeling
+# LTV Doppler Effect Modeling
 
 In order to observe the Doppler effect, we consider a time-varying receiver at
 position $\mathbf{p}_\mathrm{r}(t)$,
