@@ -12,7 +12,7 @@ p(t) = δn(t-tₚ,1.0e-10) + δn(t-T-tₚ,1.0e-10) + δn(t-2T-tₚ,1.0e-10)+ δn
 α₄ = 0.7; 𝛏₄ = [0.0,-2.0]
 f₀ = 1/4T
 𝐛(t) = [cos(2π*f₀*(t-tₚ)),sin(2π*f₀*(t-tₚ))]
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/16)
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/20)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
 r = pointReflector([𝛏₁,𝛏₂,𝛏₃,𝛏₄],[α₁,α₂,α₃,α₄],[q])
 z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
@@ -24,6 +24,28 @@ t = collect(0.0:T/100:5T)
 plot(t,p.(t))
 
 plot(t,z.(t))
+
+Δpos = 0.01
+x_range = -2.0:Δpos:2.0
+y_range = -2.0:Δpos:2.0
+xyGrid = [[x, y] for x in x_range, y in y_range]
+val = [q(𝐮,5.0e-9) for 𝐮 ∈ xyGrid]
+plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90))
+
+
+
+
+allPlots = []
+for t ∈ 0:T/100:T
+    val = [q(𝐮,t) + r[1](𝐮,t) for 𝐮 ∈ xyGrid]
+    p1 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),legend=false,clims=(-1,1),aspect_ratio=:equal,xticks=:false,yticks=:false,zticks=:false)
+    frame = plot(p1, size = (800, 800) )
+    push!(allPlots, frame)
+end
+anim = @animate for i ∈ 1:length(allPlots)
+    plot(allPlots[i])
+end
+gif(anim, "fileName.gif", fps = 30)
 
 
 
