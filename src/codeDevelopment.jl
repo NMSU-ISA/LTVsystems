@@ -23,7 +23,7 @@ zₜ = PulseTrainReceivers(z,T)
 t = collect(0.0:T/100:5T)
 plot(t,p.(t))
 
-plot(t,z.(t))
+plot(t,z.(t),ylims=(minimum(z.(t)),maximum(z.(t))))
 
 Δpos = 0.01
 x_range = -3.0:Δpos:3.0

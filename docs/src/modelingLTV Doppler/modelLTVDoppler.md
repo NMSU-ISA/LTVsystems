@@ -10,7 +10,7 @@ $h(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s}}) = \mathrm{A}\left(\frac{\|\bm{\xi}-\mat
 {\mathrm{c}}\right) \delta\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
 
-## Scenario A
+## Scenario A [Real exponential signal, single reflector, stationary transmitter and moving receiver]
 
 ### Scenario Assumptions
 
@@ -39,7 +39,7 @@ plot(p1,p2,layout=(2,1))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTVreceiverDoppler_signalA.png)
 
-## Scenario B
+## Scenario B [Sinusoidal signal, single reflector, stationary transmitter and moving receiver]
 
 ### Scenario Assumptions
 
@@ -65,12 +65,12 @@ plot(p1,p2,layout=(2,1))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTVreceiverDoppler_signalB.png)
 
-## Scenario C
+## Scenario C [Complex exponential signal, single reflector, stationary transmitter and moving receiver]
 
 ### Scenario Assumptions
 
-  * single omnidirectional source moving with a constant speed
-  * single stationary omnidirectional receiver
+  * single stationary omnidirectional source
+  * single omnidirectional receiver moving with a constant speed
   * single stationary ideal point reflector
   * the source emits a complex exponential signal
 
@@ -96,7 +96,7 @@ plot(p11,p12,layout=(2,1))
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTVreceiverDoppler_signalC1.png)
 
-## Scenario D
+## Scenario D [Real exponential signal, single reflector, moving transmitter and stationary receiver]
 
 ### Scenario Assumptions
 
@@ -125,7 +125,7 @@ plot(p1,p2,layout=(2,1))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTVsourceDoppler_signalA.png)
 
-## Scenario E
+## Scenario E [Sinusoidal signal, single reflector, moving transmitter and stationary receiver]
 
 ### Scenario Assumptions
 
@@ -151,7 +151,7 @@ plot(p1,p2,layout=(2,1))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTVsourceDoppler_signalB.png)
 
-## Scenario F
+## Scenario F [Complex exponential signal, single reflector, moving transmitter and stationary receiver]
 
 ### Scenario Assumptions
 

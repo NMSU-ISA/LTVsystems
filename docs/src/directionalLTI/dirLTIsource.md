@@ -54,14 +54,14 @@ position $\bm{\xi}$ is given by
 ```
 
 
-## Scenario A
+## Scenario A [Single pulse, single reflector, transmitter and receiver at same location with single beam direction]
 
 ### Scenario Assumptions
 
 * single stationary directional source
 * single stationary directional receiver at same location as the source
 * single stationary ideal point reflector
-* the source emits an impulse
+* the source emits a pulse
 
 Given the assumptions, we simulate the following geometry for scenario A.
 
@@ -137,14 +137,14 @@ inverse2Dplot([q],[r],[z],f)
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_DirTIsimulation.png)
 
 
-## Scenario B
+## Scenario B [Single pulse, single reflector, transmitter and receiver at different location with single beam direction]
 
 ### Scenario Assumptions
 
 * single stationary directional source
 * single stationary directional receiver
 * single stationary ideal point reflector
-* the source emits an impulse
+* the source emits a pulse
 
 Given the assumptions, we simulate the following geometry for scenario B.
 
@@ -230,14 +230,14 @@ inverse2Dplot([q],[r],[z],f)
 
 
 
-## Scenario C
+## Scenario C [Pulse train, multiple reflector, transmitter and receiver at same location with single beam direction]
 
 ### Scenario Assumptions
 
 * single stationary directional source 
 * single stationary directional receiver at the same location as source
 * mutliple ideal point reflector
-* the source emits multiple impulse with single beam 
+* the source emits pulse train with single beam 
 
 Given the assumptions, we simulate the following geometry for scenario F.
 
@@ -296,7 +296,7 @@ inverse2Dplot([q],r,[z],f)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioGLTIDir1_simulation.png)
 
-## Scenario D
+## Scenario D [Pulse train, multiple reflector, transmitter and receiver at same location with multiple beam direction]
 
 ### Scenario Assumptions
 

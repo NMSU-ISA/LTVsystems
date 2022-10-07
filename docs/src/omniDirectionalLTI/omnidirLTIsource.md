@@ -385,16 +385,18 @@ f₄(ξ::Vector{Float64})=z₄((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₄-ξ))/c)/
                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ₄-ξ)/c))
 f₅(ξ::Vector{Float64})=z₅((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₅-ξ))/c)/
                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ₅-ξ)/c))
-f(ξ::Vector{Float64})=f₁(ξ::Vector{Float64}).+f₂(ξ::Vector{Float64}).+
-                    f₃(ξ::Vector{Float64}).+f₄(ξ::Vector{Float64}).+f₅(ξ::Vector{Float64})
-inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f)
-f_new(ξ::Vector{Float64})=(f₁(ξ::Vector{Float64}).*f₂(ξ::Vector{Float64}).*
-                          f₃(ξ::Vector{Float64}).*f₄(ξ::Vector{Float64}).*f₅(ξ::Vector{Float64}))^(1/3)
-inverse2Dfinalplot([q],[z₁,z₂,z₃,z₄,z₅],f_new)
+f(ξ::Vector{Float64})=f₁(ξ).*f₂(ξ).*f₃(ξ).*f₄(ξ).*f₅(ξ)
+p11 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₁)
+p12 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₂)
+p13 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₃)
+p14 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₄)
+p15 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₅)
+p6 = inverse2Dfinalplot([q],[z₁,z₂,z₃,z₄,z₅],f)
+plot(p11,p12,p13,p14,p15,p6,layout=(3,2),size=(1000,1000))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_simulation.png)
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_target_estimation.png)
+
 
 ## Scenario E [Single pulse, single reflector, multiple transmitter and receiver at different locations]
 
