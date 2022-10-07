@@ -41,8 +41,17 @@ f₃(ξ::Vector{Float64})=(z₃((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₃-ξ))./c))./
 f₄(ξ::Vector{Float64})=(z₄((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₄-ξ))./c))./(A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ₄-ξ)./c))
 f₅(ξ::Vector{Float64})=(z₅((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₅-ξ))./c))./(A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ₅-ξ)./c))
 
-f(ξ::Vector{Float64})=f₁(ξ::Vector{Float64}).+f₂(ξ::Vector{Float64}).+f₃(ξ::Vector{Float64}).+f₄(ξ::Vector{Float64}).+f₅(ξ::Vector{Float64})
-#SPATIAL SIMULATION3
+f(ξ::Vector{Float64})=f₁(ξ).*f₂(ξ).*f₃(ξ).*f₄(ξ).*f₅(ξ)
+
+p11 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₁)
+p12 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₂)
+p13 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₃)
+p14 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₄)
+p15 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₅)
+p6 = inverse2Dfinalplot([q],[z₁,z₂,z₃,z₄,z₅],f)
+
+plot(p11,p12,p13,p14,p15,p6,layout=(3,2),size=(1000,1000))
+
 inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f)
 
 png(path*"scenarioD_simulation.png")
