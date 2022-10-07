@@ -56,14 +56,14 @@ position $\bm{\xi}$ is given by
 ```
 
 
-## Scenario A
+## Scenario A [Single pulse, single reflector, transmitter and receiver at same location]
 
-### Scenario Assumptions
+### Scenario Assumptions 
 
   * single stationary omnidirectional source
   * single stationary omnidirectional receiver at same location as the source
   * single stationary ideal point reflector
-  * the source emits an impulse
+  * the source emits a pulse
 
 Given the assumptions, we simulate the following geometry for scenario A.
 
@@ -129,14 +129,14 @@ inverse2Dplot([q],[r],[z],f)
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_simulation.png)
 
 
-## Scenario B
+## Scenario B [Single pulse, single reflector, transmitter and receiver at different location]
 
 ### Scenario Assumptions
 
 * single stationary omnidirectional source
 * single stationary omnidirectional receiver
 * single stationary ideal point reflector
-* the source emits an impulse
+* the source emits a pulse
 
 Given the assumptions, we simulate the following geometry for scenario B.
 
@@ -206,14 +206,14 @@ inverse2Dplot([q],[r],[z],f)
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioB_simulation.png)
 
 
-## Scenario C
+## Scenario C [Single pulse, multiple reflector, transmitter and receiver at different location]
 
 ### Scenario Assumptions
 
 * single stationary omnidirectional source
 * single stationary omnidirectional receiver
 * multiple stationary ideal point reflectors
-* the source emits an impulse
+* the source emits a pulse
 
 Given the assumptions, we simulate the following geometry for scenario C.
 
@@ -284,14 +284,14 @@ inverse2Dplot([q],r,[z],f)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioC_simulation.png)
 
-## Scenario D
+## Scenario D [Single pulse, multiple reflector, single transmitter and multiple receiver]
 
 ### Scenario Assumptions
 
 * single stationary omnidirectional source
 * multiple stationary omnidirectional receivers
 * multiple stationary ideal point reflectors
-* the source emits an impulse
+* the source emits a pulse
 
 Given the assumptions, we simulate the following geometry for scenario D.
 
@@ -396,14 +396,14 @@ inverse2Dfinalplot([q],[z₁,z₂,z₃,z₄,z₅],f_new)
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_target_estimation.png)
 
-## Scenario E
+## Scenario E [Single pulse, single reflector, multiple transmitter and receiver at different locations]
 
 ### Scenario Assumptions
 
 * multiple stationary omnidirectional sources
 * multiple stationary omnidirectional receivers
 * a stationary ideal point reflector
-* the source emits an impulse
+* the source emits a pulse
 
 Given the assumptions, we simulate the following geometry for scenario E.
 
@@ -504,14 +504,14 @@ inverse2Dfinalplot([q₁,q₂,q₃],[z₁,z₂,z₃],f_new)
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioE_target_estimation.png)
 
 
-## Scenario F
+## Scenario F [Single pulse, continuous line segment reflector, transmitter and receiver at different location]
 
 ### Scenario Assumptions
 
 * single stationary omnidirectional source
 * single stationary omnidirectional receiver
 * a continuous line segment reflector
-* the source emits an ideal impulse
+* the source emits a pulse
 
 Given the assumptions, we simulate the following geometry for scenario F.
 
@@ -581,14 +581,14 @@ inverse2Dplot([q],[r],[z],f)
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioF_simulation.png)
 
-## Scenario G
+## Scenario G [Pulse train, multiple reflector, transmitter and receiver at same location]
 
 ### Scenario Assumptions
 
 * single stationary omnidirectional source
 * single stationary omnidirectional receiver at the same location as source
 * mutliple ideal point reflectors
-* the source emits multiple impulse
+* the source emits a pulse train with period T
 
 Given the assumptions, we simulate the following geometry for scenario F.
 

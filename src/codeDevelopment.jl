@@ -26,8 +26,8 @@ plot(t,p.(t))
 plot(t,z.(t))
 
 Δpos = 0.01
-x_range = -5.0:Δpos:5.0
-y_range = -5.0:Δpos:5.0
+x_range = -3.0:Δpos:3.0
+y_range = -3.0:Δpos:3.0
 xyGrid = [[x, y] for x in x_range, y in y_range]
 val = [q(𝐮,5.0e-9) for 𝐮 ∈ xyGrid]
 plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90))
