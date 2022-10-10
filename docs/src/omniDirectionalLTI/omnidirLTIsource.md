@@ -386,12 +386,13 @@ f₄(ξ::Vector{Float64})=z₄((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₄-ξ))/c)/
 f₅(ξ::Vector{Float64})=z₅((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₅-ξ))/c)/
                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ₅-ξ)/c))
 f(ξ::Vector{Float64})=f₁(ξ).*f₂(ξ).*f₃(ξ).*f₄(ξ).*f₅(ξ)
-p11 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₁)
-p12 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₂)
-p13 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₃)
-p14 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₄)
-p15 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₅)
-p6 = inverse2Dfinalplot([q],[z₁,z₂,z₃,z₄,z₅],f)
+Δpos = 0.01; x_min = -2.0; x_max = 2.0; y_min = -2.0; y_max = 2.0
+p11 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₁;Δpos,x_min,x_max,y_min,y_max)
+p12 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₂;Δpos,x_min,x_max,y_min,y_max)
+p13 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₃;Δpos,x_min,x_max,y_min,y_max)
+p14 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₄;Δpos,x_min,x_max,y_min,y_max)
+p15 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₅;Δpos,x_min,x_max,y_min,y_max)
+p6 = inverse2Dfinalplot([q],[z₁,z₂,z₃,z₄,z₅],f;Δpos,x_min,x_max,y_min,y_max)
 plot(p11,p12,p13,p14,p15,p6,layout=(3,2),size=(2000,2000))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_simulation.png)
