@@ -20,36 +20,74 @@ p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot(p1,p2,layout=(2,1))
 
-struct PulseTrainReceiver <: Receivers
+struct PulseTrain <: Receivers
     s::Receivers
     EmissionTime::Float64
     Period ::Float64
 end
   
-function (𝐏::PulseTrainReceiver)(t₀::Float64)
+function (𝐏::PulseTrain)(t₀::Float64)
      tₚ=𝐏.EmissionTime
      T=𝐏.Period
      k = floor(t₀/T)
-    return ifelse(t₀<T, 𝐏.s(t₀.+tₚ.+k*T),0.0)
+    return ifelse(t₀<T, 𝐏.s(t₀.+tₚ.+k*T) ,0.0)
 end
 
 
+struct MovingBeamb <: Function
+    b::Function
+    EmissionTime::Float64
+    Period ::Float64
+end
+  
+function (𝐁::MovingBeamb)(t₀::Float64)
+     tₚ=𝐁.EmissionTime
+     T=𝐁.Period
+     k = floor(t₀/T)
+     return 𝐁.b(tₚ.-k*T)
+     #return ifelse(t₀<T, sum.(𝐁.b(tₚ.-k*T)), [0.0,0.0])
+end
+zp = PulseTrain(z,tₚ,T)
+bc = MovingBeamb(𝐛,tₚ,T)
 
-function beam(b::Function,tₚ::Float64,T::Float64)
-    k = floor(tₚ/T)
-    return ifelse(tₚ<T, b(tₚ.-k*T), 0.0)
-end   
+Dₛ(ξ::Vector{Float64}) = G(angleBetween(bc(2(norm(ξ-𝐩ₛ))/c), ξ.-𝐩ₛ))
+
+f(ξ::Vector{Float64}) = (zp(2(norm(ξ-𝐩ₛ))/c).*Dₛ(ξ))/(A(norm(ξ-𝐩ₛ)/c))^2
+inverse2Dplot([q],r,[z],f)
+
+
+zₜ = PulseTrain(z,tₚ,T)
+
+Dₛ₁(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ), ξ.-𝐩ₛ))
+f₁(ξ::Vector{Float64}) = (zₜ(2(norm(ξ-𝐩ₛ))/c).*Dₛ₁(ξ))/(A(norm(ξ-𝐩ₛ)/c))^2
+Dₛ₂(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ-T), ξ.-𝐩ₛ))
+f₂(ξ::Vector{Float64}) = (zₜ(2(norm(ξ-𝐩ₛ))/c).*Dₛ₂(ξ))/(A(norm(ξ-𝐩ₛ)/c))^2
+Dₛ₃(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ-2T), ξ.-𝐩ₛ))
+f₃(ξ::Vector{Float64}) = (zₜ(2(norm(ξ-𝐩ₛ))/c).*Dₛ₃(ξ))/(A(norm(ξ-𝐩ₛ)/c))^2
+Dₛ₄(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ-3T), ξ.-𝐩ₛ))
+f₄(ξ::Vector{Float64}) = (zₜ(2(norm(ξ-𝐩ₛ))/c).*Dₛ₄(ξ))/(A(norm(ξ-𝐩ₛ)/c))^2
+f(ξ::Vector{Float64}) = f₁(ξ).+ f₂(ξ) .+f₃(ξ).+f₄(ξ)
+p11 = inverse2Dplot([q],r,[z],f₁)
+p12 = inverse2Dplot([q],r,[z],f₂)
+p13 = inverse2Dplot([q],r,[z],f₃)
+p14 = inverse2Dplot([q],r,[z],f₄)
+plot(p11,p12,p13,p14,layout=(2,2),size=(1000,1000))
+
+
+
+ 
+
+
+
+
+
 
 
 zz = PulseTrainReceiver(z,tₚ,T)
 
 bc = beam(𝐛,tₚ,T)
 
-Dₛ(ξ::Vector{Float64}) = G(angleBetween(bc, ξ.-𝐩ₛ))
-f(ξ::Vector{Float64}) = (zz(2(norm(ξ-𝐩ₛ))/c).*Dₛ(ξ))/(A(norm(ξ-𝐩ₛ)/c))^2
 
-
-inverse2Dplot([q],r,[z],f)
 
 
 
