@@ -4,39 +4,38 @@ using LTVsystems, Plots
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  𝐩ₛ
 tₚ = 1.0e-06 # in microseconds
-T=10.0e-06
 p(t) = δn(t-tₚ,1.0e-07)
 q = LTIsourceO(𝐩ₛ, p)
-α₀ = 0.7; 𝛏₀ = [8.0e03,0.0] #in meter
+α₀ = 0.7; 𝛏₀ = [2.0e03,0.0] #in meter
 r = pointReflector(𝛏₀,α₀,q)
 z = LTIreceiverO([r],𝐩ᵣ)
 #TEMPORAL SIMULATION
 #t = 0.0:0.001:15.5
-t=0.0:T/100:2T
+t=0.0:1.0e-08:20.0e-06
 #plot(t, z(t),ylims=(minimum(z(t)),maximum(z(t))),xlab="time (sec)", ylab="z(t)", legend=:false)
 p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot(p1,p2,layout=(2,1))
 
-#plot(t,z.(t),ylims=(minimum(z(t)),maximum(z(t))))
+plot(t,z(t),ylims=(minimum(z(t)),maximum(z(t))))
 
 #plot(t,A.(t))
 
 #scene2Dplot([q],[r],[z];Δpos,x_min,x_max,y_min,y_max)
-
+P=20.0e-06
 Δpos = 0.01e03
-x_min = -10.0e03
-x_max = 10.0e03
-y_min = -10.0e03
-y_max = 10.0e03
+x_min = -4.0e03
+x_max = 4.0e03
+y_min = -4.0e03
+y_max = 4.0e03
 
-scene2DRangeplot([q],[r],[z],T;Δpos,x_min,x_max,y_min,y_max)
+scene2DRangeplot([q],[r],[z],P;Δpos,x_min,x_max,y_min,y_max)
 
 png(path*"scenarioA_signal.png")
 
 
 
-#scene2Dplot([q],[r],[z];Δpos,x_min,x_max,y_min,y_max)
+scene2Dplot([q],[r],[z];Δpos,x_min,x_max,y_min,y_max)
 
 png(path*"scenarioA.png")
 #----------------------------------------------------------------
@@ -78,34 +77,4 @@ p2=plot(x_range,y_range,transpose([0.0]),st=:surface,camera=(0,90),
          aspect_ratio=:equal,legend=:outertopright,colorbar=false,zticks=false)
 plot!(p2,xₖ.(m),yₖ.(m))
 
-
-
-#-----------Noisy Model-----------------
-
-using LTVsystems, Plots
-𝐩ₛ =  [0.0, 0.0]
-𝐩ᵣ =  𝐩ₛ
-tₚ = 1.0e-06 # in microseconds
-T=10.0e-06
-p(t) = δn(t-tₚ,1.0e-07)
-q = LTIsourceO(𝐩ₛ, p)
-α₀ = 0.7; 𝛏₀ = [2.0e03,0.0] #in meter
-r = pointReflector(𝛏₀,α₀,q)
-z = LTIreceiverO([r],𝐩ᵣ)
-#TEMPORAL SIMULATION
-#t = 0.0:0.001:15.5
-t=0.0:T/100:2T
-#plot(t, z(t),ylims=(minimum(z(t)),maximum(z(t))),xlab="time (sec)", ylab="z(t)", legend=:false)
-p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
-p2 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
-plot(p1,p2,layout=(2,1))
-
-
-
-zₙ(t) = z(t) + 𝒩ᵤ.(t,μ=0.0,σ=0.5e-11)
-a1= plot(t, z(t),label="z(t)")
-b1=plot(t, 𝒩ᵤ.(t,μ=0.0,σ=0.5e-11),label="Noise")
-c1=plot(t,zₙ.(t),label="Noisy signal")
-plot(a1,b1,c1,layout=(3,1))
-#
 #
