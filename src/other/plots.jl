@@ -301,7 +301,7 @@ x_range = collect(x_min:Δpos:x_max)
 y_range = collect(y_min:Δpos:y_max)
 xyGrid = [[x, y] for x in x_range, y in y_range]
 val = [0.0]
-r = 2c*P
+r = c*P/2
 m=range(0, 2π, length=100)
 xₖ(m) = r.*cos.(m).- S[1].position[1]
 yₖ(m) = r.*sin.(m).- S[1].position[2]
