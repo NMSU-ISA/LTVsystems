@@ -45,20 +45,20 @@ f(ξ::Vector{Float64}) = z(tₚ.+ 2(norm(ξ-𝐩ₛ))/c)/
                         
 inverse2Dplot([q],[r],[z],f;Δpos,x_min,x_max,y_min,y_max) 
 
-#
 
 
-x_range = collect(x_min:Δpos:x_max)
-y_range = collect(y_min:Δpos:y_max)
-xyGrid = [[x, y] for x in x_range, y in y_range]
-val = [f(𝐮) for 𝐮 ∈ xyGrid]
-plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),
-                                 aspect_ratio=:equal,legend=:outertopright,colorbar=false,zticks=false)
+
+#x_range = collect(x_min:Δpos:x_max)
+#y_range = collect(y_min:Δpos:y_max)
+#xyGrid = [[x, y] for x in x_range, y in y_range]
+#val = [f(𝐮) for 𝐮 ∈ xyGrid]
+#plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),
+#                                 aspect_ratio=:equal,legend=:outertopright,colorbar=false,zticks=false)
                         
 #SPATIAL SIMULATION
-inverse2Dplot([q],[r],[z],f;Δpos,x_min,x_max,y_min,y_max)
+#inverse2Dplot([q],[r],[z],f;Δpos,x_min,x_max,y_min,y_max)
 
-png(path*"scenarioA_simulation.png")
+#png(path*"scenarioA_simulation.png")
 
 #--------Plotting a Circle--------------------------------------
 Δpos = 0.01
