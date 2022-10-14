@@ -4,14 +4,15 @@ using LTVsystems, Plots
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  𝐩ₛ
 tₚ = 1.0e-06 # in microseconds
+T  = 15.0e-6
 p(t) = δn(t-tₚ,1.0e-07)
 q = LTIsourceO(𝐩ₛ, p)
-α₀ = 0.7; 𝛏₀ = [2.0e03,0.0] #in meter
+α₀ = 0.7; 𝛏₀ = [0.25c*T,0.0] #in meter
 r = pointReflector(𝛏₀,α₀,q)
 z = LTIreceiverO([r],𝐩ᵣ)
 #TEMPORAL SIMULATION
 #t = 0.0:0.001:15.5
-t=0.0:1.0e-08:20.0e-06
+t=0.0:T/100:2T
 #plot(t, z(t),ylims=(minimum(z(t)),maximum(z(t))),xlab="time (sec)", ylab="z(t)", legend=:false)
 p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
@@ -22,14 +23,14 @@ plot(t,z(t),ylims=(minimum(z(t)),maximum(z(t))))
 #plot(t,A.(t))
 
 #scene2Dplot([q],[r],[z];Δpos,x_min,x_max,y_min,y_max)
-P=20.0e-06
-Δpos = 0.01e03
-x_min = -4.0e03
-x_max = 4.0e03
-y_min = -4.0e03
-y_max = 4.0e03
 
-scene2DRangeplot([q],[r],[z],P;Δpos,x_min,x_max,y_min,y_max)
+Δpos = 0.01e03
+x_min = -0.5c*T
+x_max = 0.5c*T
+y_min = -0.5c*T
+y_max = 0.5c*T
+
+scene2DRangeplot([q],[r],[z],T;Δpos,x_min,x_max,y_min,y_max)
 
 png(path*"scenarioA_signal.png")
 
