@@ -25,24 +25,27 @@ p2 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot(p1,p2,layout=(2,1))
 
 
+#zₜ = PulseTrainReceivers(z,T)
 
+Dₛ1(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ), ξ.-𝐩ₛ))
+Dₛ2(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ-T), ξ.-𝐩ₛ))
+Dₛ3(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ-2T), ξ.-𝐩ₛ))
+Dₛ4(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ-3T), ξ.-𝐩ₛ))
+Dₛ5(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ-4T), ξ.-𝐩ₛ))
 
-zₜ = PulseTrainReceivers(z,T)
+f1(ξ::Vector{Float64}) = (z(tₚ+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ1(ξ))/
+                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
 
-Dₛ1(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
-f1(ξ::Vector{Float64}) = (zₜ((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ1(ξ))/
+f2(ξ::Vector{Float64}) = (z(tₚ+T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ2(ξ))/
                         (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
-Dₛ2(ξ::Vector{Float64}) = G(angleBetween(𝐛(T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
-f2(ξ::Vector{Float64}) = (zₜ((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ2(ξ))/
+
+f3(ξ::Vector{Float64}) = (z(tₚ+2T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ3(ξ))/
                         (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
-Dₛ3(ξ::Vector{Float64}) = G(angleBetween(𝐛(2T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
-f3(ξ::Vector{Float64}) = (zₜ((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ3(ξ))/
+
+f4(ξ::Vector{Float64}) = (z(tₚ+3T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ4(ξ))/
                         (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
-Dₛ4(ξ::Vector{Float64}) = G(angleBetween(𝐛(3T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
-f4(ξ::Vector{Float64}) = (zₜ((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ4(ξ))/
-                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
-Dₛ5(ξ::Vector{Float64}) = G(angleBetween(𝐛(4T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
-f5(ξ::Vector{Float64}) = (zₜ((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ5(ξ))/
+
+f5(ξ::Vector{Float64}) = (z(tₚ+4T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c).*Dₛ5(ξ))/
                           (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))                        
 
 f(ξ::Vector{Float64}) = f1(ξ).+ f2(ξ) .+f3(ξ).+f4(ξ).+f5(ξ)
@@ -56,6 +59,6 @@ p12 = inverse2Dplot([q],r,[z],f2)
 p13 = inverse2Dplot([q],r,[z],f3)
 p14 = inverse2Dplot([q],r,[z],f4)
 p15 = inverse2Dplot([q],r,[z],f5)
-plot(p11,p12,p13,p14,p15,layout=(5,1))
+plot(p11,p12,p13,p14,p15,layout=(5,1),size=(2000,2000))
 
 scene2Dplot([q],r,[z])
