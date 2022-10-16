@@ -584,14 +584,15 @@ inverse2Dplot([q],[r],[z],f)
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioF_simulation.png)
 
-## Scenario G [Pulse train, multiple reflector, transmitter and receiver at same location]
+## Scenario G [Pulse train, single reflector, transmitter and receiver at same location, random noise]
 
 ### Scenario Assumptions
 
 * single stationary omnidirectional source
 * single stationary omnidirectional receiver at the same location as source
-* mutliple ideal point reflectors
+* single ideal point reflector
 * the source emits a pulse train with period T
+* random noise presence
 
 Given the assumptions, we simulate the following geometry for scenario F.
 
@@ -604,16 +605,14 @@ using LTVsystems
 using Plots
 𝐩ₛ = [0.0, 0.0]
 𝐩ᵣ = [0.0, 0.0]
-T  = 15.0e-9
-p(t) = δn(t-0.5e-9,1.0e-10) + δn(t-0.5e-9-T,1.0e-10) + δn(t-0.5e-9-2T,1.0e-10)+ δn(t-0.5e-9-3T,1.0e-10)
-α₁ = 0.7; 𝛏₁ = [1.0,0.0]
-α₂ = 0.6; 𝛏₂ = [-1.0,0.0]
-α₃ = 0.6; 𝛏₃ = [0.0,1.0]
-α₄ = 0.5; 𝛏₄ = [0.0,-1.0]
+T  = 15.0e-6
+tₚ = 1.0e-06
+p(t) = δn(mod(t-tₚ,T),1.0e-7)
+α₁ = 0.7; 𝛏₁ = [0.2c*T,0.0]
 q = LTIsourceO(𝐩ₛ,p)
-r = pointReflector([𝛏₁,𝛏₂,𝛏₃,𝛏₄],[α₁,α₂,α₃,α₄],[q])
-z = LTIreceiverO(r,𝐩ᵣ)
-t = -5.0e-9:1.0e-10:75.0e-9
+r = pointReflector(𝛏₁,α₁,q)
+z = LTIreceiverO([r],𝐩ᵣ)
+t=0.0:T/100:5T
 p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot(p1,p2,layout=(2,1))
@@ -628,18 +627,30 @@ using LTVsystems
 using Plots
 𝐩ₛ = [0.0, 0.0]
 𝐩ᵣ = [0.0, 0.0]
-T  = 15.0e-9
-p(t) = δn(t-0.5e-9,1.0e-10) + δn(t-0.5e-9-T,1.0e-10) + δn(t-0.5e-9-2T,1.0e-10)+ δn(t-0.5e-9-3T,1.0e-10)
-α₁ = 0.7; 𝛏₁ = [1.0,0.0]
-α₂ = 0.6; 𝛏₂ = [-1.0,0.0]
-α₃ = 0.6; 𝛏₃ = [0.0,1.0]
-α₄ = 0.5; 𝛏₄ = [0.0,-1.0]
+T  = 15.0e-6
+tₚ = 1.0e-06
+p(t) = δn(mod(t-tₚ,T),1.0e-7)
+α₁ = 0.7; 𝛏₁ = [0.2c*T,0.0]
 q = LTIsourceO(𝐩ₛ,p)
-r = pointReflector([𝛏₁,𝛏₂,𝛏₃,𝛏₄],[α₁,α₂,α₃,α₄],[q])
-z = LTIreceiverO(r,𝐩ᵣ)
-zₜ = PulseTrainReceivers(z,T)
-f(ξ::Vector{Float64}) = (zₜ((norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/
-                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
-inverse2Dplot([q],r,[z],f)
+r = pointReflector(𝛏₁,α₁,q)
+z = LTIreceiverO([r],𝐩ᵣ)
+f₁(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, NaN, (1.5e-05randn(1)[1]+z(tₚ+0*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
+f₂(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, NaN, (1.5e-05randn(1)[1]+z(tₚ+1*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))          
+f₃(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, NaN, (1.5e-05randn(1)[1]+z(tₚ+2*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
+f₄(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, NaN, (1.5e-05randn(1)[1]+z(tₚ+3*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
+f₅(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, NaN, (1.5e-05randn(1)[1]+z(tₚ+4*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
+f(ξ::Vector{Float64}) = (f₁(ξ).+f₂(ξ).+f₃(ξ).+f₄(ξ).+f₅(ξ))/5
+Δpos = 0.01e03
+x_min = -0.5c*T
+x_max = 0.5c*T
+y_min = -0.5c*T
+y_max = 0.5c*T
+p11=inverse2Dplot([q],[r],[z],f₁;Δpos,x_min,x_max,y_min,y_max)
+p12=inverse2Dplot([q],[r],[z],f₂;Δpos,x_min,x_max,y_min,y_max)
+p13=inverse2Dplot([q],[r],[z],f₃;Δpos,x_min,x_max,y_min,y_max)
+p14=inverse2Dplot([q],[r],[z],f₄;Δpos,x_min,x_max,y_min,y_max)
+p15=inverse2Dplot([q],[r],[z],f₅;Δpos,x_min,x_max,y_min,y_max)
+p6=inverse2Dplot([q],[r],[z],f;Δpos,x_min,x_max,y_min,y_max)
+plot(p11,p12,p13,p14,p15,p6,layout=(3,2),size=(1000,1000))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioG_simulation.png)
