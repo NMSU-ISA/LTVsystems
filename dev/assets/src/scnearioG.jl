@@ -24,8 +24,18 @@ png(path*"scenarioG_signal.png")
 
 
 
-
+#zₜ = PulseTrain(z,T)
 #zₜ = PulseTrainReceivers(z,T)
+Δpos = 0.01e03
+x_min = -0.5c*T
+x_max = 0.5c*T
+y_min = -0.5c*T
+y_max = 0.5c*T
+f(ξ::Vector{Float64}) = (z(tₚ+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/
+                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)) 
+
+inverse2Dplot([q],[r],[z],f;Δpos,x_min,x_max,y_min,y_max)
+#------------------Noisy Model ---------------------
 #M =5
 #fₘ(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, NaN, (1.5e-05randn(1)[1]+z(tₚ+(M-1)*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/
 #                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
@@ -45,8 +55,7 @@ f(ξ::Vector{Float64}) = (f₁(ξ).+f₂(ξ).+f₃(ξ).+f₄(ξ).+f₅(ξ))/5
 
 
 
-                        #f(ξ::Vector{Float64}) = (z(tₚ+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/
-#                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))                        
+                                               
 Δpos = 0.01e03
 x_min = -0.5c*T
 x_max = 0.5c*T
@@ -76,8 +85,11 @@ scene2Dplot([q],[r],[z];Δpos,x_min,x_max,y_min,y_max)
 
 png(path*"scenarioG.png")
 
+t=0.0:T/100:5T
 
-
+N1 = norm(1.5e-05randn(1)[1])^2  # Noise
+N2 =norm(1.5e-05randn(1)[1].+ z(t))^2  # Noise + Signal
+SNR = 10*log10((N2-N1)/N1)
 
 
 
@@ -97,7 +109,16 @@ png(path*"scenarioG.png")
 
 
 #zₜ = PulseTrainReceivers(z,T)
-
+struct PulseTrain <: Receivers
+    s::Receivers
+    Period ::Float64
+   end
+  
+   function (𝐒::PulseTrain)(t₀::Float64)
+     T=𝐒.Period
+     k = floor(t₀/T)
+    return ifelse(k*T<t₀<(k+1)*T, 𝐒.s(t₀.+k*T),0.0)
+end
 
 
 

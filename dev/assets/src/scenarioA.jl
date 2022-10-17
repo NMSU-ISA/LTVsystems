@@ -18,25 +18,9 @@ p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot(p1,p2,layout=(2,1))
 
-plot(t,z(t),ylims=(minimum(z(t)),maximum(z(t))))
-
-#plot(t,A.(t))
-
-#scene2Dplot([q],[r],[z];Δpos,x_min,x_max,y_min,y_max)
-
-Δpos = 0.01e03
-x_min = -0.5c*T
-x_max = 0.5c*T
-y_min = -0.5c*T
-y_max = 0.5c*T
-
-scene2DRangeplot([q],[r],[z],T;Δpos,x_min,x_max,y_min,y_max)
-
 png(path*"scenarioA_signal.png")
 
-
-
-scene2Dplot([q],[r],[z];Δpos,x_min,x_max,y_min,y_max)
+scenePlot2D([q],[r],[z],T)
 
 png(path*"scenarioA.png")
 #----------------------------------------------------------------
@@ -44,17 +28,56 @@ png(path*"scenarioA.png")
 f(ξ::Vector{Float64}) = z(tₚ.+ 2(norm(ξ-𝐩ₛ))/c)/
                         (A(norm(ξ-𝐩ₛ)/c))^2
                         
-inverse2Dplot([q],[r],[z],f;Δpos,x_min,x_max,y_min,y_max) 
+inversePlot2D([q],[r],[z],f,T) 
+
+png(path*"scenarioA_simulation.png")
 
 
 
 
-#x_range = collect(x_min:Δpos:x_max)
-#y_range = collect(y_min:Δpos:y_max)
-#xyGrid = [[x, y] for x in x_range, y in y_range]
-#val = [f(𝐮) for 𝐮 ∈ xyGrid]
-#plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),
-#                                 aspect_ratio=:equal,legend=:outertopright,colorbar=false,zticks=false)
+
+
+
+
+
+
+
+
+
+#plot( t, abs.(z(t)), xlab="time (sec)", ylab="z(t)", legend=:false)
+#plot(t,z(t),ylims=(minimum(z(t)),maximum(z(t))))
+
+#plot(t,A.(t))
+
+#scene2Dplot([q],[r],[z];Δpos,x_min,x_max,y_min,y_max)
+
+#Δpos = 0.01e03
+#x_min = -0.5c*T
+#x_max = 0.5c*T
+#y_min = -0.5c*T
+#y_max = 0.5c*T
+
+#scene2DRangeplot([q],[r],[z],T;Δpos,x_min,x_max,y_min,y_max)
+
+#sceneRangePlot2D([q],[r],[z],T)
+
+
+
+
+
+
+
+
+
+
+
+#--------------------------------------------------------
+x_range = collect(x_min:Δpos:x_max)
+y_range = collect(y_min:Δpos:y_max)
+xyGrid = [[x, y] for x in x_range, y in y_range]
+val = [f(𝐮) for 𝐮 ∈ xyGrid]
+plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),
+    aspect_ratio=:equal,legend=:outertopright,colorbar=true,zticks=false)
                         
 #SPATIAL SIMULATION
 #inverse2Dplot([q],[r],[z],f;Δpos,x_min,x_max,y_min,y_max)
