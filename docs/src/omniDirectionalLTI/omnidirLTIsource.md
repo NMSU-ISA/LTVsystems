@@ -92,17 +92,20 @@ $z(t) = \alpha_0 \mathrm{A}^2
 {\mathrm{c}}\right)p\left(t -2\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right).$
 
 ```julia
-using LTVsystems
-using Plots
+using LTVsystems, Plots
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  𝐩ₛ
-p(t) = δn(t,1.0e-10)
+tₚ = 1.0e-06 
+T  = 15.0e-6
+p(t) = δn(t-tₚ,1.0e-07)
 q = LTIsourceO(𝐩ₛ, p)
-α₀ = 0.7; 𝛏₀ = [1.8,0.0]
+α₀ = 0.7; 𝛏₀ = [0.25c*T,0.0] 
 r = pointReflector(𝛏₀,α₀,q)
 z = LTIreceiverO([r],𝐩ᵣ)
-t = 0.0:1.0e-10:15.5e-9
-plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+t=0.0:T/100:2T
+p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
+p2 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+plot(p1,p2,layout=(2,1))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_signal.png)
 
@@ -114,17 +117,18 @@ $\hat{f}(\bm{\xi}) = \dfrac{z\left(\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\m
 {\mathrm{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\big)}.$
 
 ```julia
-using LTVsystems
+using LTVsystems, Plots
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  𝐩ₛ
-p(t) = δn(t,1.0e-10)
+tₚ = 1.0e-06 
+T  = 15.0e-6
+p(t) = δn(t-tₚ,1.0e-07)
 q = LTIsourceO(𝐩ₛ, p)
-α₀ = 0.7; 𝛏₀ = [1.8,0.0]
+α₀ = 0.7; 𝛏₀ = [0.25c*T,0.0] 
 r = pointReflector(𝛏₀,α₀,q)
 z = LTIreceiverO([r],𝐩ᵣ)
-f(ξ::Vector{Float64}) = z(2(norm(ξ-𝐩ₛ))/c)/
-                        (A(norm(ξ-𝐩ₛ)/c))^2
-inverse2Dplot([q],[r],[z],f)
+f(ξ::Vector{Float64}) = z(tₚ.+ 2(norm(ξ-𝐩ₛ))/c)/(A(norm(ξ-𝐩ₛ)/c))^2
+inversePlot2D([q],[r],[z],f,T)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_simulation.png)
 

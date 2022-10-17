@@ -56,5 +56,7 @@ export u, 𝒩ᵤ, 𝒩, δ, δn
 include("other/plots.jl")
 export inverse2Dplot, scene2Dplot, inverse2Dfinalplot, scene2Ddirplot, scene2Dmultidirplot, scene2DRangeplot
 
+include("other/imagingPlots.jl")
+export inversePlot2D, scenePlot2D, inversefinalPlot2D, scenedirPlot2D, scenemultidirPlot2D, sceneRangePlot2D
 
 end
