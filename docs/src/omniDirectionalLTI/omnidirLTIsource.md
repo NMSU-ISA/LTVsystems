@@ -459,24 +459,33 @@ p\left(t-\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}-\bm{\xi}_0\|+\|\bm{\xi}_0-\mathbf
 ```julia
 using LTVsystems
 using Plots
-𝐩ₛ₁ =  [-0.8, 0.0]
-𝐩ᵣ₁ =  [-0.4, 0.0]
-𝐩ₛ₂ =  [0.1, 0.0]
-𝐩ᵣ₂ =  [0.5, 0.0]
-𝐩ₛ₃ =  [0.8, 0.0]
-𝐩ᵣ₃ =  [1.2, 0.0]
-p(t) = δn(t,1.0e-10)
-q₁ = LTIsourceO(𝐩ₛ₁, p); q₂ = LTIsourceO(𝐩ₛ₂, p); q₃ = LTIsourceO(𝐩ₛ₃, p)
-α₁ = 0.7; 𝛏₁ = [0.7,0.9]
-r₁ = pointReflector(𝛏₁,α₁,[q₁]); r₂ = pointReflector(𝛏₁,α₁,[q₂]);
+using LTVsystems
+using Plots
+tₚ = 1.0e-06 
+T  = 15.0e-6
+𝐩ₛ₁ =  [-0.05c*T, 0.0]
+𝐩ᵣ₁ =  [-0.01c*T, 0.0]
+𝐩ₛ₂ =  [0.05c*T, 0.0]
+𝐩ᵣ₂ =  [0.10c*T, 0.0]
+𝐩ₛ₃ =  [0.14c*T, 0.0]
+𝐩ᵣ₃ =  [0.19c*T, 0.0]
+p(t) = δn(t-tₚ,1.5e-07)
+q₁ = LTIsourceO(𝐩ₛ₁, p)
+q₂ = LTIsourceO(𝐩ₛ₂, p)
+q₃ = LTIsourceO(𝐩ₛ₃, p)
+α₁ = 0.7; 𝛏₁ = [0.24c*T,0.24c*T]
+r₁ = pointReflector(𝛏₁,α₁,[q₁])
+r₂ = pointReflector(𝛏₁,α₁,[q₂])
 r₃ = pointReflector(𝛏₁,α₁,[q₃])
 z₁ = LTIreceiverO([r₁],𝐩ᵣ₁)
 z₂ = LTIreceiverO([r₂],𝐩ᵣ₂)
 z₃ = LTIreceiverO([r₃],𝐩ᵣ₃)
-t = 0.0:1.0e-10:15.5e-9
-p1 = plot( t, z₁(t), xlab="time (sec)", ylab="z(t)", legend=:false)
-plot!(p1,t, z₂(t))
-plot!(p1,t, z₃(t))
+t=0.0:T/100:2T
+p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
+p2 = plot( t, z₁(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+plot!(p2,t,z₂(t))
+plot!(p2,t,z₃(t))
+plot(p1,p2,layout=(2,1))
 ```
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioE_signal.png)
@@ -493,32 +502,35 @@ $fᵢ(\bm{\xi}) = \dfrac{zᵢ\left(\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}- \bm{\x
 
 ```julia
 using LTVsystems
-𝐩ₛ₁ =  [-0.8, 0.0]
-𝐩ᵣ₁ =  [-0.4, 0.0]
-𝐩ₛ₂ =  [0.1, 0.0]
-𝐩ᵣ₂ =  [0.5, 0.0]
-𝐩ₛ₃ =  [0.8, 0.0]
-𝐩ᵣ₃ =  [1.2, 0.0]
-p(t) = δn(t,1.0e-10)
-q₁ = LTIsourceO(𝐩ₛ₁, p); q₂ = LTIsourceO(𝐩ₛ₂, p); q₃ = LTIsourceO(𝐩ₛ₃, p)
-α₁ = 0.7; 𝛏₁ = [0.7,0.9]
-r₁ = pointReflector(𝛏₁,α₁,[q₁]); r₂ = pointReflector(𝛏₁,α₁,[q₂]);
+using Plots
+using LTVsystems
+using Plots
+tₚ = 1.0e-06 
+T  = 15.0e-6
+𝐩ₛ₁ =  [-0.05c*T, 0.0]
+𝐩ᵣ₁ =  [-0.01c*T, 0.0]
+𝐩ₛ₂ =  [0.05c*T, 0.0]
+𝐩ᵣ₂ =  [0.10c*T, 0.0]
+𝐩ₛ₃ =  [0.14c*T, 0.0]
+𝐩ᵣ₃ =  [0.19c*T, 0.0]
+p(t) = δn(t-tₚ,1.5e-07)
+q₁ = LTIsourceO(𝐩ₛ₁, p)
+q₂ = LTIsourceO(𝐩ₛ₂, p)
+q₃ = LTIsourceO(𝐩ₛ₃, p)
+α₁ = 0.7; 𝛏₁ = [0.24c*T,0.24c*T]
+r₁ = pointReflector(𝛏₁,α₁,[q₁])
+r₂ = pointReflector(𝛏₁,α₁,[q₂])
 r₃ = pointReflector(𝛏₁,α₁,[q₃])
 z₁ = LTIreceiverO([r₁],𝐩ᵣ₁)
 z₂ = LTIreceiverO([r₂],𝐩ᵣ₂)
 z₃ = LTIreceiverO([r₃],𝐩ᵣ₃)
-f₁(ξ::Vector{Float64})=z₁((norm(ξ-𝐩ₛ₁) .+ norm(𝐩ᵣ₁-ξ))./c)./
-                       (A(norm(ξ-𝐩ₛ₁)./c).*A(norm(𝐩ᵣ₁-ξ)./c))
-f₂(ξ::Vector{Float64})=z₂((norm(ξ-𝐩ₛ₂) .+ norm(𝐩ᵣ₂-ξ))./c)./
-                       (A(norm(ξ-𝐩ₛ₂)./c).*A(norm(𝐩ᵣ₂-ξ)./c))
-f₃(ξ::Vector{Float64})=z₃((norm(ξ-𝐩ₛ₃) .+ norm(𝐩ᵣ₃-ξ))./c)./
-                       (A(norm(ξ-𝐩ₛ₃)./c).*A(norm(𝐩ᵣ₃-ξ)./c))
-f(ξ::Vector{Float64})=f₁(ξ::Vector{Float64}).+f₂(ξ::Vector{Float64}).+
-                      f₃(ξ::Vector{Float64})
-inverse2Dplot([q₁,q₂,q₃],[r₁,r₂,r₃],[z₁,z₂,z₃],f)
-f_new(ξ::Vector{Float64})=(f₁(ξ::Vector{Float64}).*f₂(ξ::Vector{Float64}).*
-                           f₃(ξ::Vector{Float64}))
-inverse2Dfinalplot([q₁,q₂,q₃],[z₁,z₂,z₃],f_new)
+f₁(ξ::Vector{Float64})=(z₁(tₚ+(norm(ξ-𝐩ₛ₁) .+ norm(𝐩ᵣ₁-ξ))./c))./(A(norm(ξ-𝐩ₛ₁)./c).*A(norm(𝐩ᵣ₁-ξ)./c))
+f₂(ξ::Vector{Float64})=(z₂(tₚ+(norm(ξ-𝐩ₛ₂) .+ norm(𝐩ᵣ₂-ξ))./c))./(A(norm(ξ-𝐩ₛ₂)./c).*A(norm(𝐩ᵣ₂-ξ)./c))
+f₃(ξ::Vector{Float64})=(z₃(tₚ+(norm(ξ-𝐩ₛ₃) .+ norm(𝐩ᵣ₃-ξ))./c))./(A(norm(ξ-𝐩ₛ₃)./c).*A(norm(𝐩ᵣ₃-ξ)./c))
+f(ξ::Vector{Float64})=f₁(ξ).+f₂(ξ).+f₃(ξ)
+inversePlot2D([q₁,q₂,q₃],[r₁,r₂,r₃],[z₁,z₂,z₃],f,T)
+f_new(ξ::Vector{Float64})=f₁(ξ).*f₂(ξ).*f₃(ξ)
+inversefinalPlot2D([q₁,q₂,q₃],[z₁,z₂,z₃],f_new,T)
 ```
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioE_simulation.png)
