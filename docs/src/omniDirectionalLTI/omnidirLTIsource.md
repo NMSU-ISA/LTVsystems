@@ -342,76 +342,81 @@ p\left(t-\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}-\bm{\xi}_n\|+\|\bm{\xi}_n-\mathbf
 ```julia
 using LTVsystems
 using Plots
+tₚ = 1.0e-06 
+T  = 15.0e-6
 𝐩ₛ =  [0.0, 0.0]
-𝐩ᵣ₁ =  [-0.3, 0.0]
-𝐩ᵣ₂ =  [0.0, 0.3]
-𝐩ᵣ₃ =  [0.3, 0.0]
-𝐩ᵣ₄ =  [0.0, -0.3]
+𝐩ᵣ₁ =  [-0.03c*T, 0.0]
+𝐩ᵣ₂ =  [0.0, 0.03c*T]
+𝐩ᵣ₃ =  [0.03c*T, 0.0]
+𝐩ᵣ₄ =  [0.0, -0.03c*T]
 𝐩ᵣ₅ =  [0.0, 0.0]
-p(t) = δn(t,1.0e-10)
+p(t) = δn(t-tₚ,1.5e-07)
 q = LTIsourceO(𝐩ₛ, p)
-α₁ = 0.7; 𝛏₁ = [0.4,0.7]
-α₂ = 0.5; 𝛏₂ = [0.6,0.2]
-α₃ = 0.4; 𝛏₃ = [0.6,1.0]
+α₁ = 0.7; 𝛏₁ = [0.08c*T,0.07c*T]
+α₂ = 0.5; 𝛏₂ = [0.16c*T,0.0]
+α₃ = 0.4; 𝛏₃ = [0.22c*T,0.10c*T]
 r = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q])
-z₁ = LTIreceiverO(r,𝐩ᵣ₁); z₂ = LTIreceiverO(r,𝐩ᵣ₂)
-z₃ = LTIreceiverO(r,𝐩ᵣ₃); z₄ = LTIreceiverO(r,𝐩ᵣ₄)
+z₁ = LTIreceiverO(r,𝐩ᵣ₁)
+z₂ = LTIreceiverO(r,𝐩ᵣ₂)
+z₃ = LTIreceiverO(r,𝐩ᵣ₃)
+z₄ = LTIreceiverO(r,𝐩ᵣ₄)
 z₅ = LTIreceiverO(r,𝐩ᵣ₅)
-t = 0.0:1.0e-10:15.5e-9
-p1 = plot( t, z₁(t), xlab="time (sec)", ylab="z(t)", legend=:false)
-plot!(p1,t, z₂(t))
-plot!(p1,t, z₃(t))
-plot!(p1,t, z₄(t))
-plot!(p1,t, z₅(t))
+t=0.0:T/100:2T
+p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
+p2 = plot( t, z₁(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+plot!(p2,t,z₂(t))
+plot!(p2,t,z₃(t))
+plot!(p2,t,z₄(t))
+plot!(p2,t,z₅(t))
+plot(p1,p2,layout=(2,1))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_signal.png)
 
 ### Inverse Modeling
 
-Given the scenario D assumptions, we obtained the received signals, $zᵢ(t)$ where $i=1,2,…M$. Now we can estimate the reflector function by considering the transmitted signal $p(t)=δ(t)$ as follows
+Given the scenario D assumptions, we obtained the received signals, $zᵢ(t)$ where $i=1,2,…M$. Now we can estimate the reflector function by considering the transmitted signal $p(t)=δ(t-t_p)$ as follows
 
 $\hat{f}(\bm{\xi}) = \left(\prod\limits_{i=1}^{M}fᵢ(\bm{\xi})\right)^{\frac{1}{M}}$, where
 
-$fᵢ(\bm{\xi}) = \dfrac{zᵢ\left(\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}- \bm{\xi}\|+\|\bm{\xi}
+$fᵢ(\bm{\xi}) = \dfrac{zᵢ\left(t_p+\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}- \bm{\xi}\|+\|\bm{\xi}
 -\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}}\right)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)
 \mathrm{A}\big(\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}-\bm{\xi}\|}{\mathrm{c}}\big)}.$
 
 ```julia
 using LTVsystems
+using Plots
+tₚ = 1.0e-06 
+T  = 15.0e-6
 𝐩ₛ =  [0.0, 0.0]
-𝐩ᵣ₁ =  [-0.3, 0.0]
-𝐩ᵣ₂ =  [0.0, 0.3]
-𝐩ᵣ₃ =  [0.3, 0.0]
-𝐩ᵣ₄ =  [0.0, -0.3]
+𝐩ᵣ₁ =  [-0.03c*T, 0.0]
+𝐩ᵣ₂ =  [0.0, 0.03c*T]
+𝐩ᵣ₃ =  [0.03c*T, 0.0]
+𝐩ᵣ₄ =  [0.0, -0.03c*T]
 𝐩ᵣ₅ =  [0.0, 0.0]
-p(t) = δn(t,1.0e-10)
+p(t) = δn(t-tₚ,1.5e-07)
 q = LTIsourceO(𝐩ₛ, p)
-α₁ = 0.7; 𝛏₁ = [0.4,0.7]
-α₂ = 0.5; 𝛏₂ = [0.6,0.2]
-α₃ = 0.4; 𝛏₃ = [0.6,1.0]
+α₁ = 0.7; 𝛏₁ = [0.08c*T,0.07c*T]
+α₂ = 0.5; 𝛏₂ = [0.16c*T,0.0]
+α₃ = 0.4; 𝛏₃ = [0.22c*T,0.10c*T]
 r = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q])
-z₁ = LTIreceiverO(r,𝐩ᵣ₁); z₂ = LTIreceiverO(r,𝐩ᵣ₂)
-z₃ = LTIreceiverO(r,𝐩ᵣ₃); z₄ = LTIreceiverO(r,𝐩ᵣ₄)
+z₁ = LTIreceiverO(r,𝐩ᵣ₁)
+z₂ = LTIreceiverO(r,𝐩ᵣ₂)
+z₃ = LTIreceiverO(r,𝐩ᵣ₃)
+z₄ = LTIreceiverO(r,𝐩ᵣ₄)
 z₅ = LTIreceiverO(r,𝐩ᵣ₅)
-f₁(ξ::Vector{Float64})=z₁((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₁-ξ))/c)/
-                       (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ₁-ξ)/c))
-f₂(ξ::Vector{Float64})=z₂((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₂-ξ))/c)/
-                       (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ₂-ξ)/c))
-f₃(ξ::Vector{Float64})=z₃((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₃-ξ))/c)/
-                       (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ₃-ξ)/c))
-f₄(ξ::Vector{Float64})=z₄((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₄-ξ))/c)/
-                       (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ₄-ξ)/c))
-f₅(ξ::Vector{Float64})=z₅((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₅-ξ))/c)/
-                       (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ₅-ξ)/c))
-f(ξ::Vector{Float64})=f₁(ξ).*f₂(ξ).*f₃(ξ).*f₄(ξ).*f₅(ξ)
-Δpos = 0.01; x_min = -2.0; x_max = 2.0; y_min = -2.0; y_max = 2.0
-p11 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₁;Δpos,x_min,x_max,y_min,y_max)
-p12 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₂;Δpos,x_min,x_max,y_min,y_max)
-p13 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₃;Δpos,x_min,x_max,y_min,y_max)
-p14 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₄;Δpos,x_min,x_max,y_min,y_max)
-p15 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₅;Δpos,x_min,x_max,y_min,y_max)
-p6 = inverse2Dfinalplot([q],[z₁,z₂,z₃,z₄,z₅],f;Δpos,x_min,x_max,y_min,y_max)
+f₁(ξ::Vector{Float64})=(z₁(tₚ+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₁-ξ))./c))./(A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ₁-ξ)./c))
+f₂(ξ::Vector{Float64})=(z₂(tₚ+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₂-ξ))./c))./(A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ₂-ξ)./c))
+f₃(ξ::Vector{Float64})=(z₃(tₚ+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₃-ξ))./c))./(A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ₃-ξ)./c))
+f₄(ξ::Vector{Float64})=(z₄(tₚ+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₄-ξ))./c))./(A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ₄-ξ)./c))
+f₅(ξ::Vector{Float64})=(z₅(tₚ+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₅-ξ))./c))./(A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ₅-ξ)./c))
+f(ξ::Vector{Float64})=(f₁(ξ).*f₂(ξ).*f₃(ξ).*f₄(ξ).*f₅(ξ))^1/5
+p11 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₁,T)
+p12 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₂,T)
+p13 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₃,T)
+p14 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₄,T)
+p15 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₅,T)
+p6 = inversefinalPlot2D([q],[z₁,z₂,z₃,z₄,z₅],f,T)
 plot(p11,p12,p13,p14,p15,p6,layout=(3,2),size=(2000,2000))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_simulation.png)
@@ -491,11 +496,11 @@ plot(p1,p2,layout=(2,1))
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioE_signal.png)
 
 ### Inverse Modeling
-Given the scenario E assumptions, we obtained the received signals, $zᵢ(t)$ where $i=1,2,…M$. Now we can estimate the reflector function by considering the transmitted signal $p(t)=δ(t)$ as follows
+Given the scenario E assumptions, we obtained the received signals, $zᵢ(t)$ where $i=1,2,…M$. Now we can estimate the reflector function by considering the transmitted signal $p(t)=δ(t-t_p)$ as follows
 
 $\hat{f}(\bm{\xi}) = \left(\prod\limits_{i=1}^{N}fᵢ(\bm{\xi})\right)$, where
 
-$fᵢ(\bm{\xi}) = \dfrac{zᵢ\left(\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}- \bm{\xi}\|+\|\bm{\xi}
+$fᵢ(\bm{\xi}) = \dfrac{zᵢ\left(t_p+\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}- \bm{\xi}\|+\|\bm{\xi}
 -\bm{p}_{\mathrm{s}^{(i)}}\|}
 {\mathrm{c}}\right)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\bm{p}_{\mathrm{s}^{(i)}}\|}{\mathrm{c}}\big)
 \mathrm{A}\big(\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}-\bm{\xi}\|}{\mathrm{c}}\big)}.$
@@ -631,6 +636,27 @@ Given the assumptions, we simulate the following geometry for scenario F.
 
 ### Forward Modeling
 
+For scenario G, we provided the position of the source $𝐩ₛ$, the receiver's position $𝐩ᵣ$, the transmitted signal $p(t)$, and an ideal point reflector $\bm{\xi}_0$.
+
+Now the expression for the reflector function is given by
+
+$f(\bm{\xi}) = \alpha_0 \delta(\bm{\xi} - \bm{\xi}_0).$
+
+We compute the reflection due to the source as follows
+
+$r(\bm{\xi},t) = \alpha_0 \delta(\bm{\xi} - \bm{\xi}_0)
+\mathrm{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
+{\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
+
+
+Finally, the closed form expression of the observed signal, $z(t)$ is given by
+
+$z(t) = \alpha_0 \mathrm{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)
+\mathrm{A}\left(\frac{\|\bm{\xi}_0-
+\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right) p\left(t-
+\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|+\|\bm{\xi}_0-
+\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
+
 ```julia
 using LTVsystems
 using Plots
@@ -653,6 +679,18 @@ plot(p1,p2,layout=(2,1))
 
 ### Inverse Modeling
 
+Given the scenario G assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function by considering the transmitted signal as impulse train given by $p(t)=δ(mod(t-tₚ,T))$. 
+
+We computed the reflector function, $f_k$ with respect to each pulse's transmission time, $kT$ where $k \in \mathbf{Z}$ in the presence of random white noise as follows
+
+
+$f_k(\bm{\xi})=\dfrac{1.5e^{-05}\mathrm{randn}(1)[1]+z\left(t_p+kT+\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
+{\mathrm{c}}\right)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
+\mathrm{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}$
+
+$\hat{f}(\bm{\xi}) = \frac{∑_{k=0}^{M-1} f_k(\bm{\xi})}{M}$
+
+
 ```julia
 using LTVsystems
 using Plots
@@ -665,23 +703,18 @@ p(t) = δn(mod(t-tₚ,T),1.0e-7)
 q = LTIsourceO(𝐩ₛ,p)
 r = pointReflector(𝛏₁,α₁,q)
 z = LTIreceiverO([r],𝐩ᵣ)
-f₁(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, NaN, (1.5e-05randn(1)[1]+z(tₚ+0*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
-f₂(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, NaN, (1.5e-05randn(1)[1]+z(tₚ+1*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))          
-f₃(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, NaN, (1.5e-05randn(1)[1]+z(tₚ+2*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
-f₄(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, NaN, (1.5e-05randn(1)[1]+z(tₚ+3*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
-f₅(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, NaN, (1.5e-05randn(1)[1]+z(tₚ+4*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
+f₁(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]+z(tₚ+0*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
+f₂(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]+z(tₚ+1*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))          
+f₃(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]+z(tₚ+2*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
+f₄(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]+z(tₚ+3*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
+f₅(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]+z(tₚ+4*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
 f(ξ::Vector{Float64}) = (f₁(ξ).+f₂(ξ).+f₃(ξ).+f₄(ξ).+f₅(ξ))/5
-Δpos = 0.01e03
-x_min = -0.5c*T
-x_max = 0.5c*T
-y_min = -0.5c*T
-y_max = 0.5c*T
-p11=inverse2Dplot([q],[r],[z],f₁;Δpos,x_min,x_max,y_min,y_max)
-p12=inverse2Dplot([q],[r],[z],f₂;Δpos,x_min,x_max,y_min,y_max)
-p13=inverse2Dplot([q],[r],[z],f₃;Δpos,x_min,x_max,y_min,y_max)
-p14=inverse2Dplot([q],[r],[z],f₄;Δpos,x_min,x_max,y_min,y_max)
-p15=inverse2Dplot([q],[r],[z],f₅;Δpos,x_min,x_max,y_min,y_max)
-p6=inverse2Dplot([q],[r],[z],f;Δpos,x_min,x_max,y_min,y_max)
+p11=inversePlot2D([q],[r],[z],f₁,T)
+p12=inversePlot2D([q],[r],[z],f₂,T)
+p13=inversePlot2D([q],[r],[z],f₃,T)
+p14=inversePlot2D([q],[r],[z],f₄,T)
+p15=inversePlot2D([q],[r],[z],f₅,T)
+p6=inversePlot2D([q],[r],[z],f,T)
 plot(p11,p12,p13,p14,p15,p6,layout=(3,2),size=(1000,1000))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioG_simulation.png)

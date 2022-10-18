@@ -40,39 +40,32 @@ inverse2Dplot([q],[r],[z],f;Δpos,x_min,x_max,y_min,y_max)
 #fₘ(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, NaN, (1.5e-05randn(1)[1]+z(tₚ+(M-1)*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/
 #                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
 
-f₁(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, NaN, (1.5e-05randn(1)[1]+z(tₚ+0*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/
-                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
-f₂(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, NaN, (1.5e-05randn(1)[1]+z(tₚ+1*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/
-                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))                        
-f₃(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, NaN, (1.5e-05randn(1)[1]+z(tₚ+2*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/
-                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
-f₄(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, NaN, (1.5e-05randn(1)[1]+z(tₚ+3*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/
-                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
-f₅(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, NaN, (1.5e-05randn(1)[1]+z(tₚ+4*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/
-                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
+f₁(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]+z(tₚ+0*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
+f₂(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]+z(tₚ+1*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))          
+f₃(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]+z(tₚ+2*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
+f₄(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]+z(tₚ+3*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
+f₅(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]+z(tₚ+4*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
+f₆(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]+z(tₚ+5*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
+f₇(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]+z(tₚ+6*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))          
+f₈(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]+z(tₚ+7*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
+f₉(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]+z(tₚ+8*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
+f10(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]+z(tₚ+9*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
 
 f(ξ::Vector{Float64}) = (f₁(ξ).+f₂(ξ).+f₃(ξ).+f₄(ξ).+f₅(ξ))/5
 
-
-
-                                               
-Δpos = 0.01e03
-x_min = -0.5c*T
-x_max = 0.5c*T
-y_min = -0.5c*T
-y_max = 0.5c*T
+F(ξ::Vector{Float64}) = (f₁(ξ).+f₂(ξ).+f₃(ξ).+f₄(ξ).+f₅(ξ).+f₆(ξ).+f₇(ξ).+f₈(ξ).+f₉(ξ).+f10(ξ))/10
 
 #f(ξ::Vector{Float64}) = [ifelse(norm(ξ)>c*T/2, NaN, (1.0e-07randn(1)[1]+z(tₚ+(i-1)*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/
 #(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))) for i ∈ 1:M]
 
 #g(ξ::Vector{Float64}) = sum(f(ξ)[i] for i ∈ 1:M )/M
 
-p11=inverse2Dplot([q],[r],[z],f₁;Δpos,x_min,x_max,y_min,y_max)
-p12=inverse2Dplot([q],[r],[z],f₂;Δpos,x_min,x_max,y_min,y_max)
-p13=inverse2Dplot([q],[r],[z],f₃;Δpos,x_min,x_max,y_min,y_max)
-p14=inverse2Dplot([q],[r],[z],f₄;Δpos,x_min,x_max,y_min,y_max)
-p15=inverse2Dplot([q],[r],[z],f₅;Δpos,x_min,x_max,y_min,y_max)
-p6=inverse2Dplot([q],[r],[z],f;Δpos,x_min,x_max,y_min,y_max)
+p11=inversePlot2D([q],[r],[z],f₁,T)
+p12=inversePlot2D([q],[r],[z],f₂,T)
+p13=inversePlot2D([q],[r],[z],f₃,T)
+p14=inversePlot2D([q],[r],[z],f₄,T)
+p15=inversePlot2D([q],[r],[z],f₅,T)
+p6=inversePlot2D([q],[r],[z],f,T)
 
 plot(p11,p12,p13,p14,p15,p6,layout=(3,2),size=(1000,1000))
 #inverse2Dplot([q],[r],[z],f;Δpos,x_min,x_max,y_min,y_max)
@@ -80,16 +73,19 @@ plot(p11,p12,p13,p14,p15,p6,layout=(3,2),size=(1000,1000))
 png(path*"scenarioG_simulation.png")
 
 
+#-------------------Using loop-------------------
+fm(ξ::Vector{Float64}) = [ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]+z(tₚ+(k-1)*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))) for k∈1:M]
+
+
+inversePlot2D([q],[r],[z],F,T)
 
 scene2Dplot([q],[r],[z];Δpos,x_min,x_max,y_min,y_max)
 
 png(path*"scenarioG.png")
 
-t=0.0:T/100:5T
 
-N1 = norm(1.5e-05randn(1)[1])^2  # Noise
-N2 =norm(1.5e-05randn(1)[1].+ z(t))^2  # Noise + Signal
-SNR = 10*log10((N2-N1)/N1)
+
+
 
 
 
