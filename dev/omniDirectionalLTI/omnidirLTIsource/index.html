@@ -177,53 +177,65 @@ plot(p11,p12,p13,p14,p15,p6,layout=(3,2),size=(2000,2000))</code></pre><p><img s
 \mathrm{A}\left(\frac{\|\bm{\xi}_0-\mathbf{p}_{\mathrm{s}^{(i)}}\|}{\mathrm{c}}\right)
 p\left(t-\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}-\bm{\xi}_0\|+\|\bm{\xi}_0-\mathbf{p}_{\mathrm{s}^{(i)}}\|}{\mathrm{c}}\right).\]</p><pre><code class="language-julia hljs">using LTVsystems
 using Plots
-𝐩ₛ₁ =  [-0.8, 0.0]
-𝐩ᵣ₁ =  [-0.4, 0.0]
-𝐩ₛ₂ =  [0.1, 0.0]
-𝐩ᵣ₂ =  [0.5, 0.0]
-𝐩ₛ₃ =  [0.8, 0.0]
-𝐩ᵣ₃ =  [1.2, 0.0]
-p(t) = δn(t,1.0e-10)
-q₁ = LTIsourceO(𝐩ₛ₁, p); q₂ = LTIsourceO(𝐩ₛ₂, p); q₃ = LTIsourceO(𝐩ₛ₃, p)
-α₁ = 0.7; 𝛏₁ = [0.7,0.9]
-r₁ = pointReflector(𝛏₁,α₁,[q₁]); r₂ = pointReflector(𝛏₁,α₁,[q₂]);
+using LTVsystems
+using Plots
+tₚ = 1.0e-06 
+T  = 15.0e-6
+𝐩ₛ₁ =  [-0.05c*T, 0.0]
+𝐩ᵣ₁ =  [-0.01c*T, 0.0]
+𝐩ₛ₂ =  [0.05c*T, 0.0]
+𝐩ᵣ₂ =  [0.10c*T, 0.0]
+𝐩ₛ₃ =  [0.14c*T, 0.0]
+𝐩ᵣ₃ =  [0.19c*T, 0.0]
+p(t) = δn(t-tₚ,1.5e-07)
+q₁ = LTIsourceO(𝐩ₛ₁, p)
+q₂ = LTIsourceO(𝐩ₛ₂, p)
+q₃ = LTIsourceO(𝐩ₛ₃, p)
+α₁ = 0.7; 𝛏₁ = [0.24c*T,0.24c*T]
+r₁ = pointReflector(𝛏₁,α₁,[q₁])
+r₂ = pointReflector(𝛏₁,α₁,[q₂])
 r₃ = pointReflector(𝛏₁,α₁,[q₃])
 z₁ = LTIreceiverO([r₁],𝐩ᵣ₁)
 z₂ = LTIreceiverO([r₂],𝐩ᵣ₂)
 z₃ = LTIreceiverO([r₃],𝐩ᵣ₃)
-t = 0.0:1.0e-10:15.5e-9
-p1 = plot( t, z₁(t), xlab=&quot;time (sec)&quot;, ylab=&quot;z(t)&quot;, legend=:false)
-plot!(p1,t, z₂(t))
-plot!(p1,t, z₃(t))</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioE_signal.png" alt/></p><h3 id="Inverse-Modeling-5"><a class="docs-heading-anchor" href="#Inverse-Modeling-5">Inverse Modeling</a><a class="docs-heading-anchor-permalink" href="#Inverse-Modeling-5" title="Permalink"></a></h3><p>Given the scenario E assumptions, we obtained the received signals, <span>$zᵢ(t)$</span> where <span>$i=1,2,…M$</span>. Now we can estimate the reflector function by considering the transmitted signal <span>$p(t)=δ(t)$</span> as follows</p><p class="math-container">\[\hat{f}(\bm{\xi}) = \left(\prod\limits_{i=1}^{N}fᵢ(\bm{\xi})\right)\]</p><p>, where</p><p class="math-container">\[fᵢ(\bm{\xi}) = \dfrac{zᵢ\left(\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}- \bm{\xi}\|+\|\bm{\xi}
+t=0.0:T/100:2T
+p1 = plot(t,p, xlab=&quot;time (sec)&quot;, ylab=&quot;p(t)&quot;, legend=:false)
+p2 = plot( t, z₁(t), xlab=&quot;time (sec)&quot;, ylab=&quot;z(t)&quot;, legend=:false)
+plot!(p2,t,z₂(t))
+plot!(p2,t,z₃(t))
+plot(p1,p2,layout=(2,1))</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioE_signal.png" alt/></p><h3 id="Inverse-Modeling-5"><a class="docs-heading-anchor" href="#Inverse-Modeling-5">Inverse Modeling</a><a class="docs-heading-anchor-permalink" href="#Inverse-Modeling-5" title="Permalink"></a></h3><p>Given the scenario E assumptions, we obtained the received signals, <span>$zᵢ(t)$</span> where <span>$i=1,2,…M$</span>. Now we can estimate the reflector function by considering the transmitted signal <span>$p(t)=δ(t)$</span> as follows</p><p class="math-container">\[\hat{f}(\bm{\xi}) = \left(\prod\limits_{i=1}^{N}fᵢ(\bm{\xi})\right)\]</p><p>, where</p><p class="math-container">\[fᵢ(\bm{\xi}) = \dfrac{zᵢ\left(\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}- \bm{\xi}\|+\|\bm{\xi}
 -\bm{p}_{\mathrm{s}^{(i)}}\|}
 {\mathrm{c}}\right)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\bm{p}_{\mathrm{s}^{(i)}}\|}{\mathrm{c}}\big)
 \mathrm{A}\big(\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}-\bm{\xi}\|}{\mathrm{c}}\big)}.\]</p><pre><code class="language-julia hljs">using LTVsystems
-𝐩ₛ₁ =  [-0.8, 0.0]
-𝐩ᵣ₁ =  [-0.4, 0.0]
-𝐩ₛ₂ =  [0.1, 0.0]
-𝐩ᵣ₂ =  [0.5, 0.0]
-𝐩ₛ₃ =  [0.8, 0.0]
-𝐩ᵣ₃ =  [1.2, 0.0]
-p(t) = δn(t,1.0e-10)
-q₁ = LTIsourceO(𝐩ₛ₁, p); q₂ = LTIsourceO(𝐩ₛ₂, p); q₃ = LTIsourceO(𝐩ₛ₃, p)
-α₁ = 0.7; 𝛏₁ = [0.7,0.9]
-r₁ = pointReflector(𝛏₁,α₁,[q₁]); r₂ = pointReflector(𝛏₁,α₁,[q₂]);
+using Plots
+using LTVsystems
+using Plots
+tₚ = 1.0e-06 
+T  = 15.0e-6
+𝐩ₛ₁ =  [-0.05c*T, 0.0]
+𝐩ᵣ₁ =  [-0.01c*T, 0.0]
+𝐩ₛ₂ =  [0.05c*T, 0.0]
+𝐩ᵣ₂ =  [0.10c*T, 0.0]
+𝐩ₛ₃ =  [0.14c*T, 0.0]
+𝐩ᵣ₃ =  [0.19c*T, 0.0]
+p(t) = δn(t-tₚ,1.5e-07)
+q₁ = LTIsourceO(𝐩ₛ₁, p)
+q₂ = LTIsourceO(𝐩ₛ₂, p)
+q₃ = LTIsourceO(𝐩ₛ₃, p)
+α₁ = 0.7; 𝛏₁ = [0.24c*T,0.24c*T]
+r₁ = pointReflector(𝛏₁,α₁,[q₁])
+r₂ = pointReflector(𝛏₁,α₁,[q₂])
 r₃ = pointReflector(𝛏₁,α₁,[q₃])
 z₁ = LTIreceiverO([r₁],𝐩ᵣ₁)
 z₂ = LTIreceiverO([r₂],𝐩ᵣ₂)
 z₃ = LTIreceiverO([r₃],𝐩ᵣ₃)
-f₁(ξ::Vector{Float64})=z₁((norm(ξ-𝐩ₛ₁) .+ norm(𝐩ᵣ₁-ξ))./c)./
-                       (A(norm(ξ-𝐩ₛ₁)./c).*A(norm(𝐩ᵣ₁-ξ)./c))
-f₂(ξ::Vector{Float64})=z₂((norm(ξ-𝐩ₛ₂) .+ norm(𝐩ᵣ₂-ξ))./c)./
-                       (A(norm(ξ-𝐩ₛ₂)./c).*A(norm(𝐩ᵣ₂-ξ)./c))
-f₃(ξ::Vector{Float64})=z₃((norm(ξ-𝐩ₛ₃) .+ norm(𝐩ᵣ₃-ξ))./c)./
-                       (A(norm(ξ-𝐩ₛ₃)./c).*A(norm(𝐩ᵣ₃-ξ)./c))
-f(ξ::Vector{Float64})=f₁(ξ::Vector{Float64}).+f₂(ξ::Vector{Float64}).+
-                      f₃(ξ::Vector{Float64})
-inverse2Dplot([q₁,q₂,q₃],[r₁,r₂,r₃],[z₁,z₂,z₃],f)
-f_new(ξ::Vector{Float64})=(f₁(ξ::Vector{Float64}).*f₂(ξ::Vector{Float64}).*
-                           f₃(ξ::Vector{Float64}))
-inverse2Dfinalplot([q₁,q₂,q₃],[z₁,z₂,z₃],f_new)</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioE_simulation.png" alt/></p><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioE_target_estimation.png" alt/></p><h2 id="Scenario-F-[Single-pulse,-continuous-line-segment-reflector,-transmitter-and-receiver-at-different-location]"><a class="docs-heading-anchor" href="#Scenario-F-[Single-pulse,-continuous-line-segment-reflector,-transmitter-and-receiver-at-different-location]">Scenario F [Single pulse, continuous line segment reflector, transmitter and receiver at different location]</a><a id="Scenario-F-[Single-pulse,-continuous-line-segment-reflector,-transmitter-and-receiver-at-different-location]-1"></a><a class="docs-heading-anchor-permalink" href="#Scenario-F-[Single-pulse,-continuous-line-segment-reflector,-transmitter-and-receiver-at-different-location]" title="Permalink"></a></h2><h3 id="Scenario-Assumptions-6"><a class="docs-heading-anchor" href="#Scenario-Assumptions-6">Scenario Assumptions</a><a class="docs-heading-anchor-permalink" href="#Scenario-Assumptions-6" title="Permalink"></a></h3><ul><li>single stationary omnidirectional source</li><li>single stationary omnidirectional receiver</li><li>a continuous line segment reflector</li><li>the source emits a pulse</li></ul><p>Given the assumptions, we simulate the following geometry for scenario F.</p><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioF.png" alt/></p><h3 id="Forward-Modeling-6"><a class="docs-heading-anchor" href="#Forward-Modeling-6">Forward Modeling</a><a class="docs-heading-anchor-permalink" href="#Forward-Modeling-6" title="Permalink"></a></h3><p>Given the scenario F assumptions, we provided the position of the source <span>$𝐩ₛ$</span>, the receiver&#39;s position <span>$𝐩ᵣ$</span>, the transmitted signal, <span>$p(t)$</span> as an impulse and a continuous line segment reflector.</p><p>Now the expression for the reflector function is given by</p><p class="math-container">\[f(\bm{\xi}) = \int_{0}^{L}\alpha_0 \delta(\bm{\xi} - [\bm{\xi}_0+k\bm{u}]) \mathrm{d}k\]</p><p>where <span>$α₀$</span> is a reflection coefficient, <span>$\bm{ξ₀}$</span> is an initial position vector, <span>$\bm{u}$</span> is an unit vector in the direction of line segment, <span>$AB$</span> and <span>$k$</span> is any scalar quantity.</p><p>We compute the reflection due to the source as follows</p><p class="math-container">\[r(\bm{\xi},t)  = \int_{0}^{L}\alpha_0 \delta(\bm{\xi} - [\bm{\xi}_0+k\bm{u}])\mathrm{d}k ~~ q(\bm{\xi},t).\]</p><p>Finally, the closed form expression of the observed signal, <span>$z(t)$</span> is given by</p><p class="math-container">\[z(t) = \int_{0}^{L}\Big[\alpha_0 \mathrm{A}\left(\frac{\big\|\mathbf{p}_\mathrm{r}-[\bm{\xi}_0+k\bm{u}]\big\|}{\mathrm{c}}\right)
+f₁(ξ::Vector{Float64})=(z₁(tₚ+(norm(ξ-𝐩ₛ₁) .+ norm(𝐩ᵣ₁-ξ))./c))./(A(norm(ξ-𝐩ₛ₁)./c).*A(norm(𝐩ᵣ₁-ξ)./c))
+f₂(ξ::Vector{Float64})=(z₂(tₚ+(norm(ξ-𝐩ₛ₂) .+ norm(𝐩ᵣ₂-ξ))./c))./(A(norm(ξ-𝐩ₛ₂)./c).*A(norm(𝐩ᵣ₂-ξ)./c))
+f₃(ξ::Vector{Float64})=(z₃(tₚ+(norm(ξ-𝐩ₛ₃) .+ norm(𝐩ᵣ₃-ξ))./c))./(A(norm(ξ-𝐩ₛ₃)./c).*A(norm(𝐩ᵣ₃-ξ)./c))
+f(ξ::Vector{Float64})=f₁(ξ).+f₂(ξ).+f₃(ξ)
+inversePlot2D([q₁,q₂,q₃],[r₁,r₂,r₃],[z₁,z₂,z₃],f,T)
+f_new(ξ::Vector{Float64})=f₁(ξ).*f₂(ξ).*f₃(ξ)
+inversefinalPlot2D([q₁,q₂,q₃],[z₁,z₂,z₃],f_new,T)</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioE_simulation.png" alt/></p><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioE_target_estimation.png" alt/></p><h2 id="Scenario-F-[Single-pulse,-continuous-line-segment-reflector,-transmitter-and-receiver-at-different-location]"><a class="docs-heading-anchor" href="#Scenario-F-[Single-pulse,-continuous-line-segment-reflector,-transmitter-and-receiver-at-different-location]">Scenario F [Single pulse, continuous line segment reflector, transmitter and receiver at different location]</a><a id="Scenario-F-[Single-pulse,-continuous-line-segment-reflector,-transmitter-and-receiver-at-different-location]-1"></a><a class="docs-heading-anchor-permalink" href="#Scenario-F-[Single-pulse,-continuous-line-segment-reflector,-transmitter-and-receiver-at-different-location]" title="Permalink"></a></h2><h3 id="Scenario-Assumptions-6"><a class="docs-heading-anchor" href="#Scenario-Assumptions-6">Scenario Assumptions</a><a class="docs-heading-anchor-permalink" href="#Scenario-Assumptions-6" title="Permalink"></a></h3><ul><li>single stationary omnidirectional source</li><li>single stationary omnidirectional receiver</li><li>a continuous line segment reflector</li><li>the source emits a pulse</li></ul><p>Given the assumptions, we simulate the following geometry for scenario F.</p><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioF.png" alt/></p><h3 id="Forward-Modeling-6"><a class="docs-heading-anchor" href="#Forward-Modeling-6">Forward Modeling</a><a class="docs-heading-anchor-permalink" href="#Forward-Modeling-6" title="Permalink"></a></h3><p>Given the scenario F assumptions, we provided the position of the source <span>$𝐩ₛ$</span>, the receiver&#39;s position <span>$𝐩ᵣ$</span>, the transmitted signal, <span>$p(t)$</span> as an impulse and a continuous line segment reflector.</p><p>Now the expression for the reflector function is given by</p><p class="math-container">\[f(\bm{\xi}) = \int_{0}^{L}\alpha_0 \delta(\bm{\xi} - [\bm{\xi}_0+k\bm{u}]) \mathrm{d}k\]</p><p>where <span>$α₀$</span> is a reflection coefficient, <span>$\bm{ξ₀}$</span> is an initial position vector, <span>$\bm{u}$</span> is an unit vector in the direction of line segment, <span>$AB$</span> and <span>$k$</span> is any scalar quantity.</p><p>We compute the reflection due to the source as follows</p><p class="math-container">\[r(\bm{\xi},t)  = \int_{0}^{L}\alpha_0 \delta(\bm{\xi} - [\bm{\xi}_0+k\bm{u}])\mathrm{d}k ~~ q(\bm{\xi},t).\]</p><p>Finally, the closed form expression of the observed signal, <span>$z(t)$</span> is given by</p><p class="math-container">\[z(t) = \int_{0}^{L}\Big[\alpha_0 \mathrm{A}\left(\frac{\big\|\mathbf{p}_\mathrm{r}-[\bm{\xi}_0+k\bm{u}]\big\|}{\mathrm{c}}\right)
 \mathrm{A}\left(\frac{\big\|[\bm{\xi}_0+k\bm{u}]-\mathbf{p}_\mathrm{s}\big\|}{\mathrm{c}}\right)
 p\left(t-\frac{\big\|\mathbf{p}_\mathrm{r}-[\bm{\xi}_0+k\bm{u}]\big\|}{\mathrm{c}}-\frac{\big\|[\bm{\xi}_0+k\bm{u}]-\mathbf{p}_\mathrm{s}\big\|}{\mathrm{c}}\right) \Big] \mathrm{d}k.\]</p><pre><code class="language-julia hljs">using LTVsystems
 using QuadGK
@@ -291,4 +303,4 @@ p13=inverse2Dplot([q],[r],[z],f₃;Δpos,x_min,x_max,y_min,y_max)
 p14=inverse2Dplot([q],[r],[z],f₄;Δpos,x_min,x_max,y_min,y_max)
 p15=inverse2Dplot([q],[r],[z],f₅;Δpos,x_min,x_max,y_min,y_max)
 p6=inverse2Dplot([q],[r],[z],f;Δpos,x_min,x_max,y_min,y_max)
-plot(p11,p12,p13,p14,p15,p6,layout=(3,2),size=(1000,1000))</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioG_simulation.png" alt/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../receivers/receiver/">« Receivers</a><a class="docs-footer-nextpage" href="../../directionalLTI/dirLTIsource/">LTI Directional Modeling »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.16 on <span class="colophon-date" title="Tuesday 18 October 2022 18:09">Tuesday 18 October 2022</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+plot(p11,p12,p13,p14,p15,p6,layout=(3,2),size=(1000,1000))</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioG_simulation.png" alt/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../receivers/receiver/">« Receivers</a><a class="docs-footer-nextpage" href="../../directionalLTI/dirLTIsource/">LTI Directional Modeling »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.16 on <span class="colophon-date" title="Tuesday 18 October 2022 20:18">Tuesday 18 October 2022</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
