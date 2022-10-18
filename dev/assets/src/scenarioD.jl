@@ -2,18 +2,20 @@ path = "docs/src/assets/"
 
 using LTVsystems
 using Plots
+tₚ = 1.0e-06 # in microseconds
+T  = 15.0e-6
 𝐩ₛ =  [0.0, 0.0]
-𝐩ᵣ₁ =  [-0.3, 0.0]
-𝐩ᵣ₂ =  [0.0, 0.3]
-𝐩ᵣ₃ =  [0.3, 0.0]
-𝐩ᵣ₄ =  [0.0, -0.3]
+𝐩ᵣ₁ =  [-0.03c*T, 0.0]
+𝐩ᵣ₂ =  [0.0, 0.03c*T]
+𝐩ᵣ₃ =  [0.03c*T, 0.0]
+𝐩ᵣ₄ =  [0.0, -0.03c*T]
 𝐩ᵣ₅ =  [0.0, 0.0]
-p(t) = δn(t,1.0e-10)
+p(t) = δn(t-tₚ,1.5e-07)
 q = LTIsourceO(𝐩ₛ, p)
 #Multiple Targets
-α₁ = 0.7; 𝛏₁ = [0.4,0.7]
-α₂ = 0.5; 𝛏₂ = [0.6,0.2]
-α₃ = 0.4; 𝛏₃ = [0.6,1.0]
+α₁ = 0.7; 𝛏₁ = [0.08c*T,0.07c*T]
+α₂ = 0.5; 𝛏₂ = [0.16c*T,0.0]
+α₃ = 0.4; 𝛏₃ = [0.22c*T,0.10c*T]
 r = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q])
 # Observed signal
 z₁ = LTIreceiverO(r,𝐩ᵣ₁)
@@ -21,39 +23,41 @@ z₂ = LTIreceiverO(r,𝐩ᵣ₂)
 z₃ = LTIreceiverO(r,𝐩ᵣ₃)
 z₄ = LTIreceiverO(r,𝐩ᵣ₄)
 z₅ = LTIreceiverO(r,𝐩ᵣ₅)
-t = collect(0.0:1.0e-10:15.5e-9)
-p1 = plot( t, z₁(t), xlab="time (sec)", ylab="z(t)", legend=:false)
-plot!(p1,t, z₂(t))
-plot!(p1,t, z₃(t))
-plot!(p1,t, z₄(t))
-plot!(p1,t, z₅(t))
+t=0.0:T/100:2T
+p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
+p2 = plot( t, z₁(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+plot!(p2,t,z₂(t))
+plot!(p2,t,z₃(t))
+plot!(p2,t,z₄(t))
+plot!(p2,t,z₅(t))
+plot(p1,p2,layout=(2,1))
 
 png(path*"scenarioD_signal.png")
 
-scene2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅])
+scenePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],T)
 
 png(path*"scenarioD.png")
 #----------------------------------------------------
 # Estimator function
-f₁(ξ::Vector{Float64})=(z₁((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₁-ξ))./c))./(A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ₁-ξ)./c))
-f₂(ξ::Vector{Float64})=(z₂((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₂-ξ))./c))./(A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ₂-ξ)./c))
-f₃(ξ::Vector{Float64})=(z₃((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₃-ξ))./c))./(A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ₃-ξ)./c))
-f₄(ξ::Vector{Float64})=(z₄((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₄-ξ))./c))./(A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ₄-ξ)./c))
-f₅(ξ::Vector{Float64})=(z₅((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₅-ξ))./c))./(A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ₅-ξ)./c))
+f₁(ξ::Vector{Float64})=(z₁(tₚ+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₁-ξ))./c))./(A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ₁-ξ)./c))
+f₂(ξ::Vector{Float64})=(z₂(tₚ+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₂-ξ))./c))./(A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ₂-ξ)./c))
+f₃(ξ::Vector{Float64})=(z₃(tₚ+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₃-ξ))./c))./(A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ₃-ξ)./c))
+f₄(ξ::Vector{Float64})=(z₄(tₚ+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₄-ξ))./c))./(A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ₄-ξ)./c))
+f₅(ξ::Vector{Float64})=(z₅(tₚ+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₅-ξ))./c))./(A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ₅-ξ)./c))
 
-f(ξ::Vector{Float64})=f₁(ξ).*f₂(ξ).*f₃(ξ).*f₄(ξ).*f₅(ξ)
+f(ξ::Vector{Float64})=(f₁(ξ).*f₂(ξ).*f₃(ξ).*f₄(ξ).*f₅(ξ))^1/5
 
-Δpos = 0.01; x_min = -2.0; x_max = 2.0; y_min = -2.0; y_max = 2.0
-p11 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₁;Δpos,x_min,x_max,y_min,y_max)
-p12 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₂;Δpos,x_min,x_max,y_min,y_max)
-p13 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₃;Δpos,x_min,x_max,y_min,y_max)
-p14 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₄;Δpos,x_min,x_max,y_min,y_max)
-p15 = inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f₅;Δpos,x_min,x_max,y_min,y_max)
-p6 = inverse2Dfinalplot([q],[z₁,z₂,z₃,z₄,z₅],f;Δpos,x_min,x_max,y_min,y_max)
+
+p11 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₁,T)
+p12 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₂,T)
+p13 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₃,T)
+p14 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₄,T)
+p15 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₅,T)
+p6 = inversefinalPlot2D([q],[z₁,z₂,z₃,z₄,z₅],f,T)
 
 plot(p11,p12,p13,p14,p15,p6,layout=(3,2),size=(2000,2000))
 
-inverse2Dplot([q],r,[z₁,z₂,z₃,z₄,z₅],f)
+inversefinalPlot2D([q],[z₁,z₂,z₃,z₄,z₅],f,T)
 
 png(path*"scenarioD_simulation.png")
 
