@@ -37,7 +37,8 @@ plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90))
 
 allPlots = []
 for t ∈ 0:T/100:5T
-    val = [q(𝐮,t) + r[1](𝐮,t)+r[2](𝐮,t)+r[3](𝐮,t)+r[4](𝐮,t) for 𝐮 ∈ xyGrid]
+    val = [q(𝐮,t) + r[1](𝐮,t) for 𝐮 ∈ xyGrid]
+    #val = [q(𝐮,t) + r[1](𝐮,t)+r[2](𝐮,t)+r[3](𝐮,t)+r[4](𝐮,t) for 𝐮 ∈ xyGrid]
     p1 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),legend=false,clims=(-1,1),aspect_ratio=:equal,xticks=:false,yticks=:false,zticks=:false)
     frame = plot(p1, size = (800, 800) )
     push!(allPlots, frame)
@@ -45,7 +46,7 @@ end
 anim = @animate for i ∈ 1:length(allPlots)
     plot(allPlots[i])
 end
-gif(anim, "fileName1.gif", fps = 30)
+gif(anim, "fileName3.gif", fps = 30)
 
 
 
@@ -70,3 +71,36 @@ p12 = inverse2Dplot([q],r,[z],f₂)
 p13 = inverse2Dplot([q],r,[z],f₃)
 p14 = inverse2Dplot([q],r,[z],f₄)
 plot(p11,p12,p13,p14,layout=(2,2),size=(1000,1000))
+
+
+
+
+
+#----------------Animation for line segment-------------
+using LTVsystems
+using Plots
+𝐩ₛ = [0.0, 0.0]
+𝐩ᵣ = [0.0, 0.0]
+T  = 15.0e-9
+tₚ = 1.0e-9
+p(t) = δn(t-tₚ,1.0e-10)
+α₀ = 0.7; 𝛏₀ = [1.8,2.0]; 𝛖 = [1.0,0.0]; len=1.0
+q = LTIsourceO(𝐩ₛ, p)
+r = lineSegment(𝛏₀,𝛖,len,k->α₀,[q])
+z = LTIreceiverO([r],𝐩ᵣ)
+Δpos = 0.01
+x_range = -3.0:Δpos:3.0
+y_range = -3.0:Δpos:3.0
+xyGrid = [[x, y] for x in x_range, y in y_range]
+allPlots = []
+for t ∈ 0:T/100:5T
+    val = [q(𝐮,t) + r(𝐮,t) for 𝐮 ∈ xyGrid]
+    #val = [q(𝐮,t) + r[1](𝐮,t)+r[2](𝐮,t)+r[3](𝐮,t)+r[4](𝐮,t) for 𝐮 ∈ xyGrid]
+    p1 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),legend=false,clims=(-1,1),aspect_ratio=:equal,xticks=:false,yticks=:false,zticks=:false)
+    frame = plot(p1, size = (800, 800) )
+    push!(allPlots, frame)
+end
+anim = @animate for i ∈ 1:length(allPlots)
+    plot(allPlots[i])
+end
+gif(anim, "fileName4.gif", fps = 30)

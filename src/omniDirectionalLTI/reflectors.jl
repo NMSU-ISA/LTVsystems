@@ -28,6 +28,8 @@ struct lineSegment <: Reflectors
         sourceList::Vector{<:SourcesReflectors}
 end
 
+
+
 function (R::lineSegment)(𝛏::Vector{Float64}, t::Float64)
     𝛏₀ = R.position
     𝐮 = R.direction/norm(R.direction)

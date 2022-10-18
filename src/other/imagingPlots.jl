@@ -15,7 +15,7 @@ x_range = collect(x_min:Δpos:x_max)
 y_range = collect(y_min:Δpos:y_max)
 xyGrid = [[x, y] for x in x_range, y in y_range]
 val = [f(𝐮) for 𝐮 ∈ xyGrid]
-p2 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),
+p2 = plot(x_range,y_range,transpose(abs.(val)),st=:surface,camera=(0,90),
      aspect_ratio=:equal,legend=:outertopright,colorbar=false,zticks=false,bg = cmap[1])
 
 scatter!(p2,[S[1].position[1]], [S[1].position[2]],markersize = 5.0,color = :green,
@@ -135,7 +135,7 @@ x_range = collect(x_min:Δpos:x_max)
 y_range = collect(y_min:Δpos:y_max)
 xyGrid = [[x, y] for x in x_range, y in y_range]
 val = [f(𝐮) for 𝐮 ∈ xyGrid]
-p2 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),
+p2 = plot(x_range,y_range,transpose(abs.(val)),st=:surface,camera=(0,90),
      aspect_ratio=:equal,legend=:outertopright,colorbar=false,zticks=false,bg = cmap[1])
 
 scatter!(p2,[S[1].position[1]], [S[1].position[2]],markersize = 5.0,color = :green,
@@ -237,7 +237,7 @@ x_range = collect(x_min:Δpos:x_max)
 y_range = collect(y_min:Δpos:y_max)
 xyGrid = [[x, y] for x in x_range, y in y_range]
 val = [0.0]
-p2 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),
+p2 = plot(x_range,y_range,transpose(abs.(val)),st=:surface,camera=(0,90),
      aspect_ratio=:equal,legend=:outertopright,bg=cmap[1],colorbar=false,zticks=false)
 scatter!(p2,[S[1].position[1]], [S[1].position[2]],markersize = 5.0,color = :green,
     marker=:pentagon,label="Source")
