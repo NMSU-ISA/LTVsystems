@@ -688,6 +688,8 @@ $f_k(\bm{\xi})=\dfrac{1.5e^{-05}\mathrm{randn}(k)[1]+z\left(t_p+kT+\frac{\|\math
 {\mathrm{c}}\right)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
 \mathrm{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}$
 
+Finally, the reflector function is given as follows
+
 $\hat{f}(\bm{\xi}) = \frac{∑_{k=0}^{M-1} f_k(\bm{\xi})}{M}$
 
 
