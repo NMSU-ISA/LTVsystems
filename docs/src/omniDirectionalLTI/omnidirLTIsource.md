@@ -684,7 +684,7 @@ Given the scenario G assumptions, we obtained the received signal, $z(t)$. Now w
 We computed the reflector function, $f_k$ with respect to each pulse's transmission time, $kT$ where $k \in \mathbf{Z}$ in the presence of random white noise as follows
 
 
-$f_k(\bm{\xi})=\dfrac{1.5e^{-05}\mathrm{randn}(1)[1]+z\left(t_p+kT+\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
+$f_k(\bm{\xi})=\dfrac{1.5e^{-05}\mathrm{randn}(k)[1]+z\left(t_p+kT+\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}}\right)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
 \mathrm{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}$
 
@@ -718,3 +718,27 @@ p6=inversePlot2D([q],[r],[z],f,T)
 plot(p11,p12,p13,p14,p15,p6,layout=(3,2),size=(1000,1000))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioG_simulation.png)
+
+
+By transmitting more number of pulses, we can average out the white noise presence in the model and can get better target estimation. Here we provide the result of target estimation with $50$ pulses i.e $M=50$.
+
+```julia
+using LTVsystems
+using Plots
+𝐩ₛ = [0.0, 0.0]
+𝐩ᵣ = [0.0, 0.0]
+T  = 15.0e-6
+tₚ = 1.0e-06
+p(t) = δn(mod(t-tₚ,T),1.0e-7)
+α₁ = 0.7; 𝛏₁ = [0.2c*T,0.0]
+q = LTIsourceO(𝐩ₛ,p)
+r = pointReflector(𝛏₁,α₁,q)
+z = LTIreceiverO([r],𝐩ᵣ)
+M=50
+fm(ξ::Vector{Float64}) = [ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(k)[1]
++z(tₚ+(k-1)*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))) for k∈1:M]
+g(ξ::Vector{Float64}) = sum(fm(ξ)[i] for i ∈ 1:M )/M
+inversePlot2D([q],[r],[z],g,T)
+```
+
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioG_simulation2.png)
