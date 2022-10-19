@@ -74,10 +74,14 @@ png(path*"scenarioG_simulation.png")
 
 
 #-------------------Using loop-------------------
-fm(ξ::Vector{Float64}) = [ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]+z(tₚ+(k-1)*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))) for k∈1:M]
+M=50
+fm(ξ::Vector{Float64}) = [ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(k)[1]+z(tₚ+(k-1)*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))) for k∈1:M]
+g(ξ::Vector{Float64}) = sum(fm(ξ)[i] for i ∈ 1:M )/M
+
+inversePlot2D([q],[r],[z],g,T)
 
 
-inversePlot2D([q],[r],[z],F,T)
+png(path*"scenarioG_simulation2.png")
 
 scene2Dplot([q],[r],[z];Δpos,x_min,x_max,y_min,y_max)
 
