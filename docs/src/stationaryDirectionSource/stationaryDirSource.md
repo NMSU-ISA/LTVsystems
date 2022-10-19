@@ -288,15 +288,12 @@ plot(p1,p2,layout=(2,1))
 
 Given the scenario C assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function by considering the transmitted signal as impulse train $p(t)=∑_{k=1}^{M}δ(t-t_p-(k-1)T)$ as follows
 
-We incorporated the time delays in the received signal, $z(t)$ with respect to each periodic impulse as follows
-
-$z_\mathrm{t} = z(t+kT)$ where T is period of the impulse train
 
 In order to consider the transmitted time of the time-varying beam with respect to each periodic impulse, we computed the reflector function corresponding to each periodic impulse as follows
 
 $f_k(\bm{\xi})=\dfrac{z\left(t_p+(k-1)T+\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)\mathrm{D}_\mathrm{sk}(\bm{\xi})}{\mathrm{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)}$
 
-where $\mathrm{D}_\mathrm{sk}(\bm{\xi}) = \mathbf{G}\big(∠(𝐛(t_p-kT), \bm{\xi}.-\mathbf{p}_\mathrm{s})\big)$ 
+where $\mathrm{D}_\mathrm{sk}(\bm{\xi}) = \mathbf{G}\big(∠(𝐛(t_p-(k-1)T), \bm{\xi}.-\mathbf{p}_\mathrm{s})\big)$ 
 
 Finally, the reflector function for the scenario is given as follows
 
@@ -340,3 +337,17 @@ inversePlot2D([q],r,[z],f,T)
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioESTAT_simulationall.png)
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioESTAT_simulation.png)
+
+
+## Scenario D (More General Case) [Pulse train, multiple reflector, transmitter and receiver at same location]
+
+### Scenario Assumptions
+
+* single stationary directional source with time-varying beam center
+* single stationary receiver at same location as the source
+* multiple stationary ideal point reflectors
+* the source emits a periodic impulse train
+
+Given the assumptions, we simulate the following geometry for scenario D.
+
+
