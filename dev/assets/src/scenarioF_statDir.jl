@@ -5,25 +5,31 @@ using LTVsystems
 using Plots
 𝐩ₛ = [0.0, 0.0]
 𝐩ᵣ = [0.0, 0.0]
-T  = 15.0e-9
-tₚ = 1.0e-9
-p(t) = δn(mod(t-0.5e-9,T),1.0e-10)
-α₁ = 0.7; 𝛏₁ = [2.0,0.0]
-α₂ = 0.7; 𝛏₂ = [-2.0,0.0]
-α₃ = 0.7; 𝛏₃ = [0.0,2.0]
-α₄ = 0.7; 𝛏₄ = [0.0,-2.0]
+tₚ = 1.0e-06 # in microseconds
+T  = 15.0e-6
+p(t) = δn(mod(t-tₚ,T),1.0e-07)
+α₁ = 0.7; 𝛏₁ = [0.11c*T,-0.07c*T]
+α₂ = 0.7; 𝛏₂ = [-0.19c*T,0.0]
+α₃ = 0.7; 𝛏₃ = [0.22c*T,0.20c*T]
 f₀ = 1/4T
-𝐛(t) = [cos(2π*f₀*t),sin(2π*f₀*t)]
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/16)
+𝐛(t) = [cos(2π*f₀*(t-tₚ)),sin(2π*f₀*(t-tₚ))]
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/12)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
 #r = pointReflector([𝛏₁,𝛏₂,𝛏₃,𝛏₄,𝛏₅],[α₁,α₂,α₃,α₄,α₅],[q])
-r = pointReflector([𝛏₁,𝛏₂,𝛏₃,𝛏₄],[α₁,α₂,α₃,α₄],[q])
+r = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q])
 z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
-t = -5.0e-9:1.0e-10:90.0e-9
+t=0.0:T/100:10T
 p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
-p2 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+p2 = plot( t, z(t),ylims=(minimum(z(t)),maximum(z(t))), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot(p1,p2,layout=(2,1))
 
+scenePlot2D([q],r,[z],T)
+
+#scene2Dmultidirplot([q₁],R₁,[z₁],[𝐛₁,𝐛₂,𝐛₃,𝐛₄])
+#([q₁],𝐑₁,[z₁],[𝐛₁,𝐛₂,𝐛₃])
+png(path*"scenarioF_STATD.png")
+
+png(path*"scenarioFSTAT_signal.png")
 
 #zₜ = PulseTrainReceivers(z,T)
 
