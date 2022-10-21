@@ -173,6 +173,36 @@ f(ξ::Vector{Float64}) = f₁(ξ).+ f₂(ξ) .+f₃(ξ).+f₄(ξ)
 inversePlot2D([q],r,[z],f,T)
 
 
+#--------------------With 8 Targets------------------------
+
+using LTVsystems
+using Plots
+𝐩ₛ = [0.0, 0.0]
+𝐩ᵣ = [0.0, 0.0]
+tₚ = 1.0e-06 
+T  = 15.0e-6
+p(t) = δn(mod(t-tₚ,T),1.0e-07)
+α₁ = 0.7; 𝛏₁ = [0.15c*T,0.0]
+α₂ = 0.7; 𝛏₂ = [0.0,0.15c*T] 
+α₃ = 0.7; 𝛏₃ = [-0.15c*T,0.0]
+α₄ = 0.7; 𝛏₄ = [0.0,-0.15c*T]  
+α₅ = 0.7; 𝛏₅ = [0.2c*T,0.0]
+α₆ = 0.7; 𝛏₆ = [0.0,0.2c*T]
+α₇ = 0.7; 𝛏₇ = [0.0,-0.2c*T]
+α₈ = 0.7; 𝛏₈ = [-0.2c*T,0.0]
+f₀ = 1/4T
+𝐛(t) = [cos(2π*f₀*(t-tₚ)),sin(2π*f₀*(t-tₚ))]
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/12)
+q = STATsourceD(𝐩ₛ,p,𝐛,G)
+r = pointReflector([𝛏₁,𝛏₂,𝛏₃,𝛏₄,𝛏₅,𝛏₆,𝛏₇,𝛏₈],[α₁,α₂,α₃,α₄,α₅,α₆,α₇,α₈],[q])
+z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
+t=0.0:T/100:4T
+p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
+p2 = plot( t, z(t),ylims=(minimum(z(t)),maximum(z(t))), xlab="time (sec)", ylab="z(t)", legend=:false)
+plot(p1,p2,layout=(2,1))
+
+scene2Dplot([q],r,[z]) 
+
 
 #-----------with 8 Targets at different radial distance ------
 
