@@ -18,4 +18,4 @@ function (ψ::STATreceiverD)(t₀::Float64)
       return val
 end
 
-Base.show(io::IO, x::STATreceiverD) = print(io, "Stationary Direction Receiver with Time-Varying Beam Center")
+Base.show(io::IO, x::STATreceiverD) = print(io, "Stationary Directional Receiver with Time-Varying Beam Center")

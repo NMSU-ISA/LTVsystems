@@ -15,4 +15,4 @@ function (𝚽::STATsourceD)(𝛏₀::Vector{Float64}, t₀::Float64)
 end
 
 
-Base.show(io::IO, x::STATsourceD) = print(io, "Stationary Direction Source with Time-Varying Beam Center")
+Base.show(io::IO, x::STATsourceD) = print(io, "Stationary Directional Source with Time-Varying Beam Center")
