@@ -3,10 +3,10 @@
 ## Ideal Point Reflectors
 
 We define an ideal point reflectors with reflection coefficients,
-$α₁,α₂,…αₙ$ located at fixed positions, say $\bm{ξ₁},\bm{ξ₂},…\bm{ξₙ}$
+$\mathsf{\alpha_1},\mathsf{\alpha_2},…\mathsf{\alpha_n}$ located at fixed positions, say $\bm{ξ₁},\bm{ξ₂},…\bm{ξₙ}$
 as follows
 
-$\mathsf{f(\bm{\xi})} = \sum_{n} \alpha_n \delta(\bm{\xi} - \bm{\xi}_n).$
+$\mathsf{f(\bm{\xi})} = \sum_{n} \mathsf{\alpha_n} \delta(\bm{\xi} - \bm{\xi}_n).$
 
 Note that the reflection coefficients take negative values since we assume that the voltage is fixed at the reflector's end.
 Mathematically, we define the reflection due to the **LTI Omnidirectional Source** as follows
@@ -20,7 +20,7 @@ $\mathsf{r(\bm{\xi},t)} = \mathsf{f(\bm{\xi})} \mathsf{q(\bm{\xi},t)}.$
 We define a simple continuous reflector in term of a line segment, $AB$ of
 length, $L$ as follows
 
-$\mathsf{f(\bm{\xi})} = \int_{0}^{L}\alpha_0 \delta(\bm{\xi} - [\bm{\xi}_0+k\bm{u}]) \mathrm{d}k$
+$\mathsf{f(\bm{\xi})} = \int_{0}^{L}\mathsf{\alpha_0} \delta(\bm{\xi} - [\bm{\xi}_0+k\bm{u}]) \mathrm{d}k$
 
-where $α₀$ is a reflection coefficient, $\bm{ξ₀}$ is an initial position vector,
+where $\mathsf{\alpha_0}$ is a reflection coefficient, $\bm{ξ₀}$ is an initial position vector,
 $\bm{u}$ is an unit vector in the direction of $AB$ and $k$ is any scalar quantity.
