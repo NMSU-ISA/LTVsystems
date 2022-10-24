@@ -2,7 +2,7 @@
 
 ## LTI Omnidirectional Receiver
 
-In order to define **LTI Omnidirectional Receiver**, first we observed the signal due to the reflection which is given by taking convolution between the reflected signal, $r(\bm{\xi},t)$ and the impulse response from the receiver located at position, $\mathbf{p}_\mathrm{r}$. Mathematically, we can define the observed signal
+In order to define **LTI Omnidirectional Receiver**, first we observed the signal due to the reflection which is given by taking convolution between the reflected signal, $\mathsf{r(\bm{\xi},t)}$ and the impulse response from the receiver located at position, $\mathbf{p}_\mathrm{r}$. Mathematically, we can define the observed signal
 as follows
 
 $\mathsf{\psi(\bm{\xi},t)} = \mathsf{r(\bm{\xi},t)} \overset{t}{*} \mathsf{g\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r}(\cdot)}\big)}.$
@@ -19,7 +19,7 @@ $\mathsf{z(t)} = ∭ \mathsf{\psi(\bm{\xi},t)} dS$
 ### Defining an LTI Omnidirectional Receiver
 
 First, we will define the reflected signal by  calling `LTIsourceO()` with a transmitted signal, $\mathsf{p(t)}$
-and the source position, $\bm{p}_\mathrm{s}$. Then
+and the source position, $\mathbf{p}_\mathrm{s}$. Then
 we can define a  **LTI Omnidirectional Receiver** by calling `LTIreceiverO()` with the defined reflected signal and the receiver position, $\mathbf{p}_\mathrm{r}$.
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_Receivers.png)
@@ -49,8 +49,8 @@ We define an **LTI Directional Receiver** by observing the signal due to the ref
 Mathematically, we can define the observed signal as follows.
 
 
-$\psi(\bm{\xi},t)=r(\bm{\xi},t) \overset{t}{*} g(\bm{\xi},t;\,
-\textcolor{myLightSlateGrey}{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}})$
+$\mathsf{\psi(\bm{\xi},t)}=\mathsf{r(\bm{\xi},t)} \overset{t}{*} \mathsf{g(\bm{\xi},t;\,
+\textcolor{myLightSlateGrey}{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}})}$
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_ReceiverDTI.png)
 

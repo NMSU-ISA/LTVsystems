@@ -13,7 +13,7 @@ Mathematically, we define the reflection due to the **LTI Omnidirectional Source
 
 $\mathsf{r(\bm{\xi},t)} = \mathsf{f(\bm{\xi})} \mathsf{q(\bm{\xi},t)}.$
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_primaryRef.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/reflector_BD.png)
 
 ## Continuous Reflectors as a Line Segment
 
