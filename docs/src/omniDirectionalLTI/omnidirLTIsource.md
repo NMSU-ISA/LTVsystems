@@ -6,14 +6,14 @@
 | $\bm{\xi}$              | vector variable |  position   |
 | $\mathbf{p}_\mathrm{s}$     | vector                  | position of source |
 | $\mathbf{p}_\mathrm{r}$     | vector                  | position of receiver |
-| $p(t)$                  | scalar function of time |  source emission   |
-| $f(\bm{\xi})$           | scalar function of position |  reflectivity function   |
-| $h(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s}})$       |  scalar function of position and time  | LTI impulse response from    $\mathbf{p}_\mathrm{s}$ to  $\bm{\xi}$ |
-| $q(\bm{\xi},t)$  |  scalar function of position and time  | observation of source emission at $\bm{\xi}$ |
-| $r(\bm{\xi},t)$  |  scalar function of position and time  | reflection from $\bm{\xi}$ due to source|
-| $g(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r}})$  |  scalar function of position and time  | LTI impulse response from    $\bm{\xi}$ to $\mathbf{p}_\mathrm{r}$ |
-| $\psi(\bm{\xi},t)$ |  scalar function of position and time  | observation of reflections from $\bm{\xi}$ at $\mathbf{p}_\mathrm{r}$ |
-| $z(t)$                | scalar function of time |   observation of reflections at $\mathbf{p}_\mathrm{r}$   |
+| $\mathsf{p(t)}$                  | scalar function of time |  source emission   |
+| $\mathsf{f(\bm{\xi})}$           | scalar function of position |  reflectivity function   |
+| $\mathsf{h(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s}})}$       |  scalar function of position and time  | LTI impulse response from    $\mathbf{p}_\mathrm{s}$ to  $\bm{\xi}$ |
+| $\mathsf{q(\bm{\xi},t)}$  |  scalar function of position and time  | observation of source emission at $\bm{\xi}$ |
+| $\mathsf{r(\bm{\xi},t)}$  |  scalar function of position and time  | reflection from $\bm{\xi}$ due to source|
+| $\mathsf{g(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r}})}$  |  scalar function of position and time  | LTI impulse response from    $\bm{\xi}$ to $\mathbf{p}_\mathrm{r}$ |
+| $\mathsf{\psi(\bm{\xi},t)}$ |  scalar function of position and time  | observation of reflections from $\bm{\xi}$ at $\mathbf{p}_\mathrm{r}$ |
+| $\mathsf{z(t)}$                | scalar function of time |   observation of reflections at $\mathbf{p}_\mathrm{r}$   |
 
 
 
@@ -24,34 +24,34 @@
 
 The LTI impulse response from $\mathbf{p}_\mathrm{s}$ to  $\bm{\xi}$ is given by
 
-$h(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s}}) = \mathrm{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
+$\mathsf{h(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s}})} = \mathsf{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}}\right) \delta\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
 The signal observed at position $\bm{\xi}$ and time $t$ due to the source emitting from position $\mathbf{p}_\mathrm{s}$ is given as
 
 ```math
 \begin{aligned}
-q(\bm{\xi},t)  &= p(t) \overset{t}{*} h(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s}}) \\
+\mathsf{q(\bm{\xi},t)}  &= \mathsf{p(t)} \overset{t}{*} \mathsf{h(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s}})} \\
                &= \mathrm{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-               {\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).
+               {\mathrm{c}}\right) \mathsf{p}\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).
 \end{aligned}
 ```
 
 The reflection due to source is given by
 
-$r(\bm{\xi},t) = f(\bm{\xi}) q(\bm{\xi},t).$
+$\mathsf{r(\bm{\xi},t)} = \mathsf{f(\bm{\xi})} \mathsf{q(\bm{\xi},t)}.$
 
 The LTI impulse response from an arbitrary position $\bm{\xi}$ to the receiver at position $\mathbf{p}_\mathrm{r}$ is given by
 
-$g(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r}}) = \mathrm{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) \delta\left(t-\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right).$
+$\mathsf{g(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r}})} = \mathsf{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) \delta\left(t-\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right).$
 
 The signal observed at $\mathbf{p}_\mathrm{r}$ due to the reflection from the
 position $\bm{\xi}$ is given by
 
 ```math
 \begin{aligned}
-\psi(\bm{\xi},t) &= r(\bm{\xi},t) \overset{t}{*} g\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r}}\big) \\
-                 &= \mathrm{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) r\left(\bm{\xi},t-\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right).
+\mathsf{\psi(\bm{\xi},t)} &= \mathsf{r(\bm{\xi},t)} \overset{t}{*} \mathsf{g\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r}}\big)} \\
+                 &= \mathsf{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) \mathsf{r}\left(\bm{\xi},t-\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right).
 \end{aligned}
 ```
 
