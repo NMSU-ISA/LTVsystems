@@ -149,24 +149,24 @@ Given the assumptions, we simulate the following geometry for scenario B.
 
 ### Forward Modeling
 
-For scenario B, we provided the position of the source $𝐩ₛ$, the receiver's position $𝐩ᵣ$, the transmitted signal $p(t)$, and an ideal point reflector $\bm{\xi}_0$.
+For scenario B, we provided the position of the source $𝐩ₛ$, the receiver's position $𝐩ᵣ$, the transmitted signal $\mathsf{p(t)}$, and an ideal point reflector $\bm{\xi}_0$.
 
 Now the expression for the reflector function is given by
 
-$f(\bm{\xi}) = \alpha_0 \delta(\bm{\xi} - \bm{\xi}_0).$
+$\mathsf{f}(\bm{\xi}) = \mathsf{\alpha_0} \delta(\bm{\xi} - \bm{\xi}_0).$
 
 We compute the reflection due to the source as follows
 
-$r(\bm{\xi},t) = \alpha_0 \delta(\bm{\xi} - \bm{\xi}_0)
-\mathrm{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
+$\mathsf{r}(\bm{\xi},t) = \mathsf{\alpha_0} \delta(\bm{\xi} - \bm{\xi}_0)
+\mathsf{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
+{\mathrm{c}}\right) \mathsf{p}\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
 
-Finally, the closed form expression of the observed signal, $z(t)$ is given by
+Finally, the closed form expression of the observed signal, $\mathsf{z(t)}$ is given by
 
-$z(t) = \alpha_0 \mathrm{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)
-\mathrm{A}\left(\frac{\|\bm{\xi}_0-
-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right) p\left(t-
+$\mathsf{z(t)} = \mathsf{\alpha_0} \mathsf{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)
+\mathsf{A}\left(\frac{\|\bm{\xi}_0-
+\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right) \mathsf{p}\left(t-
 \frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|+\|\bm{\xi}_0-
 \mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
@@ -175,15 +175,14 @@ $z(t) = \alpha_0 \mathrm{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}{\ma
 using LTVsystems
 using Plots
 tₚ = 1.0e-06 
-T  = 15.0e-6
-𝐩ₛ =  [0.05c*T, 0.0]
-𝐩ᵣ =  [-0.2c*T, 0.0]
+𝐩ₛ =  [0.75e-06c, 0.0]
+𝐩ᵣ =  [-3.0e-06c, 0.0]
 p(t) = δn(t-tₚ,1.0e-07)
 q = LTIsourceO(𝐩ₛ, p)
-α₀ = 0.7; 𝛏₀ = [0.25c*T,0.0]
+α₀ = -0.7; 𝛏₀ = [3.75e-06c,0.0]
 r = pointReflector(𝛏₀,α₀,q)
 z = LTIreceiverO([r],𝐩ᵣ)
-t=0.0:T/100:2T
+t=0.0:1.0e-08:25.0e-06
 p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot(p1,p2,layout=(2,1))
@@ -192,28 +191,28 @@ plot(p1,p2,layout=(2,1))
 
 ### Inverse Modeling
 
-Given the scenario B assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function by considering the transmitted signal 
-$p(t)=δ(t-t_p)$ as follows
+Given the scenario B assumptions, we obtained the received signal, $\mathsf{z(t)}$. Now we can estimate the reflector function by considering the transmitted signal as follows
 
-$\hat{f}(\bm{\xi}) = \dfrac{z\left(t_p+\frac{\|\mathbf{p}_\mathrm{r}-
+$\mathsf{p(t)}=δ(t-\mathrm{t_p})$ 
+
+$\mathsf{\hat{f}}(\bm{\xi}) = \dfrac{z\left(\mathrm{t_p}+\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}}  \right)}{\mathrm{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
-\mathrm{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}.$
+{\mathrm{c}}  \right)}{\mathsf{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
+\mathsf{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}.$
 
 ```julia
 using LTVsystems
 using Plots
 tₚ = 1.0e-06 
-T  = 15.0e-6
-𝐩ₛ =  [0.05c*T, 0.0]
-𝐩ᵣ =  [-0.2c*T, 0.0]
+𝐩ₛ =  [0.75e-06c, 0.0]
+𝐩ᵣ =  [-3.0e-06c, 0.0]
 p(t) = δn(t-tₚ,1.0e-07)
 q = LTIsourceO(𝐩ₛ, p)
-α₀ = 0.7; 𝛏₀ = [0.25c*T,0.0]
+α₀ = -0.7; 𝛏₀ = [3.75e-06c,0.0]
 r = pointReflector(𝛏₀,α₀,q)
 z = LTIreceiverO([r],𝐩ᵣ)
 f(ξ::Vector{Float64})=(z(tₚ+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c))./(A(norm(ξ-𝐩ₛ)./c).*A(norm(𝐩ᵣ-ξ)./c))
-inversePlot2D([q],[r],[z],f,T)
+inversePlot2D([q],[r],[z],f)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioB_simulation.png)
 

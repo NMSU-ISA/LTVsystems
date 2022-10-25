@@ -6,7 +6,7 @@ An **LTI Omnidirectional Source**  is parameterized by taking the convolution be
 
 $\mathsf{q(\bm{\xi},t)}=\mathsf{p(t)} \overset{t}{*} \mathsf{h(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s}})}$
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_Sources.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTIOmni_Source_BD.png)
 
 
 ### Defining an LTI Omnidirectional Source
