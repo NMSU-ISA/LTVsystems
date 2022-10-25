@@ -2,13 +2,12 @@ function inversePlot2D(
     S::Vector{<:Sources},
     T::Vector{<:Reflectors},
     R::Vector{<:Receivers},
-    f::Function,
-    Tₚ::Float64;
+    f::Function;
     Δpos = 0.01e03,
-    x_min = -0.5c*Tₚ,
-    x_max = 0.5c*Tₚ,
-    y_min = -0.5c*Tₚ,
-    y_max = 0.5c*Tₚ,
+    x_min = -0.5c*15.0e-6,
+    x_max = 0.5c*15.0e-6,
+    y_min = -0.5c*15.0e-6,
+    y_max = 0.5c*15.0e-6,
 )
 cmap=cgrad(:default)
 x_range = collect(x_min:Δpos:x_max)
@@ -16,7 +15,7 @@ y_range = collect(y_min:Δpos:y_max)
 xyGrid = [[x, y] for x in x_range, y in y_range]
 val = [f(𝐮) for 𝐮 ∈ xyGrid]
 p2 = plot(x_range,y_range,transpose(abs.(val)),st=:surface,camera=(0,90),
-     aspect_ratio=:equal,legend=:outertopright,colorbar=false,zticks=false,bg = cmap[1])
+     aspect_ratio=:equal,legend=:topleft,left_margin = 5Plots.mm, right_margin = 15Plots.mm,colorbar=false,zticks=false,bg = cmap[1])
 
 scatter!(p2,[S[1].position[1]], [S[1].position[2]],markersize = 5.0,color = :green,
              marker=:pentagon,label="Source")
@@ -60,13 +59,12 @@ end
 function scenePlot2D(
     S::Vector{<:Sources},
     T::Vector{<:Reflectors},
-    R::Vector{<:Receivers},
-    Tₚ::Float64;
+    R::Vector{<:Receivers};
     Δpos = 0.01e03,
-    x_min = -0.5c*Tₚ,
-    x_max = 0.5c*Tₚ,
-    y_min = -0.5c*Tₚ,
-    y_max = 0.5c*Tₚ,
+    x_min = -0.5c*15.0e-6,
+    x_max = 0.5c*15.0e-6,
+    y_min = -0.5c*15.0e-6,
+    y_max = 0.5c*15.0e-6,
 )
 cmap=cgrad(:default)
 x_range = collect(x_min:Δpos:x_max)
@@ -74,7 +72,7 @@ y_range = collect(y_min:Δpos:y_max)
 xyGrid = [[x, y] for x in x_range, y in y_range]
 val = [0.0]
 p2 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),
-     aspect_ratio=:equal,legend=:outertopright,bg=cmap[1],colorbar=false,zticks=false)
+     aspect_ratio=:equal,legend=:topleft,left_margin = 5Plots.mm, right_margin = 15Plots.mm,bg=cmap[1],colorbar=false,zticks=false)
 scatter!(p2,[S[1].position[1]], [S[1].position[2]],markersize = 5.0,color = :green,
     marker=:pentagon,label="Source")
 for i = 1:length(S)
@@ -122,13 +120,12 @@ end
 function inversefinalPlot2D(
     S::Vector{<:Sources},
     R::Vector{<:Receivers},
-    f::Function,
-    Tₚ::Float64;
+    f::Function;
     Δpos = 0.01e03,
-    x_min = -0.5c*Tₚ,
-    x_max = 0.5c*Tₚ,
-    y_min = -0.5c*Tₚ,
-    y_max = 0.5c*Tₚ,
+    x_min = -0.5c*15.0e-6,
+    x_max = 0.5c*15.0e-6,
+    y_min = -0.5c*15.0e-6,
+    y_max = 0.5c*15.0e-6,
 )
 cmap=cgrad(:default)
 x_range = collect(x_min:Δpos:x_max)
@@ -136,7 +133,7 @@ y_range = collect(y_min:Δpos:y_max)
 xyGrid = [[x, y] for x in x_range, y in y_range]
 val = [f(𝐮) for 𝐮 ∈ xyGrid]
 p2 = plot(x_range,y_range,transpose(abs.(val)),st=:surface,camera=(0,90),
-     aspect_ratio=:equal,legend=:outertopright,colorbar=false,zticks=false,bg = cmap[1])
+     aspect_ratio=:equal,legend=:topleft,left_margin = 5Plots.mm, right_margin = 15Plots.mm,colorbar=false,zticks=false,bg = cmap[1])
 
 scatter!(p2,[S[1].position[1]], [S[1].position[2]],markersize = 5.0,color = :green,
              marker=:pentagon,label="Source")
@@ -159,13 +156,12 @@ function scenedirPlot2D(
     S::Vector{<:Sources},
     T::Vector{<:Reflectors},
     R::Vector{<:Receivers},
-    𝐛::Vector{Float64},
-    Tₚ::Float64;
+    𝐛::Vector{Float64};
     Δpos = 0.01e03,
-    x_min = -0.5c*Tₚ,
-    x_max = 0.5c*Tₚ,
-    y_min = -0.5c*Tₚ,
-    y_max = 0.5c*Tₚ,
+    x_min = -0.5c*15.0e-6,
+    x_max = 0.5c*15.0e-6,
+    y_min = -0.5c*15.0e-6,
+    y_max = 0.5c*15.0e-6,
 )
 cmap=cgrad(:default)
 x_range = collect(x_min:Δpos:x_max)
@@ -173,7 +169,7 @@ y_range = collect(y_min:Δpos:y_max)
 xyGrid = [[x, y] for x in x_range, y in y_range]
 val = [0.0]
 p2 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),
-     aspect_ratio=:equal,legend=:outertopright,bg=cmap[1],colorbar=false,zticks=false)
+     aspect_ratio=:equal,legend=:topleft,left_margin = 5Plots.mm, right_margin = 15Plots.mm,bg=cmap[1],colorbar=false,zticks=false)
 scatter!(p2,[S[1].position[1]], [S[1].position[2]],markersize = 5.0,color = :green,
     marker=:pentagon,label="Source")
 for i = 1:length(S)
@@ -224,13 +220,12 @@ function scenemultidirPlot2D(
     S::Vector{<:Sources},
     T::Vector{<:Reflectors},
     R::Vector{<:Receivers},
-    𝐛::Vector{Vector{Float64}},
-    Tₚ::Float64;
+    𝐛::Vector{Vector{Float64}};
     Δpos = 0.01e03,
-    x_min = -0.5c*Tₚ,
-    x_max = 0.5c*Tₚ,
-    y_min = -0.5c*Tₚ,
-    y_max = 0.5c*Tₚ,
+    x_min = -0.5c*15.0e-6,
+    x_max = 0.5c*15.0e-6,
+    y_min = -0.5c*15.0e-6,
+    y_max = 0.5c*15.0e-6,
 )
 cmap=cgrad(:default)
 x_range = collect(x_min:Δpos:x_max)
@@ -238,7 +233,7 @@ y_range = collect(y_min:Δpos:y_max)
 xyGrid = [[x, y] for x in x_range, y in y_range]
 val = [0.0]
 p2 = plot(x_range,y_range,transpose(abs.(val)),st=:surface,camera=(0,90),
-     aspect_ratio=:equal,legend=:outertopright,bg=cmap[1],colorbar=false,zticks=false)
+     aspect_ratio=:equal,legend=:topleft,left_margin = 5Plots.mm, right_margin = 15Plots.mm,bg=cmap[1],colorbar=false,zticks=false)
 scatter!(p2,[S[1].position[1]], [S[1].position[2]],markersize = 5.0,color = :green,
     marker=:pentagon,label="Source")
 for i = 1:length(S)
@@ -293,26 +288,25 @@ end
 function sceneRangePlot2D(
     S::Vector{<:Sources},
     T::Vector{<:Reflectors},
-    R::Vector{<:Receivers},
-    Tₚ::Float64;
+    R::Vector{<:Receivers};
     Δpos = 0.01e03,
-    x_min = -0.5c*Tₚ,
-    x_max = 0.5c*Tₚ,
-    y_min = -0.5c*Tₚ,
-    y_max = 0.5c*Tₚ,
+    x_min = -0.5c*15.0e-6,
+    x_max = 0.5c*15.0e-6,
+    y_min = -0.5c*15.0e-6,
+    y_max = 0.5c*15.0e-6,
 )
 cmap=cgrad(:default)
 x_range = collect(x_min:Δpos:x_max)
 y_range = collect(y_min:Δpos:y_max)
 xyGrid = [[x, y] for x in x_range, y in y_range]
 val = [0.0]
-r = 0.5Tₚ*c
+r = 0.5*15.0e-6*c
 m=range(0, 2π, length=100)
 xₖ(m) = r.*cos.(m).- S[1].position[1]
 yₖ(m) = r.*sin.(m).- S[1].position[2]
 
 p2=plot(x_range,y_range,transpose([0.0]),st=:surface,camera=(0,90),
-     aspect_ratio=:equal,legend=:outertopright,colorbar=false,zticks=false)
+     aspect_ratio=:equal,legend=:topleft,left_margin = 5Plots.mm, right_margin = 15Plots.mm,colorbar=false,zticks=false)
 
 p2 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),
      aspect_ratio=:equal,legend=:outertopright,bg=cmap[1],colorbar=false,zticks=false)
