@@ -43,6 +43,16 @@ plot(p11,p12,p13,p14,p15,p6,layout=(3,2),size=(1000,1000))
 png(path*"scenarioG_simulation.png")
 
 
+M=50
+fm(ξ::Vector{Float64}) = [ifelse(norm(ξ)>c*T/2, NaN, (0.5e-05randn(1)[1]
++z(tₚ+(k-1)*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))) for k∈1:M]
+g(ξ::Vector{Float64}) = sum(fm(ξ)[i] for i ∈ 1:M )/M
+inversePlot2D([q],[r],[z],g)
+
+png(path*"scenarioG_simulation2.png")
+
+
+
 
 
 

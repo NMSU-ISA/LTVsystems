@@ -457,7 +457,7 @@ We compute the reflection due to the sources as follows
 
 $\mathsf{r_i}(\bm{\xi},t) = \mathsf{\alpha_0} \delta(\bm{\xi} - \bm{\xi}_0)
 \mathsf{A}\left(\frac{\|\bm{\xi}-\bm{p}_{\mathrm{s}^{(i)}}\|}
-{\mathrm{c}}\right) \mathsf{p}\left(t-\frac{\|\bm{\xi}-\bm{p}_{\mathrm{s}^{(i)}}\|}{\mathrm{c}}\right).$
+{\mathrm{c}}\right) \mathsf{p}\left(t-\frac{\|\bm{\xi}-\bm{p}_{\mathrm{s}^{(i)}}\|}{\mathrm{c}}\right)$
 
 where $i = 1,2,…N$,
 
@@ -609,18 +609,18 @@ plot(p1,p2,layout=(2,1))
 
 Given the scenario F assumptions, we obtained the received signal, $\mathsf{z(t)}$. Now we can estimate the reflector function by considering the transmitted signal as impulse train given by 
 
-$\mathsf{p(t)}=δ(mod(t-\mathrm{t_p},T))$. 
+$\mathsf{p(t)}=δ(mod(t-\mathrm{t_p},T)).$
 
 We computed the reflector function, $\mathsf{f_k}$ with respect to each pulse's transmission time, $kT$ where $k \in \mathbf{Z}$ in the presence of random white noise as follows
 
 
 $\mathsf{f_k}(\bm{\xi})=\dfrac{\mathsf{z}\left(\mathrm{t_p}+kT+\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}}\right)}{\mathsf{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
-\mathsf{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}$
+\mathsf{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}.$
 
 Finally, the reflector function is given as follows
 
-$\mathsf{\hat{f}}(\bm{\xi}) = \frac{∑_{k=0}^{M-1} \mathsf{f_k}(\bm{\xi})}{M}$
+$\mathsf{\hat{f}}(\bm{\xi}) = \frac{∑_{k=0}^{M-1} \mathsf{f_k}(\bm{\xi})}{M}.$
 
 
 ```julia
@@ -667,10 +667,10 @@ q = LTIsourceO(𝐩ₛ,p)
 r = pointReflector(𝛏₁,α₁,q)
 z = LTIreceiverO([r],𝐩ᵣ)
 M=50
-fm(ξ::Vector{Float64}) = [ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]
+fm(ξ::Vector{Float64}) = [ifelse(norm(ξ)>c*T/2, NaN, (0.5e-05randn(1)[1]
 +z(tₚ+(k-1)*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))) for k∈1:M]
 g(ξ::Vector{Float64}) = sum(fm(ξ)[i] for i ∈ 1:M )/M
-inversePlot2D([q],[r],[z],g,T)
+inversePlot2D([q],[r],[z],g)
 ```
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioG_simulation2.png)
