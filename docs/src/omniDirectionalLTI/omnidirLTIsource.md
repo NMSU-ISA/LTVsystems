@@ -593,7 +593,7 @@ using Plots
 T  = 15.0e-6
 tₚ = 1.0e-06
 p(t) = δn(mod(t-tₚ,T),1.0e-7)
-α₁ = 0.7; 𝛏₁ = [0.2c*T,0.0]
+α₁ = -0.7; 𝛏₁ = [3.0e-06c,0.0]
 q = LTIsourceO(𝐩ₛ,p)
 r = pointReflector(𝛏₁,α₁,q)
 z = LTIreceiverO([r],𝐩ᵣ)
@@ -631,22 +631,22 @@ using Plots
 T  = 15.0e-6
 tₚ = 1.0e-06
 p(t) = δn(mod(t-tₚ,T),1.0e-7)
-α₁ = 0.7; 𝛏₁ = [0.2c*T,0.0]
+α₁ = -0.7; 𝛏₁ = [3.0e-06c,0.0]
 q = LTIsourceO(𝐩ₛ,p)
 r = pointReflector(𝛏₁,α₁,q)
 z = LTIreceiverO([r],𝐩ᵣ)
-f₁(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]+z(tₚ+0*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
-f₂(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]+z(tₚ+1*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))          
-f₃(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]+z(tₚ+2*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
-f₄(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]+z(tₚ+3*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
-f₅(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, 0.0, (0.5e-05randn(1)[1]+z(tₚ+4*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
+f₁(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, NaN, (0.5e-05randn(1)[1]+z(tₚ+0*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
+f₂(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, NaN, (0.5e-05randn(1)[1]+z(tₚ+1*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))          
+f₃(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, NaN, (0.5e-05randn(1)[1]+z(tₚ+2*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
+f₄(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, NaN, (0.5e-05randn(1)[1]+z(tₚ+3*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
+f₅(ξ::Vector{Float64}) = ifelse(norm(ξ)>c*T/2, NaN, (0.5e-05randn(1)[1]+z(tₚ+4*T+(norm(ξ-𝐩ₛ).+ norm(𝐩ᵣ-ξ))./c))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
 f(ξ::Vector{Float64}) = (f₁(ξ).+f₂(ξ).+f₃(ξ).+f₄(ξ).+f₅(ξ))/5
-p11=inversePlot2D([q],[r],[z],f₁,T)
-p12=inversePlot2D([q],[r],[z],f₂,T)
-p13=inversePlot2D([q],[r],[z],f₃,T)
-p14=inversePlot2D([q],[r],[z],f₄,T)
-p15=inversePlot2D([q],[r],[z],f₅,T)
-p6=inversePlot2D([q],[r],[z],f,T)
+p11=inversePlot2D([q],[r],[z],f₁)
+p12=inversePlot2D([q],[r],[z],f₂)
+p13=inversePlot2D([q],[r],[z],f₃)
+p14=inversePlot2D([q],[r],[z],f₄)
+p15=inversePlot2D([q],[r],[z],f₅)
+p6=inversePlot2D([q],[r],[z],f)
 plot(p11,p12,p13,p14,p15,p6,layout=(3,2),size=(1000,1000))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioG_simulation.png)
