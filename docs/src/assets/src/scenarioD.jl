@@ -3,19 +3,18 @@ path = "docs/src/assets/"
 using LTVsystems
 using Plots
 tₚ = 1.0e-06 # in microseconds
-T  = 15.0e-6
 𝐩ₛ =  [0.0, 0.0]
-𝐩ᵣ₁ =  [-0.03c*T, 0.0]
-𝐩ᵣ₂ =  [0.0, 0.03c*T]
-𝐩ᵣ₃ =  [0.03c*T, 0.0]
-𝐩ᵣ₄ =  [0.0, -0.03c*T]
+𝐩ᵣ₁ =  [-0.45e-06c, 0.0]
+𝐩ᵣ₂ =  [0.0, 0.45e-06c]
+𝐩ᵣ₃ =  [0.45e-06c, 0.0]
+𝐩ᵣ₄ =  [0.0, -0.45e-06c]
 𝐩ᵣ₅ =  [0.0, 0.0]
 p(t) = δn(t-tₚ,1.5e-07)
 q = LTIsourceO(𝐩ₛ, p)
 #Multiple Targets
-α₁ = 0.7; 𝛏₁ = [0.08c*T,0.07c*T]
-α₂ = 0.5; 𝛏₂ = [0.16c*T,0.0]
-α₃ = 0.4; 𝛏₃ = [0.22c*T,0.10c*T]
+α₁ = -0.7; 𝛏₁ = [1.2e-06c,1.05e-06c]
+α₂ = -0.5; 𝛏₂ = [2.4e-06c,0.0]
+α₃ = -0.4; 𝛏₃ = [3.3e-06c,1.5e-06c]
 r = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q])
 # Observed signal
 z₁ = LTIreceiverO(r,𝐩ᵣ₁)
@@ -23,7 +22,7 @@ z₂ = LTIreceiverO(r,𝐩ᵣ₂)
 z₃ = LTIreceiverO(r,𝐩ᵣ₃)
 z₄ = LTIreceiverO(r,𝐩ᵣ₄)
 z₅ = LTIreceiverO(r,𝐩ᵣ₅)
-t=0.0:T/100:2T
+t=0.0:1.0e-08:25.0e-06
 p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2 = plot( t, z₁(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot!(p2,t,z₂(t))
@@ -34,7 +33,7 @@ plot(p1,p2,layout=(2,1))
 
 png(path*"scenarioD_signal.png")
 
-scenePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],T)
+scenePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅])
 
 png(path*"scenarioD.png")
 #----------------------------------------------------
@@ -48,18 +47,33 @@ f₅(ξ::Vector{Float64})=(z₅(tₚ+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ₅-ξ))./
 f(ξ::Vector{Float64})=(f₁(ξ).*f₂(ξ).*f₃(ξ).*f₄(ξ).*f₅(ξ))^1/5
 
 
-p11 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₁,T)
-p12 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₂,T)
-p13 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₃,T)
-p14 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₄,T)
-p15 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₅,T)
-p6 = inversefinalPlot2D([q],[z₁,z₂,z₃,z₄,z₅],f,T)
+p11 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₁)
+png(path*"scenarioD_simulation1.png")
 
-plot(p11,p12,p13,p14,p15,p6,layout=(3,2),size=(2000,2000))
+p12 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₂)
+png(path*"scenarioD_simulation2.png")
 
-inversefinalPlot2D([q],[z₁,z₂,z₃,z₄,z₅],f,T)
+p13 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₃)
+png(path*"scenarioD_simulation3.png")
 
+p14 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₄)
+png(path*"scenarioD_simulation4.png")
+
+p15 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₅)
+png(path*"scenarioD_simulation5.png")
+
+p6 = inversefinalPlot2D([q],[z₁,z₂,z₃,z₄,z₅],f)
 png(path*"scenarioD_simulation.png")
+
+#plot(p11,p12,p13,p14,p15,p6,layout=(3,2),size=(1000,1000))
+
+#inversefinalPlot2D([q],[z₁,z₂,z₃,z₄,z₅],f)
+
+#png(path*"scenarioD_simulation.png")
+
+
+
+
 
 # Target estimation
 f_new(ξ::Vector{Float64})=(f₁(ξ::Vector{Float64}).*f₂(ξ::Vector{Float64}).*f₃(ξ::Vector{Float64}).*f₄(ξ::Vector{Float64}).*f₅(ξ::Vector{Float64}))^(1/3)
