@@ -48,17 +48,32 @@ f(ξ::Vector{Float64})=(f₁(ξ).*f₂(ξ).*f₃(ξ).*f₄(ξ).*f₅(ξ))^1/5
 
 
 p11 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₁)
+png(path*"scenarioD_simulation1.png")
+
 p12 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₂)
+png(path*"scenarioD_simulation2.png")
+
 p13 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₃)
+png(path*"scenarioD_simulation3.png")
+
 p14 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₄)
+png(path*"scenarioD_simulation4.png")
+
 p15 = inversePlot2D([q],r,[z₁,z₂,z₃,z₄,z₅],f₅)
+png(path*"scenarioD_simulation5.png")
+
 p6 = inversefinalPlot2D([q],[z₁,z₂,z₃,z₄,z₅],f)
-
-plot(p11,p12,p13,p14,p15,p6,layout=(6,1),size=(2000,2000))
-
-inversefinalPlot2D([q],[z₁,z₂,z₃,z₄,z₅],f,T)
-
 png(path*"scenarioD_simulation.png")
+
+#plot(p11,p12,p13,p14,p15,p6,layout=(3,2),size=(1000,1000))
+
+#inversefinalPlot2D([q],[z₁,z₂,z₃,z₄,z₅],f)
+
+#png(path*"scenarioD_simulation.png")
+
+
+
+
 
 # Target estimation
 f_new(ξ::Vector{Float64})=(f₁(ξ::Vector{Float64}).*f₂(ξ::Vector{Float64}).*f₃(ξ::Vector{Float64}).*f₄(ξ::Vector{Float64}).*f₅(ξ::Vector{Float64}))^(1/3)
