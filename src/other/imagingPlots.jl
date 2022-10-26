@@ -16,20 +16,20 @@ xyGrid = [[x, y] for x in x_range, y in y_range]
 val = [f(𝐮) for 𝐮 ∈ xyGrid]
 val_max = maximum(abs.(val))
 p2 = plot(x_range,y_range,transpose(abs.(val)),st=:surface,camera=(0,90),clim=(0,val_max),
-     aspect_ratio=:equal,legend=:topleft,left_margin = 5Plots.mm, right_margin = 15Plots.mm,colorbar=false,zticks=false,bg = cmap[1])
+     aspect_ratio=:equal,size=(800,800),legend=:topleft,left_margin = 5Plots.mm, right_margin = 15Plots.mm,colorbar=false,zticks=false,bg = cmap[1])
 
-scatter!(p2,[S[1].position[1]], [S[1].position[2]],markersize = 5.0,color = :green,
+scatter!(p2,[S[1].position[1]], [S[1].position[2]],markersize = 5.0,color = :green,size=(800,800),
              marker=:pentagon,label="Source")
 for i = 2:length(S)
-    scatter!(p2,[S[i].position[1]], [S[i].position[2]],markersize = 5.0,color = :green,label="",
+    scatter!(p2,[S[i].position[1]], [S[i].position[2]],markersize = 5.0,color = :green,label="",size=(800,800),
             marker=:pentagon)
 end
 if isa(T[1],pointReflector)
-    scatter!(p2,[T[1].S.position[1]],[T[1].S.position[2]],markersize = 3.0,color = :red,label="Reflector",
+    scatter!(p2,[T[1].S.position[1]],[T[1].S.position[2]],markersize = 3.0,color = :red,label="Reflector",size=(800,800),
                     marker=:star8)
 elseif isa(T[1],lineSegment)
      endPt = T[1].position+T[1].length*T[1].direction
-    plot!(p2,[T[1].position[1],endPt[1]],[T[1].position[2],endPt[2]],color=:red,lw=3.0,label="Reflector")
+    plot!(p2,[T[1].position[1],endPt[1]],[T[1].position[2],endPt[2]],color=:red,lw=3.0,size=(800,800),label="Reflector")
 else
 
 end
@@ -37,20 +37,20 @@ end
 #        marker=:star8,label="Reflector")
 for i = 1:length(T)
     if isa(T[i],pointReflector)
-            scatter!(p2,[T[i].S.position[1]],[T[i].S.position[2]],markersize = 3.0,color = :red,label="",
+            scatter!(p2,[T[i].S.position[1]],[T[i].S.position[2]],markersize = 3.0,color = :red,label="",size=(800,800),
                             marker=:star8)
     elseif isa(T[i],lineSegment)
             endPt = T[i].position+T[i].length*T[i].direction
-            plot!(p2,[T[i].position[1],endPt[1]],[T[i].position[2],endPt[2]],color=:red,label="")
+            plot!(p2,[T[i].position[1],endPt[1]],[T[i].position[2],endPt[2]],size=(800,800),color=:red,label="")
     else
 
     end
 end
 
-scatter!(p2,[R[1].position[1]], [R[1].position[2]],markersize = 3.0,color = :blue,
+scatter!(p2,[R[1].position[1]], [R[1].position[2]],markersize = 3.0,color = :blue,size=(800,800),
     marker=:square,label="Receiver")
 for i = 2:length(R)
-    scatter!(p2,[R[i].position[1]], [R[i].position[2]],markersize = 3.0,color = :blue,label="",
+    scatter!(p2,[R[i].position[1]], [R[i].position[2]],markersize = 3.0,color = :blue,size=(800,800),label="",
             marker=:square)
 end
 return p2
