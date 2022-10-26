@@ -2,17 +2,17 @@
 
 ## LTI Omnidirectional Receiver
 
-In order to define **LTI Omnidirectional Receiver**, first we observed the signal due to the reflection which is given by taking convolution between the reflected signal, $\mathsf{r(\bm{\xi},t)}$ and the impulse response from the receiver located at position, $\mathbf{p}_\mathrm{r}$. Mathematically, we can define the observed signal
+In order to define **LTI Omnidirectional Receiver**, first we observed the signal due to the reflection which is given by taking convolution between the reflected signal, $\mathsf{r}(\bm{\xi},t)$ and the impulse response from the receiver located at position, $\mathbf{p}_\mathrm{r}$. Mathematically, we can define the observed signal
 as follows
 
-$\mathsf{\psi(\bm{\xi},t)} = \mathsf{r(\bm{\xi},t)} \overset{t}{*} \mathsf{g\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r}(\cdot)}\big)}.$
+$\mathsf{\psi}(\bm{\xi},t) = \mathsf{r}(\bm{\xi},t) \overset{t}{*} \mathsf{g}\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r}(\cdot)}\big).$
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_Psi.png)
 
-Finally, the observed signal, $\mathsf{z(t)}$ is parameterized by considering
+Finally, the observed signal, $\mathsf{z}(t)$ is parameterized by considering
 all the reflections at the receiver location. Mathematically, we can given the expression for the final observed signal as follows
 
-$\mathsf{z(t)} = ∭ \mathsf{\psi(\bm{\xi},t)} dS$
+$\mathsf{z}(t) = ∭ \mathsf{\psi}(\bm{\xi},t) dS$
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_Listeners.png)
 
@@ -45,19 +45,19 @@ $\mathrm{D}_\mathrm{r}\left(\bm{\xi};\,\textcolor{myLightSlateGrey}
 where $∠[⋅,⋅]$ returns the angle between the two arguments and $\mathrm{G}_\mathrm{r}(\Theta)$
 is the receiver antenna's $\textit{voltage gain}$ as a function of angle $\Theta$ relative to the beam center $\mathbf{b}_\mathrm{r}$.
 
-We define an **LTI Directional Receiver** by observing the signal due to the reflection given by taking convolution between the reflected signal, $\mathsf{r(\bm{\xi},t)}$ and the impulse response from the receiver located at position, $\mathbf{p}_\mathrm{r}$.
+We define an **LTI Directional Receiver** by observing the signal due to the reflection given by taking convolution between the reflected signal, $\mathsf{r}(\bm{\xi},t)$ and the impulse response from the receiver located at position, $\mathbf{p}_\mathrm{r}$.
 Mathematically, we can define the observed signal as follows.
 
 
-$\mathsf{\psi(\bm{\xi},t)}=\mathsf{r(\bm{\xi},t)} \overset{t}{*} \mathsf{g(\bm{\xi},t;\,
-\textcolor{myLightSlateGrey}{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}})}$
+$\mathsf{\psi}(\bm{\xi},t)=\mathsf{r}(\bm{\xi},t) \overset{t}{*} \mathsf{g}(\bm{\xi},t;\,
+\textcolor{myLightSlateGrey}{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}})$
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_ReceiverDTI.png)
 
-Finally, the observed signal, $\mathsf{z(t)}$ is parameterized by considering
+Finally, the observed signal, $\mathsf{z}(t)$ is parameterized by considering
 all the reflections at the receiver location. Mathematically, we can given the expression for the final observed signal as follows
 
-$\mathsf{z(t)} = ∭ \mathsf{\psi(\bm{\xi},t)} dS$
+$\mathsf{z}(t) = ∭ \mathsf{\psi}(\bm{\xi},t) dS$
 
 ### Defining an LTI Directional Receiver
 
@@ -83,15 +83,15 @@ z = LTIreceiverDTI([r],𝐩ᵣ,𝐛,G)
 
 Mathematically, a **Stationary Directional Receiver** with time-varying beam center is given as follows.
 
-$\mathsf{\psi(\bm{\xi},t)}=\mathsf{r(\bm{\xi},t)} \overset{t}{*} \mathsf{g(\bm{\xi},t;\,
-\textcolor{myLightSlateGrey}{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}(t)})}$
+$\mathsf{\psi}(\bm{\xi},t)=\mathsf{r}(\bm{\xi},t) \overset{t}{*} \mathsf{g}(\bm{\xi},t;\,
+\textcolor{myLightSlateGrey}{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}(t)})$
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_ReceiverD.png)
 
-Finally, the observed signal, $\mathsf{z(t)}$ is parameterized by considering
+Finally, the observed signal, $\mathsf{z}(t)$ is parameterized by considering
 all the reflections at the receiver location. Mathematically, we can given the expression for the final observed signal as follows
 
-$\mathsf{z(t)} = ∭ \mathsf{\psi(\bm{\xi},t)} dS$
+$\mathsf{z}(t) = ∭ \mathsf{\psi}(\bm{\xi},t) dS$
 
 ### Defining an Stationary Directional Receiver
 
