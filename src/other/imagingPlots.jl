@@ -211,7 +211,7 @@ for i = 1:length(R)
     scatter!(p2,[R[i].position[1]], [R[i].position[2]],markersize = 3.0,color = :blue,
             marker=:square,label="")
 end
-plot!(p2,[S[1].position[1],𝐛[1]],[S[1].position[2],𝐛[2]],arrow=true,color=:red,linewidth=2,label="Beam Center")
+plot!(p2,1000*[S[1].position[1],𝐛[1]],1000*[S[1].position[2],𝐛[2]],arrow=true,color=:red,linewidth=2,label="Beam Center")
 return p2
 end
 

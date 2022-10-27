@@ -108,15 +108,18 @@ using LTVsystems
 using Plots
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  𝐩ₛ
-p(t) = δn(t,1.0e-10)
+tₚ = 1.0e-06 
+p(t) = δn(t-tₚ,1.0e-07)
 𝐛 = [1.0,0.0]
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/6)
 q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
-α₀ = 0.7; 𝛏₀ = [1.8,0.0]
+α₀ = -0.7; 𝛏₀ = [3.75e-06c,0.0]
 r = pointReflector(𝛏₀,α₀,q)
 z = LTIreceiverDTI([r],𝐩ᵣ,𝐛,G)
-t = 0.0:1.0e-10:15.5e-9
-plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+t=0.0:1.0e-08:25.0e-06
+p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
+p2 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+plot(p1,p2,layout=(2,1))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_LTIDirsignal.png)
 
@@ -134,16 +137,16 @@ using LTVsystems
 using Plots
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  𝐩ₛ
-p(t) = δn(t,1.0e-10)
+tₚ = 1.0e-06 
+p(t) = δn(t-tₚ,1.0e-07)
 𝐛 = [1.0,0.0]
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/6)
 q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
-α₀ = 0.7; 𝛏₀ = [1.8,0.0]
+α₀ = -0.7; 𝛏₀ = [3.75e-06c,0.0]
 r = pointReflector(𝛏₀,α₀,q)
 z = LTIreceiverDTI([r],𝐩ᵣ,𝐛,G)
-f(ξ::Vector{Float64}) = (z(2(norm(ξ-𝐩ₛ))/c).*(D(ξ::Vector{Float64}))^2)/
-                        (A(norm(ξ-𝐩ₛ)/c))^2
-inverse2Dplot([q],[r],[z],f)                        
+f(ξ::Vector{Float64}) = (z(2(norm(ξ-𝐩ₛ))/c).*(D(ξ::Vector{Float64}))^2)/(A(norm(ξ-𝐩ₛ)/c))^2
+inversePlot2D([q],[r],[z],f)                        
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_DirTIsimulation.png)
 
