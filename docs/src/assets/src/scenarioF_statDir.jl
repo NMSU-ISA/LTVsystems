@@ -232,14 +232,19 @@ p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2 = plot( t, z(t),ylims=(minimum(z(t)),maximum(z(t))), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot(p1,p2,layout=(2,1))
 
-scenePlot2D([q],r,[z],T) 
+scenePlot2D([q],r,[z]) 
 
 
 
-Dₛ₁(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ-0T), ξ.-𝐩ₛ))
-Dₛ₂(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ-1T), ξ.-𝐩ₛ))
-Dₛ₃(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ-2T), ξ.-𝐩ₛ))
-Dₛ₄(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ-3T), ξ.-𝐩ₛ))
+function Anglebetweenval(𝛏₀::Vector{Float64},𝛏₁::Vector{Float64})::Float64
+     return atan(norm(𝛏₀./norm(𝛏₀) .- 𝛏₁./norm(𝛏₁)),norm(𝛏₀./norm(𝛏₀) .+ 𝛏₁./norm(𝛏₁)))
+end
+
+#Dₛ₁(ξ::Vector{Float64}) = G(Anglebetweenval(𝐛(tₚ-0T), ξ.-𝐩ₛ))
+Dₛ₁(ξ::Vector{Float64}) = G(Anglebetweenval(𝐛(tₚ-0T), ξ.-𝐩ₛ))
+Dₛ₂(ξ::Vector{Float64}) = G(Anglebetweenval(𝐛(tₚ-1T), ξ.-𝐩ₛ))
+Dₛ₃(ξ::Vector{Float64}) = G(Anglebetweenval(𝐛(tₚ-2T), ξ.-𝐩ₛ))
+Dₛ₄(ξ::Vector{Float64}) = G(Anglebetweenval(𝐛(tₚ-3T), ξ.-𝐩ₛ))
 
 f₁(ξ::Vector{Float64})=ifelse(norm(ξ)>c*T/2, NaN, (z(tₚ+0*T+(2norm(ξ-𝐩ₛ))./c).*Dₛ₁(ξ)./(A(norm(ξ-𝐩ₛ)/c))^2))
 f₂(ξ::Vector{Float64})=ifelse(norm(ξ)>c*T/2, NaN, (z(tₚ+1*T+(2norm(ξ-𝐩ₛ))./c).*Dₛ₂(ξ)./(A(norm(ξ-𝐩ₛ)/c))^2))
@@ -252,7 +257,7 @@ p11 = inversePlot2D([q],r,[z],f₁)
 p12 = inversePlot2D([q],r,[z],f₂)
 p13 = inversePlot2D([q],r,[z],f₃)
 p14 = inversePlot2D([q],r,[z],f₄)
-plot(p11,p12,p13,p14,layout=(2,2),size=(2000,2000))
+plot(p11,p12,p13,p14,layout=(2,2),size=(1000,1000))
 
 f(ξ::Vector{Float64}) = f₁(ξ).+ f₂(ξ) .+f₃(ξ).+f₄(ξ)
 inversePlot2D([q],r,[z],f)
@@ -261,7 +266,35 @@ inversePlot2D([q],r,[z],f)
 
 
 
+#----------Animation-----------------
+t = collect(0.0:T/100:5T)
+plot(t,p.(t))
 
+plot(t,z.(t),ylims=(minimum(z.(t)),maximum(z.(t))))
+
+Δpos = 0.01e03
+x_min = -0.5c*15.0e-6
+x_max = 0.5c*15.0e-6
+y_min = -0.5c*15.0e-6
+y_max = 0.5c*15.0e-6
+x_range = collect(x_min:Δpos:x_max)
+y_range = collect(y_min:Δpos:y_max)
+xyGrid = [[x, y] for x in x_range, y in y_range]
+#val = [q(𝐮,5.0e-6) for 𝐮 ∈ xyGrid]
+#plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90))
+
+allPlots = []
+for t ∈ 0:T/100:5T
+    #val = [q(𝐮,t) + r[1](𝐮,t) for 𝐮 ∈ xyGrid]
+    val = [q(𝐮,t) + r[1](𝐮,t)+r[2](𝐮,t)+r[3](𝐮,t)+r[4](𝐮,t)+r[5](𝐮,t)+r[6](𝐮,t)+r[7](𝐮,t)+r[8](𝐮,t) for 𝐮 ∈ xyGrid]
+    p1 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),legend=false,clims=(-1,1),aspect_ratio=:equal,xticks=:false,yticks=:false,zticks=:false)
+    frame = plot(p1, size = (800, 800) )
+    push!(allPlots, frame)
+end
+anim = @animate for i ∈ 1:length(allPlots)
+    plot(allPlots[i])
+end
+gif(anim, "fileName4.gif", fps = 30)
 
 
 

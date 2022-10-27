@@ -22,6 +22,7 @@ function angleBetween(𝛏₀::Vector{Float64},𝛏₁::Vector{Float64})::Float6
    return acos(temp)
 end
 
+
 function TXₜ2RXₜ(τ₀,𝛏₀,𝐩ₛ)
    return  τ₀ + norm(𝛏₀-𝐩ₛ(τ₀))/c
 end
@@ -29,3 +30,4 @@ end
 function RXₜ2TXₜ(t₀,𝛏₀,𝐩ₛ)
    return find_zero(τ -> t₀-TXₜ2RXₜ(τ,𝛏₀,𝐩ₛ),  t₀-norm(𝐩ₛ(t₀))/c)
 end
+
