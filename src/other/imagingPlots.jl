@@ -212,6 +212,8 @@ for i = 1:length(R)
             marker=:square,label="")
 end
 plot!(p2,1000*[S[1].position[1],𝐛[1]],1000*[S[1].position[2],𝐛[2]],arrow=true,size=(800,800),color=:red,linewidth=3,label="Beam Center")
+#plot!(p2,[R[1].position[1],𝐛[1]],[R[1].position[2],𝐛[2]],arrow=true,size=(800,800),color=:red,linewidth=3,label="")
+#plot!(p2,100*[𝐛[1],R[1].position[1]],100*[𝐛[2],R[1].position[2]],arrow=true,size=(800,800),color=:red,linewidth=3,label="")
 return p2
 end
 
