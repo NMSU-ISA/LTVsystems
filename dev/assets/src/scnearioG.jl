@@ -37,7 +37,7 @@ p13=inversePlot2D([q],[r],[z],f₃)
 p14=inversePlot2D([q],[r],[z],f₄)
 p15=inversePlot2D([q],[r],[z],f₅)
 p6=inversePlot2D([q],[r],[z],f)
-plot(p11,p12,p13,p14,p15,p6,layout=(3,2),size=(1000,1000))
+plot(p11,p12,p13,p14,p15,p6,layout=(3,2),size=(2000,2000))
 
 
 png(path*"scenarioG_simulation.png")
