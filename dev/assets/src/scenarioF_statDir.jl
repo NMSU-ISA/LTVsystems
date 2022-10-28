@@ -226,7 +226,7 @@ f₀ = 1/4T
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/12)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
 r = pointReflector([𝛏₁,𝛏₂,𝛏₃,𝛏₄,𝛏₅,𝛏₆,𝛏₇,𝛏₈],[α₁,α₂,α₃,α₄,α₅,α₆,α₇,α₈],[q])
-z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
+z = LTIreceiverO(r,𝐩ᵣ)
 t=0.0:T/100:4T
 p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2 = plot( t, z(t),ylims=(minimum(z(t)),maximum(z(t))), xlab="time (sec)", ylab="z(t)", legend=:false)
@@ -241,10 +241,10 @@ function Anglebetweenval(𝛏₀::Vector{Float64},𝛏₁::Vector{Float64})::Flo
 end
 
 #Dₛ₁(ξ::Vector{Float64}) = G(Anglebetweenval(𝐛(tₚ-0T), ξ.-𝐩ₛ))
-Dₛ₁(ξ::Vector{Float64}) = G(Anglebetweenval(𝐛(tₚ-0T), ξ.-𝐩ₛ))
-Dₛ₂(ξ::Vector{Float64}) = G(Anglebetweenval(𝐛(tₚ-1T), ξ.-𝐩ₛ))
-Dₛ₃(ξ::Vector{Float64}) = G(Anglebetweenval(𝐛(tₚ-2T), ξ.-𝐩ₛ))
-Dₛ₄(ξ::Vector{Float64}) = G(Anglebetweenval(𝐛(tₚ-3T), ξ.-𝐩ₛ))
+Dₛ₁(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ+0T), ξ.-𝐩ₛ))
+Dₛ₂(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ+1T), ξ.-𝐩ₛ))
+Dₛ₃(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ+2T), ξ.-𝐩ₛ))
+Dₛ₄(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ+3T), ξ.-𝐩ₛ))
 
 f₁(ξ::Vector{Float64})=ifelse(norm(ξ)>c*T/2, NaN, (z(tₚ+0*T+(2norm(ξ-𝐩ₛ))./c).*Dₛ₁(ξ)./(A(norm(ξ-𝐩ₛ)/c))^2))
 f₂(ξ::Vector{Float64})=ifelse(norm(ξ)>c*T/2, NaN, (z(tₚ+1*T+(2norm(ξ-𝐩ₛ))./c).*Dₛ₂(ξ)./(A(norm(ξ-𝐩ₛ)/c))^2))
