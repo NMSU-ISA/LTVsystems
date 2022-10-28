@@ -17,7 +17,7 @@ p(t) = δn(mod(t-tₚ,T),1.0e-07)
 α₈ = -0.7; 𝛏₈ = [-0.25c*T,0.0]
 f₀ = 1/(D*T) 
 𝐛(t) = [cos(2π*f₀*(t-tₚ)),sin(2π*f₀*(t-tₚ))]
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/32)
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/128)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
 r = pointReflector([𝛏₁,𝛏₂,𝛏₃,𝛏₄,𝛏₅,𝛏₆,𝛏₇,𝛏₈],[α₁,α₂,α₃,α₄,α₅,α₆,α₇,α₈],[q])
 z = LTIreceiverO(r,𝐩ᵣ)
@@ -28,6 +28,12 @@ plot(p1,p2,layout=(2,1))
 
 scenePlot2D([q],r,[z]) 
 
+
+function angleBetweenval(𝛏₀::Vector{Float64},𝛏₁::Vector{Float64})::Float64
+    return atan(norm(𝛏₀./norm(𝛏₀) .- 𝛏₁./norm(𝛏₁)),norm(𝛏₀./norm(𝛏₀) .+ 𝛏₁./norm(𝛏₁)))
+end
+
+ 
 Dₛ₁(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ+0T), ξ.-𝐩ₛ))
 Dₛ₂(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ+1T), ξ.-𝐩ₛ))
 Dₛ₃(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ+2T), ξ.-𝐩ₛ))
@@ -47,12 +53,12 @@ f₃(ξ::Vector{Float64})=ifelse(norm(ξ)>c*T/2, NaN, ( z(tₚ+2*T+(2norm(ξ-�
 f₄(ξ::Vector{Float64})=ifelse(norm(ξ)>c*T/2, NaN, ( z(tₚ+3*T+(2norm(ξ-𝐩ₛ))./c).*Dₛ₄(ξ)./(A(norm(ξ-𝐩ₛ)/c))^2)  )
 f₅(ξ::Vector{Float64})=ifelse(norm(ξ)>c*T/2, NaN, ( z(tₚ+4*T+(2norm(ξ-𝐩ₛ))./c).*Dₛ₅(ξ)./(A(norm(ξ-𝐩ₛ)/c))^2)  )
 f₆(ξ::Vector{Float64})=ifelse(norm(ξ)>c*T/2, NaN, ( z(tₚ+5*T+(2norm(ξ-𝐩ₛ))./c).*Dₛ₆(ξ)./(A(norm(ξ-𝐩ₛ)/c))^2)  )
-f₇(ξ::Vector{Float64})=ifelse(norm(ξ)>c*T/2, NaN, ( z(tₚ+6*T+(2norm(ξ-𝐩ₛ))./c).*Dₛ₁(ξ)./(A(norm(ξ-𝐩ₛ)/c))^2)  )
-f₈(ξ::Vector{Float64})=ifelse(norm(ξ)>c*T/2, NaN, ( z(tₚ+7*T+(2norm(ξ-𝐩ₛ))./c).*Dₛ₂(ξ)./(A(norm(ξ-𝐩ₛ)/c))^2)  )
-f₉(ξ::Vector{Float64})=ifelse(norm(ξ)>c*T/2, NaN, ( z(tₚ+8*T+(2norm(ξ-𝐩ₛ))./c).*Dₛ₃(ξ)./(A(norm(ξ-𝐩ₛ)/c))^2)  )
-f₁₀(ξ::Vector{Float64})=ifelse(norm(ξ)>c*T/2, NaN, ( z(tₚ+9*T+(2norm(ξ-𝐩ₛ))./c).*Dₛ₄(ξ)./(A(norm(ξ-𝐩ₛ)/c))^2)  )
-f₁₁(ξ::Vector{Float64})=ifelse(norm(ξ)>c*T/2, NaN, ( z(tₚ+10*T+(2norm(ξ-𝐩ₛ))./c).*Dₛ₅(ξ)./(A(norm(ξ-𝐩ₛ)/c))^2)  )
-f₁₂(ξ::Vector{Float64})=ifelse(norm(ξ)>c*T/2, NaN, ( z(tₚ+11*T+(2norm(ξ-𝐩ₛ))./c).*Dₛ₆(ξ)./(A(norm(ξ-𝐩ₛ)/c))^2)  )
+f₇(ξ::Vector{Float64})=ifelse(norm(ξ)>c*T/2, NaN, ( z(tₚ+6*T+(2norm(ξ-𝐩ₛ))./c).*Dₛ₇(ξ)./(A(norm(ξ-𝐩ₛ)/c))^2)  )
+f₈(ξ::Vector{Float64})=ifelse(norm(ξ)>c*T/2, NaN, ( z(tₚ+7*T+(2norm(ξ-𝐩ₛ))./c).*Dₛ₈(ξ)./(A(norm(ξ-𝐩ₛ)/c))^2)  )
+f₉(ξ::Vector{Float64})=ifelse(norm(ξ)>c*T/2, NaN, ( z(tₚ+8*T+(2norm(ξ-𝐩ₛ))./c).*Dₛ₉(ξ)./(A(norm(ξ-𝐩ₛ)/c))^2)  )
+f₁₀(ξ::Vector{Float64})=ifelse(norm(ξ)>c*T/2, NaN, ( z(tₚ+9*T+(2norm(ξ-𝐩ₛ))./c).*Dₛ₁₀(ξ)./(A(norm(ξ-𝐩ₛ)/c))^2)  )
+f₁₁(ξ::Vector{Float64})=ifelse(norm(ξ)>c*T/2, NaN, ( z(tₚ+10*T+(2norm(ξ-𝐩ₛ))./c).*Dₛ₁₁(ξ)./(A(norm(ξ-𝐩ₛ)/c))^2)  )
+f₁₂(ξ::Vector{Float64})=ifelse(norm(ξ)>c*T/2, NaN, ( z(tₚ+11*T+(2norm(ξ-𝐩ₛ))./c).*Dₛ₁₂(ξ)./(A(norm(ξ-𝐩ₛ)/c))^2)  )
 
 p11 = inversePlot2D([q],r,[z],f₁)
 plot!(1000*[0.0,𝐛(tₚ+0T)[1]],1000*[0.0,𝐛(tₚ+0T)[2]])

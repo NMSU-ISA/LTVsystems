@@ -7,14 +7,14 @@ as follows
 
 $\mathsf{\psi}(\bm{\xi},t) = \mathsf{r}(\bm{\xi},t) \overset{t}{*} \mathsf{g}\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r}(\cdot)}\big).$
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_Psi.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_receivers.png)
 
 Finally, the observed signal, $\mathsf{z}(t)$ is parameterized by considering
 all the reflections at the receiver location. Mathematically, we can given the expression for the final observed signal as follows
 
 $\mathsf{z}(t) = ∭ \mathsf{\psi}(\bm{\xi},t) dS$
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_Listeners.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Integrator_BD.png)
 
 ### Defining an LTI Omnidirectional Receiver
 
@@ -22,7 +22,8 @@ First, we will define the reflected signal by  calling `LTIsourceO()` with a tra
 and the source position, $\mathbf{p}_\mathrm{s}$. Then
 we can define a  **LTI Omnidirectional Receiver** by calling `LTIreceiverO()` with the defined reflected signal and the receiver position, $\mathbf{p}_\mathrm{r}$.
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_BD_Receivers.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTIOmni_Receiverblock.png)
+
 ```@example
 using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
@@ -52,7 +53,7 @@ Mathematically, we can define the observed signal as follows.
 $\mathsf{\psi}(\bm{\xi},t)=\mathsf{r}(\bm{\xi},t) \overset{t}{*} \mathsf{g}(\bm{\xi},t;\,
 \textcolor{myLightSlateGrey}{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}})$
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_ReceiverDTI.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Dir_Receiver.png)
 
 Finally, the observed signal, $\mathsf{z}(t)$ is parameterized by considering
 all the reflections at the receiver location. Mathematically, we can given the expression for the final observed signal as follows
@@ -63,7 +64,7 @@ $\mathsf{z}(t) = ∭ \mathsf{\psi}(\bm{\xi},t) dS$
 
 we can define a  **LTI Directional Receiver** by calling `LTIreceiverDTI()` with the defined reflected signal and the receiver position, $\mathbf{p}_\mathrm{r}$.
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_ReceiversDTIobs.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Dir_Receiverall.png)
 
 ```@example
 using LTVsystems
@@ -86,7 +87,7 @@ Mathematically, a **Stationary Directional Receiver** with time-varying beam cen
 $\mathsf{\psi}(\bm{\xi},t)=\mathsf{r}(\bm{\xi},t) \overset{t}{*} \mathsf{g}(\bm{\xi},t;\,
 \textcolor{myLightSlateGrey}{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}(t)})$
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_ReceiverD.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/StationaryDir_Receiver.png)
 
 Finally, the observed signal, $\mathsf{z}(t)$ is parameterized by considering
 all the reflections at the receiver location. Mathematically, we can given the expression for the final observed signal as follows
@@ -97,7 +98,7 @@ $\mathsf{z}(t) = ∭ \mathsf{\psi}(\bm{\xi},t) dS$
 
 we can define a  **Stationary Directional Receiver** with time-varying beam center by calling `STATreceiverD()` with the defined reflected signal and the receiver position, $\mathbf{p}_\mathrm{r}$.
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTI_ReceiversDobs.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/StationaryDir_Receiverall.png)
 
 ```@example
 using LTVsystems
