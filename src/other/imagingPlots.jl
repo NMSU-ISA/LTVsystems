@@ -73,11 +73,11 @@ y_range = collect(y_min:Δpos:y_max)
 xyGrid = [[x, y] for x in x_range, y in y_range]
 val = [0.0]
 p2 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),
-     aspect_ratio=:equal,legend=:topleft,left_margin = 5Plots.mm, right_margin = 15Plots.mm,bg=cmap[1],colorbar=false,zticks=false)
-scatter!(p2,[S[1].position[1]], [S[1].position[2]],markersize = 5.0,color = :green,
+     aspect_ratio=:equal,legend=:topleft,size=(800,800),left_margin = 5Plots.mm, right_margin = 15Plots.mm,bg=cmap[1],colorbar=false,zticks=false)
+scatter!(p2,[S[1].position[1]], [S[1].position[2]],markersize = 6.0,color = :green,
     marker=:pentagon,label="Source")
 for i = 1:length(S)
-    scatter!(p2,[S[i].position[1]], [S[i].position[2]],markersize = 5.0,color = :green,
+    scatter!(p2,[S[i].position[1]], [S[i].position[2]],markersize = 6.0,color = :green,
             marker=:pentagon,label="")
 end
 #scatter!(p2,[T[1].S.position[1]],[T[1].S.position[2]],markersize = 5.5,color = :red,
@@ -87,31 +87,31 @@ end
 #                marker=:star8,label="")
 #end
 if isa(T[1],pointReflector)
-    scatter!(p2,[T[1].S.position[1]],[T[1].S.position[2]],markersize = 3.0,color = :red,label="Reflector",
+    scatter!(p2,[T[1].S.position[1]],[T[1].S.position[2]],markersize = 5.0,size=(800,800),color = :red,label="Reflector",
                     marker=:star8)
 elseif isa(T[1],lineSegment)
      endPt = T[1].position+T[1].length*T[1].direction
-    plot!(p2,[T[1].position[1],endPt[1]],[T[1].position[2],endPt[2]],color=:red,lw=3.0,label="Reflector")
+    plot!(p2,[T[1].position[1],endPt[1]],[T[1].position[2],endPt[2]],color=:red,size=(800,800),lw=5.0,label="Reflector")
 else
 
 end
 
 for i = 1:length(T)
     if isa(T[i],pointReflector)
-            scatter!(p2,[T[i].S.position[1]],[T[i].S.position[2]],markersize = 3.0,color = :red,label="",
+            scatter!(p2,[T[i].S.position[1]],[T[i].S.position[2]],markersize = 5.0,size=(800,800),color = :red,label="",
                             marker=:star8)
     elseif isa(T[i],lineSegment)
             endPt = T[i].position+T[i].length*T[i].direction
-            plot!(p2,[T[i].position[1],endPt[1]],[T[i].position[2],endPt[2]],color=:red,label="")
+            plot!(p2,[T[i].position[1],endPt[1]],[T[i].position[2],endPt[2]],size=(800,800),color=:red,label="")
     else
 
     end
 end
 
-scatter!(p2,[R[1].position[1]], [R[1].position[2]],markersize = 3.0,color = :blue,
+scatter!(p2,[R[1].position[1]], [R[1].position[2]],markersize = 4.0,size=(800,800),color = :blue,
     marker=:square,label="Receiver")
 for i = 1:length(R)
-    scatter!(p2,[R[i].position[1]], [R[i].position[2]],markersize = 3.0,color = :blue,
+    scatter!(p2,[R[i].position[1]], [R[i].position[2]],markersize = 4.0,size=(800,800),color = :blue,
             marker=:square,label="")
 end
 return p2
@@ -170,11 +170,11 @@ y_range = collect(y_min:Δpos:y_max)
 xyGrid = [[x, y] for x in x_range, y in y_range]
 val = [0.0]
 p2 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),
-     aspect_ratio=:equal,legend=:topleft,left_margin = 5Plots.mm, right_margin = 15Plots.mm,bg=cmap[1],colorbar=false,zticks=false)
-scatter!(p2,[S[1].position[1]], [S[1].position[2]],markersize = 5.0,color = :green,
+     aspect_ratio=:equal,legend=:topleft,size=(800,800),left_margin = 5Plots.mm, right_margin = 15Plots.mm,bg=cmap[1],colorbar=false,zticks=false)
+scatter!(p2,[S[1].position[1]], [S[1].position[2]],markersize = 6.0,color = :green,
     marker=:pentagon,label="Source")
 for i = 1:length(S)
-    scatter!(p2,[S[i].position[1]], [S[i].position[2]],markersize = 5.0,color = :green,
+    scatter!(p2,[S[i].position[1]], [S[i].position[2]],markersize = 6.0,size=(800,800),color = :green,
             marker=:pentagon,label="")
 end
 #scatter!(p2,[T[1].S.position[1]],[T[1].S.position[2]],markersize = 5.5,color = :red,
@@ -184,34 +184,34 @@ end
 #                marker=:star8,label="")
 #end
 if isa(T[1],pointReflector)
-    scatter!(p2,[T[1].S.position[1]],[T[1].S.position[2]],markersize = 3.0,color = :red,label="Reflector",
+    scatter!(p2,[T[1].S.position[1]],[T[1].S.position[2]],markersize = 5.0,size=(800,800),color = :red,label="Reflector",
                     marker=:star8)
 elseif isa(T[1],lineSegment)
      endPt = T[1].position+T[1].length*T[1].direction
-    plot!(p2,[T[1].position[1],endPt[1]],[T[1].position[2],endPt[2]],color=:red,lw=3.0,label="Reflector")
+    plot!(p2,[T[1].position[1],endPt[1]],[T[1].position[2],endPt[2]],size=(800,800),color=:red,lw=5.0,label="Reflector")
 else
 
 end
 
 for i = 1:length(T)
     if isa(T[i],pointReflector)
-            scatter!(p2,[T[i].S.position[1]],[T[i].S.position[2]],markersize = 3.0,color = :red,label="",
+            scatter!(p2,[T[i].S.position[1]],[T[i].S.position[2]],markersize = 5.0,size=(800,800),color = :red,label="",
                             marker=:star8)
     elseif isa(T[i],lineSegment)
             endPt = T[i].position+T[i].length*T[i].direction
-            plot!(p2,[T[i].position[1],endPt[1]],[T[i].position[2],endPt[2]],color=:red,label="")
+            plot!(p2,[T[i].position[1],endPt[1]],[T[i].position[2],endPt[2]],size=(800,800),color=:red,label="")
     else
 
     end
 end
 
-scatter!(p2,[R[1].position[1]], [R[1].position[2]],markersize = 3.0,color = :blue,
+scatter!(p2,[R[1].position[1]], [R[1].position[2]],markersize = 4.0,size=(800,800),color = :blue,
     marker=:square,label="Receiver")
 for i = 1:length(R)
-    scatter!(p2,[R[i].position[1]], [R[i].position[2]],markersize = 3.0,color = :blue,
+    scatter!(p2,[R[i].position[1]], [R[i].position[2]],markersize = 4.0,color = :blue,
             marker=:square,label="")
 end
-plot!(p2,1000*[S[1].position[1],𝐛[1]],1000*[S[1].position[2],𝐛[2]],arrow=true,color=:red,linewidth=2,label="Beam Center")
+plot!(p2,1000*[S[1].position[1],𝐛[1]],1000*[S[1].position[2],𝐛[2]],arrow=true,size=(800,800),color=:red,linewidth=3,label="Beam Center")
 return p2
 end
 
@@ -234,11 +234,11 @@ y_range = collect(y_min:Δpos:y_max)
 xyGrid = [[x, y] for x in x_range, y in y_range]
 val = [0.0]
 p2 = plot(x_range,y_range,transpose(abs.(val)),st=:surface,camera=(0,90),
-     aspect_ratio=:equal,legend=:topleft,left_margin = 5Plots.mm, right_margin = 15Plots.mm,bg=cmap[1],colorbar=false,zticks=false)
-scatter!(p2,[S[1].position[1]], [S[1].position[2]],markersize = 5.0,color = :green,
+     aspect_ratio=:equal,legend=:topleft,size=(800,800),left_margin = 5Plots.mm, right_margin = 15Plots.mm,bg=cmap[1],colorbar=false,zticks=false)
+scatter!(p2,[S[1].position[1]], [S[1].position[2]],markersize = 6.0,size=(800,800),color = :green,
     marker=:pentagon,label="Source")
 for i = 1:length(S)
-    scatter!(p2,[S[i].position[1]], [S[i].position[2]],markersize = 5.0,color = :green,
+    scatter!(p2,[S[i].position[1]], [S[i].position[2]],markersize = 6.0,size=(800,800),color = :green,
             marker=:pentagon,label="")
 end
 #scatter!(p2,[T[1].S.position[1]],[T[1].S.position[2]],markersize = 5.5,color = :red,
@@ -248,38 +248,38 @@ end
 #                marker=:star8,label="")
 #end
 if isa(T[1],pointReflector)
-    scatter!(p2,[T[1].S.position[1]],[T[1].S.position[2]],markersize = 3.0,color = :red,label="Reflector",
+    scatter!(p2,[T[1].S.position[1]],[T[1].S.position[2]],markersize = 5.0,size=(800,800),color = :red,label="Reflector",
                     marker=:star8)
 elseif isa(T[1],lineSegment)
      endPt = T[1].position+T[1].length*T[1].direction
-    plot!(p2,[T[1].position[1],endPt[1]],[T[1].position[2],endPt[2]],color=:red,lw=3.0,label="Reflector")
+    plot!(p2,[T[1].position[1],endPt[1]],[T[1].position[2],endPt[2]],size=(800,800),color=:red,lw=5.0,label="Reflector")
 else
 
 end
 
 for i = 1:length(T)
     if isa(T[i],pointReflector)
-            scatter!(p2,[T[i].S.position[1]],[T[i].S.position[2]],markersize = 3.0,color = :red,label="",
+            scatter!(p2,[T[i].S.position[1]],[T[i].S.position[2]],markersize = 5.0,size=(800,800),color = :red,label="",
                             marker=:star8)
     elseif isa(T[i],lineSegment)
             endPt = T[i].position+T[i].length*T[i].direction
-            plot!(p2,[T[i].position[1],endPt[1]],[T[i].position[2],endPt[2]],color=:red,label="")
+            plot!(p2,[T[i].position[1],endPt[1]],[T[i].position[2],endPt[2]],size=(800,800),color=:red,label="")
     else
 
     end
 end
 
-scatter!(p2,[R[1].position[1]], [R[1].position[2]],markersize = 3.0,color = :blue,
+scatter!(p2,[R[1].position[1]], [R[1].position[2]],markersize = 4.0,size=(800,800),color = :blue,
     marker=:square,label="Receiver")
 for i = 1:length(R)
-    scatter!(p2,[R[i].position[1]], [R[i].position[2]],markersize = 3.0,color = :blue,
+    scatter!(p2,[R[i].position[1]], [R[i].position[2]],markersize = 4.0,size=(800,800),color = :blue,
             marker=:square,label="")
 end
 
-plot!(p2,[S[1].position[1],𝐛[1][1]],[S[1].position[2],𝐛[1][2]],arrow=true,color=:red,linewidth=2,label="Beam Center")
+plot!(p2,[S[1].position[1],𝐛[1][1]],[S[1].position[2],𝐛[1][2]],arrow=true,color=:red,size=(800,800),linewidth=3,label="Beam Center")
 
 for i = 1:length(𝐛)
-plot!(p2,[S[1].position[1],𝐛[i][1]],[S[1].position[2],𝐛[i][2]],arrow=true,color=:red,linewidth=2,label="")
+plot!(p2,[S[1].position[1],𝐛[i][1]],[S[1].position[2],𝐛[i][2]],arrow=true,color=:red,size=(800,800),linewidth=3,label="")
 end
 return p2
 end
