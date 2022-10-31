@@ -191,7 +191,7 @@ $\mathsf{z}(t) = \mathsf{\alpha}_0 \mathrm{D}_\mathrm{r}\left(\bm{\xi}_0;\,{\mat
 \mathbf{b}_\mathrm{s}}\right)
 \mathsf{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)
 \mathsf{A}\left(\frac{\|\bm{\xi}_0-
-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right) p\left(t-
+\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right) \mathsf{p}\left(t-
 \frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|+\|\bm{\xi}_0-
 \mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
