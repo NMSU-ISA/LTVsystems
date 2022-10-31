@@ -29,7 +29,7 @@ scenedirPlot2D([q],[r],[z],𝐛)
 
 png(path*"scenarioA_LTIDir.png")
 # Estimator function
-D(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ᵣ))
+D(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ₛ))
 f(ξ::Vector{Float64}) = (z(tₚ+ 2(norm(ξ-𝐩ₛ))/c).*(D(ξ::Vector{Float64}))^2)/
                         (A(norm(ξ-𝐩ₛ)/c))^2
 #SPATIAL SIMULATION
