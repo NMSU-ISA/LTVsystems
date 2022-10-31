@@ -111,22 +111,22 @@ $\hat{\mathsf{f}}(\bm{\xi}) = \dfrac{\mathsf{z}\left(\mathrm{t_p}+\frac{2\|\bm{\
 {\mathsf{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\big) }.$
 
 ```julia
-using LTVsystems, Plots
+using LTVsystems
+using Plots
 tₚ = 1.0e-06 
-T  = 15.0e-6
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  𝐩ₛ
 p(t) = δn(t-tₚ,1.0e-07)
 𝐛(t) = [cos(2π*10*(t-tₚ)),0.0]/(norm(cos(2π*10*(t-tₚ))))
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/64)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
-α₀ = 0.7; 𝛏₀ = [0.2c*T,0.0]
+α₀ = -0.7; 𝛏₀ = [0.2c*T,0.0]
 r = pointReflector(𝛏₀,α₀,q)
-z = STATreceiverD([r],𝐩ᵣ,𝐛,G)
-Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛(2norm(ξ-𝐩ₛ)/c), ξ.-𝐩ₛ))
+z = LTIreceiverO([r],𝐩ᵣ)
+Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ), ξ.-𝐩ₛ))
 f(ξ::Vector{Float64}) = (z(tₚ.+2(norm(ξ-𝐩ₛ))/c).*Dₛ(ξ))/
-(A(norm(ξ-𝐩ₛ)/c))^2
-inversePlot2D([q],[r],[z],f,T)
+                        (A(norm(ξ-𝐩ₛ)/c))^2
+inversePlot2D([q],[r],[z],f)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_STATDirsimulation.png)
 
@@ -138,49 +138,48 @@ inversePlot2D([q],[r],[z],f,T)
 * single stationary directional source with time-varying beam center
 * single stationary receiver
 * single stationary ideal point reflector
-* the source emits an impulse
+* the source emits a pulse
 
 
 ### Forward Modeling
 
-For scenario B, we provided the position of the stationary direction source $𝐩ₛ$, with time-varying beam center $𝐛(t)$, the stationary direction receiver's position $𝐩ᵣ$, the transmitted signal $p(t)$, and an ideal point reflector $\bm{\xi}_0$.
+For scenario B, we provided the position of the stationary direction source $𝐩ₛ$, with time-varying beam center $𝐛(t)$, the stationary direction receiver's position $𝐩ᵣ$, the transmitted signal $\mathsf{p}(t)$, and an ideal point reflector $\bm{\xi}_0$.
 
 Now the expression for the reflector function is given by
 
-$f(\bm{\xi}) = \alpha_0 \delta(\bm{\xi} - \bm{\xi}_0).$
+$\mathsf{f}(\bm{\xi}) = \mathsf{\alpha}_0 \delta(\bm{\xi} - \bm{\xi}_0).$
 
 We compute the reflection due to the directional source as follows
 
-$\mathsf{r}(\bm{\xi},t) = \alpha_0 \delta(\bm{\xi} - \bm{\xi}_0)
+$\mathsf{r}(\bm{\xi},t) = \mathsf{\alpha}_0 \delta(\bm{\xi} - \bm{\xi}_0)
 \mathrm{D}_\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)}\big)
 \mathsf{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
+{\mathrm{c}}\right) \mathsf{p}\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
-Finally, the closed form expression of the observed signal, $z(t)$
-is given by
+Finally, the closed form expression of the observed signal, $\mathsf{z}(t)$ is given by
 
-$z(t) = \alpha_0 \mathrm{D}_
+$\mathsf{z}(t) = \mathsf{\alpha}_0 \mathrm{D}_
 \mathrm{s}\big(\bm{\xi}_0;\,{\mathbf{p}_\mathrm{s},
 \mathbf{b}_\mathrm{s}(\cdot)}\big)\mathsf{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)
 \mathsf{A}\left(\frac{\|\bm{\xi}_0-
-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right) p\left(t-
+\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right) \mathsf{p}\left(t-
 \frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|+\|\bm{\xi}_0-
 \mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
 ```julia
-using LTVsystems, Plots
+using LTVsystems
+using Plots
 tₚ = 1.0e-06 
-T  = 15.0e-6
 𝐩ₛ =  [0.1c*T, 0.0]
 𝐩ᵣ =  [-0.1c*T, 0.0]
 p(t) = δn(t-tₚ,1.0e-07)
 𝐛(t) = [cos(2π*10*(t-tₚ)),0.0]/(norm(cos(2π*10*(t-tₚ))))
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/64)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
-α₀ = 0.7; 𝛏₀ = [0.2c*T,0.0]
+α₀ = -0.7; 𝛏₀ = [0.2c*T,0.0]
 r = pointReflector(𝛏₀,α₀,q)
-z = STATreceiverD([r],𝐩ᵣ,𝐛,G)
-t=0.0:T/100:2T
+z = LTIreceiverO([r],𝐩ᵣ)
+t=0.0:1.0e-08:25.0e-06
 p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2 = plot( t, z(t),ylims=(minimum(z(t)),maximum(z(t))), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot(p1,p2,layout=(2,1))
@@ -190,32 +189,32 @@ plot(p1,p2,layout=(2,1))
 
 ### Inverse Modeling
 
-Given the scenario B assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function by considering the transmitted signal $p(t)=δ(t-t_p)$ as follows
+Given the scenario B assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now we can estimate the reflector function by considering the transmitted signal as follows 
 
-$\hat{f}(\bm{\xi}) =\dfrac{z\left(t_p+\frac{\|\mathbf{p}_\mathrm{r}-
+$p(t)=δ(t-\mathrm{t_p})$ 
+
+$\hat{\mathsf{f}}(\bm{\xi}) =\dfrac{\mathsf{z}\left(\mathrm{t_p}+\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}}  \right)\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}\big(\frac{\|\mathbf{p}_\mathrm{r}-
-\bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}}\big)}\right)}{\mathsf{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
+{\mathrm{c}}  \right)\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\mathrm{t_p})}\right)}{\mathsf{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
 \mathsf{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}
 .$
 
 ```julia
-using LTVsystems, Plots
+using LTVsystems
+using Plots
 tₚ = 1.0e-06 
-T  = 15.0e-6
 𝐩ₛ =  [0.1c*T, 0.0]
 𝐩ᵣ =  [-0.1c*T, 0.0]
 p(t) = δn(t-tₚ,1.0e-07)
 𝐛(t) = [cos(2π*10*(t-tₚ)),0.0]/(norm(cos(2π*10*(t-tₚ))))
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/64)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
-α₀ = 0.7; 𝛏₀ = [0.2c*T,0.0]
+α₀ = -0.7; 𝛏₀ = [0.2c*T,0.0]
 r = pointReflector(𝛏₀,α₀,q)
-z = STATreceiverD([r],𝐩ᵣ,𝐛,G)
-Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
+z = LTIreceiverO([r],𝐩ᵣ)
+Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ), ξ.-𝐩ₛ))
 f(ξ::Vector{Float64}) = (z(tₚ.+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ(ξ))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
-inversePlot2D([q],[r],[z],f,T)
+inversePlot2D([q],[r],[z],f)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioB_STATDirsimulation.png)
 
