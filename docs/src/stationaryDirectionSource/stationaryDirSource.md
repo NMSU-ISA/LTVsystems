@@ -407,3 +407,14 @@ inversePlot2D([q],r,[z],g)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_STATDsimulation.png)
 
+
+## Scenario E [Pulse train, multiple reflector, transmitter and receiver at different location]
+
+### Scenario Assumptions
+
+* single stationary source 
+* single stationary directional receiver with time-varying beam center
+* multiple stationary ideal point reflectors
+* the source emits a periodic impulse train
+
+### Forward Modeling
