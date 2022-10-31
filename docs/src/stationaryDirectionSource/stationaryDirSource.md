@@ -79,7 +79,7 @@ $\mathsf{z}(t) = \mathsf{\alpha}_0 \mathrm{D}_
 \mathrm{s}\big(\bm{\xi}_0;\,{\mathbf{p}_\mathrm{s},
 \mathbf{b}_\mathrm{s}(\cdot)}\big)\mathsf{A}^2
 \left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}
-{\mathrm{c}}\right)p\left(t -2\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right).$
+{\mathrm{c}}\right)\mathsf{p}\left(t -2\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right).$
 
 ```julia
 using LTVsystems
@@ -294,7 +294,7 @@ In order to consider the transmitted time of the time-varying beam with respect 
 
 $\mathsf{f}_k(\bm{\xi})=\dfrac{\mathsf{z}\left(\mathrm{t_p}+(k-1)\mathrm{T}+\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)\mathrm{D}_\mathrm{sk}(\bm{\xi})}{\mathsf{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)}$
 
-where $\mathrm{D}_\mathrm{sk}(\bm{\xi}) = \mathbf{G}\big(∠(𝐛(\mathrm{t_p}-(k-1)T), \bm{\xi}.-\mathbf{p}_\mathrm{s})\big)$ 
+where $\mathrm{D}_\mathrm{sk}(\bm{\xi}) = \mathbf{G}\big(∠(𝐛(\mathrm{t_p}+(k-1)\mathrm{T}), \bm{\xi}.-\mathbf{p}_\mathrm{s})\big)$ 
 
 Finally, the reflector function for the scenario is given as follows
 
