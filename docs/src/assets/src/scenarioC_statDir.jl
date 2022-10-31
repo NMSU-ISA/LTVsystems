@@ -2,32 +2,46 @@ path = "docs/src/assets/"
 
 using LTVsystems
 using Plots
-𝐩ₛ =  [0.3, 0.3]
-𝐩ᵣ =  [0.9, 0.9]
-p(t) = δn(t-0.5e-09,1.0e-10)
-𝐛(t) = [cos(2π*10*t),0.0]
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/3)
+𝐩ₛ = [0.0, 0.0]
+𝐩ᵣ = [0.0, 0.0]
+tₚ = 1.0e-06 
+T  = 15.0e-6 #pulse period
+D = 4 #pulses per revolution
+
+p(t) = δn(mod(t-tₚ,T),1.0e-07)
+α₁ = -0.7; 𝛏₁ = [0.21c*T,0.0]
+α₂ = -0.7; 𝛏₂ = [0.0,0.10c*T] 
+α₃ = -0.7; 𝛏₃ = [-0.22c*T,0.0]
+α₄ = -0.7; 𝛏₄ = [0.0,-0.15c*T]  
+α₅ = -0.7; 𝛏₅ = [0.18c*T,0.0]
+α₆ = -0.7; 𝛏₆ = [0.0,0.13c*T]
+α₇ = -0.7; 𝛏₇ = [0.0,-0.12c*T]
+α₈ = -0.7; 𝛏₈ = [-0.25c*T,0.0]
+f₀ = 1/(D*T) 
+𝐛(t) = [cos(2π*f₀*(t-tₚ)),sin(2π*f₀*(t-tₚ))]
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/64)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
-#Reflectors
-α₁ = 0.7; 𝛏₁ = [1.2,0.0]
-α₂ = 0.6; 𝛏₂ = [1.8,1.8]
-α₃ = 0.5; 𝛏₃ = [2.7,-0.9]
-r = pointReflector([𝛏₁,𝛏₂,𝛏₃],[α₁,α₂,α₃],[q])
-z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
-#TEMPORAL SIMULATION
-t = -5.5e-9:1.0e-10:35.5e-9
+r = pointReflector([𝛏₁,𝛏₂,𝛏₃,𝛏₄,𝛏₅,𝛏₆,𝛏₇,𝛏₈],[α₁,α₂,α₃,α₄,α₅,α₆,α₇,α₈],[q])
+z = LTIreceiverO(r,𝐩ᵣ)
+t=0.0:T/500:D*T
 p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
-p2 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+p2 = plot( t, z(t),ylims=(minimum(z(t)),maximum(z(t))), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot(p1,p2,layout=(2,1))
+
+
+scenePlot2D([q],r,[z]) 
+
+
 
 png(path*"scenarioC_STATDirsignal.png")
 
-#Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ᵣ))
-Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c), ξ.-𝐩ₛ))
-f(ξ::Vector{Float64}) = (z((norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ(ξ))/
-                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
+Dₛₖ(ξ::Vector{Float64},k::Int64) = G(angleBetween(𝐛(tₚ+(k-1)*T), ξ.-𝐩ₛ))
+fₖ(ξ::Vector{Float64},k::Int64) = ifelse(norm(ξ)>c*T/2, NaN, (z(tₚ+(k-1)*T+(2norm(ξ-𝐩ₛ))./c).*Dₛₖ(ξ,k)./(A(norm(ξ-𝐩ₛ)/c))^2)) 
+g(ξ::Vector{Float64}) = sum(fₖ(ξ,k) for k ∈ 1:D)
+inversePlot2D([q],r,[z],g)
 
-#SPATIAL SIMULATION
-inverse2Dplot([q],r,[z],f)
+png(path*"scenarioC_STATDir_simulation.png")
 
-png(path*"scenarioC_STATDirsimulation.png")
+
+
+

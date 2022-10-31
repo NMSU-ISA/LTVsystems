@@ -191,7 +191,7 @@ plot(p1,p2,layout=(2,1))
 
 Given the scenario B assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now we can estimate the reflector function by considering the transmitted signal as follows 
 
-$p(t)=δ(t-\mathrm{t_p})$ 
+$\mathsf{p}(t)=δ(t-\mathrm{t_p})$ 
 
 $\hat{\mathsf{f}}(\bm{\xi}) =\dfrac{\mathsf{z}\left(\mathrm{t_p}+\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
@@ -235,24 +235,22 @@ Given the assumptions, we simulate the following geometry for scenario C.
 
 ### Forward Modeling
 
-For scenario C, we provided the position of the stationary direction source $𝐩ₛ$, with time-varying beam center $𝐛(t)$, the stationary direction receiver's position $𝐩ᵣ$, being at the same location $(𝐩ₛ=𝐩ᵣ)$, the transmitted signal $p(t)$, and multiple reflector say, N.
+For scenario C, we provided the position of the stationary direction source $𝐩ₛ$, with time-varying beam center $𝐛(t)$, the stationary direction receiver's position $𝐩ᵣ$, being at the same location $(𝐩ₛ=𝐩ᵣ)$, the transmitted signal $\mathsf{p}(t)$, and multiple reflector say, N.
 
 Now the expression for the reflector function is given by
 
-$f(\bm{\xi}) = \sum\limits_{n=1}^{N}\alpha_n \delta(\bm{\xi} - \bm{\xi}_n).$
+$\mathsf{f}(\bm{\xi}) = \sum\limits_{n=1}^{N}\mathsf{\alpha}_n \delta(\bm{\xi} - \bm{\xi}_n).$
 
 We compute the reflection due to the directional source as follows
 
-$\mathsf{r}(\bm{\xi},t) = \sum\limits_{n=1}^{N}\alpha_n \delta(\bm{\xi} - \bm{\xi}_n)
+$\mathsf{r}(\bm{\xi},t) = \sum\limits_{n=1}^{N}\mathsf{\alpha}_n \delta(\bm{\xi} - \bm{\xi}_n)
 \mathrm{D}_\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)}\big)
 \mathsf{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}}\right) p\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
+{\mathrm{c}}\right) \mathsf{p}\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
-Finally, the closed form expression of the observed signal, $z(t)$
-is given by
+Finally, the closed form expression of the observed signal, $\mathsf{z}(t)$ is given by
 
-$z(t) = \sum\limits_{n=1}^{N} \alpha_n \mathrm{D}_
-\mathrm{s}\big(\bm{\xi}_n;\,{\mathbf{p}_\mathrm{s},
+$\mathsf{z}(t) = \sum\limits_{n=1}^{N} \mathsf{\alpha}_n \mathrm{D}_\mathrm{s}\big(\bm{\xi}_n;\,{\mathbf{p}_\mathrm{s},
 \mathbf{b}_\mathrm{r}(\cdot)}\big)\mathsf{A}^2
 \left(\frac{\|\mathbf{p}_\mathrm{s}-\bm{\xi}_n\|}
 {\mathrm{c}}\right)p\left(t -2\frac{\|\mathbf{p}_\mathrm{s}-\bm{\xi}_n\|}{\mathrm{c}}\right).$
@@ -264,40 +262,46 @@ using Plots
 𝐩ₛ = [0.0, 0.0]
 𝐩ᵣ = [0.0, 0.0]
 tₚ = 1.0e-06 
-T  = 15.0e-6
-p(t) = δn(t-tₚ,1.0e-07) + δn(t-T-tₚ,1.0e-07) + δn(t-2T-tₚ,1.0e-07)+ δn(t-3T-tₚ,1.0e-07)
-α₁ = 0.7; 𝛏₁ = [0.2c*T,0.0]
-α₂ = 0.7; 𝛏₂ = [-0.2c*T,0.0]
-α₃ = 0.7; 𝛏₃ = [0.0,0.2c*T]
-α₄ = 0.7; 𝛏₄ = [0.0,-0.2c*T]
-f₀ = 1/4T
+T  = 15.0e-6 
+D = 4 
+p(t) = δn(mod(t-tₚ,T),1.0e-07)
+α₁ = -0.7; 𝛏₁ = [0.21c*T,0.0]
+α₂ = -0.7; 𝛏₂ = [0.0,0.10c*T] 
+α₃ = -0.7; 𝛏₃ = [-0.22c*T,0.0]
+α₄ = -0.7; 𝛏₄ = [0.0,-0.15c*T]  
+α₅ = -0.7; 𝛏₅ = [0.18c*T,0.0]
+α₆ = -0.7; 𝛏₆ = [0.0,0.13c*T]
+α₇ = -0.7; 𝛏₇ = [0.0,-0.12c*T]
+α₈ = -0.7; 𝛏₈ = [-0.25c*T,0.0]
+f₀ = 1/(D*T) 
 𝐛(t) = [cos(2π*f₀*(t-tₚ)),sin(2π*f₀*(t-tₚ))]
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/12)
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/64)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
-r = pointReflector([𝛏₁,𝛏₂,𝛏₃,𝛏₄],[α₁,α₂,α₃,α₄],[q])
-z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
-t=0.0:T/100:4T
+r = pointReflector([𝛏₁,𝛏₂,𝛏₃,𝛏₄,𝛏₅,𝛏₆,𝛏₇,𝛏₈],[α₁,α₂,α₃,α₄,α₅,α₆,α₇,α₈],[q])
+z = LTIreceiverO(r,𝐩ᵣ)
+t=0.0:T/500:D*T
 p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2 = plot( t, z(t),ylims=(minimum(z(t)),maximum(z(t))), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot(p1,p2,layout=(2,1))
 ```
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioESTAT_signal.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioC_STATDirsignal.png)
 
 
 ### Inverse Modeling
 
-Given the scenario C assumptions, we obtained the received signal, $z(t)$. Now we can estimate the reflector function by considering the transmitted signal as impulse train $p(t)=∑_{k=1}^{M}δ(t-t_p-(k-1)T)$ as follows
+Given the scenario C assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now we can estimate the reflector function by considering the transmitted signal as a pulse train as follows
 
+$\mathsf{p}(t)=∑_{k=1}^{M}δ(t-\mathrm{t_p}-(k-1)\mathrm{T})$ as follows
 
-In order to consider the transmitted time of the time-varying beam with respect to each periodic impulse, we computed the reflector function corresponding to each periodic impulse as follows
+In order to consider the transmitted time of the time-varying beam with respect to each periodic pulse, we computed the reflector function as follows
 
-$f_k(\bm{\xi})=\dfrac{z\left(t_p+(k-1)T+\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)\mathrm{D}_\mathrm{sk}(\bm{\xi})}{\mathsf{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)}$
+$\mathsf{f}_k(\bm{\xi})=\dfrac{\mathsf{z}\left(\mathrm{t_p}+(k-1)\mathrm{T}+\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)\mathrm{D}_\mathrm{sk}(\bm{\xi})}{\mathsf{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)}$
 
-where $\mathrm{D}_\mathrm{sk}(\bm{\xi}) = \mathbf{G}\big(∠(𝐛(t_p-(k-1)T), \bm{\xi}.-\mathbf{p}_\mathrm{s})\big)$ 
+where $\mathrm{D}_\mathrm{sk}(\bm{\xi}) = \mathbf{G}\big(∠(𝐛(\mathrm{t_p}-(k-1)T), \bm{\xi}.-\mathbf{p}_\mathrm{s})\big)$ 
 
 Finally, the reflector function for the scenario is given as follows
 
-$\hat{f}(\bm{\xi}) = ∑_{k=1}^{M} f_k(\bm{\xi}).$
+$\hat{\mathsf{f}}(\bm{\xi}) = ∑_{k=1}^{M} \mathsf{f}_k(\bm{\xi}).$
 
 ```julia 
 using LTVsystems
@@ -305,38 +309,31 @@ using Plots
 𝐩ₛ = [0.0, 0.0]
 𝐩ᵣ = [0.0, 0.0]
 tₚ = 1.0e-06 
-T  = 15.0e-6
-p(t) = δn(t-tₚ,1.0e-07) + δn(t-T-tₚ,1.0e-07) + δn(t-2T-tₚ,1.0e-07)+ δn(t-3T-tₚ,1.0e-07)
-α₁ = 0.7; 𝛏₁ = [0.2c*T,0.0]
-α₂ = 0.7; 𝛏₂ = [-0.2c*T,0.0]
-α₃ = 0.7; 𝛏₃ = [0.0,0.2c*T]
-α₄ = 0.7; 𝛏₄ = [0.0,-0.2c*T]
-f₀ = 1/4T
+T  = 15.0e-6 
+D = 4 
+p(t) = δn(mod(t-tₚ,T),1.0e-07)
+α₁ = -0.7; 𝛏₁ = [0.21c*T,0.0]
+α₂ = -0.7; 𝛏₂ = [0.0,0.10c*T] 
+α₃ = -0.7; 𝛏₃ = [-0.22c*T,0.0]
+α₄ = -0.7; 𝛏₄ = [0.0,-0.15c*T]  
+α₅ = -0.7; 𝛏₅ = [0.18c*T,0.0]
+α₆ = -0.7; 𝛏₆ = [0.0,0.13c*T]
+α₇ = -0.7; 𝛏₇ = [0.0,-0.12c*T]
+α₈ = -0.7; 𝛏₈ = [-0.25c*T,0.0]
+f₀ = 1/(D*T) 
 𝐛(t) = [cos(2π*f₀*(t-tₚ)),sin(2π*f₀*(t-tₚ))]
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/12)
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/64)
 q = STATsourceD(𝐩ₛ,p,𝐛,G)
-r = pointReflector([𝛏₁,𝛏₂,𝛏₃,𝛏₄],[α₁,α₂,α₃,α₄],[q])
-z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
-Dₛ₁(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ), ξ.-𝐩ₛ))
-f₁(ξ::Vector{Float64}) = (z(tₚ+2(norm(ξ-𝐩ₛ))/c).*Dₛ₁(ξ))/(A(norm(ξ-𝐩ₛ)/c))^2
-Dₛ₂(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ-T), ξ.-𝐩ₛ))
-f₂(ξ::Vector{Float64}) = (z(tₚ.+T+2(norm(ξ-𝐩ₛ))/c).*Dₛ₂(ξ))/(A(norm(ξ-𝐩ₛ)/c))^2
-Dₛ₃(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ-2T), ξ.-𝐩ₛ))
-f₃(ξ::Vector{Float64}) = (z(tₚ.+2T+2(norm(ξ-𝐩ₛ))/c).*Dₛ₃(ξ))/(A(norm(ξ-𝐩ₛ)/c))^2
-Dₛ₄(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ-3T), ξ.-𝐩ₛ))
-f₄(ξ::Vector{Float64}) = (z(tₚ.+3T+2(norm(ξ-𝐩ₛ))/c).*Dₛ₄(ξ))/(A(norm(ξ-𝐩ₛ)/c))^2
-f(ξ::Vector{Float64}) = f₁(ξ).+ f₂(ξ) .+f₃(ξ).+f₄(ξ)
-p11 = inversePlot2D([q],r,[z],f₁,T)
-p12 = inversePlot2D([q],r,[z],f₂,T)
-p13 = inversePlot2D([q],r,[z],f₃,T)
-p14 = inversePlot2D([q],r,[z],f₄,T)
-plot(p11,p12,p13,p14,layout=(2,2),size=(1000,1000))
-f(ξ::Vector{Float64}) = f₁(ξ).+ f₂(ξ) .+f₃(ξ).+f₄(ξ)
-inversePlot2D([q],r,[z],f,T)
+r = pointReflector([𝛏₁,𝛏₂,𝛏₃,𝛏₄,𝛏₅,𝛏₆,𝛏₇,𝛏₈],[α₁,α₂,α₃,α₄,α₅,α₆,α₇,α₈],[q])
+z = LTIreceiverO(r,𝐩ᵣ)
+Dₛₖ(ξ::Vector{Float64},k::Int64) = G(angleBetween(𝐛(tₚ+(k-1)*T), ξ.-𝐩ₛ))
+fₖ(ξ::Vector{Float64},k::Int64) = ifelse(norm(ξ)>c*T/2, NaN, (z(tₚ+(k-1)*T+(2norm(ξ-𝐩ₛ))./c).*Dₛₖ(ξ,k)./(A(norm(ξ-𝐩ₛ)/c))^2)) 
+g(ξ::Vector{Float64}) = sum(fₖ(ξ,k) for k ∈ 1:D)
+inversePlot2D([q],r,[z],g)
 ```
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioESTAT_simulationall.png)
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioC_STATDir_simulation.png)
 
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioESTAT_simulation.png)
+
 
 
 ## Scenario D (More General Case) [Pulse train, multiple reflector, transmitter and receiver at same location]

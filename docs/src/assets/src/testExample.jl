@@ -29,11 +29,6 @@ plot(p1,p2,layout=(2,1))
 scenePlot2D([q],r,[z]) 
 
 
-function angleBetweenval(𝛏₀::Vector{Float64},𝛏₁::Vector{Float64})::Float64
-    return atan(norm(𝛏₀./norm(𝛏₀) .- 𝛏₁./norm(𝛏₁)),norm(𝛏₀./norm(𝛏₀) .+ 𝛏₁./norm(𝛏₁)))
-end
-
- 
 Dₛ₁(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ+0T), ξ.-𝐩ₛ))
 Dₛ₂(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ+1T), ξ.-𝐩ₛ))
 Dₛ₃(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ+2T), ξ.-𝐩ₛ))

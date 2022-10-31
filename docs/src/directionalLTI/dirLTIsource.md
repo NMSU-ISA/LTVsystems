@@ -321,7 +321,7 @@ We computed the reflector function, $\mathsf{f}_k$ with respect to the pulse tra
 
 
 $\mathsf{f}_k(\bm{\xi})=\dfrac{\mathsf{z}\left(\mathrm{t_p}+kT+\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}}\right)\mathrm{D}^2_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{r}}\right)}{\mathsf{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
+{\mathrm{c}}\right)\mathrm{D}^2_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)}{\mathsf{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
 \mathsf{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}.$
 
 Finally, the reflector function is given as follows
