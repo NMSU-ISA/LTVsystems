@@ -294,7 +294,11 @@ In order to consider the transmitted time of the time-varying beam with respect 
 
 $\mathsf{f}_k(\bm{\xi})=\dfrac{\mathsf{z}\left(\mathrm{t_p}+(k-1)\mathrm{T}+\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)\mathrm{D}_\mathrm{sk}(\bm{\xi})}{\mathsf{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)}$
 
+<<<<<<< HEAD
 where $\mathrm{D}_\mathrm{sk}(\bm{\xi}) = \mathbf{G}\big(∠(𝐛(\mathrm{t_p}-(k-1)\mathrm{T}), \bm{\xi}.-\mathbf{p}_\mathrm{s})\big)$ 
+=======
+where $\mathrm{D}_\mathrm{sk}(\bm{\xi}) = \mathbf{G}\big(∠(𝐛(\mathrm{t_p}+(k-1)\mathrm{T}), \bm{\xi}.-\mathbf{p}_\mathrm{s})\big)$ 
+>>>>>>> main
 
 Finally, the reflector function for the scenario is given as follows
 
@@ -407,3 +411,14 @@ inversePlot2D([q],r,[z],g)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_STATDsimulation.png)
 
+
+## Scenario E [Pulse train, multiple reflector, transmitter and receiver at different location]
+
+### Scenario Assumptions
+
+* single stationary source 
+* single stationary directional receiver with time-varying beam center
+* multiple stationary ideal point reflectors
+* the source emits a periodic impulse train
+
+### Forward Modeling
