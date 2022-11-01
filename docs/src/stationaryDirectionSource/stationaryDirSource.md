@@ -292,9 +292,9 @@ $\mathsf{p}(t)=∑_{k=1}^{M}δ(t-\mathrm{t_p}-(k-1)\mathrm{T})$ as follows
 
 In order to consider the transmitted time of the time-varying beam with respect to each periodic pulse, we computed the reflector function as follows
 
-$\mathsf{f}_k(\bm{\xi})=\dfrac{\mathsf{z}\left(\mathrm{t_p}+(k-1)\mathrm{T}+\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)\mathrm{D}_\mathrm{sk}(\bm{\xi})}{\mathsf{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)}$
+$\mathsf{f}_k(\bm{\xi})=\dfrac{\mathsf{z}\left(\mathrm{t_p}+(k-1)\mathrm{T}+\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)\mathrm{D}_{\mathrm{s}k}(\bm{\xi})}{\mathsf{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)}$
 
-where $\mathrm{D}_\mathrm{sk}(\bm{\xi}) = \mathbf{G}\big(∠(𝐛(\mathrm{t_p}+(k-1)\mathrm{T}), \bm{\xi}.-\mathbf{p}_\mathrm{s})\big)$ 
+where $\mathrm{D}_{\mathrm{s}k}(\bm{\xi}) = \mathbf{G}\big(∠(𝐛(\mathrm{t_p}+(k-1)\mathrm{T}), \bm{\xi}.-\mathbf{p}_\mathrm{s})\big)$ 
 
 Finally, the reflector function for the scenario is given as follows
 
