@@ -29,7 +29,7 @@ plot!(p2,t,z₂(t))
 plot!(p2,t,z₃(t))
 plot!(p2,t,z₄(t))
 plot!(p2,t,z₅(t))
-plot(p1,p2,layout=(2,1))
+plot(p1,p2,layout=(2,1),size=(800,800))
 
 png(path*"scenarioD_signal.png")
 
