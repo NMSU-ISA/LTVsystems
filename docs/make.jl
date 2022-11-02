@@ -19,7 +19,7 @@ makedocs(
         "Receivers" => "receivers/receiver.md",
         "LTI Omnidirectional Modeling" => "omniDirectionalLTI/omnidirLTIsource.md",
         "LTI Directional Modeling" => "directionalLTI/dirLTIsource.md",
-        "Stationary Direction Source Modeling" => "stationaryDirectionSource/stationaryDirSource.md",
+        "Stationary Directional Source Modeling" => "stationaryDirectionSource/stationaryDirSource.md",
         "LTV Modeling Doppler Effect" => "modelingLTV Doppler/modelLTVDoppler.md",
         "LTV Omnidirectional Modeling" => "omniDirectionalLTV/omnidirLTVsource.md",
         "LTV Directional Modeling" => "directionalLTV/dirLTVsource.md",
