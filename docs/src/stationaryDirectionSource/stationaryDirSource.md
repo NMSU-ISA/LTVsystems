@@ -1,4 +1,4 @@
-# Stationary Direction Source Modeling
+# Stationary Directional Source Modeling
 
 | Symbol     | Type       | Description |
 | :---------- | :----------: | :----------- |
@@ -451,38 +451,6 @@ plot(p1,p2,layout=(2,1))
 ```julia
 using LTVsystems
 using Plots
-<<<<<<< HEAD
-T  = 15.0e-6 
-𝐩ₛ = [0.01c*T, 0.0]
-𝐩ᵣ = [-0.06c*T, 0.0]
-tₚ = 1.0e-06 
-D = 32
-p(t) = δn(mod(t-tₚ,T),1.0e-07)
-α₁ = -0.7; 𝛏₁ = [0.2c*T,0.10c*T]
-α₂ = -0.7; 𝛏₂ = [-0.15c*T,0.08c*T]
-α₃ = -0.7; 𝛏₃ = [-0.11c*T,0.2c*T]
-α₄ = -0.7; 𝛏₄ = [-0.05c*T,-0.12c*T]
-f₀ = 1/(D*T) 
-𝐛(t) = [cos(2π*f₀*(t-tₚ)),sin(2π*f₀*(t-tₚ))]
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/2D)
-q = LTIsourceO(𝐩ₛ,p)
-r = pointReflector([𝛏₁,𝛏₂,𝛏₃,𝛏₄],[α₁,α₂,α₃,α₄],[q])
-z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
-Dᵣₖ(ξ::Vector{Float64},k::Int64) = G(angleBetween(𝐛(tₚ+(k-1)*T.+(norm(ξ-𝐩ₛ).- norm(𝐩ᵣ.-ξ))./c), 𝐩ᵣ.-ξ))
-
-fₖ(ξ::Vector{Float64},k::Int64) = ifelse(norm(ξ)>c*T/2, NaN, (z(tₚ+(k-1)*T.+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dᵣₖ(ξ,k))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c)))
-g(ξ::Vector{Float64}) = sum(fₖ(ξ,k) for k ∈ 1:D)
-inversePlot2D([q],r,[z],g)
-```
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioESTAT_simulation.png)
-
-Alternate inverse modeling
-
-```julia
-using LTVsystems
-using Plots
-=======
->>>>>>> main
 T  = 15.0e-6 
 𝐩ₛ = [0.01c*T, 0.0]
 𝐩ᵣ = [-0.06c*T, 0.0]
