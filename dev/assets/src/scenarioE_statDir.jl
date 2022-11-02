@@ -5,10 +5,10 @@ path = "docs/src/assets/"
 using LTVsystems
 using Plots
 𝐩ₛ = [0.0, 0.0]
-𝐩ᵣ = [-0.06c*T, 0.0]
+#𝐩ᵣ = [-0.06c*T, 0.0]
 #𝐩ₛ = [0.0, 0.0]
 T  = 15.0e-6 
-#𝐩ᵣ = 𝐩ₛ 
+𝐩ᵣ = 𝐩ₛ 
 #𝐩ᵣ = [-0.08c*T, 0.0]
 tₚ = 1.0e-06 # in microseconds
 D = 16
