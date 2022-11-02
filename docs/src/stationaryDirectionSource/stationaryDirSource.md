@@ -451,6 +451,7 @@ plot(p1,p2,layout=(2,1))
 ```julia
 using LTVsystems
 using Plots
+<<<<<<< HEAD
 T  = 15.0e-6 
 𝐩ₛ = [0.01c*T, 0.0]
 𝐩ᵣ = [-0.06c*T, 0.0]
@@ -480,6 +481,8 @@ Alternate inverse modeling
 ```julia
 using LTVsystems
 using Plots
+=======
+>>>>>>> main
 T  = 15.0e-6 
 𝐩ₛ = [0.01c*T, 0.0]
 𝐩ᵣ = [-0.06c*T, 0.0]
