@@ -111,11 +111,14 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 
 ### Inverse Modeling
 
-Given the scenario A assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now we can estimate the reflector function by considering the transmitted signal as follows
+Given the scenario A assumptions, we obtained the received signal, $\mathsf{z}(t)$. 
+Now by considering the transmitted singal as 
 
-$\mathsf{p}(t)=δ(t-\mathrm{t_p})$
+$\mathsf{p}(t)=δ(t-t_\mathrm{p}),$
 
-$\hat{\mathsf{f}}(\bm{\xi}) = \dfrac{\mathsf{z}\left(\mathrm{t_p}+\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\right)}
+we can estimate the reflector function as follows
+
+$\hat{\mathsf{f}}(\bm{\xi}) = \dfrac{\mathsf{z}\left(t_\mathrm{p}+\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\right)}
 {\mathsf{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\big)}.$
 
 ```julia
@@ -191,11 +194,13 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 
 ### Inverse Modeling
 
-Given the scenario B assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now we can estimate the reflector function by considering the transmitted signal as follows
+Given the scenario B assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now by considering the transmitted singal as 
 
-$\mathsf{p}(t)=δ(t-\mathrm{t_p})$
+$\mathsf{p}(t)=δ(t-t_\mathrm{p}),$
 
-$\hat{\mathsf{f}}(\bm{\xi}) = \dfrac{\mathsf{z}\left(\mathrm{t_p}+\frac{\|\mathbf{p}_\mathrm{r}-
+we can estimate the reflector function as follows
+
+$\hat{\mathsf{f}}(\bm{\xi}) = \dfrac{\mathsf{z}\left(t_\mathrm{p}+\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}}  \right)}{\mathsf{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
 \mathsf{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}.$
@@ -274,11 +279,13 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 
 ### Inverse Modeling
 
-Given the scenario C assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now we can estimate the reflector function by considering the transmitted signal as follows
+Given the scenario C assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now by considering the transmitted singal as 
 
-$\mathsf{p}(t)=δ(t-\mathrm{t_p})$
+$\mathsf{p}(t)=δ(t-t_\mathrm{p}),$
 
-$\hat{\mathsf{f}}(\bm{\xi}) = \dfrac{\mathsf{z}\left(\mathrm{t_p}+\frac{\|\mathbf{p}_\mathrm{r}-
+we can estimate the reflector function as follows
+
+$\hat{\mathsf{f}}(\bm{\xi}) = \dfrac{\mathsf{z}\left(t_\mathrm{p}+\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)}
 {\mathsf{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
 \mathsf{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}.$
@@ -316,7 +323,7 @@ Given the assumptions, we simulate the following geometry for scenario D.
 
 ### Forward Modeling
 
-For scenario D, we provided the position of the source $𝐩ₛ$ and the multiple receivers's position at $\mathbf{p}_{\mathrm{r}^{(i)}}$ where $i = 1,2,…M$, the transmitted signal, $\mathsf{p}(t)$ and multiple stationary reflectors $\bm{\xi}_n$ where $n = 1,2,…,N$ and $M ≥N$.
+For scenario D, we provided the position of the source $𝐩ₛ$ and the multiple receivers's position at $\mathbf{p}_{\mathrm{r}^{(i)}}$ where $i = 1,2,\ldots,M$, the transmitted signal, $\mathsf{p}(t)$ and multiple stationary reflectors $\bm{\xi}_n$ where $n = 1,2,…,N$ and $M ≥N$.
 
 Now the expression for the reflector function is given by
 
@@ -371,13 +378,15 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 
 ### Inverse Modeling
 
-Given the scenario D assumptions, we obtained the received signals, $\mathsf{z}_i(t)$ where $i=1,2,…M$. Now we can estimate the reflector function by considering the transmitted signal as follows
+Given the scenario D assumptions, we obtained the received signals, $\mathsf{z}_i(t)$ where $i=1,2,…,M$. Now by considering the transmitted singal as 
 
-$\mathsf{p}(t)=δ(t-\mathrm{t_p})$
+$\mathsf{p}(t)=δ(t-t_\mathrm{p}),$
 
-$\hat{\mathsf{f}}(\bm{\xi}) = \left(\prod\limits_{i=1}^{M}\mathsf{f}_i(\bm{\xi})\right)^{\frac{1}{M}}$, where
+we can estimate the reflector function as follows
 
-$\mathsf{f}_i(\bm{\xi}) = \dfrac{\mathsf{z}_i\left(\mathrm{t_p}+\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}- \bm{\xi}\|+\|\bm{\xi}
+$\hat{\mathsf{f}}(\bm{\xi}) = \left(\prod\limits_{i=1}^{M}\mathsf{f}_i(\bm{\xi})\right)^{\frac{1}{M}},$ where
+
+$\mathsf{f}_i(\bm{\xi}) = \dfrac{\mathsf{z}_i\left(t_\mathrm{p}+\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}- \bm{\xi}\|+\|\bm{\xi}
 -\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}}\right)}{\mathsf{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)
 \mathsf{A}\big(\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}-\bm{\xi}\|}{\mathrm{c}}\big)}.$
@@ -500,13 +509,15 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioE_signal.png)
 
 ### Inverse Modeling
-Given the scenario E assumptions, we obtained the received signals, $\mathsf{z}_i(t)$ where $i=1,2,…M$. Now we can estimate the reflector function by considering the transmitted signal as follows
+Given the scenario E assumptions, we obtained the received signals, $\mathsf{z}_i(t)$ where $i=1,2,…M$. Now by considering the transmitted singal as 
 
-$\mathsf{p}(t)=δ(t-\mathrm{t_p})$
+$\mathsf{p}(t)=δ(t-t_\mathrm{p}),$
 
-$\hat{\mathsf{f}}(\bm{\xi}) = \left(\prod\limits_{i=1}^{N}\mathsf{f}_i(\bm{\xi})\right)$, where
+we can estimate the reflector function as follows
 
-$\mathsf{f}_i(\bm{\xi}) = \dfrac{\mathsf{z}_i\left(\mathrm{t_p}+\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}- \bm{\xi}\|+\|\bm{\xi}
+$\hat{\mathsf{f}}(\bm{\xi}) = \left(\prod\limits_{i=1}^{N}\mathsf{f}_i(\bm{\xi})\right),$ where
+
+$\mathsf{f}_i(\bm{\xi}) = \dfrac{\mathsf{z}_i\left(t_\mathrm{p}+\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}- \bm{\xi}\|+\|\bm{\xi}
 -\bm{p}_{\mathrm{s}^{(i)}}\|}
 {\mathrm{c}}\right)}{\mathsf{A}\big(\frac{\|\bm{\xi}-\bm{p}_{\mathrm{s}^{(i)}}\|}{\mathrm{c}}\big)
 \mathsf{A}\big(\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}-\bm{\xi}\|}{\mathrm{c}}\big)}.$
@@ -607,14 +618,14 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 
 ### Inverse Modeling
 
-Given the scenario F assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now we can estimate the reflector function by considering the transmitted signal as impulse train given by
+Given the scenario F assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now by considering the transmitted singal as 
 
-$\mathsf{p}(t)=δ(\mathrm{mod}(t-\mathrm{t_p},T)).$
+$\mathsf{p}(t)=δ(\mathrm{mod}(t-t_\mathrm{p},T)),$
 
-We computed the reflector function, $\mathsf{f}_k$ with respect to each pulse's transmission time, $kT$ where $k \in \mathbf{Z}$ in the presence of random white noise as follows
+we computed the reflector function, $\mathsf{f}_k$ with respect to each pulse's transmission time, $kT$ where $k \in \mathbf{Z}$ in the presence of random white noise as follows
 
 
-$\mathsf{f}_k(\bm{\xi})=\dfrac{\mathsf{z}\left(\mathrm{t_p}+kT+\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
+$\mathsf{f}_k(\bm{\xi})=\dfrac{\mathsf{z}\left(t_\mathrm{p}+kT+\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}}\right)}{\mathsf{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
 \mathsf{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}.$
 
