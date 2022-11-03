@@ -10,7 +10,7 @@ $\mathsf{q}(\bm{\xi},t)=\mathsf{p}(t) \overset{t}{*} \mathsf{h}(\bm{\xi},t;\,{\m
 
 
 ### Defining an LTI Omnidirectional Source
-We can define an  **LTI Omnidirectional Source** by calling `LTIsourceO()` with a transmitted signal, $\mathsf{p}(t)$ and the source position vector, $\mathbf{p}_\mathrm{s}$.
+We define an  **LTI Omnidirectional Source** by calling `LTIsourceO()` with a transmitted signal, $\mathsf{p}(t)$ and the source position vector, $\mathbf{p}_\mathrm{s}$.
 ```@example
 using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
@@ -29,16 +29,17 @@ $\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,\textcolor{myLightSlateGrey}
 where $∠[⋅,⋅]$ returns the angle between the two arguments and $\mathrm{G}_\mathrm{s}(\Theta)$
 is the source antenna's $\textit{voltage gain}$ as a function of angle $\Theta$ relative to the beam center $\bm{b}_\mathrm{s}$.
 
-Mathematically, an **LTI Directional Source** is given as follows.
+Mathematically, an **LTI Directional Source** is given as follows
 
 $\mathsf{q}(\bm{\xi},t)=\mathsf{p}(t) \overset{t}{*} \mathsf{h}\big(\bm{\xi},t;\,
-\textcolor{myLightSlateGrey}{\mathbf{p}_\mathrm{s},\bm{b}_\mathrm{s},\mathrm{G}_\mathrm{s}(\cdot)}\big)$
+\textcolor{myLightSlateGrey}{\mathbf{p}_\mathrm{s},\bm{b}_\mathrm{s},\mathrm{G}_\mathrm{s}(\cdot)}\big).$
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Dir_Sources.png)
 
 
 ### Defining an LTI Directional Source
-We can define an  **LTI Directional Source** by calling `LTIsourceDTI()` with a transmitted signal, $\mathsf{p}(t)$, the source position vector, $\mathbf{p}_\mathrm{s}$, time-invariant beam center,
+
+We define an  **LTI Directional Source** by calling `LTIsourceDTI()` with a transmitted signal, $\mathsf{p}(t)$, the source position vector, $\mathbf{p}_\mathrm{s}$, time-invariant beam center,
 $\bm{b}_\mathrm{s}$ and
 $\mathrm{G}_\mathrm{s}(\Theta)$ is the source antenna's
 $\textit{voltage gain}$ as a function of angle $\Theta$ relative to the beam center $\bm{b}_\mathrm{s}$.
@@ -73,7 +74,8 @@ $\mathsf{q}(\bm{\xi},t)=\mathsf{p}(t) \overset{t}{*} \mathsf{h}\big(\bm{\xi},t;\
 
 
 ### Defining an Stationary Directional Source with Time-Varying Beam Center
-We can define an  **Stationary Directional Source** with time-varying beam center by calling `STATsourceD()` with a transmitted signal, $\mathsf{p}(t)$, the source position vector, $\mathbf{p}_\mathrm{s}$, time-varying beam center,
+
+We define an  **Stationary Directional Source** with time-varying beam center by calling `STATsourceD()` with a transmitted signal, $\mathsf{p}(t)$, the source position vector, $\mathbf{p}_\mathrm{s}$, time-varying beam center,
 $\bm{b}_\mathrm{s}(t)$
 and $\mathrm{G}_\mathrm{s}(\Theta)$ is the source antenna's
 $\textit{voltage gain}$ as a function of angle $\Theta$ relative to the beam center $\bm{b}_\mathrm{s}(t)$.
