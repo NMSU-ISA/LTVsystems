@@ -39,3 +39,6 @@ function (R::lineSegment)(𝛏::Vector{Float64}, t::Float64)
     f(k) = α(k) * A( norm(𝛏-(𝛏₀+k*𝐮))/c ) * q[1](𝛏₀+k*𝐮 , t-norm(𝛏-(𝛏₀+k*𝐮))/c)
     return quadgk(f,0.0,L)[1]
 end
+
+# DISPLAY
+Base.show(io::IO, x::pointReflector) = print(io, "Ideal Point Reflectors")
