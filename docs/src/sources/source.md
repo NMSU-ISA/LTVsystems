@@ -2,9 +2,9 @@
 
 ## LTI Omnidirectional Source
 
-An **LTI Omnidirectional Source**  is parameterized by taking the convolution between the transmitted signal and the impulse response from the source located at position, $\mathbf{p}_\mathrm{s}$. Mathematically, we can define an **LTI Omnidirectional Source** as follows.
+An **LTI Omnidirectional Source**  is parameterized by taking the convolution between the transmitted signal and the impulse response from the source located at position, $\mathbf{p}_\mathrm{s}$. Mathematically, we can define an **LTI Omnidirectional Source** as follows
 
-$\mathsf{q}(\bm{\xi},t)=\mathsf{p}(t) \overset{t}{*} \mathsf{h}(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s}})$
+$\mathsf{q}(\bm{\xi},t)=\mathsf{p}(t) \overset{t}{*} \mathsf{h}(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s}}).$
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/LTIOmni_Source_BD.png)
 
@@ -14,7 +14,8 @@ We can define an  **LTI Omnidirectional Source** by calling `LTIsourceO()` with 
 ```@example
 using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
-p(t) = δn(t,1.0e-10)
+tₚ = 1.0e-06
+p(t) = δn(t-tₚ,1.0e-07)
 q = LTIsourceO(𝐩ₛ, p)
 ```
 ## LTI Directional Source
@@ -30,8 +31,8 @@ is the source antenna's $\textit{voltage gain}$ as a function of angle $\Theta$ 
 
 Mathematically, an **LTI Directional Source** is given as follows.
 
-$\mathsf{q}(\bm{\xi},t)=\mathsf{p}(t) \overset{t}{*} \mathsf{h(\bm{\xi},t;\,
-\textcolor{myLightSlateGrey}{\mathbf{p}_\mathrm{s},\bm{b}_\mathrm{s}})}$
+$\mathsf{q}(\bm{\xi},t)=\mathsf{p}(t) \overset{t}{*} \mathsf{h}\big(\bm{\xi},t;\,
+\textcolor{myLightSlateGrey}{\mathbf{p}_\mathrm{s},\bm{b}_\mathrm{s},\mathrm{G}_\mathrm{s}(\cdot)}\big)$
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Dir_Sources.png)
 
@@ -44,9 +45,10 @@ $\textit{voltage gain}$ as a function of angle $\Theta$ relative to the beam cen
 ```@example
 using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
+tₚ = 1.0e-06
+p(t) = δn(t-tₚ,1.0e-07)
 𝐛 = [1.0,0.0]
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
-p(t) = δn(t,1.0e-10)
 q = LTIsourceDTI(𝐩ₛ, p, 𝐛, G)
 ```
 
@@ -57,7 +59,7 @@ q = LTIsourceDTI(𝐩ₛ, p, 𝐛, G)
 Mathematically, a **Stationary Directional Source** with time-varying beam center is given as follows.
 
 $\mathsf{q}(\bm{\xi},t)=\mathsf{p}(t) \overset{t}{*} \mathsf{h}\big(\bm{\xi},t;\,
-\textcolor{myLightSlateGrey}{\mathbf{p}_\mathrm{s}},\bm{b}_\mathrm{s}(t)\big)$
+\textcolor{myLightSlateGrey}{\mathbf{p}_\mathrm{s},\bm{b}_\mathrm{s}(\cdot),\mathrm{G}_\mathrm{s}(\cdot)}\big)$
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Stationary_Sources.png)
 
@@ -70,8 +72,9 @@ $\textit{voltage gain}$ as a function of angle $\Theta$ relative to the beam cen
 ```@example
 using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
+tₚ = 1.0e-06
+p(t) = δn(t-tₚ,1.0e-07)
 𝐛(t) = [cos(2π*10*t),0.0]/(norm(cos(2π*10*t)))
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
-p(t) = δn(t,1.0e-10)
 q = STATsourceD(𝐩ₛ, p, 𝐛, G)
 ```

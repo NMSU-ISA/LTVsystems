@@ -29,3 +29,4 @@ f(ξ::Vector{Float64})=(z(tₚ+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c))./(A(n
 #SPATIAL SIMULATION
 inversePlot2D([q],[r],[z],f)
 png(path*"scenarioB_simulation.png")
+
