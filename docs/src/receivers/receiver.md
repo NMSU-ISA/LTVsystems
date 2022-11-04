@@ -56,7 +56,9 @@ $\mathsf{\psi}(\bm{\xi},t)=\mathsf{r}(\bm{\xi},t) \overset{t}{*} \mathsf{g}(\bm{
 
 Finally, the signal, $\mathsf{z}(t)$ observed by the receiver at position $\mathbf{p}_\mathrm{r}$ due to the primary reflections is given by 
 
-$\mathsf{z}(t) = ∭ \mathsf{\psi}(\bm{\xi},t) dS.$
+$\mathsf{z}(t) = ∭_S \mathsf{\psi}(\bm{\xi},t) dS,$
+
+where $S$ is the entire spatial domain.
 
 ### Defining an LTI Directional Receiver
 
@@ -91,7 +93,9 @@ $\mathsf{\psi}(\bm{\xi},t)=\mathsf{r}(\bm{\xi},t) \overset{t}{*} \mathsf{g}(\bm{
 
 Finally, the signal, $\mathsf{z}(t)$ observed by the receiver at position $\mathbf{p}_\mathrm{r}$ due to the primary reflections is given by 
 
-$\mathsf{z}(t) = ∭ \mathsf{\psi}(\bm{\xi},t) dS.$
+$\mathsf{z}(t) = ∭_S \mathsf{\psi}(\bm{\xi},t) dS,$
+
+where $S$ is the entire spatial domain.
 
 ### Defining an Stationary Directional Receiver
 
