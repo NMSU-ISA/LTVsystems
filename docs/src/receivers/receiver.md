@@ -11,7 +11,9 @@ $\mathsf{\psi}(\bm{\xi},t) = \mathsf{r}(\bm{\xi},t) \overset{t}{*} \mathsf{g}\bi
 
 Finally, the signal observed by the receiver at position, $\mathbf{p}_\mathrm{r}$ due to the primary reflections is defined as follows
 
-$\mathsf{z}(t) = ∭ \mathsf{\psi}(\bm{\xi},t) dS$
+$\mathsf{z}(t) = ∭_S \mathsf{\psi}(\bm{\xi},t) dS,$
+
+where $S$ is the entire spatial domain.
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Integrator_BD.png)
 
