@@ -28,7 +28,6 @@ $\mathsf{h}(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s}}) = \mathsf{A}\left(\frac{\|\bm{
 {\mathrm{c}}\right) \delta\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
 The signal observed at position $\bm{\xi}$ and time $t$ due to the source emitting from position $\mathbf{p}_\mathrm{s}$ is given as
-
 ```math
 \begin{aligned}
 \mathsf{q}(\bm{\xi},t)  &= \mathsf{p}(t) \overset{t}{*} \mathsf{h}(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s}}) \\
@@ -36,6 +35,7 @@ The signal observed at position $\bm{\xi}$ and time $t$ due to the source emitti
                {\mathrm{c}}\right) \mathsf{p}\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).
 \end{aligned}
 ```
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Source_geometry.png)
 
 The reflection due to source is given by
 
@@ -323,7 +323,7 @@ Given the assumptions, we simulate the following geometry for scenario D.
 
 ### Forward Modeling
 
-For scenario D, we provided the position of the source $𝐩ₛ$ and the multiple receivers's position at $\mathbf{p}_{\mathrm{r}^{(i)}}$ where $i = 1,2,\ldots,M$, the transmitted signal, $\mathsf{p}(t)$ and multiple stationary reflectors $\bm{\xi}_n$ where $n = 1,2,…,N$ and $M ≥N$.
+For scenario D, we provided the position of the source $𝐩ₛ$ and the multiple receivers's position at $\mathbf{p}_{\mathrm{r}^{(i)}}$ where $i = 1,2,\ldots,M$, the transmitted signal, $\mathsf{p}(t)$ and multiple stationary reflectors $\bm{\xi}_n$ where $n = 1,2,\ldots,N$ and $M ≥N$.
 
 Now the expression for the reflector function is given by
 
@@ -455,7 +455,7 @@ Given the assumptions, we simulate the following geometry for scenario E.
 ### Forward Modeling
 
 For scenario E, we provided the positions of multiple sources at $\mathbf{p}_{\mathrm{s}^{(i)}}$
-where $i = 1,2,…N$, the multiple receivers at $\mathbf{p}_{\mathrm{r}^{(i)}}$ where $i = 1,2,…N$, the transmitted signal $\mathsf{p}(t)$, and a stationary reflector.
+where $i = 1,2,\ldots,N$, the multiple receivers at $\mathbf{p}_{\mathrm{r}^{(i)}}$ where $i = 1,2,\ldots,N$, the transmitted signal $\mathsf{p}(t)$, and a stationary reflector.
 
 Now the expression for the reflector function is given by
 
@@ -468,10 +468,10 @@ $\mathsf{r}_i(\bm{\xi},t) = \mathsf{\alpha}_0 \delta(\bm{\xi} - \bm{\xi}_0)
 \mathsf{A}\left(\frac{\|\bm{\xi}-\bm{p}_{\mathrm{s}^{(i)}}\|}
 {\mathrm{c}}\right) \mathsf{p}\left(t-\frac{\|\bm{\xi}-\bm{p}_{\mathrm{s}^{(i)}}\|}{\mathrm{c}}\right)$
 
-where $i = 1,2,…N$,
+where $i = 1,2,\ldots,N$,
 
 
-Finally, the closed form expression of the observed signals, $\mathsf{z}_i(t)$ where $i = 1,2,…M$ is given by
+Finally, the closed form expression of the observed signals, $\mathsf{z}_i(t)$ where $i = 1,2,\ldots,N$ is given by
 
 $\mathsf{z}_i(t) = \mathsf{\alpha}_0 \mathsf{A}\left(\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}-\bm{\xi}_0\|}{\mathrm{c}}\right)
 \mathsf{A}\left(\frac{\|\bm{\xi}_0-\mathbf{p}_{\mathrm{s}^{(i)}}\|}{\mathrm{c}}\right)
@@ -509,13 +509,13 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioE_signal.png)
 
 ### Inverse Modeling
-Given the scenario E assumptions, we obtained the received signals, $\mathsf{z}_i(t)$ where $i=1,2,…M$. Now by considering the transmitted singal as 
+Given the scenario E assumptions, we obtained the received signals, $\mathsf{z}_i(t)$ where $i=1,2,\ldots,N$. Now by considering the transmitted singal as 
 
 $\mathsf{p}(t)=δ(t-t_\mathrm{p}),$
 
-we can estimate the reflector function as follows
+we estimate the reflector function as follows
 
-$\hat{\mathsf{f}}(\bm{\xi}) = \left(\prod\limits_{i=1}^{N}\mathsf{f}_i(\bm{\xi})\right),$ where
+$\hat{\mathsf{f}}(\bm{\xi}) = \prod\limits_{i=1}^{N}\mathsf{f}_i(\bm{\xi}),$ where
 
 $\mathsf{f}_i(\bm{\xi}) = \dfrac{\mathsf{z}_i\left(t_\mathrm{p}+\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}- \bm{\xi}\|+\|\bm{\xi}
 -\bm{p}_{\mathrm{s}^{(i)}}\|}
@@ -622,7 +622,7 @@ Given the scenario F assumptions, we obtained the received signal, $\mathsf{z}(t
 
 $\mathsf{p}(t)=δ(\mathrm{mod}(t-t_\mathrm{p},T)),$
 
-we computed the reflector function, $\mathsf{f}_k$ with respect to each pulse's transmission time, $kT$ where $k \in \mathbf{Z}$ in the presence of random white noise as follows
+we compute the reflector function, $\mathsf{f}_k$ with respect to each pulse's transmission time, $kT$ where $k \in \mathbf{Z}$ in the presence of random white noise as follows
 
 
 $\mathsf{f}_k(\bm{\xi})=\dfrac{\mathsf{z}\left(t_\mathrm{p}+kT+\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
