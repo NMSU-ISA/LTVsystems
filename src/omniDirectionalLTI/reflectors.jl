@@ -41,4 +41,4 @@ function (R::lineSegment)(𝛏::Vector{Float64}, t::Float64)
 end
 
 # DISPLAY
-Base.show(io::IO, x::pointReflector) = print(io, "Ideal Point Reflectors")
+Base.show(io::IO, x::pointReflector) = print(io, "Primary Reflection")
