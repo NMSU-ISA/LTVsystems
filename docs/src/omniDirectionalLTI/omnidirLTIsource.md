@@ -28,8 +28,6 @@ $\mathsf{h}(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s}}) = \mathsf{A}\left(\frac{\|\bm{
 {\mathrm{c}}\right) \delta\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
 The signal observed at position $\bm{\xi}$ and time $t$ due to the source emitting from position $\mathbf{p}_\mathrm{s}$ is given as
-
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Source_geometry.png)
 ```math
 \begin{aligned}
 \mathsf{q}(\bm{\xi},t)  &= \mathsf{p}(t) \overset{t}{*} \mathsf{h}(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s}}) \\
@@ -37,6 +35,7 @@ The signal observed at position $\bm{\xi}$ and time $t$ due to the source emitti
                {\mathrm{c}}\right) \mathsf{p}\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).
 \end{aligned}
 ```
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Source_geometry.png)
 
 The reflection due to source is given by
 
@@ -516,7 +515,7 @@ $\mathsf{p}(t)=δ(t-t_\mathrm{p}),$
 
 we estimate the reflector function as follows
 
-$\hat{\mathsf{f}}(\bm{\xi}) = \left(\prod\limits_{i=1}^{N}\mathsf{f}_i(\bm{\xi})\right),$ where
+$\hat{\mathsf{f}}(\bm{\xi}) = \prod\limits_{i=1}^{N}\mathsf{f}_i(\bm{\xi}),$ where
 
 $\mathsf{f}_i(\bm{\xi}) = \dfrac{\mathsf{z}_i\left(t_\mathrm{p}+\frac{\|\mathbf{p}_{\mathrm{r}^{(i)}}- \bm{\xi}\|+\|\bm{\xi}
 -\bm{p}_{\mathrm{s}^{(i)}}\|}
