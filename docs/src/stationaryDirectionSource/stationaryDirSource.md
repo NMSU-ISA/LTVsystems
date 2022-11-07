@@ -76,7 +76,7 @@ position $\bm{\xi}$ is given by
 
 ### Forward Modeling
 
-For scenario A, we provided the position of the stationary direction source $𝐩ₛ$, with time-varying beam center $𝐛(t)$, the stationary direction receiver's position $𝐩ᵣ$, being at the same location $(𝐩ₛ=𝐩ᵣ)$, the transmitted signal $\mathsf{p}(t)$, and multiple reflector say, N.
+For scenario A, we provided the position of the stationary directional source $𝐩ₛ$, with time-varying (rotating) beam center $𝐛(t)$, the stationary receiver's position $𝐩ᵣ$, being at the same location $(𝐩ₛ=𝐩ᵣ)$, the transmitted signal $\mathsf{p}(t)$, and multiple reflector say, N.
 
 Now the expression for the reflector function is given by
 
@@ -189,6 +189,28 @@ inversePlot2D([q],r,[z],g)
 
 ### Forward Modeling
 
+For scenario B, we provided the position of the stationary directional source $𝐩ₛ$, with time-varying (rotating) beam center $𝐛(t)$, the stationary receiver's position $𝐩ᵣ$ being at the same location $(𝐩ₛ=𝐩ᵣ)$, the transmitted signal $\mathsf{p}(t)$, and multiple reflector say, N.
+
+Now the expression for the reflector function is given by
+
+$\mathsf{f}(\bm{\xi}) = \sum\limits_{n=1}^{N}\mathsf{\alpha}_n \delta(\bm{\xi} - \bm{\xi}_n).$
+
+We compute the reflection due to the directional source as follows
+
+$\mathsf{r}(\bm{\xi},t) = \sum\limits_{n=1}^{N}\mathsf{\alpha}_n \delta(\bm{\xi} - \bm{\xi}_n)
+\mathrm{D}_\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)}\big)
+\mathsf{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
+{\mathrm{c}}\right) \mathsf{p}\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
+
+Finally, the closed form expression of the observed signal, $\mathsf{z}(t)$ is given by
+
+$\mathsf{z}(t) = \sum\limits_{n=1}^{N} \mathsf{\alpha}_n \mathrm{D}_\mathrm{s}\big(\bm{\xi}_n;\,{\mathbf{p}_\mathrm{s},
+\mathbf{b}_\mathrm{s}(\cdot)}\big)\mathsf{A}^2
+\left(\frac{\|\mathbf{p}_\mathrm{s}-\bm{\xi}_n\|}
+{\mathrm{c}}\right)\mathsf{p}\left(t -2\frac{\|\mathbf{p}_\mathrm{s}-\bm{\xi}_n\|}{\mathrm{c}}\right).$
+
+
+
 ```julia
 using LTVsystems
 using Plots
@@ -221,6 +243,20 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 
 
 ### Inverse Modeling
+
+Given the scenario B assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now by considering the transmitted signal as a pulse train given by
+
+$\mathsf{p}(t)=δ(\mathrm{mod}(t-t_\mathrm{p},\mathrm{T})),$
+
+we compute the reflector function as follows
+
+$\hat{\mathsf{f}}(\bm{\xi}) = ∑_{k=1}^{M} \mathsf{f}_k(\bm{\xi}),$
+
+where $M$ is the number of pulses and $\mathsf{f}_k$ is the reflector function with respect to each periodic pulse given by
+
+$\mathsf{f}_k(\bm{\xi})=\dfrac{\mathsf{z}\left(t_\mathrm{p}+(k-1)\mathrm{T}+\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)\mathrm{D}_{\mathrm{s}k}(\bm{\xi})}{\mathsf{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)},$
+
+where $\mathrm{D}_{\mathrm{s}k}(\bm{\xi}) = \mathbf{G}\big(∠(𝐛(t_\mathrm{p}+(k-1)\mathrm{T}), \bm{\xi}.-\mathbf{p}_\mathrm{s})\big).$ 
 
 ```julia
 using LTVsystems
@@ -264,6 +300,27 @@ inversePlot2D([q],r,[z],g)
 
 ### Forward Modeling
 
+For scenario C, we provided the position of the stationary source $𝐩ₛ$, the stationary directional receiver's position $𝐩ᵣ$ with time-varying (rotating) beam center $𝐛(t)$, the transmitted signal $\mathsf{p}(t)$, and multiple reflector say, N.
+
+Now the expression for the reflector function is given by
+
+$\mathsf{f}(\bm{\xi}) = \sum\limits_{n=1}^{N}\mathsf{\alpha}_n \delta(\bm{\xi} - \bm{\xi}_n).$
+
+We compute the reflection due to the directional source as follows
+
+$\mathsf{r}(\bm{\xi},t) = \sum\limits_{n=1}^{N}\mathsf{\alpha}_n \delta(\bm{\xi} - \bm{\xi}_n)\mathsf{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
+{\mathrm{c}}\right) \mathsf{p}\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
+
+Finally, the closed form expression of the observed signal, $\mathsf{z}(t)$ is given by
+
+$\mathsf{z}(t) = \sum\limits_{n=1}^{N} \mathsf{\alpha}_n \mathrm{D}_\mathrm{r}\big(\bm{\xi}_n;\,{\mathbf{p}_\mathrm{r},
+\mathbf{b}_\mathrm{r}(\cdot)}\big)\mathsf{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)
+\mathsf{A}\left(\frac{\|\bm{\xi}_0-
+\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)\mathsf{p}\left(t-
+\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|+\|\bm{\xi}_0-
+\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
+
+
 ```julia
 using LTVsystems
 using Plots
@@ -292,6 +349,22 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 
 
 ### Inverse Modeling
+
+Given the scenario C assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now by considering the transmitted signal as a pulse train given by
+
+$\mathsf{p}(t)=δ(\mathrm{mod}(t-t_\mathrm{p},\mathrm{T})),$
+
+we compute the reflector function as follows
+
+$\hat{\mathsf{f}}(\bm{\xi}) = ∑_{k=1}^{M} \mathsf{f}_k(\bm{\xi}),$
+
+where $M$ is the number of pulses and $\mathsf{f}_k$ is the reflector function with respect to each periodic pulse given by
+
+$\mathsf{f}_k(\bm{\xi})=\dfrac{\mathsf{z}\left(t_\mathrm{p}+(k-1)\mathrm{T}+\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
+{\mathrm{c}}\right)\mathrm{D}_{\mathrm{r}k}(\bm{\xi})}{\mathsf{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
+\mathsf{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)},$
+
+where $\mathrm{D}_{\mathrm{r}k}(\bm{\xi}) = \mathbf{G}\big(∠(𝐛(t_\mathrm{p}+(k-1)\mathrm{T}+\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}), \mathbf{p}_\mathrm{r}.-\bm{\xi})\big).$ 
 
 ```julia
 using LTVsystems
