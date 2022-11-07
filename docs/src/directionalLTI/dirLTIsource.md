@@ -113,7 +113,7 @@ using Plots
 tₚ = 1.0e-06 
 p(t) = δn(t-tₚ,1.0e-07)
 𝐛 = [1.0,0.0]
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/6)
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/64)
 q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
 α₀ = -0.7; 𝛏₀ = [3.75e-06c,0.0]
 α₁ = -0.7; 𝛏₁ = [-3.75e-06c,0.0]
@@ -145,7 +145,7 @@ using Plots
 tₚ = 1.0e-06 
 p(t) = δn(t-tₚ,1.0e-07)
 𝐛 = [1.0,0.0]
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/6)
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/64)
 q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
 α₀ = -0.7; 𝛏₀ = [3.75e-06c,0.0]
 α₁ = -0.7; 𝛏₁ = [-3.75e-06c,0.0]
@@ -190,9 +190,7 @@ $\mathsf{r}(\bm{\xi},t) = \mathsf{\alpha}_0 \delta(\bm{\xi} - \bm{\xi}_0)
 Finally, the closed form expression of the observed signal, $\mathsf{z}(t)$
 is given by
 
-$\mathsf{z}(t) = \mathsf{\alpha}_0 \mathrm{D}_\mathrm{r}\left(\bm{\xi}_0;\,{\mathbf{p}_\mathrm{r},
-\mathbf{b}_\mathrm{r}}\right) \mathrm{D}_\mathrm{s}\left(\bm{\xi}_0;\,{\mathbf{p}_\mathrm{s},
-\mathbf{b}_\mathrm{s}}\right)
+$\mathsf{z}(t) = \mathsf{\alpha}_0 \mathrm{D}_\mathrm{s}\left(\bm{\xi}_0;\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
 \mathsf{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)
 \mathsf{A}\left(\frac{\|\bm{\xi}_0-
 \mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right) \mathsf{p}\left(t-
@@ -207,15 +205,16 @@ using Plots
 tₚ = 1.0e-06 
 p(t) = δn(t-tₚ,1.0e-07)
 𝐛 = [1.0,0.0]
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/6)
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/64)
 q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
 α₀ = -0.7; 𝛏₀ = [3.75e-06c,0.0]
-r = pointReflector(𝛏₀,α₀,q)
-z = LTIreceiverDTI([r],𝐩ᵣ,𝐛,G)
+α₁ = -0.7; 𝛏₁ = [-3.75e-06c,0.0]
+r = pointReflector([𝛏₀,𝛏₁],[α₀,α₁],[q])
+z = LTIreceiverO(r,𝐩ᵣ)
 t=0.0:1.0e-08:25.0e-06
 p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
-plot(p1,p2,layout=(2,1))
+plot(p1,p2,layout=(2,1),size=(800,800))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioB_LTIDirsignal.png)
 
@@ -228,8 +227,7 @@ $\mathsf{p}(t)=δ(t-\mathrm{t_p})$
 
 $\hat{\mathsf{f}}(\bm{\xi}) = \dfrac{\mathsf{z}\left(\mathrm{t_p}+\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}}  \right)\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
-\mathrm{D}_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)}{\mathsf{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
+{\mathrm{c}}  \right)\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)}{\mathsf{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
 \mathsf{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}
 .$
 
@@ -241,16 +239,15 @@ using Plots
 tₚ = 1.0e-06 
 p(t) = δn(t-tₚ,1.0e-07)
 𝐛 = [1.0,0.0]
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/6)
+G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/64)
 q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
 α₀ = -0.7; 𝛏₀ = [3.75e-06c,0.0]
-r = pointReflector(𝛏₀,α₀,q)
-z = LTIreceiverDTI([r],𝐩ᵣ,𝐛,G)
-Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ᵣ))
+α₁ = -0.7; 𝛏₁ = [-3.75e-06c,0.0]
+r = pointReflector([𝛏₀,𝛏₁],[α₀,α₁],[q])
+z = LTIreceiverO(r,𝐩ᵣ)
 Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ₛ))
-f(ξ::Vector{Float64}) = (z(tₚ+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ(ξ::Vector{Float64}).*Dᵣ(ξ::Vector{Float64}))/
-                        (A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
-inversePlot2D([q],[r],[z],f)
+f(ξ::Vector{Float64}) = (z(tₚ+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ(ξ::Vector{Float64}))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
+inversePlot2D([q],r,[z],f)
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioB_DirTIsimulation.png)
 
