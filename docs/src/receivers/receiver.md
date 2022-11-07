@@ -4,10 +4,11 @@
 
 In order to define **LTI Omnidirectional Receiver**, first we observed the signal due to the primary reflection. 
 
+We provide the geometry of the the signal observation at position, $\mathbf{p}_\mathrm{r}$ due to the primary reflection emitted from the position $\bm{\xi}$ as follows 
+
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Receiver_geometry.png)
 
-We define the signal observation at position, $\mathbf{p}_\mathrm{r}$
-due to the primary reflection emitted from the position $\bm{\xi}$ as follows 
+Mathematically, the signal observation at position, $\mathbf{p}_\mathrm{r}$ due to the primary reflection emitted from the position $\bm{\xi}$ is given by
 
 $\mathsf{\psi}(\bm{\xi},t) = \mathsf{r}(\bm{\xi},t) \overset{t}{*} \mathsf{g}\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r}(\cdot)}\big).$
 

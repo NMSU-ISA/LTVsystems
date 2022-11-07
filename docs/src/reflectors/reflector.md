@@ -7,7 +7,9 @@ $\mathsf{\alpha}_1,\mathsf{\alpha}_2,\ldots,\mathsf{\alpha}_n$ located at fixed 
 
 $\mathsf{f}(\bm{\xi}) = \sum_{n} \mathsf{\alpha}_n \delta(\bm{\xi} - \bm{\xi}_n).$
 
-Note that the reflection coefficients take negative values since we assume that the voltage is fixed at the reflector's end.
+Note that the reflection coefficients take negative values since we assume that the voltage is fixed at the reflector's end. 
+
+We provide the geometry of the reflection from the position $\bm{\xi}$ due to the source as follows
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Reflector_geometry.png)
 
