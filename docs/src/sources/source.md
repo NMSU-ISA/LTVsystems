@@ -2,7 +2,12 @@
 
 ## LTI Omnidirectional Source
 
-An **LTI Omnidirectional Source**  is parameterized by taking the convolution between the transmitted signal and the impulse response from the source located at position, $\mathbf{p}_\mathrm{s}$. Mathematically, we can define an **LTI Omnidirectional Source** as follows
+An **LTI Omnidirectional Source**  is parameterized by taking the convolution between the transmitted signal and the impulse response from the source located at position, $\mathbf{p}_\mathrm{s}$. 
+
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Source_geometry.png)
+
+
+Mathematically, we can define an **LTI Omnidirectional Source** as follows
 
 $\mathsf{q}(\bm{\xi},t)=\mathsf{p}(t) \overset{t}{*} \mathsf{h}(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s}}).$
 

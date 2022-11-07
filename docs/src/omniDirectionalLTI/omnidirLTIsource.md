@@ -35,8 +35,6 @@ The signal observed at position $\bm{\xi}$ and time $t$ due to the source emitti
                {\mathrm{c}}\right) \mathsf{p}\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).
 \end{aligned}
 ```
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Source_geometry.png)
-
 The reflection due to source is given by
 
 $\mathsf{r}(\bm{\xi},t) = \mathsf{f}(\bm{\xi}) \mathsf{q}(\bm{\xi},t).$

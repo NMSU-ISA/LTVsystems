@@ -3,12 +3,14 @@
 ## Ideal Point Reflectors
 
 An ideal point reflector is parameterized by considering the reflection coefficients,
-$\mathsf{\alpha}_1,\mathsf{\alpha}_2,\ldots,\mathsf{\alpha}_n$ located at fixed positions, say $\bm{ξ}_1,\bm{ξ}_2,\ldots,\bm{ξ}_n$
-as follows
+$\mathsf{\alpha}_1,\mathsf{\alpha}_2,\ldots,\mathsf{\alpha}_n$ located at fixed positions, say $\bm{ξ}_1,\bm{ξ}_2,\ldots,\bm{ξ}_n$ as follows
 
 $\mathsf{f}(\bm{\xi}) = \sum_{n} \mathsf{\alpha}_n \delta(\bm{\xi} - \bm{\xi}_n).$
 
 Note that the reflection coefficients take negative values since we assume that the voltage is fixed at the reflector's end.
+
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Reflector_geometry.png)
+
 Mathematically, the reflection due to the **LTI Omnidirectional Source** is given by
 
 $\mathsf{r}(\bm{\xi},t) = \mathsf{f}(\bm{\xi}) \mathsf{q}(\bm{\xi},t).$
