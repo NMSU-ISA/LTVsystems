@@ -130,19 +130,20 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 
 ### Inverse Modeling
 
-Given the scenario A assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now we can estimate the reflector function by considering the transmitted signal as a pulse train as follows
+Given the scenario A assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now by considering the transmitted signal as a pulse train given by
 
-$\mathsf{p}(t)=∑_{k=1}^{M}δ(t-t_\mathrm{p}-(k-1)\mathrm{T})$ as follows
+$\mathsf{p}(t)=δ(\mathrm{mod}(t-t_\mathrm{p},\mathrm{T})),$
 
-In order to consider the transmitted time of the time-varying beam with respect to each periodic pulse, we computed the reflector function as follows
+we compute the reflector function as follows
 
-$\mathsf{f}_k(\bm{\xi})=\dfrac{\mathsf{z}\left(t_\mathrm{p}+(k-1)\mathrm{T}+\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)\mathrm{D}_{\mathrm{s}k}(\bm{\xi})}{\mathsf{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)}$
+$\hat{\mathsf{f}}(\bm{\xi}) = ∑_{k=1}^{M} \mathsf{f}_k(\bm{\xi}),$
 
-where $\mathrm{D}_{\mathrm{s}k}(\bm{\xi}) = \mathbf{G}\big(∠(𝐛(t_\mathrm{p}+(k-1)\mathrm{T}), \bm{\xi}.-\mathbf{p}_\mathrm{s})\big)$ 
+where $M$ is the number of pulses and $\mathsf{f}_k$ is the reflector function with respect to each periodic pulse given by
 
-Finally, the reflector function for the scenario is given as follows
+$\mathsf{f}_k(\bm{\xi})=\dfrac{\mathsf{z}\left(t_\mathrm{p}+(k-1)\mathrm{T}+\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)\mathrm{D}_{\mathrm{s}k}(\bm{\xi})}{\mathsf{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)},$
 
-$\hat{\mathsf{f}}(\bm{\xi}) = ∑_{k=1}^{M} \mathsf{f}_k(\bm{\xi}).$
+where $\mathrm{D}_{\mathrm{s}k}(\bm{\xi}) = \mathbf{G}\big(∠(𝐛(t_\mathrm{p}+(k-1)\mathrm{T}), \bm{\xi}.-\mathbf{p}_\mathrm{s})\big).$ 
+
 
 ```julia 
 using LTVsystems
@@ -181,7 +182,7 @@ inversePlot2D([q],r,[z],g)
 
 ### Scenario Assumptions
 
-* single stationary directional source with time-varying beam center
+* single stationary directional source with time-varying (rotating) beam center
 * single stationary receiver at same location as the source
 * multiple stationary ideal point reflectors
 * the source emits a periodic impulse train
@@ -214,7 +215,7 @@ z = LTIreceiverO(r,𝐩ᵣ)
 t=0.0:T/500:D*T
 p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2 = plot( t, z(t),ylims=(minimum(z(t)),maximum(z(t))), xlab="time (sec)", ylab="z(t)", legend=:false)
-plot(p1,p2,layout=(2,1))
+plot(p1,p2,layout=(2,1),size=(800,800))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_STATDirsignal.png)
 
@@ -252,14 +253,14 @@ inversePlot2D([q],r,[z],g)
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_STATDsimulation.png)
 
 
-## Scenario C [Pulse train, multiple reflector, transmitter and receiver at same location]
+## Scenario C [Pulse train, multiple reflector, transmitter and receiver at different location]
 
 ### Scenario Assumptions
 
 * single stationary source 
-* single stationary directional receiver with time-varying beam center
-* multiple stationary ideal point reflectors
-* the source emits a periodic impulse train
+* single stationary directional receiver with time-varying (rotating) beam center
+* multiple stationary ideal point reflector
+* the source emits a periodic pulse train
 
 ### Forward Modeling
 
@@ -285,7 +286,7 @@ z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
 t=0.0:T/500:D*T
 p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2 = plot( t, z(t),ylims=(minimum(z(t)),maximum(z(t))), xlab="time (sec)", ylab="z(t)", legend=:false)
-plot(p1,p2,layout=(2,1))
+plot(p1,p2,layout=(2,1),size=(800,800))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioESTAT_signal.png)
 

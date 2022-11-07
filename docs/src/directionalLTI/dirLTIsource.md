@@ -327,7 +327,9 @@ $\mathsf{f}_k(\bm{\xi})=\dfrac{\mathsf{z}\left(t_\mathrm{p}+k\mathrm{T}+\frac{2\
 
 Finally, the reflector function is given as follows
 
-$\hat{\mathsf{f}}(\bm{\xi}) = \frac{∑_{k=0}^{M-1} \mathsf{f}_k(\bm{\xi})}{M}.$
+$\hat{\mathsf{f}}(\bm{\xi}) = \frac{∑_{k=0}^{M-1} \mathsf{f}_k(\bm{\xi})}{M},$
+
+where $M$ is the number of pulses.
 
 ```julia
 using LTVsystems

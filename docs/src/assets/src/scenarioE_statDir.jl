@@ -54,8 +54,8 @@ using Plots
 T  = 15.0e-6 
 𝐩ₛ = [0.01c*T, 0.0]
 𝐩ᵣ = [-0.06c*T, 0.0]
-tₚ = 1.0e-06 # in microseconds
-D = 16
+tₚ = 1.0e-06 
+D = 32
 p(t) = δn(mod(t-tₚ,T),1.0e-07)
 α₁ = -0.7; 𝛏₁ = [0.2c*T,0.10c*T]
 α₂ = -0.7; 𝛏₂ = [-0.15c*T,0.08c*T]
@@ -70,7 +70,7 @@ z = STATreceiverD(r,𝐩ᵣ,𝐛,G)
 t=0.0:T/500:D*T
 p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2 = plot( t, z(t),ylims=(minimum(z(t)),maximum(z(t))), xlab="time (sec)", ylab="z(t)", legend=:false)
-plot(p1,p2,layout=(2,1))
+plot(p1,p2,layout=(2,1),size=(800,800))
 
 scenePlot2D([q],r,[z])
 
