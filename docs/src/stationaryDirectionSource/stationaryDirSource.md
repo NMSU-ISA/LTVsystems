@@ -2,8 +2,8 @@
 
 | Symbol     | Type       | Description |
 | :---------- | :----------: | :----------- |
-| $\mathbf{b}_\mathrm{s}(t)$        | vector function of time|  time-varying source beam center   |
-| $\mathbf{b}_\mathrm{r}(t)$        | vector function of time|  time-varying receiver beam center   |
+| $\mathbf{b}_\mathrm{s}(t)$        | vector function of time|  time-varying (rotating) source beam center   |
+| $\mathbf{b}_\mathrm{r}(t)$        | vector function of time|  time-varying (rotating) receiver beam center   |
 | $\Theta(t)$     | scalar function of time    | angle relative to time-varying beam center |
 | $\angle(\bm{u},\bm{v})$     | operator          | returns the angle between two vectors |
 | $\mathrm{G}_\mathrm{s}(\Theta)$   | scalar function of angle  |  Gain of the source antenna |
@@ -11,7 +11,7 @@
 | $\mathrm{D}_\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)}\big)$   | scalar function of position |  directivity of source |
 | $\mathrm{D}_\mathrm{r}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}(\cdot)}\big)$   | scalar function of position |  directivity of receiver |
 | $\mathsf{h}\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot),\mathrm{G}_\mathrm{s}(\cdot)}\big)$       |  scalar function of position and time  | LTI impulse response from    $\mathbf{p}_\mathrm{s}$ to  $\bm{\xi}$ |
-| $\mathsf{g}(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}(\cdot),\mathrm{G}_\mathrm{r}(\cdot)})$   |  scalar function of position and time  | LTI impulse response from    $\bm{\xi}$ to $\mathbf{p}_\mathrm{r}$ |
+| $\mathsf{g}\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}(\cdot),\mathrm{G}_\mathrm{r}(\cdot)}\big)$   |  scalar function of position and time  | LTI impulse response from    $\bm{\xi}$ to $\mathbf{p}_\mathrm{r}$ |
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Stationary_Directional_Model_BD.png)
 
@@ -22,11 +22,11 @@ $\mathsf{h}\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)
 \mathsf{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}}\right) \delta\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
-where $\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)}\right)$ is the directional gain defined by 
+where $\mathrm{D}_\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)}\big)$ is the directional gain defined by 
 
-$\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,\textcolor{myLightSlateGrey}
-{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)}\right)= \mathrm{G}_\mathrm{s}
-\left(∠[\,\mathbf{b}(\cdot)\,,\,\bm{\xi}-\mathbf{p}_\mathrm{s}\,]\right).$
+$\mathrm{D}_\mathrm{s}\big(\bm{\xi};\,\textcolor{myLightSlateGrey}
+{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)}\big)= \mathrm{G}_\mathrm{s}
+\big(∠[\,\mathbf{b}(\cdot)\,,\,\bm{\xi}-\mathbf{p}_\mathrm{s}\,]\big).$
 
 The signal observed at position $\bm{\xi}$ and time $t$ due to the source emitting from position $\mathbf{p}_\mathrm{s}$ is given as
 ```math
@@ -46,11 +46,11 @@ The LTI impulse response from an arbitrary position $\bm{\xi}$ to the receiver a
 
 $\mathsf{g}\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}(\cdot),\mathrm{G}_\mathrm{r}(\cdot)}\big) = \mathsf{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) \delta\left(t-\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right).$
 
-where $\mathrm{D}_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}(\cdot)}\right)$ is the directional gain defined by 
+where $\mathrm{D}_\mathrm{r}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}(\cdot)}\big)$ is the directional gain defined by 
 
-$\mathrm{D}_\mathrm{r}\left(\bm{\xi};\,\textcolor{myLightSlateGrey}
-{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)= \mathrm{G}_\mathrm{r}
-\left(∠[\,\mathbf{b}(\cdot)\,,\,\bm{\xi}-\mathbf{p}_\mathrm{r}\,]\right).$
+$\mathrm{D}_\mathrm{r}\big(\bm{\xi};\,\textcolor{myLightSlateGrey}
+{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}(\cdot)}\big)= \mathrm{G}_\mathrm{r}
+\big(∠[\,\mathbf{b}(\cdot)\,,\,\bm{\xi}-\mathbf{p}_\mathrm{r}\,]\big).$
 
 The signal observed at $\mathbf{p}_\mathrm{r}$ due to the reflection from the
 position $\bm{\xi}$ is given by
@@ -68,7 +68,7 @@ position $\bm{\xi}$ is given by
 
 ### Scenario Assumptions
 
-* single stationary directional source with time-varying beam center
+* single stationary directional source with time-varying (rotating) beam center
 * single stationary receiver at same location as the source
 * multiple stationary ideal point reflectors at different radial distances
 * the source emits a periodic impulse train
@@ -92,7 +92,7 @@ $\mathsf{r}(\bm{\xi},t) = \sum\limits_{n=1}^{N}\mathsf{\alpha}_n \delta(\bm{\xi}
 Finally, the closed form expression of the observed signal, $\mathsf{z}(t)$ is given by
 
 $\mathsf{z}(t) = \sum\limits_{n=1}^{N} \mathsf{\alpha}_n \mathrm{D}_\mathrm{s}\big(\bm{\xi}_n;\,{\mathbf{p}_\mathrm{s},
-\mathbf{b}_\mathrm{r}(\cdot)}\big)\mathsf{A}^2
+\mathbf{b}_\mathrm{s}(\cdot)}\big)\mathsf{A}^2
 \left(\frac{\|\mathbf{p}_\mathrm{s}-\bm{\xi}_n\|}
 {\mathrm{c}}\right)\mathsf{p}\left(t -2\frac{\|\mathbf{p}_\mathrm{s}-\bm{\xi}_n\|}{\mathrm{c}}\right).$
 
@@ -123,7 +123,7 @@ z = LTIreceiverO(r,𝐩ᵣ)
 t=0.0:T/500:D*T
 p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2 = plot( t, z(t),ylims=(minimum(z(t)),maximum(z(t))), xlab="time (sec)", ylab="z(t)", legend=:false)
-plot(p1,p2,layout=(2,1))
+plot(p1,p2,layout=(2,1),size=(800,800))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioC_STATDirsignal.png)
 
@@ -132,13 +132,13 @@ plot(p1,p2,layout=(2,1))
 
 Given the scenario A assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now we can estimate the reflector function by considering the transmitted signal as a pulse train as follows
 
-$\mathsf{p}(t)=∑_{k=1}^{M}δ(t-\mathrm{t_p}-(k-1)\mathrm{T})$ as follows
+$\mathsf{p}(t)=∑_{k=1}^{M}δ(t-t_\mathrm{p}-(k-1)\mathrm{T})$ as follows
 
 In order to consider the transmitted time of the time-varying beam with respect to each periodic pulse, we computed the reflector function as follows
 
-$\mathsf{f}_k(\bm{\xi})=\dfrac{\mathsf{z}\left(\mathrm{t_p}+(k-1)\mathrm{T}+\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)\mathrm{D}_{\mathrm{s}k}(\bm{\xi})}{\mathsf{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)}$
+$\mathsf{f}_k(\bm{\xi})=\dfrac{\mathsf{z}\left(t_\mathrm{p}+(k-1)\mathrm{T}+\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)\mathrm{D}_{\mathrm{s}k}(\bm{\xi})}{\mathsf{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)}$
 
-where $\mathrm{D}_{\mathrm{s}k}(\bm{\xi}) = \mathbf{G}\big(∠(𝐛(\mathrm{t_p}+(k-1)\mathrm{T}), \bm{\xi}.-\mathbf{p}_\mathrm{s})\big)$ 
+where $\mathrm{D}_{\mathrm{s}k}(\bm{\xi}) = \mathbf{G}\big(∠(𝐛(t_\mathrm{p}+(k-1)\mathrm{T}), \bm{\xi}.-\mathbf{p}_\mathrm{s})\big)$ 
 
 Finally, the reflector function for the scenario is given as follows
 

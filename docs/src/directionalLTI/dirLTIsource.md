@@ -100,10 +100,10 @@ Finally, the closed form expression of the observed signal, $\mathsf{z}(t)$
 with $(𝐩ₛ=𝐩ᵣ)$ is given by
 
 $\mathsf{z}(t) = \mathsf{\alpha}_0 \mathrm{D}_
-\mathrm{s}\left(\bm{\xi}_0;\,{\mathbf{p}_\mathrm{r},
+\mathrm{s}\left(\bm{\xi}_0;\,{\mathbf{p}_\mathrm{s},
 \mathbf{b}_\mathrm{s}}\right)\mathsf{A}^2
-\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}
-{\mathrm{c}}\right)\mathsf{p}\left(t -2\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right).$
+\left(\frac{\|\mathbf{p}_\mathrm{s}-\bm{\xi}_0\|}
+{\mathrm{c}}\right)\mathsf{p}\left(t -2\frac{\|\mathbf{p}_\mathrm{s}-\bm{\xi}_0\|}{\mathrm{c}}\right).$
 
 ```julia
 using LTVsystems
@@ -131,10 +131,10 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 
 Given the scenario A assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now we can estimate the reflector function by considering the transmitted signal as follows 
 
-$\mathsf{p}(t)=δ(t-\mathrm{t_p})$ 
+$\mathsf{p}(t)=δ(t-t_\mathrm{p})$ 
 
-$\hat{\mathsf{f}}(\bm{\xi}) = \dfrac{\mathsf{z}\left(\mathrm{t_p}+\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\right)\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)}
-{\mathsf{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\big) }
+$\hat{\mathsf{f}}(\bm{\xi}) = \dfrac{\mathsf{z}\left(t_\mathrm{p}+\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)}
+{\mathsf{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big) }
 .$
 
 ```julia
@@ -223,9 +223,9 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 
 Given the scenario B assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now we can estimate the reflector function by considering the transmitted signal as follows 
 
-$\mathsf{p}(t)=δ(t-\mathrm{t_p})$ 
+$\mathsf{p}(t)=δ(t-t_\mathrm{p})$ 
 
-$\hat{\mathsf{f}}(\bm{\xi}) = \dfrac{\mathsf{z}\left(\mathrm{t_p}+\frac{\|\mathbf{p}_\mathrm{r}-
+$\hat{\mathsf{f}}(\bm{\xi}) = \dfrac{\mathsf{z}\left(t_\mathrm{p}+\frac{\|\mathbf{p}_\mathrm{r}-
 \bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}}  \right)\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)}{\mathsf{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
 \mathsf{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}
@@ -286,9 +286,9 @@ with $(𝐩ₛ=𝐩ᵣ)$ is given by
 
 $\mathsf{z}(t) = \mathsf{\alpha}_0 \mathrm{D}_
 \mathrm{s}\left(\bm{\xi}_0;\,{\mathbf{p}_\mathrm{s},
-\mathbf{b}_\mathrm{r}}\right)\mathsf{A}^2
-\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}
-{\mathrm{c}}\right)\mathsf{p}\left(t -2\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right).$
+\mathbf{b}_\mathrm{s}}\right)\mathsf{A}^2
+\left(\frac{\|\mathbf{p}_\mathrm{s}-\bm{\xi}_0\|}
+{\mathrm{c}}\right)\mathsf{p}\left(t -2\frac{\|\mathbf{p}_\mathrm{s}-\bm{\xi}_0\|}{\mathrm{c}}\right).$
 
 
 ```julia
@@ -317,14 +317,13 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 
 Given the scenario C assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now by considering the transmitted signal as pulse train given by
 
-$\mathsf{p}(t)=δ(\mathrm{mod}(t-\mathrm{t_p},\mathrm{T})),$
+$\mathsf{p}(t)=δ(\mathrm{mod}(t-t_\mathrm{p},\mathrm{T})),$
 
 we compute the reflector function, $\mathsf{f}_k$ with respect to the pulse train, $k\mathrm{T}$ where $k \in \mathbf{Z}$ and $\mathrm{T}$ is the pulse repetition rate, along with the random white noise as follows
 
 
-$\mathsf{f}_k(\bm{\xi})=\dfrac{\mathsf{z}\left(\mathrm{t_p}+kT+\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}}\right)\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)}{\mathsf{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
-\mathsf{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}.$
+$\mathsf{f}_k(\bm{\xi})=\dfrac{\mathsf{z}\left(t_\mathrm{p}+k\mathrm{T}+\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right)\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)}
+{\mathsf{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)}.$
 
 Finally, the reflector function is given as follows
 
