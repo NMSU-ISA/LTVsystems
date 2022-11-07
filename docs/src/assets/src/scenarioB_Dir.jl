@@ -28,6 +28,7 @@ scenedirPlot2D([q],r,[z],𝐛)
 
 png(path*"scenarioB_LTIDir.png")
 
+
 # Inverse modeling
 
 #Dᵣ(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ᵣ))
