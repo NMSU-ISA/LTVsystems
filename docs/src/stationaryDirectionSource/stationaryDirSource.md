@@ -5,25 +5,33 @@
 | $\mathbf{b}_\mathrm{s}(t)$        | vector function of time|  time-varying source beam center   |
 | $\mathbf{b}_\mathrm{r}(t)$        | vector function of time|  time-varying receiver beam center   |
 | $\Theta(t)$     | scalar function of time    | angle relative to time-varying beam center |
+| $\angle(\bm{u},\bm{v})$     | operator          | returns the angle between two vectors |
 | $\mathrm{G}_\mathrm{s}(\Theta)$   | scalar function of angle  |  Gain of the source antenna |
 | $\mathrm{G}_\mathrm{r}(\Theta)$   | scalar function of angle  |  Gain of the receiver antenna |
 | $\mathrm{D}_\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)}\big)$   | scalar function of position |  directivity of source |
 | $\mathrm{D}_\mathrm{r}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}(\cdot)}\big)$   | scalar function of position |  directivity of receiver |
-| $\mathsf{h}\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)}\big)$       |  scalar function of position and time  | LTI impulse response from    $\mathbf{p}_\mathrm{s}$ to  $\bm{\xi}$ |
-| $\mathsf{g}(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}(\cdot)})$   |  scalar function of position and time  | LTI impulse response from    $\bm{\xi}$ to $\mathbf{p}_\mathrm{r}$ |
+| $\mathsf{h}\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot),\mathrm{G}_\mathrm{s}(\cdot)}\big)$       |  scalar function of position and time  | LTI impulse response from    $\mathbf{p}_\mathrm{s}$ to  $\bm{\xi}$ |
+| $\mathsf{g}(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}(\cdot),\mathrm{G}_\mathrm{r}(\cdot)})$   |  scalar function of position and time  | LTI impulse response from    $\bm{\xi}$ to $\mathbf{p}_\mathrm{r}$ |
 
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Stationary_Directional_Model_BD.png)
 
 
 The LTI impulse response from $\mathbf{p}_\mathrm{s}$ to  $\bm{\xi}$ is given by
 
-$\mathsf{h}\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)}\big) = \mathrm{D}_\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)}\big)
+$\mathsf{h}\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot),\mathrm{G}_\mathrm{s}(\cdot)}\big) = \mathrm{D}_\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)}\big)
 \mathsf{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}}\right) \delta\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
 
+where $\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)}\right)$ is the directional gain defined by 
+
+$\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,\textcolor{myLightSlateGrey}
+{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)}\right)= \mathrm{G}_\mathrm{s}
+\left(∠[\,\mathbf{b}(\cdot)\,,\,\bm{\xi}-\mathbf{p}_\mathrm{s}\,]\right).$
+
+The signal observed at position $\bm{\xi}$ and time $t$ due to the source emitting from position $\mathbf{p}_\mathrm{s}$ is given as
 ```math
 \begin{aligned}
-\mathsf{q}(\bm{\xi},t)  &= \mathsf{p}(t) \overset{t}{*} \mathsf{h}\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)}\big) \\
+\mathsf{q}(\bm{\xi},t)  &= \mathsf{p}(t) \overset{t}{*} \mathsf{h}\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot),\mathrm{G}_\mathrm{s}(\cdot)}\big) \\
                &=\mathrm{D}_\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)}\big)
                \mathsf{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
                {\mathrm{c}}\right) \mathsf{p}\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).
@@ -36,191 +44,27 @@ $\mathsf{r}(\bm{\xi},t) = \mathsf{f}(\bm{\xi}) \mathsf{q}(\bm{\xi},t).$
 
 The LTI impulse response from an arbitrary position $\bm{\xi}$ to the receiver at position $\mathbf{p}_\mathrm{r}$ is given by
 
-$\mathsf{g}\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r}}\big) = \mathsf{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) \delta\left(t-\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right).$
+$\mathsf{g}\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}(\cdot),\mathrm{G}_\mathrm{r}(\cdot)}\big) = \mathsf{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) \delta\left(t-\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right).$
+
+where $\mathrm{D}_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}(\cdot)}\right)$ is the directional gain defined by 
+
+$\mathrm{D}_\mathrm{r}\left(\bm{\xi};\,\textcolor{myLightSlateGrey}
+{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)= \mathrm{G}_\mathrm{r}
+\left(∠[\,\mathbf{b}(\cdot)\,,\,\bm{\xi}-\mathbf{p}_\mathrm{r}\,]\right).$
 
 The signal observed at $\mathbf{p}_\mathrm{r}$ due to the reflection from the
 position $\bm{\xi}$ is given by
 
 ```math
 \begin{aligned}
-\mathsf{\psi}(\bm{\xi},t) &= \mathsf{r}(\bm{\xi},t) \overset{t}{*} \mathsf{g}\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r}}\big) \\
+\mathsf{\psi}(\bm{\xi},t) &= \mathsf{r}(\bm{\xi},t) \overset{t}{*} \mathsf{g}\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}(\cdot),\mathrm{G}_\mathrm{r}(\cdot)}\big) \\
                  &= \mathsf{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) \mathsf{r}\left(\bm{\xi},t-\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right).
 \end{aligned}
 ```
 
-## Scenario A [Single pulse, single reflector, transmitter and receiver at same location]
-
-### Scenario Assumptions
-
-* single stationary directional source with time-varying beam center
-* single stationary receiver at same location as the source
-* single stationary ideal point reflector
-* the source emits a pulse
 
 
-### Forward Modeling
-
-For scenario A, we provided the position of the stationary direction source $𝐩ₛ$, with time-varying beam center $𝐛(t)$, the stationary direction receiver's position $𝐩ᵣ$ being at the same location $(𝐩ₛ=𝐩ᵣ)$, the transmitted signal $\mathsf{p}(t)$, and an ideal point reflector $\bm{\xi}_0$.
-
-Now the expression for the reflector function is given by
-
-$\mathsf{f}(\bm{\xi}) = \mathsf{\alpha}_0 \delta(\bm{\xi} - \bm{\xi}_0).$
-
-We compute the reflection due to the directional source as follows
-
-$\mathsf{r}(\bm{\xi},t) = \mathsf{\alpha}_0 \delta(\bm{\xi} - \bm{\xi}_0)
-\mathrm{D}_\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)}\big)
-\mathsf{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}}\right) \mathsf{p}\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
-
-Finally, the closed form expression of the observed signal, $\mathsf{z}(t)$ with $(𝐩ₛ=𝐩ᵣ)$ is given by
-
-$\mathsf{z}(t) = \mathsf{\alpha}_0 \mathrm{D}_
-\mathrm{s}\big(\bm{\xi}_0;\,{\mathbf{p}_\mathrm{s},
-\mathbf{b}_\mathrm{s}(\cdot)}\big)\mathsf{A}^2
-\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}
-{\mathrm{c}}\right)\mathsf{p}\left(t -2\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right).$
-
-```julia
-using LTVsystems
-using Plots
-tₚ = 1.0e-06 
-𝐩ₛ =  [0.0, 0.0]
-𝐩ᵣ =  𝐩ₛ
-p(t) = δn(t-tₚ,1.0e-07)
-𝐛(t) = [cos(2π*10*(t-tₚ)),0.0]/(norm(cos(2π*10*(t-tₚ))))
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/64)
-q = STATsourceD(𝐩ₛ,p,𝐛,G)
-α₀ = -0.7; 𝛏₀ = [0.2c*T,0.0]
-r = pointReflector(𝛏₀,α₀,q)
-z = LTIreceiverO([r],𝐩ᵣ)
-t=0.0:1.0e-08:25.0e-06
-p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
-p2 = plot( t, z(t),ylims=(minimum(z(t)),maximum(z(t))), xlab="time (sec)", ylab="z(t)", legend=:false)
-plot(p1,p2,layout=(2,1))
-```
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_STATDirsignal.png)
-
-### Inverse Modeling
-
-Given the scenario A assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now we can estimate the reflector function by considering the transmitted signal as follows 
-
-$\mathsf{p}(t)=δ(t-\mathrm{t_p})$ 
-
-$\hat{\mathsf{f}}(\bm{\xi}) = \dfrac{\mathsf{z}\left(\mathrm{t_p}+\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\right)\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\mathrm{t_p})}\right)}
-{\mathsf{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\big) }.$
-
-```julia
-using LTVsystems
-using Plots
-tₚ = 1.0e-06 
-𝐩ₛ =  [0.0, 0.0]
-𝐩ᵣ =  𝐩ₛ
-p(t) = δn(t-tₚ,1.0e-07)
-𝐛(t) = [cos(2π*10*(t-tₚ)),0.0]/(norm(cos(2π*10*(t-tₚ))))
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/64)
-q = STATsourceD(𝐩ₛ,p,𝐛,G)
-α₀ = -0.7; 𝛏₀ = [0.2c*T,0.0]
-r = pointReflector(𝛏₀,α₀,q)
-z = LTIreceiverO([r],𝐩ᵣ)
-Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ), ξ.-𝐩ₛ))
-f(ξ::Vector{Float64}) = (z(tₚ.+2(norm(ξ-𝐩ₛ))/c).*Dₛ(ξ))/
-                        (A(norm(ξ-𝐩ₛ)/c))^2
-inversePlot2D([q],[r],[z],f)
-```
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_STATDirsimulation.png)
-
-
-## Scenario B [Single pulse, single reflector, transmitter and receiver at different location]
-
-### Scenario Assumptions
-
-* single stationary directional source with time-varying beam center
-* single stationary receiver
-* single stationary ideal point reflector
-* the source emits a pulse
-
-
-### Forward Modeling
-
-For scenario B, we provided the position of the stationary direction source $𝐩ₛ$, with time-varying beam center $𝐛(t)$, the stationary direction receiver's position $𝐩ᵣ$, the transmitted signal $\mathsf{p}(t)$, and an ideal point reflector $\bm{\xi}_0$.
-
-Now the expression for the reflector function is given by
-
-$\mathsf{f}(\bm{\xi}) = \mathsf{\alpha}_0 \delta(\bm{\xi} - \bm{\xi}_0).$
-
-We compute the reflection due to the directional source as follows
-
-$\mathsf{r}(\bm{\xi},t) = \mathsf{\alpha}_0 \delta(\bm{\xi} - \bm{\xi}_0)
-\mathrm{D}_\mathrm{s}\big(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\cdot)}\big)
-\mathsf{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}}\right) \mathsf{p}\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
-
-Finally, the closed form expression of the observed signal, $\mathsf{z}(t)$ is given by
-
-$\mathsf{z}(t) = \mathsf{\alpha}_0 \mathrm{D}_
-\mathrm{s}\big(\bm{\xi}_0;\,{\mathbf{p}_\mathrm{s},
-\mathbf{b}_\mathrm{s}(\cdot)}\big)\mathsf{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right)
-\mathsf{A}\left(\frac{\|\bm{\xi}_0-
-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right) \mathsf{p}\left(t-
-\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|+\|\bm{\xi}_0-
-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
-
-```julia
-using LTVsystems
-using Plots
-tₚ = 1.0e-06 
-𝐩ₛ =  [0.1c*T, 0.0]
-𝐩ᵣ =  [-0.1c*T, 0.0]
-p(t) = δn(t-tₚ,1.0e-07)
-𝐛(t) = [cos(2π*10*(t-tₚ)),0.0]/(norm(cos(2π*10*(t-tₚ))))
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/64)
-q = STATsourceD(𝐩ₛ,p,𝐛,G)
-α₀ = -0.7; 𝛏₀ = [0.2c*T,0.0]
-r = pointReflector(𝛏₀,α₀,q)
-z = LTIreceiverO([r],𝐩ᵣ)
-t=0.0:1.0e-08:25.0e-06
-p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
-p2 = plot( t, z(t),ylims=(minimum(z(t)),maximum(z(t))), xlab="time (sec)", ylab="z(t)", legend=:false)
-plot(p1,p2,layout=(2,1))
-```
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioB_STATDirsignal.png)
-
-
-### Inverse Modeling
-
-Given the scenario B assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now we can estimate the reflector function by considering the transmitted signal as follows 
-
-$\mathsf{p}(t)=δ(t-\mathrm{t_p})$ 
-
-$\hat{\mathsf{f}}(\bm{\xi}) =\dfrac{\mathsf{z}\left(\mathrm{t_p}+\frac{\|\mathbf{p}_\mathrm{r}-
-\bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
-{\mathrm{c}}  \right)\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}(\mathrm{t_p})}\right)}{\mathsf{A}\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\big)    
-\mathsf{A}\big(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\big)}
-.$
-
-```julia
-using LTVsystems
-using Plots
-tₚ = 1.0e-06 
-𝐩ₛ =  [0.1c*T, 0.0]
-𝐩ᵣ =  [-0.1c*T, 0.0]
-p(t) = δn(t-tₚ,1.0e-07)
-𝐛(t) = [cos(2π*10*(t-tₚ)),0.0]/(norm(cos(2π*10*(t-tₚ))))
-G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/64)
-q = STATsourceD(𝐩ₛ,p,𝐛,G)
-α₀ = -0.7; 𝛏₀ = [0.2c*T,0.0]
-r = pointReflector(𝛏₀,α₀,q)
-z = LTIreceiverO([r],𝐩ᵣ)
-Dₛ(ξ::Vector{Float64}) = G(angleBetween(𝐛(tₚ), ξ.-𝐩ₛ))
-f(ξ::Vector{Float64}) = (z(tₚ.+(norm(ξ-𝐩ₛ) .+ norm(𝐩ᵣ-ξ))./c).*Dₛ(ξ))/(A(norm(ξ-𝐩ₛ)/c).*A(norm(𝐩ᵣ-ξ)/c))
-inversePlot2D([q],[r],[z],f)
-```
-![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioB_STATDirsimulation.png)
-
-
-
-## Scenario C [Pulse train, multiple reflector, transmitter and receiver at same location]
+## Scenario A [Pulse train, multiple reflector, transmitter and receiver at same location]
 
 ### Scenario Assumptions
 
@@ -232,7 +76,7 @@ inversePlot2D([q],[r],[z],f)
 
 ### Forward Modeling
 
-For scenario C, we provided the position of the stationary direction source $𝐩ₛ$, with time-varying beam center $𝐛(t)$, the stationary direction receiver's position $𝐩ᵣ$, being at the same location $(𝐩ₛ=𝐩ᵣ)$, the transmitted signal $\mathsf{p}(t)$, and multiple reflector say, N.
+For scenario A, we provided the position of the stationary direction source $𝐩ₛ$, with time-varying beam center $𝐛(t)$, the stationary direction receiver's position $𝐩ᵣ$, being at the same location $(𝐩ₛ=𝐩ᵣ)$, the transmitted signal $\mathsf{p}(t)$, and multiple reflector say, N.
 
 Now the expression for the reflector function is given by
 
@@ -286,7 +130,7 @@ plot(p1,p2,layout=(2,1))
 
 ### Inverse Modeling
 
-Given the scenario C assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now we can estimate the reflector function by considering the transmitted signal as a pulse train as follows
+Given the scenario A assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now we can estimate the reflector function by considering the transmitted signal as a pulse train as follows
 
 $\mathsf{p}(t)=∑_{k=1}^{M}δ(t-\mathrm{t_p}-(k-1)\mathrm{T})$ as follows
 
@@ -333,7 +177,7 @@ inversePlot2D([q],r,[z],g)
 
 
 
-## Scenario D (More General Case) [Pulse train, multiple reflector, transmitter and receiver at same location]
+## Scenario B (More General Case) [Pulse train, multiple reflector, transmitter and receiver at same location]
 
 ### Scenario Assumptions
 
@@ -408,7 +252,7 @@ inversePlot2D([q],r,[z],g)
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioD_STATDsimulation.png)
 
 
-## Scenario E [Pulse train, multiple reflector, transmitter and receiver at same location]
+## Scenario C [Pulse train, multiple reflector, transmitter and receiver at same location]
 
 ### Scenario Assumptions
 
