@@ -21,7 +21,7 @@
 
 The LTI impulse response from $\mathbf{p}_\mathrm{s}$ to  $\bm{\xi}$ is given by
 
-$\mathsf{h}(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}) = \mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
+$\mathsf{h}(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s},\mathrm{G}_\mathrm{s}(\cdot)}) = \mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
 \mathsf{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
 {\mathrm{c}}\right) \delta\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right),$
 
@@ -31,9 +31,10 @@ $\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,\textcolor{myLightSlateGrey}
 {\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)= \mathrm{G}_\mathrm{s}
 \left(∠[\,\mathbf{b}\,,\,\bm{\xi}-\mathbf{p}_\mathrm{s}\,]\right).$
 
+The signal observed at position $\bm{\xi}$ and time $t$ due to the source emitting from position $\mathbf{p}_\mathrm{s}$ is given as
 ```math
 \begin{aligned}
-\mathsf{q}(\bm{\xi},t)  &= \mathsf{p}(t) \overset{t}{*} \mathsf{h}(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}) \\
+\mathsf{q}(\bm{\xi},t)  &= \mathsf{p}(t) \overset{t}{*} \mathsf{h}(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s},\mathrm{G}_\mathrm{s}(\cdot)}) \\
                &=\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{s}}\right)
                \mathsf{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
                {\mathrm{c}}\right) \mathsf{p}\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).
@@ -46,7 +47,7 @@ $\mathsf{r}(\bm{\xi},t) = \mathsf{f}(\bm{\xi}) \mathsf{q}(\bm{\xi},t).$
 
 The LTI impulse response from an arbitrary position $\bm{\xi}$ to the receiver at position $\mathbf{p}_\mathrm{r}$ is given by
 
-$\mathsf{g}(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}) = \mathrm{D}_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right) \mathsf{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) \delta\left(t-\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right).$
+$\mathsf{g}(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r},\mathrm{G}_\mathrm{r}(\cdot)}) = \mathrm{D}_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right) \mathsf{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) \delta\left(t-\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right).$
 
 where $\mathrm{D}_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)$ is the directional gain defined by 
 
@@ -59,7 +60,7 @@ position $\bm{\xi}$ is given by
 
 ```math
 \begin{aligned}
-\mathsf{\psi}(\bm{\xi},t) &= \mathsf{r}(\bm{\xi},t) \overset{t}{*} \mathsf{g}\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\big) \\
+\mathsf{\psi}(\bm{\xi},t) &= \mathsf{r}(\bm{\xi},t) \overset{t}{*} \mathsf{g}\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r},\mathrm{G}_\mathrm{s}(\cdot)}\big) \\
                  &= \mathrm{D}_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)
                  \mathsf{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) \mathsf{r}\left(\bm{\xi},t-\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right).
 \end{aligned}
@@ -98,9 +99,9 @@ $\mathsf{r}(\bm{\xi},t) = \mathsf{\alpha}_0 \delta(\bm{\xi} - \bm{\xi}_0)
 Finally, the closed form expression of the observed signal, $\mathsf{z}(t)$
 with $(𝐩ₛ=𝐩ᵣ)$ is given by
 
-$\mathsf{z}(t) = \mathsf{\alpha}_0 \mathrm{D}^2_
-\mathrm{r}\left(\bm{\xi}_0;\,{\mathbf{p}_\mathrm{r},
-\mathbf{b}_\mathrm{r}}\right)\mathsf{A}^2
+$\mathsf{z}(t) = \mathsf{\alpha}_0 \mathrm{D}_
+\mathrm{s}\left(\bm{\xi}_0;\,{\mathbf{p}_\mathrm{r},
+\mathbf{b}_\mathrm{s}}\right)\mathsf{A}^2
 \left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}
 {\mathrm{c}}\right)\mathsf{p}\left(t -2\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}_0\|}{\mathrm{c}}\right).$
 
@@ -115,12 +116,13 @@ p(t) = δn(t-tₚ,1.0e-07)
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/6)
 q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
 α₀ = -0.7; 𝛏₀ = [3.75e-06c,0.0]
-r = pointReflector(𝛏₀,α₀,q)
-z = LTIreceiverDTI([r],𝐩ᵣ,𝐛,G)
+α₁ = -0.7; 𝛏₁ = [-3.75e-06c,0.0]
+r = pointReflector([𝛏₀,𝛏₁],[α₀,α₁],[q])
+z = LTIreceiverO(r,𝐩ᵣ)
 t=0.0:1.0e-08:25.0e-06
 p1 = plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2 = plot( t, z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
-plot(p1,p2,layout=(2,1))
+plot(p1,p2,layout=(2,1),size=(800,800))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_LTIDirsignal.png)
 
@@ -131,7 +133,7 @@ Given the scenario A assumptions, we obtained the received signal, $\mathsf{z}(t
 
 $\mathsf{p}(t)=δ(t-\mathrm{t_p})$ 
 
-$\hat{\mathsf{f}}(\bm{\xi}) = \dfrac{\mathsf{z}\left(\mathrm{t_p}+\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\right)\mathrm{D}^2_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{r}}\right)}
+$\hat{\mathsf{f}}(\bm{\xi}) = \dfrac{\mathsf{z}\left(\mathrm{t_p}+\frac{2\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\right)\mathrm{D}_\mathrm{s}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{s},\mathbf{b}_\mathrm{r}}\right)}
 {\mathsf{A}^2\big(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{r}\|}{\mathrm{c}}\big) }
 .$
 
@@ -146,10 +148,11 @@ p(t) = δn(t-tₚ,1.0e-07)
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/6)
 q = LTIsourceDTI(𝐩ₛ,p,𝐛,G)
 α₀ = -0.7; 𝛏₀ = [3.75e-06c,0.0]
-r = pointReflector(𝛏₀,α₀,q)
-z = LTIreceiverDTI([r],𝐩ᵣ,𝐛,G)
+α₁ = -0.7; 𝛏₁ = [-3.75e-06c,0.0]
+r = pointReflector([𝛏₀,𝛏₁],[α₀,α₁],[q])
+z = LTIreceiverO(r,𝐩ᵣ)
 D(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ₛ))
-f(ξ::Vector{Float64}) = (z(tₚ+ 2(norm(ξ-𝐩ₛ))/c).*(D(ξ::Vector{Float64}))^2)/(A(norm(ξ-𝐩ₛ)/c))^2
+f(ξ::Vector{Float64}) = (z(tₚ+ 2(norm(ξ-𝐩ₛ))/c).*D(ξ::Vector{Float64}))/(A(norm(ξ-𝐩ₛ)/c))^2
 inversePlot2D([q],[r],[z],f)                        
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioA_DirTIsimulation.png)
