@@ -1,8 +1,8 @@
 """
-    z = LTIreceiverO([R₁,R₂,…Rₙ],𝐩ᵣ)
+    z = LTIreceiverO([r],𝐩ᵣ)
 
 Create an LTI Omnidirectional Receiver by calling `LTIreceiverO()` with
-the *receiver position*, 𝐩ᵣ and all the *reflections*, `Rᵢ` where i=1,2,…n.
+the *receiver position*, 𝐩ᵣ and all the *reflections*, `r`.
 
 # Examples
 ```@example

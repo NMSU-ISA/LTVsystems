@@ -17,12 +17,6 @@ G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
 q = LTIsourceDTI(𝐩ₛ, p, 𝐛ₛ, G)
 ```
 """
-
-
-
-
-#DEFINE STATIONARY SOURCE w/ DIRECTIONAL ANTENNA and TIME-INVARIANT BEAM CENTER
-
 struct LTIsourceDTI <: Sources
   position::Vector{Float64}
   transmission ::Function
