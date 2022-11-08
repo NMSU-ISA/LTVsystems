@@ -1,3 +1,40 @@
+"""
+    r = pointReflector(𝛏,α,q)
+    r = pointReflector([𝛏₀,𝛏₁,𝛏₂],[α₀,α₁,α₂],[q])
+
+Create an LTI Omnidirectional Reflection by calling `pointReflector()` with
+a single *ideal point reflector*, ``\\bm{\\xi}``, *a reflection coefficient*, ``\\mathsf{\\alpha}`` and
+the *source observation*, ``\\mathsf{q}``.
+
+# Examples
+```@example
+ using LTVsystems
+ 𝐩ₛ =  [0.0, 0.0]
+ 𝐩ᵣ =  𝐩ₛ
+ tₚ = 1.0e-06
+ p(t) = δn(t-tₚ,1.0e-07)
+ q = LTIsourceO(𝐩ₛ, p)
+ α = -0.7; 𝛏 = [3.75e-06c,0.0]
+ r = pointReflector(𝛏,α,q)
+```
+In case of multiple ideal point reflector, we create an LTI Omnidirectional Reflection by calling `pointReflector()` with
+a vector of multiple *ideal point reflector*, ``\\bm{\\xi}_0,\\bm{\\xi}_1\\ldots,\\bm{\\xi}_n``, corresponding *reflection coefficients*, 
+``\\mathsf{\\alpha}_0,\\mathsf{\\alpha}_1,\\ldots,\\mathsf{\\alpha}_n`` and a vector of *source observation*, ``\\mathsf{q}``.
+
+# Examples
+```@example
+ using LTVsystems
+ 𝐩ₛ =  [0.0, 0.0]
+ 𝐩ᵣ =  𝐩ₛ
+ tₚ = 1.0e-06
+ p(t) = δn(t-tₚ,1.0e-07)
+ q = LTIsourceO(𝐩ₛ, p)
+ α₀ = -0.7; 𝛏₀ = [3.75e-06c,0.0]
+ α₁ = -0.7; 𝛏₁ = [1.5e-06c,0.0]
+ α₂ = -0.7; 𝛏₂ = [2.5e-06c,0.0]
+ r = pointReflector([𝛏₀,𝛏₁,𝛏₂],[α₀,α₁,α₂],[q])
+```
+"""
 struct pointReflector <: Reflectors
         S::LTIsourceO
 end

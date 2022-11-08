@@ -6,7 +6,7 @@ Create an LTI Omnidirectional Receiver by calling `STATreceiverD()` with
 a vector of *single reflection*, `r`, provided by calling `pointReflector()`, 
 the *receiver position*, 𝐩ᵣ , a *time-varying (rotating) beam center*,
 ``\\bm{b}_\\mathrm{r}(t)`` and the *source antenna's gain*,
-``\\mathrm{G}_\\mathrm{r}(\\Theta).`` relative to beam center ``\\bm{b}_\\mathrm{r}(t)``.
+``\\mathrm{G}_\\mathrm{r}(\\Theta)`` relative to beam center ``\\bm{b}_\\mathrm{r}(t)``.
 
 # Examples
 ```@example
@@ -25,7 +25,7 @@ the *receiver position*, 𝐩ᵣ , a *time-varying (rotating) beam center*,
 In order to observe the multiple reflections, we create an LTI Omnidirectional Receiver by calling `STATreceiverD()` with
 the observed *multiple reflection*, `r`,  provided by calling `pointReflector()`, the *receiver position*, 𝐩ᵣ, a *time-varying (rotating) beam center*,
 ``\\bm{b}_\\mathrm{r}(t)`` and the *source antenna's gain*,
-``\\mathrm{G}_\\mathrm{r}(\\Theta).`` relative to beam center ``\\bm{b}_\\mathrm{r}(t)``.
+``\\mathrm{G}_\\mathrm{r}(\\Theta)`` relative to beam center ``\\bm{b}_\\mathrm{r}(t)``.
 
 # Examples
 ```@example
