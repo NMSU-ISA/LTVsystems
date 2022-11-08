@@ -2,7 +2,7 @@
     q = LTIsourceO(𝐩ₛ, p)
     
 Create an LTI Omnidirectional Source by calling `LTIsourceO()` with
-the *source position*, ``\\mathsf{p}_\\mathrm{s}`` and the *transmisson signal*, ``\mathsf{p}(t)``.
+the *source position*, ``\\mathsf{p}_\\mathrm{s}`` and the *transmisson signal*, ``\\mathsf{p}(t)``.
 
 # Examples
 ```@example
