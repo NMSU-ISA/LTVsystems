@@ -1,19 +1,40 @@
 """
     z = LTIreceiverO([r],𝐩ᵣ)
+    z = LTIreceiverO(r,𝐩ᵣ)
 
 Create an LTI Omnidirectional Receiver by calling `LTIreceiverO()` with
-the *receiver position*, 𝐩ᵣ and all the *reflections*, `r`.
+the *receiver position*, 𝐩ᵣ and a vector of *single reflection*, `r`, 
+provided by calling `pointReflector()`.
 
 # Examples
 ```@example
 using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  𝐩ₛ
-p(t) = δn(t,1.0e-10)
+tₚ = 1.0e-06
+p(t) = δn(t-tₚ,1.0e-07)
 q = LTIsourceO(𝐩ₛ, p)
-α₀ = 0.7; 𝛏₀ = [1.8,0.0]
-r = pointReflector(𝛏₀,α₀,q)
+α = -0.7; 𝛏 = [3.75e-06c,0.0]
+r = pointReflector(𝛏,α,q)
 z = LTIreceiverO([r],𝐩ᵣ)
+```
+In order to observe the multiple reflections, we create an LTI Omnidirectional Receiver by calling `LTIreceiverO()` with
+the *receiver position*, 𝐩ᵣ and observed *multiple reflection*, `r`, 
+provided by calling `pointReflector()`.
+
+# Examples
+```@example
+using LTVsystems
+𝐩ₛ =  [0.0, 0.0]
+𝐩ᵣ =  𝐩ₛ
+tₚ = 1.0e-06
+p(t) = δn(t-tₚ,1.0e-07)
+q = LTIsourceO(𝐩ₛ, p)
+α₀ = -0.7; 𝛏₀ = [3.75e-06c,0.0]
+α₁ = -0.7; 𝛏₁ = [1.5e-06c,0.0]
+α₂ = -0.7; 𝛏₂ = [2.5e-06c,0.0]
+r = pointReflector([𝛏₀,𝛏₁,𝛏₂],[α₀,α₁,α₂],[q])
+z = LTIreceiverO(r,𝐩ᵣ)
 ```
 """
 struct  LTIreceiverO <: Receivers
