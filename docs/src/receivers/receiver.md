@@ -79,12 +79,13 @@ $\mathrm{G}_\mathrm{r}(\Theta)$ as a function of angle $\Theta$ relative to the 
 using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  𝐩ₛ
-p(t) = δn(t,1.0e-10)
+tₚ = 1.0e-06
+p(t) = δn(t-tₚ,1.0e-07)
 𝐛 = [1.0,0.0]
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
 q = LTIsourceDTI(𝐩ₛ, p, 𝐛, G)
-α₀ = -0.7; 𝛏₀ = [1.8,0.0]
-r = pointReflector(𝛏₀,α₀,q)
+α = -0.7; 𝛏 = [3.75e-06c,0.0]
+r = pointReflector(𝛏,α,q)
 z = LTIreceiverDTI([r],𝐩ᵣ,𝐛,G)
 ```
 ## Stationary Directional Receiver
@@ -116,11 +117,12 @@ $\mathrm{G}_\mathrm{r}(\Theta)$ as a function of angle $\Theta$ relative to the 
 using LTVsystems
 𝐩ₛ =  [0.0, 0.0]
 𝐩ᵣ =  𝐩ₛ
-p(t) = δn(t,1.0e-10)
+tₚ = 1.0e-06
+p(t) = δn(t-tₚ,1.0e-07)
 𝐛(t) = [cos(2π*10*t),0.0]/(norm(cos(2π*10*t)))
 G(θ) = 𝒩ᵤ(θ, μ=0.0, σ=π/8)
 q = STATsourceD(𝐩ₛ, p, 𝐛, G)
-α = -0.7; 𝛏 = [1.8,0.0]
+α = -0.7; 𝛏 = [3.75e-06c,0.0]
 r = pointReflector(𝛏,α,q)
 z = STATreceiverD([r],𝐩ᵣ,𝐛,G)
 ```
