@@ -2,7 +2,7 @@
     q = LTIsourceDTI(𝐩ₛ, p)
     
 Create an LTI Directional Source by calling `LTIsourceDTI()` with
-the *source position*, 𝐩ₛ ,a *transmitted signal*, ``\\mathsf{p}(t)``, *time-invariant beam center*,
+the *source position*, ``\\mathsf{p}_\\mathrm{s}`` ,a *transmitted signal*, ``\\mathsf{p}(t)``, *time-invariant beam center*,
 ``\\bm{b}_\\mathrm{s}`` and the *source antenna's gain*,
 ``\\mathrm{G}_\\mathrm{s}(\\Theta)`` relative to beam center ``\\bm{b}_\\mathrm{s}.``
 

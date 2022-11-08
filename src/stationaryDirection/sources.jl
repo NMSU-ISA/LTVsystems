@@ -2,7 +2,7 @@
     q = STATsourceD(𝐩ₛ, p)
     
 Create a Stationary Directional Source by calling `STATsourceD()` with
-the *source position*, 𝐩ₛ ,a *transmitted signal*, ``\\mathsf{p}(t)``, *time-varying (rotating) beam center*,
+the *source position*, ``\\mathsf{p}_\\mathrm{s}`` ,a *transmitted signal*, ``\\mathsf{p}(t)``, *time-varying (rotating) beam center*,
 ``\\bm{b}_\\mathrm{s}(t)`` and the *source antenna's gain*,
 ``\\mathrm{G}_\\mathrm{s}(\\Theta)`` relative to beam center ``\\bm{b}_\\mathrm{s}(t).``
 

@@ -3,7 +3,7 @@
     z = LTIreceiverO(r,𝐩ᵣ)
 
 Create an LTI Omnidirectional Receiver by calling `LTIreceiverO()` with
-a vector of *single reflection*, `r`, provided by calling `pointReflector()`, and the *receiver position*, 𝐩ᵣ.
+a vector of *single reflection*, `r`, provided by calling `pointReflector()`, and the *receiver position*, ``\\mathsf{p}_\\mathrm{r}``.
 
 # Examples
 ```@example
@@ -18,7 +18,7 @@ a vector of *single reflection*, `r`, provided by calling `pointReflector()`, an
  z = LTIreceiverO([r],𝐩ᵣ)
 ```
 In order to observe the multiple reflections, we create an LTI Omnidirectional Receiver by calling `LTIreceiverO()` with
-the observed *multiple reflection*, `r`,  provided by calling `pointReflector()` and the *receiver position*, 𝐩ᵣ.
+the observed *multiple reflection*, `r`,  provided by calling `pointReflector()` and the *receiver position*, ``\\mathsf{p}_\\mathrm{r}``.
 
 # Examples
 ```@example
