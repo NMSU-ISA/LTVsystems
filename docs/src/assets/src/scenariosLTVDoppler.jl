@@ -25,12 +25,12 @@ png(path*"LTVreceiverDoppler_signalA.png")
 using LTVsystems
 using Plots
 𝐩ₛ =  [0.15e-06c,0.0]  # 45m
-s = 1.0e-08c  # 3m/s
+s = 5.0e-08c  # 3m/s
 𝐯 = [1.0, 0.0] 
 tₚ = 1.0e-06 #direction 
 𝐩ᵣ(t) = 𝐩ₛ .+ s.*𝐯.*t
-ω = 5e05
-p(t) = 10cos(2π*ω*(t-tₚ))
+f = 5e05
+p(t) = 10cos(2π*f*(t-tₚ))
 q = LTIsourceO(𝐩ₛ, p)   # stationary source
 z = LTVreceiverO([q],𝐩ᵣ)  # moving receiver
 #TEMPORAL SIMULATION
@@ -136,17 +136,16 @@ s₁ = 1.0e-08c  # 3m/s
 𝐯₁ = [1.0, 0.0]  #direction 
 s₂ = 2.0e-08c  # 6m/s
 𝐯₂ = [-1.0, 0.0]  #direction
-
-𝐩ₛ(t) = [5.0e-06c,0.0] .+ s₁.*𝐯₁.*t # I.P = 1.5km
-𝐩ᵣ(t) = [10.0e-06c,0.0] .+ s₂.*𝐯₂.*t #I.P = 3km
-
+tₚ = 1.0e-06
+𝐩ₛ(t) = [5.0e-06c,0.0] .+ s₁.*𝐯₁.*t 
+#𝐩ᵣ(t) = 𝐩ₛ(t) .+ s₂.*𝐯₂.*t 
+𝐩ᵣ(t) = [100.0e-06c,0.0] .+ s₂.*𝐯₂.*t 
+#𝐩ᵣ(t) = 𝐩ₛ(t).+ [50.0e-08c,0.0] .+ s₂.*𝐯₂.*t 
 f = 0.5e06
-p(t) = cos(2π*f*t)
+p(t) = cos(2π*f*(t-tₚ))
 q = LTVsourceO(𝐩ₛ, p)
-α₀ = -0.7; 𝛏₀ = [2.5e-06c,0.0]
-r = pointReflector(𝛏₀,α₀,q)
-z = LTVreceiverO([r],𝐩ᵣ)
-t=-5.0e-06:1.0e-08:25.0e-06
+z = LTVreceiverO([q],𝐩ᵣ)
+t=0.0:1.0e-07:25.0e-06
 p1=plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2=plot(t,z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot(p1,p2,layout=(2,1),size=(800,800))
@@ -160,7 +159,7 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 
 
 
-
+png(path*"Doppler_movingSRsignal.png")
 
 
 

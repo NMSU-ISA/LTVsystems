@@ -50,12 +50,12 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 using LTVsystems
 using Plots
 𝐩ₛ =  [0.15e-06c,0.0]  
-s = 1.0e-08c 
+s = 5.0e-08c 
 𝐯 = [1.0, 0.0] 
 tₚ = 1.0e-06 
 𝐩ᵣ(t) = 𝐩ₛ .+ s.*𝐯.*t
-ω = 5e05
-p(t) = 10cos(2π*ω*(t-tₚ))
+f = 5e05
+p(t) = 10cos(2π*f*(t-tₚ))
 q = LTIsourceO(𝐩ₛ, p)   
 z = LTVreceiverO([q],𝐩ᵣ)  
 t=0.0e-06:1.0e-07:25.0e-06
@@ -64,3 +64,33 @@ p2=plot(t,z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot(p1,p2,layout=(2,1),size=(800,800))
 ```
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Doppler_statSmovingRsignal.png)
+
+
+## Scenario C [Sinusoidal signal, transmitter and receiver moving towards each other with a constant speed]
+
+### Scenario Assumptions
+
+  * single omnidirectional source moving with a constant speed
+  * single omnidirectional receiver moving with a constant speed
+  * the source emits a sinusoidal signal
+
+```julia
+using LTVsystems
+using Plots
+s₁ = 1.0e-08c  
+𝐯₁ = [1.0, 0.0]  
+s₂ = 2.0e-08c  
+𝐯₂ = [-1.0, 0.0]  
+tₚ = 1.0e-06
+𝐩ₛ(t) = [5.0e-06c,0.0] .+ s₁.*𝐯₁.*t 
+𝐩ᵣ(t) = [100.0e-06c,0.0] .+ s₂.*𝐯₂.*t 
+f = 0.5e06
+p(t) = cos(2π*f*(t-tₚ))
+q = LTVsourceO(𝐩ₛ, p)
+z = LTVreceiverO([q],𝐩ᵣ)
+t=0.0:1.0e-07:25.0e-06
+p1=plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
+p2=plot(t,z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
+plot(p1,p2,layout=(2,1),size=(800,800))
+```
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Doppler_movingSRsignal.png)
