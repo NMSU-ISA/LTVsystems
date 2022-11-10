@@ -24,10 +24,10 @@ png(path*"LTVreceiverDoppler_signalA.png")
 #-----------------------------------example 2------------------------
 using LTVsystems
 using Plots
-𝐩ₛ =  [0.15e-06c,0.0]  # 45m
-s = 5.0e-08c  # 3m/s
+𝐩ₛ =  [0.15e-06c,0.0]  
+s = 0.25c 
 𝐯 = [1.0, 0.0] 
-tₚ = 1.0e-06 #direction 
+tₚ = 1.0e-06 
 𝐩ᵣ(t) = 𝐩ₛ .+ s.*𝐯.*t
 f = 5e05
 p(t) = 10cos(2π*f*(t-tₚ))
@@ -87,7 +87,7 @@ png(path*"LTVsourceDoppler_signalA.png")
 #----------------------------------example 2--------------------
 using LTVsystems
 using Plots
-s = 5.0e-08c  # 3m/s
+s = 0.025c 
 𝐯 = [1.0, 0.0]  #direction 
 tₚ = 1.0e-06
 𝐩ₛ(t) = [1.8e-06c,0.0] .+ s.*𝐯.*t
@@ -132,20 +132,20 @@ png(path*"LTVsourceDoppler_signalC1.png")
 #----------Emitter and Receiver moving towards each other------
 using LTVsystems
 using Plots
-s₁ = 1.0e-08c  # 3m/s
+s₁ = 0.35c  # 3m/s
 𝐯₁ = [1.0, 0.0]  #direction 
-s₂ = 2.0e-08c  # 6m/s
+s₂ = 0.25c  # 6m/s
 𝐯₂ = [-1.0, 0.0]  #direction
 tₚ = 1.0e-06
 𝐩ₛ(t) = [5.0e-06c,0.0] .+ s₁.*𝐯₁.*t 
 #𝐩ᵣ(t) = 𝐩ₛ(t) .+ s₂.*𝐯₂.*t 
 𝐩ᵣ(t) = [100.0e-06c,0.0] .+ s₂.*𝐯₂.*t 
 #𝐩ᵣ(t) = 𝐩ₛ(t).+ [50.0e-08c,0.0] .+ s₂.*𝐯₂.*t 
-f = 0.5e06
+f = 0.25e06
 p(t) = cos(2π*f*(t-tₚ))
 q = LTVsourceO(𝐩ₛ, p)
 z = LTVreceiverO([q],𝐩ᵣ)
-t=0.0:1.0e-07:25.0e-06
+t=0.0:1.0e-08:45.0e-06
 p1=plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2=plot(t,z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot(p1,p2,layout=(2,1),size=(800,800))
