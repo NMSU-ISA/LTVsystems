@@ -12,7 +12,7 @@ $t_\mathrm{D}(t) = \frac{\|\mathbf{p}_\mathrm{r}(t) - \mathbf{p}_\mathrm{s}(t) \
 
 The observation of the source at the position $\mathbf{p}_\mathrm{r}(t)$ is given by
 
-$z(t) = \mathsf{A}\big(\frac{\frac{s\|t\|}{\|1 \pm \frac{\mathrm{s}}{\mathrm{c}}\|}}{\mathrm{c}}\big)\mathsf{p}\big(\frac{t}{1 \pm \frac{\mathrm{s}}{\mathrm{c}}}\big).$
+$z(t) = \mathsf{A}\left(\frac{\frac{s\|t\|}{\|1 \pm \mathrm{s}/\mathrm{c}\|}}{\mathrm{c}}\right)\mathsf{p}\left(\frac{t}{1 \pm \mathrm{s}/\mathrm{c} }\right).$
 
 
 ## Scenario A [Sinusoidal signal, moving transmitter and stationary receiver]
@@ -22,9 +22,6 @@ $z(t) = \mathsf{A}\big(\frac{\frac{s\|t\|}{\|1 \pm \frac{\mathrm{s}}{\mathrm{c}}
   * single omnidirectional source moving with a constant speed
   * single stationary omnidirectional receiver
   * the source emits a sinusoidal signal
-
-
-#### LTV Doppler Effect Modeling - Case 1
 
 
 
