@@ -1,13 +1,18 @@
 # LTV Doppler Effect Modeling
 
-In order to observe the Doppler effect, we consider a time-varying receiver at
-position $\mathbf{p}_\mathrm{r}(t)$,
-a source at position $\mathbf{p}_\mathrm{s}$ and a reflector at an arbitrary position $\bm{\xi}$.
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Doppler_LTV_BD.png)
 
-The LTI impulse response from $\mathbf{p}_\mathrm{s}$ to  $\bm{\xi}$ is given by
+The LTV impulse response from an omnidirectional source located at position $\mathbf{p}_\mathrm{s}(t)$ to an omnidirectional receiver located at position $\mathbf{p}_\mathrm{r}(t)$  is given by
 
-$\mathsf{h}(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s}}) = \mathsf{A}\left(\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right) \delta\left(t-\frac{\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}{\mathrm{c}}\right).$
+$\mathsf{h}_\tau(t;\,{\mathbf{p}_\mathrm{s}(\cdot),\mathbf{p}_\mathrm{r}(\cdot)}) = \mathsf{A}(t_\mathrm{D}(\tau))\delta\big(t-\left[\tau + t_\mathrm{D}(\tau) \right]\big),$
 
+where $t_\mathrm{D}$ is the time-delay given as
+
+$t_\mathrm{D}(t) = \frac{\|\mathbf{p}_\mathrm{r}(t) - \mathbf{p}_\mathrm{s}(t) \|}{\mathrm{c}}$
+
+The observation of the source at the position $\mathbf{p}_\mathrm{r}(t)$ is given by
+
+$z(t) = \mathsf{A}\big(\frac{\frac{s\|t\|}{\|1 \pm \frac{\mathrm{s}}{\mathrm{c}}\|}}{\mathrm{c}}\big)\mathsf{p}\big(\frac{t}{1 \pm \frac{\mathrm{s}}{\mathrm{c}}}\big).$
 
 
 ## Scenario A [Sinusoidal signal, moving transmitter and stationary receiver]
@@ -17,6 +22,11 @@ $\mathsf{h}(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s}}) = \mathsf{A}\left(\frac{\|\bm{
   * single omnidirectional source moving with a constant speed
   * single stationary omnidirectional receiver
   * the source emits a sinusoidal signal
+
+
+#### LTV Doppler Effect Modeling - Case 1
+
+
 
 ```julia
 using LTVsystems
