@@ -21,7 +21,7 @@ $\mathsf{h}(\bm{\xi},t;\,{\mathbf{p}_\mathrm{s}}) = \mathsf{A}\left(\frac{\|\bm{
 ```julia
 using LTVsystems
 using Plots
-s = 5.0e-08c  
+s = 0.025c
 𝐯 = [1.0, 0.0]  
 tₚ = 1.0e-06
 𝐩ₛ(t) = [0.18e-06c,0.0] .+ s.*𝐯.*t
@@ -50,7 +50,7 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 using LTVsystems
 using Plots
 𝐩ₛ =  [0.15e-06c,0.0]  
-s = 5.0e-08c 
+s = 0.25c 
 𝐯 = [1.0, 0.0] 
 tₚ = 1.0e-06 
 𝐩ᵣ(t) = 𝐩ₛ .+ s.*𝐯.*t
@@ -77,18 +77,18 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 ```julia
 using LTVsystems
 using Plots
-s₁ = 1.0e-08c  
+s₁ = 0.35c 
 𝐯₁ = [1.0, 0.0]  
-s₂ = 2.0e-08c  
+s₂ = 0.25c 
 𝐯₂ = [-1.0, 0.0]  
 tₚ = 1.0e-06
 𝐩ₛ(t) = [5.0e-06c,0.0] .+ s₁.*𝐯₁.*t 
 𝐩ᵣ(t) = [100.0e-06c,0.0] .+ s₂.*𝐯₂.*t 
-f = 0.5e06
+f = 0.25e06
 p(t) = cos(2π*f*(t-tₚ))
 q = LTVsourceO(𝐩ₛ, p)
 z = LTVreceiverO([q],𝐩ᵣ)
-t=0.0:1.0e-07:25.0e-06
+t=0.0:1.0e-08:25.0e-06
 p1=plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2=plot(t,z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot(p1,p2,layout=(2,1),size=(800,800))
