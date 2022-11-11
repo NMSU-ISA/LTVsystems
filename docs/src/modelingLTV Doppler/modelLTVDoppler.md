@@ -35,13 +35,13 @@ For scenario A, we provide the position of the moving source $\mathbf{p}_\mathrm
 
 Consider the source emits a sinusoidal signal given by
 
-$p(t) = \cos(\omega t-t_\mathrm{p}),$
+$p(t) = \cos(\omega (t-t_\mathrm{p})),$
 
 where $\omega$ is the frequency in radian per second.
 
 we observe the signal at the position $\mathbf{p}_\mathrm{r}$ is given by
 
-$z(t) = \mathsf{A}\left(\frac{\frac{s\|t\|}{\|1 \pm \mathrm{s}/\mathrm{c}\|}}{\mathrm{c}}\right)\mathsf{\cos}\left(\omega\frac{t-t_\mathrm{p}}{1 \pm \mathrm{s}/\mathrm{c} }\right).$
+$z(t) = \mathsf{A}\left(\frac{\frac{s\|t\|}{\|1 \pm \mathrm{s}/\mathrm{c}\|}}{\mathrm{c}}\right)\mathsf{\cos}\left(\frac{\mathrm{c}\omega(t-t_\mathrm{p})}{1 \pm \mathrm{s} }\right).$
 
 
 ```julia
