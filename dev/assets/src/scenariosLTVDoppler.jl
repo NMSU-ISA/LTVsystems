@@ -78,7 +78,7 @@ png(path*"LTVsourceDoppler_signalC1.png")
 #----------Emitter and Receiver moving towards each other------
 using LTVsystems
 using Plots
-s₁ = 0.75c  # 3m/s
+s₁ = 0.50c  # 3m/s
 𝐯₁ = [1.0, 0.0]  #direction 
 s₂ = 0.25c  # 6m/s
 𝐯₂ = [1.0, 0.0]  #direction
