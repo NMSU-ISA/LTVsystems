@@ -10,6 +10,12 @@ where $t_\mathrm{D}$ is the time-delay given as
 
 $t_\mathrm{D}(t) = \frac{\|\mathbf{p}_\mathrm{r}(t) - \mathbf{p}_\mathrm{s}(t) \|}{\mathrm{c}}$
 
+In order to observe the Doppler effect, we assume that the receiver is moving (with respect to the source) such as
+
+$\mathbf{p}_\mathrm{r}(t) = \mathbf{p}_\mathrm{s}(t) + \mathrm{s}\bm{v}t,$
+
+where $\|\bm{v}=1\|.$
+
 The observation of the source at the position $\mathbf{p}_\mathrm{r}(t)$ is given by
 
 $z(t) = \mathsf{A}\left(\frac{\frac{s\|t\|}{\|1 \pm \mathrm{s}/\mathrm{c}\|}}{\mathrm{c}}\right)\mathsf{p}\left(\frac{t}{1 \pm \mathrm{s}/\mathrm{c} }\right).$
@@ -23,6 +29,19 @@ $z(t) = \mathsf{A}\left(\frac{\frac{s\|t\|}{\|1 \pm \mathrm{s}/\mathrm{c}\|}}{\m
   * single stationary omnidirectional receiver
   * the source emits a sinusoidal signal
 
+#### Doppler Modeling in Time Domain  
+
+For scenario A, we provide the position of the moving source $\mathbf{p}_\mathrm{s}(t)$, the receiver's position $\mathbf{p}_\mathrm{r}.$
+
+Consider the source emits a sinusoidal signal given by
+
+$p(t) = \cos(\omega t-t_\mathrm{p}),$
+
+where $\omega$ is the frequency in radian per second.
+
+we observe the signal at the position $\mathbf{p}_\mathrm{r}$ is given by
+
+$z(t) = \mathsf{A}\left(\frac{\frac{s\|t\|}{\|1 \pm \mathrm{s}/\mathrm{c}\|}}{\mathrm{c}}\right)\mathsf{\cos}\left(\omega\frac{t-t_\mathrm{p}}{1 \pm \mathrm{s}/\mathrm{c} }\right).$
 
 
 ```julia
