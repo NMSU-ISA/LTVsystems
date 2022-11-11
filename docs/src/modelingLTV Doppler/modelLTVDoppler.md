@@ -18,7 +18,7 @@ where $\|\bm{v}=1\|.$
 
 The observation of the source at the position $\mathbf{p}_\mathrm{r}(t)$ is given by
 
-$z(t) = \mathsf{A}\left(\frac{\frac{s\|t\|}{\|1 \pm \mathrm{s}/\mathrm{c}\|}}{\mathrm{c}}\right)\mathsf{p}\left(\frac{t}{1 \pm \mathrm{s}/\mathrm{c} }\right).$
+
 
 
 ## Scenario A [Sinusoidal signal, moving transmitter and stationary receiver]
