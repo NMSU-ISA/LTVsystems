@@ -14,9 +14,8 @@ tₚ = 1.0e-06
 𝐩ᵣ(t) = 𝐩ᵣ₀ .+ s.*𝐯.*t
 f = 5e05
 p(t) = 10cos(2π*f*(t-tₚ))
-q = LTIsourceO(𝐩ₛ, p)   # stationary source
-z = LTVreceiverO([q],𝐩ᵣ)  # moving receiver
-#TEMPORAL SIMULATION
+q = LTIsourceO(𝐩ₛ, p)   
+z = LTVreceiverO([q],𝐩ᵣ)  
 t=0.0:1.0e-08:100.0e-06
 p1=plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2=plot(t,z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
