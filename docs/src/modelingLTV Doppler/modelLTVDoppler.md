@@ -18,6 +18,7 @@ where $\|\bm{v}\|=1.$
 
 The observation of the source at the position $\mathbf{p}_\mathrm{r}(t)$ is given by
 
+$z(t) = \mathsf{A}\left(\frac{\frac{\mathrm{s}\|\mathrm{c}t\|}{\|\mathrm{c} \pm \mathrm{s}\|}}{\mathrm{c}}\right)\mathsf{p}\left(\frac{\mathrm{c}t}{\mathrm{c} \pm \mathrm{s} }\right).$
 
 
 
@@ -41,7 +42,7 @@ where $\omega$ is the frequency in radian per second.
 
 we observe the signal at the position $\mathbf{p}_\mathrm{r}$ is given by
 
-$z(t) = \mathsf{A}\left(\frac{\frac{s\|t\|}{\|1 \pm \mathrm{s}/\mathrm{c}\|}}{\mathrm{c}}\right)\mathsf{\cos}\left(\frac{\mathrm{c}\omega(t-t_\mathrm{p})}{\mathrm{c} \pm \mathrm{s} }\right).$
+$z(t) = \mathsf{A}\left(\frac{\frac{s\|\mathrm{c}t\|}{\|\mathrm{c} \pm \mathrm{s}\|}}{\mathrm{c}}\right)\mathsf{\cos}\left(\frac{\mathrm{c}\omega(t-t_\mathrm{p})}{\mathrm{c} \pm \mathrm{s} }\right).$
 
 
 ```julia
