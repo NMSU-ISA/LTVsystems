@@ -14,6 +14,10 @@ In order to observe the Doppler effect, we assume that the receiver is moving (w
 
 $\mathbf{p}_\mathrm{r}(t) = \mathbf{p}_\mathrm{s}(t) + \mathrm{s}\bm{v}t,$
 
+$\|\mathbf{p}_\mathrm{r}(t)-\mathbf{p}_\mathrm{s}(t)\| = \|\mathrm{s}\bm{v}t\|,$
+
+$\|\mathbf{p}_\mathrm{r}(t)-\mathbf{p}_\mathrm{s}(t)\| = \mathrm{s}\|t\|,$
+
 where $\|\bm{v}\|=1.$
 
 The observation of the source at the position $\mathbf{p}_\mathrm{r}(t)$ is given by
@@ -39,7 +43,11 @@ In order to observe the Doppler effect, we assume that the source is moving (wit
 
 $\mathbf{p}_\mathrm{s}(t) = \mathbf{p}_{\mathrm{s}0}+ \mathrm{s}\bm{v}t,$
 
-$\mathbf{p}_\mathrm{r} = \mathbf{p}_{\mathrm{s}0} + \mathrm{s}\bm{v}t,$
+$\mathbf{p}_\mathrm{r} = \mathbf{p}_\mathrm{s}(t) + \mathrm{s}\bm{v}t,$
+
+$\|\mathbf{p}_\mathrm{r} - \mathbf{p}_\mathrm{s}(t)\| = \|\mathrm{s}\bm{v}t\|,$
+
+$\|\mathbf{p}_\mathrm{r} - \mathbf{p}_\mathrm{s}(t)\| = \mathrm{s}\|t\|,$
 
 where $\|\bm{v}\|=1.$
 
@@ -50,7 +58,7 @@ $\mathsf{p}(t) = \cos(\omega (t-t_\mathrm{p})),$
 
 where $\omega$ is the frequency in radian per second.
 
-we observe the signal at the position $\mathbf{p}_\mathrm{r}$ is given by
+We observe the signal at the position $\mathbf{p}_\mathrm{r}$ is given by
 
 $\mathsf{z}(t) = \mathsf{A}\left(\frac{\mathrm{s}\|\frac{\mathrm{c}t}{\mathrm{c} \pm \mathrm{s}}\|}{\mathrm{c}}\right)\mathsf{\cos}\left(\frac{\mathrm{c}\omega(t-t_\mathrm{p})}{\mathrm{c} \pm \mathrm{s} }\right).$
 
