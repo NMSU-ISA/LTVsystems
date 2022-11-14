@@ -14,7 +14,7 @@ In order to observe the Doppler effect, we assume that the receiver is moving (w
 
 $\mathbf{p}_\mathrm{r}(t) = \mathbf{p}_\mathrm{s}(t) + \mathrm{s}\bm{v}t,$
 
-where $\|\bm{v}=1\|.$
+where $\|\bm{v}\|=1.$
 
 The observation of the source at the position $\mathbf{p}_\mathrm{r}(t)$ is given by
 
