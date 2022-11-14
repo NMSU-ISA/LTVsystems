@@ -18,7 +18,7 @@ where $\|\bm{v}\|=1.$
 
 The observation of the source at the position $\mathbf{p}_\mathrm{r}(t)$ is given by
 
-$z(t) = \mathsf{A}\left(\frac{\mathrm{s}\|\frac{\mathrm{c}t}{\mathrm{c} \pm \mathrm{s}}\|}{\mathrm{c}}\right)\mathsf{p}\left(\frac{\mathrm{c}t}{\mathrm{c} \pm \mathrm{s} }\right).$
+$\mathsf{z}(t) = \mathsf{A}\left(\frac{\mathrm{s}\|\frac{\mathrm{c}t}{\mathrm{c} \pm \mathrm{s}}\|}{\mathrm{c}}\right)\mathsf{p}\left(\frac{\mathrm{c}t}{\mathrm{c} \pm \mathrm{s} }\right).$
 
 
 
@@ -34,15 +34,25 @@ $z(t) = \mathsf{A}\left(\frac{\mathrm{s}\|\frac{\mathrm{c}t}{\mathrm{c} \pm \mat
 
 For scenario A, we provide the position of the moving source $\mathbf{p}_\mathrm{s}(t)$, the receiver's position $\mathbf{p}_\mathrm{r}.$
 
+
+In order to observe the Doppler effect, we assume that the source is moving (with respect to the receiver) such as
+
+$\mathbf{p}_\mathrm{s}(t) = \mathbf{p}_{\mathrm{s}0}+ \mathrm{s}\bm{v}t,$
+
+$\mathbf{p}_\mathrm{r} = \mathbf{p}_{\mathrm{s}0} + \mathrm{s}\bm{v}t,$
+
+where $\|\bm{v}\|=1.$
+
+
 Consider the source emits a sinusoidal signal given by
 
-$p(t) = \cos(\omega (t-t_\mathrm{p})),$
+$\mathsf{p}(t) = \cos(\omega (t-t_\mathrm{p})),$
 
 where $\omega$ is the frequency in radian per second.
 
 we observe the signal at the position $\mathbf{p}_\mathrm{r}$ is given by
 
-$z(t) = \mathsf{A}\left(\frac{\mathrm{s}\|\frac{\mathrm{c}t}{\mathrm{c} \pm \mathrm{s}}\|}{\mathrm{c}}\right)\mathsf{\cos}\left(\frac{\mathrm{c}\omega(t-t_\mathrm{p})}{\mathrm{c} \pm \mathrm{s} }\right).$
+$\mathsf{z}(t) = \mathsf{A}\left(\frac{\mathrm{s}\|\frac{\mathrm{c}t}{\mathrm{c} \pm \mathrm{s}}\|}{\mathrm{c}}\right)\mathsf{\cos}\left(\frac{\mathrm{c}\omega(t-t_\mathrm{p})}{\mathrm{c} \pm \mathrm{s} }\right).$
 
 
 ```julia
