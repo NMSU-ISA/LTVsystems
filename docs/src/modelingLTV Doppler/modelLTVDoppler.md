@@ -18,7 +18,7 @@ where $\|\bm{v}\|=1.$
 
 The observation of the source at the position $\mathbf{p}_\mathrm{r}(t)$ is given by
 
-$z(t) = \mathsf{A}\left(\frac{\mathrm{s}\frac{\|\mathrm{c}t}{\mathrm{c} \pm \mathrm{s}\|}}{\mathrm{c}}\right)\mathsf{p}\left(\frac{\mathrm{c}t}{\mathrm{c} \pm \mathrm{s} }\right).$
+$z(t) = \mathsf{A}\left(\frac{\mathrm{s}\|\frac{\mathrm{c}t}{\mathrm{c} \pm \mathrm{s}}\|}{\mathrm{c}}\right)\mathsf{p}\left(\frac{\mathrm{c}t}{\mathrm{c} \pm \mathrm{s} }\right).$
 
 
 
