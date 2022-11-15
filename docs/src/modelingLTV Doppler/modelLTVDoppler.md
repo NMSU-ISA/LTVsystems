@@ -60,7 +60,7 @@ where $\omega$ is the frequency in radian per second.
 
 We observe the signal at the position $\mathbf{p}_\mathrm{r}$ is given by
 
-$\mathsf{z}(t) = \mathsf{A}\left(\frac{\mathrm{s}\frac{\mathrm{c}t \pm (\mathsf{p}_0 \cdot \bm{v})}{\mathrm{c} \pm \mathrm{s}}}{\mathrm{c}}\right)\mathsf{\cos}\left(\frac{\mathrm{c}\omega(t-t_\mathrm{p}) \pm (\mathsf{p}_0 \cdot \bm{v}) }{\mathrm{c} \pm \mathrm{s} }\right).$
+$\mathsf{z}(t) = \mathsf{A}\left(\frac{\mathrm{s}(\mathrm{c}t \pm (\mathsf{p}_0 \cdot \bm{v}))}{\mathrm{c}(\mathrm{c} \pm \mathrm{s})}\right)\mathsf{\cos}\left(\frac{\mathrm{c}\omega(t-t_\mathrm{p}) \pm (\mathsf{p}_0 \cdot \bm{v}) }{\mathrm{c} \pm \mathrm{s} }\right).$
 
 
 ```julia
