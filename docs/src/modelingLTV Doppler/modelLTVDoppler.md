@@ -38,19 +38,19 @@ $\mathsf{z}(t) = \mathsf{A}\left(\frac{\mathrm{s}\|\frac{\mathrm{c}t}{\mathrm{c}
 
 For scenario A, we provide the position of the moving source $\mathbf{p}_\mathrm{s}(t)$, the receiver's position $\mathbf{p}_\mathrm{r}.$
 
+The received signal at $\mathbf{p}_\mathrm{r}$ will be delayed in time given by
+
+$t_\mathrm{D}(t) = \frac{\|\mathbf{p}_\mathrm{r} - \mathbf{p}_\mathrm{s}(t) \|}{\mathrm{c}}$
 
 In order to observe the Doppler effect, we assume that the source is moving (with respect to the receiver) such as
 
-$\mathbf{p}_\mathrm{s}(t) = \mathbf{p}_{\mathrm{s}0}+ \mathrm{s}\bm{v}t,$
+$\mathbf{p}_\mathrm{r} = \mathbf{p}_\mathrm{s}(t)+ \mathsf{p}_0+\mathrm{s}\bm{v}t,$
 
-$\mathbf{p}_\mathrm{r} = \mathbf{p}_\mathrm{s}(t) + \mathrm{s}\bm{v}t,$
+$\mathbf{p}_\mathrm{r} - \mathbf{p}_\mathrm{s}(t) = \mathsf{p}_0+\mathrm{s}\bm{v}t,$
 
-$\|\mathbf{p}_\mathrm{r} - \mathbf{p}_\mathrm{s}(t)\| = \|\mathrm{s}\bm{v}t\|,$
-
-$\|\mathbf{p}_\mathrm{r} - \mathbf{p}_\mathrm{s}(t)\| = \mathrm{s}\|t\|,$
+$\|\mathbf{p}_\mathrm{r} - \mathbf{p}_\mathrm{s}(t)\| = \|\mathsf{p}_0+\mathrm{s}\bm{v}t\|,$
 
 where $\|\bm{v}\|=1.$
-
 
 Consider the source emits a sinusoidal signal given by
 
@@ -60,7 +60,7 @@ where $\omega$ is the frequency in radian per second.
 
 We observe the signal at the position $\mathbf{p}_\mathrm{r}$ is given by
 
-$\mathsf{z}(t) = \mathsf{A}\left(\frac{\mathrm{s}\|\frac{\mathrm{c}t}{\mathrm{c} \pm \mathrm{s}}\|}{\mathrm{c}}\right)\mathsf{\cos}\left(\frac{\mathrm{c}\omega(t-t_\mathrm{p})}{\mathrm{c} \pm \mathrm{s} }\right).$
+$\mathsf{z}(t) = \mathsf{A}\left(\frac{\mathrm{s}\frac{\mathrm{c}t \pm (\mathsf{p}_0 \cdot \bm{v})}{\mathrm{c} \pm \mathrm{s}}}{\mathrm{c}}\right)\mathsf{\cos}\left(\frac{\mathrm{c}\omega(t-t_\mathrm{p}) \pm (\mathsf{p}_0 \cdot \bm{v}) }{\mathrm{c} \pm \mathrm{s} }\right).$
 
 
 ```julia
