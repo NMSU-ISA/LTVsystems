@@ -36,13 +36,13 @@ $\mathsf{z}(t) = \mathsf{A}\left(\frac{\mathrm{s}\|\frac{\mathrm{c}t}{\mathrm{c}
 
 #### Doppler Modeling in Time Domain  
 
-For scenario A, we provide the position of the moving source $\mathbf{p}_\mathrm{s}(t)$, the receiver's position $\mathbf{p}_\mathrm{r}.$
+For scenario A, we provide the position of the moving source  $\mathbf{p}_\mathrm{s}(t)$, the receiver position at $\mathbf{p}_\mathrm{r}.$
 
 The received signal at $\mathbf{p}_\mathrm{r}$ will be delayed in time given by
 
 $t_\mathrm{D}(t) = \frac{\|\mathbf{p}_\mathrm{r} - \mathbf{p}_\mathrm{s}(t) \|}{\mathrm{c}}$
 
-In order to observe the Doppler effect, we assume that the source is moving (with respect to the receiver) such as
+In order to observe the Doppler effect, we assume that the source is moving with a constant velocity (with respect to the receiver) and the receiver is stationary such as
 
 $\mathbf{p}_\mathrm{r} = \mathbf{p}_\mathrm{s}(t)+ \mathsf{p}_0+\mathrm{s}\bm{v}t,$
 
@@ -60,7 +60,7 @@ where $\omega$ is the frequency in radian per second.
 
 We observe the signal at the position $\mathbf{p}_\mathrm{r}$ is given by
 
-$\mathsf{z}(t) = \mathsf{A}\left(\frac{\mathrm{s}(\mathrm{c}t \pm (\mathsf{p}_0 \cdot \bm{v}))}{\mathrm{c}(\mathrm{c} \pm \mathrm{s})}\right)\mathsf{\cos}\left(\frac{\mathrm{c}\omega(t-t_\mathrm{p}) \pm (\mathsf{p}_0 \cdot \bm{v}) }{\mathrm{c} \pm \mathrm{s} }\right).$
+$\mathsf{z}(t) = \mathsf{A}\left(\frac{\mathrm{s}(\mathrm{c}t \pm (\mathsf{p}_0 \cdot \bm{v}))}{\mathrm{c}(\mathrm{c} \mp \mathrm{s})}\right)\mathsf{\cos}\left(\frac{\mathrm{c}\omega(t-t_\mathrm{p}) \pm (\mathsf{p}_0 \cdot \bm{v}) }{\mathrm{c} \mp \mathrm{s} }\right).$
 
 
 ```julia
@@ -92,6 +92,31 @@ plot(p1,p2,layout=(2,1),size=(800,800))
   * single stationary omnidirectional source
   * single omnidirectional receiver moving with a constant speed
   * the source emits a sinusoidal signal
+
+
+#### Doppler Modeling in Time Domain  
+
+For scenario B, we provide the position of the stationary source $\mathbf{p}_\mathrm{s}$, the moving receiver position $\mathbf{p}_\mathrm{r}(t).$
+
+The received signal at $\mathbf{p}_\mathrm{r}(t)$ will be delayed in time given by
+
+$t_\mathrm{D}(t) = \frac{\|\mathbf{p}_\mathrm{r}(t) - \mathbf{p}_\mathrm{s} \|}{\mathrm{c}}$
+
+In order to observe the Doppler effect, we assume that the receiver is moving with a constant velocity (with respect to the source) and the source is stationary such as
+
+$\mathbf{p}_\mathrm{s} = \mathbf{p}_\mathrm{r}(t)+ \mathsf{p}_0+\mathrm{s}\bm{v}t,$
+
+$\mathbf{p}_\mathrm{s} - \mathbf{p}_\mathrm{r}(t) = \mathsf{p}_0+\mathrm{s}\bm{v}t,$
+
+$\|\mathbf{p}_\mathrm{s} - \mathbf{p}_\mathrm{r}(t)\| = \|\mathsf{p}_0+\mathrm{s}\bm{v}t\|,$
+
+where $\|\bm{v}\|=1.$
+
+Consider the source emits a sinusoidal signal given by
+
+$\mathsf{p}(t) = \cos(\omega (t-t_\mathrm{p})),$
+
+where $\omega$ is the frequency in radian per second.
 
 ```julia
 using LTVsystems
