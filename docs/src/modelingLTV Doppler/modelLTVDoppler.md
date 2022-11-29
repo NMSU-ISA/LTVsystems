@@ -12,17 +12,14 @@ $t_\mathrm{D}(t) = \frac{\|\mathbf{p}_\mathrm{r}(t) - \mathbf{p}_\mathrm{s}(t) \
 
 In order to observe the Doppler effect, we assume that the receiver is moving (with respect to the source) such as
 
-$\mathbf{p}_\mathrm{r}(t) = \mathbf{p}_\mathrm{s}(t) + \mathrm{s}\bm{v}t,$
+$\mathbf{p}_\mathrm{r}(t) = \mathbf{p}_\mathrm{s}(t) + \mathbf{p}_0 +\mathrm{s}\bm{v}t,$
 
-$\|\mathbf{p}_\mathrm{r}(t)-\mathbf{p}_\mathrm{s}(t)\| = \|\mathrm{s}\bm{v}t\|,$
+$\|\mathbf{p}_\mathrm{r}(t)-\mathbf{p}_\mathrm{s}(t)\| = \|\mathbf{p}_0 + \mathrm{s}\bm{v}t\|.$
 
-$\|\mathbf{p}_\mathrm{r}(t)-\mathbf{p}_\mathrm{s}(t)\| = \mathrm{s}\|t\|,$
-
-where $\|\bm{v}\|=1.$
 
 The observation of the source at the position $\mathbf{p}_\mathrm{r}(t)$ is given by
 
-$\mathsf{z}(t) = \mathsf{A}\left(\frac{\mathrm{s}\|\frac{\mathrm{c}t}{\mathrm{c} \pm \mathrm{s}}\|}{\mathrm{c}}\right)\mathsf{p}\left(\frac{\mathrm{c}t}{\mathrm{c} \pm \mathrm{s} }\right).$
+$\mathsf{z}(t) = \mathsf{A}\left(\frac{\mathrm{s}\frac{\mathrm{c}t \pm (\mathbf{p}_0 \cdot \bm{v})}{\mathrm{c} \mp \mathrm{s}}}{\mathrm{c}}\right)\mathsf{p}\left(\frac{\mathrm{c}t \pm (\mathbf{p}_0 \cdot \bm{v})}{\mathrm{c} \mp \mathrm{s}}\right).$
 
 
 
