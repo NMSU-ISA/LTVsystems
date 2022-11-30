@@ -4,15 +4,15 @@ using Plots
 s = 0.45c 
 𝐯 = [1.0, 0.0]  
 𝐩ₛ₀= [-15.0e-06c,0.0]
-𝐩ₛ(t) = 𝐩ₛ₀ .+ s.*𝐯.*t
 𝐩ᵣ = [2.0e-06c,1.5e-06c] 
 f = 5e05
 ω = 2π*f
 tₚ = 1.0e-06
+𝐩ₛ(t) = 𝐩ₛ₀ .+ s.*𝐯.*(t-tₚ)
 p(t) = 10cos(ω*(t-tₚ))
 q = LTVsourceO(𝐩ₛ, p)
 z = LTIreceiverO([q],𝐩ᵣ)
-t=0.0:1.0e-08:100.0e-06
+t=0.0:1.0e-08:150.0e-06
 p1=plot(t,p, xlab=&quot;time (sec)&quot;, ylab=&quot;p(t)&quot;, legend=:false)
 p2=plot(t,z(t), xlab=&quot;time (sec)&quot;, ylab=&quot;z(t)&quot;, legend=:false)
 plot(p1,p2,layout=(2,1),size=(800,800))</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Doppler_movingSstatR_signal.png" alt/></p><h2 id="Scenario-B-[Sinusoidal-signal,-stationary-transmitter-and-moving-receiver]"><a class="docs-heading-anchor" href="#Scenario-B-[Sinusoidal-signal,-stationary-transmitter-and-moving-receiver]">Scenario B [Sinusoidal signal, stationary transmitter and moving receiver]</a><a id="Scenario-B-[Sinusoidal-signal,-stationary-transmitter-and-moving-receiver]-1"></a><a class="docs-heading-anchor-permalink" href="#Scenario-B-[Sinusoidal-signal,-stationary-transmitter-and-moving-receiver]" title="Permalink"></a></h2><h3 id="Scenario-Assumptions-2"><a class="docs-heading-anchor" href="#Scenario-Assumptions-2">Scenario Assumptions</a><a class="docs-heading-anchor-permalink" href="#Scenario-Assumptions-2" title="Permalink"></a></h3><ul><li>single stationary omnidirectional source</li><li>single omnidirectional receiver moving with a constant speed</li><li>the source emits a sinusoidal signal</li></ul><h4 id="Doppler-Modeling-in-Time-Domain-2"><a class="docs-heading-anchor" href="#Doppler-Modeling-in-Time-Domain-2">Doppler Modeling in Time Domain</a><a class="docs-heading-anchor-permalink" href="#Doppler-Modeling-in-Time-Domain-2" title="Permalink"></a></h4><p>For scenario B, we provide the position of the stationary source <span>$\mathbf{p}_\mathrm{s}$</span>, the moving receiver position <span>$\mathbf{p}_\mathrm{r}(t).$</span></p><p>The received signal at <span>$\mathbf{p}_\mathrm{r}(t)$</span> will be delayed in time given by</p><p class="math-container">\[t_\mathrm{D}(t) = \frac{\|\mathbf{p}_\mathrm{r}(t) - \mathbf{p}_\mathrm{s} \|}{\mathrm{c}}\]</p><p>In order to observe the Doppler effect, we assume that the receiver is moving with a constant velocity (with respect to the source) and the source is stationary such as</p><p class="math-container">\[\mathbf{p}_\mathrm{s} = \mathbf{p}_\mathrm{r}(t)+ \mathsf{p}_0+\mathrm{s}\bm{v}t,\]</p><p class="math-container">\[\mathbf{p}_\mathrm{s} - \mathbf{p}_\mathrm{r}(t) = \mathsf{p}_0+\mathrm{s}\bm{v}t,\]</p><p class="math-container">\[\|\mathbf{p}_\mathrm{s} - \mathbf{p}_\mathrm{r}(t)\| = \|\mathsf{p}_0+\mathrm{s}\bm{v}t\|,\]</p><p>where <span>$\|\bm{v}\|=1.$</span></p><p>Consider the source emits a sinusoidal signal given by</p><p class="math-container">\[\mathsf{p}(t) = \cos(\omega (t-t_\mathrm{p})),\]</p><p>where <span>$\omega$</span> is the frequency in radian per second.</p><pre><code class="language-julia hljs">using LTVsystems
@@ -21,13 +21,13 @@ using Plots
 s = 0.45c 
 𝐯 = [-1.0, 0.0] 
 tₚ = 1.0e-06 
-𝐩ᵣ₀ = [5.0e-06c,0.0]
-𝐩ᵣ(t) = 𝐩ᵣ₀ .+ s.*𝐯.*t
+𝐩ᵣ₀ = [10.0e-06c,0.0]
 f = 5e05
+𝐩ᵣ(t) = 𝐩ᵣ₀ .+ s.*𝐯.*(t-tₚ)
 p(t) = 10cos(2π*f*(t-tₚ))
 q = LTIsourceO(𝐩ₛ, p)   
 z = LTVreceiverO([q],𝐩ᵣ)  
-t=0.0:1.0e-08:100.0e-06
+t=0.0:1.0e-08:150.0e-06
 p1=plot(t,p, xlab=&quot;time (sec)&quot;, ylab=&quot;p(t)&quot;, legend=:false)
 p2=plot(t,z(t), xlab=&quot;time (sec)&quot;, ylab=&quot;z(t)&quot;, legend=:false)
 plot(p1,p2,layout=(2,1),size=(800,800))</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Doppler_statSmovingRsignal.png" alt/></p><h2 id="Scenario-C-[Sinusoidal-signal,-transmitter-and-receiver-moving-towards-each-other-with-a-constant-speed]"><a class="docs-heading-anchor" href="#Scenario-C-[Sinusoidal-signal,-transmitter-and-receiver-moving-towards-each-other-with-a-constant-speed]">Scenario C [Sinusoidal signal, transmitter and receiver moving towards each other with a constant speed]</a><a id="Scenario-C-[Sinusoidal-signal,-transmitter-and-receiver-moving-towards-each-other-with-a-constant-speed]-1"></a><a class="docs-heading-anchor-permalink" href="#Scenario-C-[Sinusoidal-signal,-transmitter-and-receiver-moving-towards-each-other-with-a-constant-speed]" title="Permalink"></a></h2><h3 id="Scenario-Assumptions-3"><a class="docs-heading-anchor" href="#Scenario-Assumptions-3">Scenario Assumptions</a><a class="docs-heading-anchor-permalink" href="#Scenario-Assumptions-3" title="Permalink"></a></h3><ul><li>single omnidirectional source moving with a constant speed</li><li>single omnidirectional receiver moving with a constant speed</li><li>the source emits a sinusoidal signal</li></ul><pre><code class="language-julia hljs">using LTVsystems
@@ -37,13 +37,13 @@ s₁ = 0.50c
 s₂ = 0.25c  
 𝐯₂ = [1.0, 0.0]  
 tₚ = 1.0e-06
-𝐩ₛ(t) = [-10.0e-06c,-1.5e-06c] .+ s₁.*𝐯₁.*t 
-𝐩ᵣ(t) = [5.0e-06c,0.0] .+ s₂.*𝐯₂.*t 
 f = 5e05
+𝐩ₛ(t) = [-10.0e-06c,-1.5e-06c] .+ s₁.*𝐯₁.*(t-tₚ) 
+𝐩ᵣ(t) = [5.0e-06c,0.0] .+ s₂.*𝐯₂.*(t-tₚ)
 p(t) = cos(2π*f*(t-tₚ))
 q = LTVsourceO(𝐩ₛ, p)
 z = LTVreceiverO([q],𝐩ᵣ)
-t=0.0:1.0e-08:100.0e-06
+t=0.0:1.0e-08:150.0e-06
 p1=plot(t,p, xlab=&quot;time (sec)&quot;, ylab=&quot;p(t)&quot;, legend=:false)
 p2=plot(t,z(t), xlab=&quot;time (sec)&quot;, ylab=&quot;z(t)&quot;, legend=:false)
-plot(p1,p2,layout=(2,1),size=(800,800))</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Doppler_movingSRsignal.png" alt/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../stationaryDirectionSource/stationaryDirSource/">« Stationary Directional Source Modeling</a><a class="docs-footer-nextpage" href="../../omniDirectionalLTV/omnidirLTVsource/">LTV Omnidirectional Modeling »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.16 on <span class="colophon-date" title="Tuesday 29 November 2022 16:46">Tuesday 29 November 2022</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
+plot(p1,p2,layout=(2,1),size=(800,800))</code></pre><p><img src="https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/Doppler_movingSRsignal.png" alt/></p></article><nav class="docs-footer"><a class="docs-footer-prevpage" href="../../stationaryDirectionSource/stationaryDirSource/">« Stationary Directional Source Modeling</a><a class="docs-footer-nextpage" href="../../omniDirectionalLTV/omnidirLTVsource/">LTV Omnidirectional Modeling »</a><div class="flexbox-break"></div><p class="footer-message">Powered by <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> and the <a href="https://julialang.org/">Julia Programming Language</a>.</p></nav></div><div class="modal" id="documenter-settings"><div class="modal-background"></div><div class="modal-card"><header class="modal-card-head"><p class="modal-card-title">Settings</p><button class="delete"></button></header><section class="modal-card-body"><p><label class="label">Theme</label><div class="select"><select id="documenter-themepicker"><option value="documenter-light">documenter-light</option><option value="documenter-dark">documenter-dark</option></select></div></p><hr/><p>This document was generated with <a href="https://github.com/JuliaDocs/Documenter.jl">Documenter.jl</a> version 0.27.16 on <span class="colophon-date" title="Wednesday 30 November 2022 18:06">Wednesday 30 November 2022</span>. Using Julia version 1.6.7.</p></section><footer class="modal-card-foot"></footer></div></div></div></body></html>
