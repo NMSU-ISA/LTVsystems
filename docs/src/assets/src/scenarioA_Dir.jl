@@ -33,10 +33,29 @@ png(path*"scenarioA_LTIDir.png")
 D(ξ::Vector{Float64}) = G(angleBetween(𝐛, ξ.-𝐩ₛ))
 f(ξ::Vector{Float64}) = (z(tₚ+ 2(norm(ξ-𝐩ₛ))/c).*(D(ξ::Vector{Float64})))/
                         (A(norm(ξ-𝐩ₛ)/c))^2
-#SPATIAL SIMULATION
+
 inversePlot2D([q],r,[z],f)
 
-png(path*"scenarioA_DirTIsimulation.png")
+png(path*"scenarioA_DirTIsimulation.png")        
+
+#SPATIAL SIMULATION
+#Δpos = 0.01e03
+#x_min = -0.5c*15.0e-6
+#x_max = 0.5c*15.0e-6
+#y_min = -0.5c*15.0e-6
+#y_max = 0.5c*15.0e-6
+#cmap=cgrad(:default,scale=log)
+#x_range = collect(x_min:Δpos:x_max)
+#y_range = collect(y_min:Δpos:y_max)
+
+#xyGrid = [[x, y] for x in x_range, y in y_range]
+#val = [f(𝐮) for 𝐮 ∈ xyGrid]
+#val_max = maximum(abs.(val))
+#p2 = plot(x_range,y_range,transpose(abs.(val)),st=:surface,camera=(0,90),clim=(0,val_max),
+#     aspect_ratio=:equal,size=(800,800),legend=false,left_margin = 5Plots.mm, right_margin = 15Plots.mm,colorbar=false,zticks=false,bg = cmap[1])
+
+
+
 
 
 

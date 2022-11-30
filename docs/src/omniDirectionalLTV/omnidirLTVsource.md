@@ -28,14 +28,17 @@
 ```julia
 using LTVsystems
 using Plots
-𝐩ₛ(t) = [0.5c, 0.0]*t
+s₁ = 0.30c 
+𝐯₁ = [1.0, 0.0] 
+tₚ = 1.0e-06
+𝐩ₛ(t) = [-10.0e-06c,-1.5e-06c] .+ s₁.*𝐯₁.*(t-tₚ) 
 𝐩ᵣ(t) = 𝐩ₛ(t)
-p(t) = δn(t,0.05)
+p(t) = δn(t-tₚ,2.5e-07)
 q = LTVsourceO(𝐩ₛ, p)
-α₀ = 0.7; 𝛏₀ = [0.5c,0.0]
+α₀ = -0.7; 𝛏₀ = [3.75e-06c,0.0]
 r = pointReflector(𝛏₀,α₀,q)
 z = LTVreceiverO([r],𝐩ᵣ)
-t = collect(-2.0:0.001:2.0)
+t=0.0:1.0e-08:50.0e-06
 p1=plot(t,p, xlab="time (sec)", ylab="p(t)", legend=:false)
 p2=plot(t,z(t), xlab="time (sec)", ylab="z(t)", legend=:false)
 plot(p1,p2,layout=(2,1))
