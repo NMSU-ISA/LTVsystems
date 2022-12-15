@@ -41,11 +41,11 @@ $t_\mathrm{D}(t) = \frac{\|\mathbf{p}_\mathrm{r} - \mathbf{p}_\mathrm{s}(t) \|}{
 
 In order to observe the Doppler effect, we assume that the source is moving with a constant velocity (with respect to the receiver) and the receiver is stationary such as
 
-$\mathbf{p}_\mathrm{r} = \mathbf{p}_\mathrm{s}(t)+ \mathsf{p}_0+\mathrm{s}\bm{v}t,$
+$\mathbf{p}_\mathrm{r} = \mathbf{p}_\mathrm{s}(t)+ \mathbf{p}_0+\mathrm{s}\bm{v}t,$
 
-$\mathbf{p}_\mathrm{r} - \mathbf{p}_\mathrm{s}(t) = \mathsf{p}_0+\mathrm{s}\bm{v}t,$
+$\mathbf{p}_\mathrm{r} - \mathbf{p}_\mathrm{s}(t) = \mathbf{p}_0+\mathrm{s}\bm{v}t,$
 
-$\|\mathbf{p}_\mathrm{r} - \mathbf{p}_\mathrm{s}(t)\| = \|\mathsf{p}_0+\mathrm{s}\bm{v}t\|,$
+$\|\mathbf{p}_\mathrm{r} - \mathbf{p}_\mathrm{s}(t)\| = \|\mathbf{p}_0+\mathrm{s}\bm{v}t\|,$
 
 where $\|\bm{v}\|=1.$
 
@@ -57,7 +57,7 @@ where $\omega$ is the frequency in radian per second.
 
 We observe the signal at the position $\mathbf{p}_\mathrm{r}$ is given by
 
-$\mathsf{z}(t) = \mathsf{A}\left(\frac{\mathrm{s}(\mathrm{c}t \pm (\mathsf{p}_0 \cdot \bm{v}))}{\mathrm{c}(\mathrm{c} \mp \mathrm{s})}\right)\mathsf{\cos}\left(\frac{\mathrm{c}\omega(t-t_\mathrm{p}) \pm (\mathsf{p}_0 \cdot \bm{v}) }{\mathrm{c} \mp \mathrm{s} }\right).$
+$\mathsf{z}(t) = \mathsf{A}\left(\frac{\mathrm{s}(\mathrm{c}t \pm (\mathbf{p}_0 \cdot \bm{v}))}{\mathrm{c}(\mathrm{c} \mp \mathrm{s})}\right)\mathsf{\cos}\left(\frac{\mathrm{c}\omega(t-t_\mathrm{p}) \pm (\mathbf{p}_0 \cdot \bm{v}) }{\mathrm{c} \mp \mathrm{s} }\right).$
 
 
 ```julia
@@ -101,11 +101,11 @@ $t_\mathrm{D}(t) = \frac{\|\mathbf{p}_\mathrm{r}(t) - \mathbf{p}_\mathrm{s} \|}{
 
 In order to observe the Doppler effect, we assume that the receiver is moving with a constant velocity (with respect to the source) and the source is stationary such as
 
-$\mathbf{p}_\mathrm{s} = \mathbf{p}_\mathrm{r}(t)+ \mathsf{p}_0+\mathrm{s}\bm{v}t,$
+$\mathbf{p}_\mathrm{s} = \mathbf{p}_\mathrm{r}(t)+ \mathbf{p}_0+\mathrm{s}\bm{v}t,$
 
-$\mathbf{p}_\mathrm{s} - \mathbf{p}_\mathrm{r}(t) = \mathsf{p}_0+\mathrm{s}\bm{v}t,$
+$\mathbf{p}_\mathrm{s} - \mathbf{p}_\mathrm{r}(t) = \mathbf{p}_0+\mathrm{s}\bm{v}t,$
 
-$\|\mathbf{p}_\mathrm{s} - \mathbf{p}_\mathrm{r}(t)\| = \|\mathsf{p}_0+\mathrm{s}\bm{v}t\|,$
+$\|\mathbf{p}_\mathrm{s} - \mathbf{p}_\mathrm{r}(t)\| = \|\mathbf{p}_0+\mathrm{s}\bm{v}t\|,$
 
 where $\|\bm{v}\|=1.$
 

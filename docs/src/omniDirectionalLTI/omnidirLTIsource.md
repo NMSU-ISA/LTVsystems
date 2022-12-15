@@ -110,7 +110,7 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 ### Inverse Modeling
 
 Given the scenario A assumptions, we obtained the received signal, $\mathsf{z}(t)$. 
-Now by considering the transmitted singal as 
+Now by considering the transmitted signal as 
 
 $\mathsf{p}(t)=δ(t-t_\mathrm{p}),$
 
@@ -192,7 +192,7 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 
 ### Inverse Modeling
 
-Given the scenario B assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now by considering the transmitted singal as 
+Given the scenario B assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now by considering the transmitted signal as 
 
 $\mathsf{p}(t)=δ(t-t_\mathrm{p}),$
 
@@ -277,7 +277,7 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 
 ### Inverse Modeling
 
-Given the scenario C assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now by considering the transmitted singal as 
+Given the scenario C assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now by considering the transmitted signal as 
 
 $\mathsf{p}(t)=δ(t-t_\mathrm{p}),$
 
@@ -376,7 +376,7 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 
 ### Inverse Modeling
 
-Given the scenario D assumptions, we obtained the received signals, $\mathsf{z}_i(t)$ where $i=1,2,…,M$. Now by considering the transmitted singal as 
+Given the scenario D assumptions, we obtained the received signals, $\mathsf{z}_i(t)$ where $i=1,2,…,M$. Now by considering the transmitted signal as 
 
 $\mathsf{p}(t)=δ(t-t_\mathrm{p}),$
 
@@ -507,7 +507,7 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/docs/src/assets/scenarioE_signal.png)
 
 ### Inverse Modeling
-Given the scenario E assumptions, we obtained the received signals, $\mathsf{z}_i(t)$ where $i=1,2,\ldots,N$. Now by considering the transmitted singal as 
+Given the scenario E assumptions, we obtained the received signals, $\mathsf{z}_i(t)$ where $i=1,2,\ldots,N$. Now by considering the transmitted signal as 
 
 $\mathsf{p}(t)=δ(t-t_\mathrm{p}),$
 
@@ -616,7 +616,7 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 
 ### Inverse Modeling
 
-Given the scenario F assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now by considering the transmitted singal as 
+Given the scenario F assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now by considering the transmitted signal as 
 
 $\mathsf{p}(t)=δ(\mathrm{mod}(t-t_\mathrm{p},T)),$
 
