@@ -73,6 +73,7 @@ position $\bm{\xi}$ is given by
 * multiple stationary ideal point reflectors at different radial distances
 * the source emits a periodic impulse train
 
+
 ![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/data/STATDirScenarioA12.gif)
 
 ### Forward Modeling
