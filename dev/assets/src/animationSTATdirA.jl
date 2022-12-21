@@ -43,7 +43,8 @@ allPlots = []
 for t ∈ 0:T/20:4T
     #val = [q(𝐮,t) + r[1](𝐮,t) for 𝐮 ∈ xyGrid]
     val = [q(𝐮,t) + r[1](𝐮,t)+r[2](𝐮,t)+r[3](𝐮,t)+r[4](𝐮,t)+r[5](𝐮,t)+r[6](𝐮,t)+r[7](𝐮,t)+r[8](𝐮,t) for 𝐮 ∈ xyGrid]
-    val_max = maximum(abs.(val))
+    #val_max = maximum(abs.(val))
+    val_max = maximum(val)
     p1 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),legend=false,clims=(0,val_max),aspect_ratio=:equal,xticks=:false,yticks=:false,zticks=:false)
     scatter!(p1,[𝐩ₛ[1]], [𝐩ₛ[2]],markersize = 8.5,color = :green, marker=:pentagon, label='s' )
     scatter!(p1,[𝐩ᵣ[1]], [𝐩ᵣ[2]],markersize = 3.5,color = :blue, marker=:square, label='r' )
