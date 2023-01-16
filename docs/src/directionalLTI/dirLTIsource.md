@@ -60,7 +60,7 @@ position $\bm{\xi}$ is given by
 
 ```math
 \begin{aligned}
-\mathsf{\psi}(\bm{\xi},t) &= \mathsf{r}(\bm{\xi},t) \overset{t}{*} \mathsf{g}\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r},\mathrm{G}_\mathrm{s}(\cdot)}\big) \\
+\mathsf{\psi}(\bm{\xi},t) &= \mathsf{r}(\bm{\xi},t) \overset{t}{*} \mathsf{g}\big(\bm{\xi},t;\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r},\mathrm{G}_\mathrm{r}(\cdot)}\big) \\
                  &= \mathrm{D}_\mathrm{r}\left(\bm{\xi};\,{\mathbf{p}_\mathrm{r},\mathbf{b}_\mathrm{r}}\right)
                  \mathsf{A}\left(\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right) \mathsf{r}\left(\bm{\xi},t-\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|}{\mathrm{c}}\right).
 \end{aligned}
@@ -72,8 +72,8 @@ position $\bm{\xi}$ is given by
 ### Scenario Assumptions
 
 * single stationary directional source
-* single stationary directional receiver at same location as the source
-* single stationary ideal point reflector
+* single stationary receiver at same location as the source
+* two stationary ideal point reflectors
 * the source emits a pulse
 
 Given the assumptions, we simulate the following geometry for scenario A.
