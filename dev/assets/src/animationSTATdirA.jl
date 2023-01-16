@@ -38,7 +38,7 @@ y_range = collect(y_min:Δpos:y_max)
 xyGrid = [[x, y] for x in x_range, y in y_range]
 #val = [q(𝐮,5.0e-6) for 𝐮 ∈ xyGrid]
 #plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90))
-val_max = 0.0
+val_max = []
 allPlots = []
 for t ∈ 0:T/10:4T
     #val = [q(𝐮,t) + r[1](𝐮,t) for 𝐮 ∈ xyGrid]
@@ -62,4 +62,4 @@ end
 anim = @animate for i ∈ 1:length(allPlots)
     plot(allPlots[i],clims=(0,val_max))
 end
-gif(anim, path*"STATDirScenarioA13.gif", fps = 30)
+gif(anim, path*"STATDirScenarioA15.gif", fps = 30)

@@ -32,7 +32,36 @@ png(path*"scenarioA_simulation.png")
 
 
 
+#----Animation-------------
+Δpos = 0.01e03
+x_min = -0.5c*15.0e-6
+x_max = 0.5c*15.0e-6
+y_min = -0.5c*15.0e-6
+y_max = 0.5c*15.0e-6
+x_range = collect(x_min:Δpos:x_max)
+y_range = collect(y_min:Δpos:y_max)
+xyGrid = [[x, y] for x in x_range, y in y_range]
+#val = [q(𝐮,5.0e-6) for 𝐮 ∈ xyGrid]
+#plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90))
+val_max = []
+T  = 10.0e-6 
+allPlots = []
+for t ∈ 0:T/5:4T
+    val = [q(𝐮,t) + r(𝐮,t) for 𝐮 ∈ xyGrid]
+    p1 = plot(x_range,y_range,transpose(val),st=:surface,camera=(0,90),legend=false,aspect_ratio=:equal,xticks=:false,yticks=:false,zticks=:false)
+    scatter!(p1,[𝐩ₛ[1]], [𝐩ₛ[2]],markersize = 8.5,color = :green, marker=:pentagon, label='s' )
+    scatter!(p1,[𝐩ᵣ[1]], [𝐩ᵣ[2]],markersize = 3.5,color = :blue, marker=:square, label='r' )
+    scatter!(p1,[𝛏₀[1]],[𝛏₀[2]],markersize = 8.5,color = :red, marker=:star8, label='t')
+    frame = plot(p1, size = (800, 800) )
+    v_max = maximum(abs.(val))
+    push!(allPlots, frame)
+    push!(val_max, v_max)
+end
+anim = @animate for i ∈ 1:length(allPlots)
+    plot(allPlots[i],clims=(0,val_max))
+end
 
+gif(anim, path*"LTIOmniScenarioA2.gif", fps = 30)
 
 
 
