@@ -165,8 +165,8 @@ inversePlot2D([q],r,[z],f)
 ### Scenario Assumptions
 
 * single stationary directional source
-* single stationary directional receiver
-* single stationary ideal point reflector
+* single stationary receiver
+* two stationary ideal point reflectors
 * the source emits a pulse
 
 Given the assumptions, we simulate the following geometry for scenario B.
@@ -265,6 +265,7 @@ inversePlot2D([q],r,[z],f)
 * single stationary directional receiver at the same location as source
 * single ideal point reflector
 * the source emits pulse train with single beam 
+* random white noise
 
 Given the assumptions, we simulate the following geometry for scenario C.
 
@@ -272,7 +273,7 @@ Given the assumptions, we simulate the following geometry for scenario C.
 
 ### Forward Modeling
 
-For scenario A, we provided the position of the directional source $𝐩ₛ$, the directional receiver's position $𝐩ᵣ$, being at the same location $(𝐩ₛ=𝐩ᵣ)$, the transmitted signal $\mathsf{p}(t)$, and an ideal point reflector $\bm{\xi}_0$.
+For scenario C, we provided the position of the directional source $𝐩ₛ$, the directional receiver's position $𝐩ᵣ$, being at the same location $(𝐩ₛ=𝐩ᵣ)$, the transmitted signal $\mathsf{p}(t)$, and an ideal point reflector $\bm{\xi}_0$.
 
 Now the expression for the reflector function is given by
 
