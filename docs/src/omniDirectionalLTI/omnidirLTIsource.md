@@ -564,7 +564,7 @@ inversefinalPlot2D([q₁,q₂,q₃],[z₁,z₂,z₃],f_new)
 * single stationary omnidirectional source
 * single stationary omnidirectional receiver at the same location as source
 * single ideal point reflector
-* the source emits a pulse train with period T
+* the source emits a pulse train with period $\mathrm{T}$
 * random noise presence
 
 Given the assumptions, we simulate the following geometry for scenario F.
@@ -618,9 +618,9 @@ plot(p1,p2,layout=(2,1),size=(800,800))
 
 Given the scenario F assumptions, we obtained the received signal, $\mathsf{z}(t)$. Now by considering the transmitted signal as 
 
-$\mathsf{p}(t)=δ(\mathrm{mod}(t-t_\mathrm{p},T)),$
+$\mathsf{p}(t)=δ(\mathrm{mod}(t-t_\mathrm{p},\mathrm{T})),$
 
-we compute the reflector function, $\mathsf{f}_k$ with respect to each pulse's transmission time, $kT$ where $k \in \mathbf{Z}$ in the presence of random white noise as follows
+we compute the reflector function, $\mathsf{f}_k$ with respect to each pulse's transmission time, $k\mathrm{T}$ where $k \in \mathbf{Z}$ in the presence of random white noise as follows
 
 
 $\mathsf{f}_k(\bm{\xi})=\dfrac{\mathsf{z}\left(t_\mathrm{p}+kT+\frac{\|\mathbf{p}_\mathrm{r}-\bm{\xi}\|+\|\bm{\xi}-\mathbf{p}_\mathrm{s}\|}
