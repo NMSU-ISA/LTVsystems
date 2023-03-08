@@ -189,6 +189,8 @@ inversePlot2D([q],r,[z],g)
 * multiple stationary ideal point reflectors
 * the source emits a periodic impulse train
 
+![](https://raw.githubusercontent.com/NMSU-ISA/LTVsystems/main/data/STATDirScenarioB11.gif)
+
 ### Forward Modeling
 
 For scenario B, we provided the position of the stationary directional source $𝐩ₛ$, with time-varying (rotating) beam center $𝐛(t)$, the stationary receiver's position $𝐩ᵣ$ being at the same location $(𝐩ₛ=𝐩ᵣ)$, the transmitted signal $\mathsf{p}(t)$, and multiple reflector say, N.
